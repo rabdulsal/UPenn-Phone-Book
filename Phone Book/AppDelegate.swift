@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let email = "AbdulSaR"
+        let password = "R@shad1980"
+        let authenticationURI = "http://uphsnettest2012.uphs.upenn.edu/oath/token"
+        let phonebookProfileURI = "api/phonebook/search/{searchString}"
+        
+        guard let url = URL(string: authenticationURI) else {
+            return false
+        }
+        
+        let parameters: Parameters = [
+            // Must be form: grant_type=password&username=yourADusername&password=yourADpassword
+            "grant_type" : "password",
+            "username" : email,
+            "password" : password
+        ]
+        
+        let request = Alamofire.request(url, method: .post, parameters: parameters, encoding: URLEncoding.httpBody)
+        request.responseString { (response) in
+            print("Success: \(response.result.isSuccess)")
+            print("Response String: \(response.result.value)")
+            
+            if let httpError = response.result.error {
+                print("Error:", httpError.localizedDescription)
+            } else {
+                let statusCode = (response.response?.statusCode)!
+                print("Status code:", statusCode)
+            }
+        }
+        
+        /*
+ 
+         
+        */
+        
+        
+        
         return true
     }
 
