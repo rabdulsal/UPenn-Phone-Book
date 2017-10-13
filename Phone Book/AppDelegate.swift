@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var authToken: String?
+    var users = Array<User>()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -21,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let password = "R@shad1980"
         let phonebookAPIStr = "http://uphsnettest2012.uphs.upenn.edu/ADRS"
         let authenticationURI = phonebookAPIStr + "/oauth/token"
-        let searchURI = phonebookAPIStr + "/api/phonebook/search/{searchString}"
+        let searchURI = phonebookAPIStr + "/api/phonebook/search"
         
         guard let url = URL(string: authenticationURI) else {
             return false
@@ -33,21 +34,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "password" : password
         ]
         
-        let request = Alamofire.request(url, method: .post, parameters: parameters, encoding: URLEncoding.httpBody)
-        request.responseJSON { (response) in
-            print("Success: \(response.result.isSuccess)")
-            print("Response String: \(response.result.value)")
+        // Make Request for JWT
+        let jwtRequest = Alamofire.request(url, method: .post, parameters: parameters, encoding: URLEncoding.httpBody)
+        jwtRequest.responseJSON { (response) in
             
             if let httpError = response.result.error {
                 print("Error:", httpError.localizedDescription)
             } else {
                 let statusCode = (response.response?.statusCode)!
-                print("Status code:", statusCode)
                 if statusCode == 200 {
-                    let json = response.result.value as? NSDictionary
+                    let json = response.result.value as? Dictionary<String,Any>
                     if let token = json?["access_token"] {
                         self.authToken = token as? String
                         
+                        // Make Request to Search Endpoint passing JWT in header
+                        let headers: HTTPHeaders = [ "Authorization" : "Bearer" + self.authToken! ]
+                        let searchRequest = Alamofire.request(searchURI+"/jones", headers: headers)
+                        searchRequest.responseJSON(completionHandler: { (response) in
+                            
+                            if let httpError = response.result.error {
+                                print("Error:", httpError.localizedDescription)
+                            } else {
+                                let statusCode = (response.response?.statusCode)!
+                                if statusCode == 200 {
+                                    let j = response.result.value as? Dictionary<String,Any>
+                                    if let resultsArry = j?["searchResults"] as? Array<Dictionary<String,Any>> {
+                                        for resultDict in resultsArry {
+                                            
+                                            // Make Users
+                                            let user = User(userDict: resultDict)
+                                            self.users.append(user)
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                        })
                     }
                 }
             }

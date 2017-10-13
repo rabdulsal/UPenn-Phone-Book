@@ -10,26 +10,21 @@ import Foundation
 
 class User {
     
-    var firstName: String
-    var lastName: String
+    var fullName: String
+    var phonebookID: Int
     var jobTitle: String
-    var officeAddress: String
+    var department: String
+    
+    /*
     var cellPhone: String
     var officePhone: String
+    */
     
-    init(
-        fName: String,
-        lName: String,
-        jobTitle: String,
-        address: String,
-        cellNum: String,
-        officeNum: String)
+    init(userDict: Dictionary<String,Any>)
     {
-        self.firstName = fName
-        self.lastName = lName
-        self.jobTitle = jobTitle
-        self.officeAddress = address
-        self.cellPhone = cellNum
-        self.officePhone = officeNum
+        self.fullName = userDict["pbFullname"] as? String ?? ""
+        self.phonebookID = userDict["phonebookID"] as? Int ?? -1
+        self.department = userDict["departmentName"] as? String ?? ""
+        self.jobTitle = userDict["jobTitle"] as? String ?? ""
     }
 }
