@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		740982A8D65EF221D1AC67A9 /* Pods_Phone_Book.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C921CA1089986D1CFBA3E4D /* Pods_Phone_Book.framework */; };
+		841B89AF1F910E7700CFB3C1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841B89AE1F910E7700CFB3C1 /* User.swift */; };
+		841B89B21F910FB500CFB3C1 /* FavoritesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841B89B11F910FB500CFB3C1 /* FavoritesService.swift */; };
 		84FFD8BB1F8EC36300B28184 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFD8BA1F8EC36300B28184 /* AppDelegate.swift */; };
 		84FFD8BD1F8EC36300B28184 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFD8BC1F8EC36300B28184 /* ViewController.swift */; };
 		84FFD8C01F8EC36300B28184 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84FFD8BE1F8EC36300B28184 /* Main.storyboard */; };
@@ -44,6 +46,8 @@
 		726AC258E0E17FBD5CAC14BD /* Pods_Phone_BookUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Phone_BookUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		763E5419ABFD3E63111EE66F /* Pods-Phone BookUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phone BookUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Phone BookUITests/Pods-Phone BookUITests.release.xcconfig"; sourceTree = "<group>"; };
 		7B3135E24CBF2773B7448A81 /* Pods-Phone BookUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phone BookUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Phone BookUITests/Pods-Phone BookUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		841B89AE1F910E7700CFB3C1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		841B89B11F910FB500CFB3C1 /* FavoritesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesService.swift; sourceTree = "<group>"; };
 		84FFD8B71F8EC36300B28184 /* Phone Book.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Phone Book.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84FFD8BA1F8EC36300B28184 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84FFD8BC1F8EC36300B28184 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +106,36 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		841B89AB1F910E2300CFB3C1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				841B89AE1F910E7700CFB3C1 /* User.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		841B89AC1F910E3200CFB3C1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		841B89AD1F910E3800CFB3C1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		841B89B01F910FA100CFB3C1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				841B89B11F910FB500CFB3C1 /* FavoritesService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 		84FFD8AE1F8EC36300B28184 = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +161,10 @@
 		84FFD8B91F8EC36300B28184 /* Phone Book */ = {
 			isa = PBXGroup;
 			children = (
+				841B89B01F910FA100CFB3C1 /* Services */,
+				841B89AB1F910E2300CFB3C1 /* Models */,
+				841B89AC1F910E3200CFB3C1 /* Views */,
+				841B89AD1F910E3800CFB3C1 /* Controllers */,
 				84FFD8BA1F8EC36300B28184 /* AppDelegate.swift */,
 				84FFD8BC1F8EC36300B28184 /* ViewController.swift */,
 				84FFD8BE1F8EC36300B28184 /* Main.storyboard */,
@@ -468,7 +506,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				84FFD8BD1F8EC36300B28184 /* ViewController.swift in Sources */,
+				841B89B21F910FB500CFB3C1 /* FavoritesService.swift in Sources */,
 				84FFD8BB1F8EC36300B28184 /* AppDelegate.swift in Sources */,
+				841B89AF1F910E7700CFB3C1 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -725,6 +765,7 @@
 				84FFD8E11F8EC36300B28184 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84FFD8E21F8EC36300B28184 /* Build configuration list for PBXNativeTarget "Phone BookTests" */ = {
 			isa = XCConfigurationList;
@@ -733,6 +774,7 @@
 				84FFD8E41F8EC36300B28184 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84FFD8E51F8EC36300B28184 /* Build configuration list for PBXNativeTarget "Phone BookUITests" */ = {
 			isa = XCConfigurationList;
@@ -741,6 +783,7 @@
 				84FFD8E71F8EC36300B28184 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

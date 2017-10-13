@@ -13,28 +13,28 @@ import Alamofire
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var authToken: String?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         let email = "AbdulSaR"
         let password = "R@shad1980"
-        let authenticationURI = "http://uphsnettest2012.uphs.upenn.edu/oath/token"
-        let phonebookProfileURI = "api/phonebook/search/{searchString}"
+        let phonebookAPIStr = "http://uphsnettest2012.uphs.upenn.edu/ADRS"
+        let authenticationURI = phonebookAPIStr + "/oauth/token"
+        let searchURI = phonebookAPIStr + "/api/phonebook/search/{searchString}"
         
         guard let url = URL(string: authenticationURI) else {
             return false
         }
         
         let parameters: Parameters = [
-            // Must be form: grant_type=password&username=yourADusername&password=yourADpassword
             "grant_type" : "password",
             "username" : email,
             "password" : password
         ]
         
         let request = Alamofire.request(url, method: .post, parameters: parameters, encoding: URLEncoding.httpBody)
-        request.responseString { (response) in
+        request.responseJSON { (response) in
             print("Success: \(response.result.isSuccess)")
             print("Response String: \(response.result.value)")
             
@@ -43,15 +43,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 let statusCode = (response.response?.statusCode)!
                 print("Status code:", statusCode)
+                if statusCode == 200 {
+                    let json = response.result.value as? NSDictionary
+                    if let token = json?["access_token"] {
+                        self.authToken = token as? String
+                        
+                    }
+                }
             }
         }
-        
-        /*
- 
-         
-        */
-        
-        
         
         return true
     }
