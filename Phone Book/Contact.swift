@@ -8,7 +8,7 @@
 
 import Foundation
 
-class User {
+class Contact {
     
     var fullName: String
     var phonebookID: Int

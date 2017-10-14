@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var authToken: String?
-    var users = Array<User>()
+    var users = Array<Contact>()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -62,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         for resultDict in resultsArry {
                                             
                                             // Make Users
-                                            let user = User(userDict: resultDict)
+                                            let user = Contact(userDict: resultDict)
                                             self.users.append(user)
                                             
                                         }
