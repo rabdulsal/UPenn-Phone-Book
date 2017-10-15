@@ -11,11 +11,16 @@ import UIKit
 
 class ContactsListViewController : UIViewController {
     
+    enum SegueIDs : String {
+        case details = "ContactDetailsSegue"
+        case login = "LoginSegue"
+    }
+    
     @IBOutlet weak var contactsTableView: UITableView!
     
+    var authenticated = true // TODO: Will eventually be tied to an AuthenticationService
     var contactsList = Array<Contact>()
     let reuseIdentifier = "ContactCell"
-    let detailsSegue = "ContactDetailsSegue"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +29,23 @@ class ContactsListViewController : UIViewController {
         self.contactsTableView.dataSource = self
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.checkAuthenticationForPresentation()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let contact = sender as! Contact
-        let vc = segue.destination as! ContactDetailsViewController
-        vc.contact = contact
+        guard let segueID = SegueIDs.init(rawValue: segue.identifier!) else { return }
+        
+        switch segueID {
+            case .details:
+                let contact = sender as! Contact
+                let vc = segue.destination as! ContactDetailsViewController
+                vc.contact = contact
+            case .login:
+                break
+        }
     }
 }
 
@@ -40,7 +58,7 @@ extension ContactsListViewController : UITableViewDelegate {
         // TODO: Make network request for contact profile using profileID
         
             // Push retrieved contact via segue
-            self.performSegue(withIdentifier: self.detailsSegue, sender: contact)
+            self.performSegue(withIdentifier: SegueIDs.details.rawValue, sender: contact)
     }
 }
 
@@ -62,4 +80,11 @@ extension ContactsListViewController : UITableViewDataSource {
 
 private extension ContactsListViewController {
     
+    func checkAuthenticationForPresentation() {
+        
+        if authenticated {
+            authenticated = false
+            self.performSegue(withIdentifier: SegueIDs.login.rawValue, sender: nil)
+        }
+    }
 }

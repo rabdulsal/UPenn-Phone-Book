@@ -24,7 +24,12 @@ class LoginViewController: UIViewController {
         
         self.resetTextFields()
     }
-
+    
+    
+    @IBAction func pressedClose(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func pressedLogin(_ sender: Any) {
         
     }
