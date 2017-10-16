@@ -18,63 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        let email = "AbdulSaR"
-        let password = "R@shad1980"
-        let phonebookAPIStr = "http://uphsnettest2012.uphs.upenn.edu/ADRS"
-        let authenticationURI = phonebookAPIStr + "/oauth/token"
-        let searchURI = phonebookAPIStr + "/api/phonebook/search"
-        
-        guard let url = URL(string: authenticationURI) else {
-            return false
-        }
-        
-        let parameters: Parameters = [
-            "grant_type" : "password",
-            "username" : email,
-            "password" : password
-        ]
-        
-        // Make Request for JWT
-        let jwtRequest = Alamofire.request(url, method: .post, parameters: parameters, encoding: URLEncoding.httpBody)
-        jwtRequest.responseJSON { (response) in
-            
-            if let httpError = response.result.error {
-                print("Error:", httpError.localizedDescription)
-            } else {
-                let statusCode = (response.response?.statusCode)!
-                if statusCode == 200 {
-                    let json = response.result.value as? Dictionary<String,Any>
-                    if let token = json?["access_token"] {
-                        self.authToken = token as? String
-                        
-                        // Make Request to Search Endpoint passing JWT in header
-                        let headers: HTTPHeaders = [ "Authorization" : "Bearer" + self.authToken! ]
-                        let searchRequest = Alamofire.request(searchURI+"/jones", headers: headers)
-                        searchRequest.responseJSON(completionHandler: { (response) in
-                            
-                            if let httpError = response.result.error {
-                                print("Error:", httpError.localizedDescription)
-                            } else {
-                                let statusCode = (response.response?.statusCode)!
-                                if statusCode == 200 {
-                                    let j = response.result.value as? Dictionary<String,Any>
-                                    if let resultsArry = j?["searchResults"] as? Array<Dictionary<String,Any>> {
-                                        for resultDict in resultsArry {
-                                            
-                                            // Make Users
-                                            let user = Contact(userDict: resultDict)
-                                            self.users.append(user)
-                                            
-                                        }
-                                    }
-                                }
-                            }
-                        })
-                    }
-                }
-            }
-        }
-        
         return true
     }
 

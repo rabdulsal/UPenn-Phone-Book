@@ -32,20 +32,7 @@ class NetworkRequestService {
         // Make Request for JWT
         let jwtRequest = Alamofire.request(url, method: .post, parameters: parameters, encoding: URLEncoding.httpBody)
         jwtRequest.responseJSON { (response) in
-            
             completion(response)
-            
-//            if let httpError = response.result.error {
-//                print("Error:", httpError.localizedDescription)
-//            } else {
-//                let statusCode = (response.response?.statusCode)!
-//                if statusCode == 200 {
-//                    let json = response.result.value as? Dictionary<String,Any>
-//                    if let token = json?["access_token"] {
-//                        self.authToken = token as? String
-//
-//                        // Make Request to Search Endpoint passing JWT in header
-//
         }
     }
     
@@ -60,7 +47,6 @@ class NetworkRequestService {
         let requestURI = phoneSearchStr+"/"+queryString
         let searchRequest = Alamofire.request(requestURI, headers: headers)
         searchRequest.responseJSON(completionHandler: { (response) in
-
             completion(response)
         })
     }

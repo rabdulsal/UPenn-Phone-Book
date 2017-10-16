@@ -18,7 +18,7 @@ class ContactsListViewController : UIViewController {
     
     @IBOutlet weak var contactsTableView: UITableView!
     
-    var authenticated = true // TODO: Will eventually be tied to an AuthenticationService
+    var loginService = LoginService()
     var contactsList = Array<Contact>()
     let reuseIdentifier = "ContactCell"
     
@@ -82,8 +82,7 @@ private extension ContactsListViewController {
     
     func checkAuthenticationForPresentation() {
         
-        if authenticated {
-            authenticated = false
+        if loginService.isLoggedIn {
             self.performSegue(withIdentifier: SegueIDs.login.rawValue, sender: nil)
         }
     }
