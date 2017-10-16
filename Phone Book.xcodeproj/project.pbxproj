@@ -10,6 +10,10 @@
 		4C5AE2161F918D2500E271FD /* ContactsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2151F918D2400E271FD /* ContactsListViewController.swift */; };
 		4C5AE2181F918D4200E271FD /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2171F918D4200E271FD /* ContactDetailsViewController.swift */; };
 		4C5AE21A1F91CE7C00E271FD /* ContactViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2191F91CE7C00E271FD /* ContactViewCell.swift */; };
+		4C5AE21C1F944C8500E271FD /* AutheticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE21B1F944C8500E271FD /* AutheticationService.swift */; };
+		4C5AE21E1F944CC200E271FD /* NetworkRequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE21D1F944CC200E271FD /* NetworkRequestService.swift */; };
+		4C5AE2201F945B9400E271FD /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE21F1F945B9400E271FD /* LoginService.swift */; };
+		4C5AE2221F9502AC00E271FD /* ContactsSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2211F9502AC00E271FD /* ContactsSearchService.swift */; };
 		740982A8D65EF221D1AC67A9 /* Pods_Phone_Book.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C921CA1089986D1CFBA3E4D /* Pods_Phone_Book.framework */; };
 		841B89AF1F910E7700CFB3C1 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841B89AE1F910E7700CFB3C1 /* Contact.swift */; };
 		841B89B21F910FB500CFB3C1 /* FavoritesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841B89B11F910FB500CFB3C1 /* FavoritesService.swift */; };
@@ -48,6 +52,10 @@
 		4C5AE2151F918D2400E271FD /* ContactsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListViewController.swift; sourceTree = "<group>"; };
 		4C5AE2171F918D4200E271FD /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
 		4C5AE2191F91CE7C00E271FD /* ContactViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewCell.swift; sourceTree = "<group>"; };
+		4C5AE21B1F944C8500E271FD /* AutheticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutheticationService.swift; sourceTree = "<group>"; };
+		4C5AE21D1F944CC200E271FD /* NetworkRequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestService.swift; sourceTree = "<group>"; };
+		4C5AE21F1F945B9400E271FD /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
+		4C5AE2211F9502AC00E271FD /* ContactsSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsSearchService.swift; sourceTree = "<group>"; };
 		4C921CA1089986D1CFBA3E4D /* Pods_Phone_Book.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Phone_Book.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		726AC258E0E17FBD5CAC14BD /* Pods_Phone_BookUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Phone_BookUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		763E5419ABFD3E63111EE66F /* Pods-Phone BookUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phone BookUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Phone BookUITests/Pods-Phone BookUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -142,6 +150,10 @@
 			isa = PBXGroup;
 			children = (
 				841B89B11F910FB500CFB3C1 /* FavoritesService.swift */,
+				4C5AE21B1F944C8500E271FD /* AutheticationService.swift */,
+				4C5AE21D1F944CC200E271FD /* NetworkRequestService.swift */,
+				4C5AE21F1F945B9400E271FD /* LoginService.swift */,
+				4C5AE2211F9502AC00E271FD /* ContactsSearchService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -514,12 +526,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C5AE2221F9502AC00E271FD /* ContactsSearchService.swift in Sources */,
+				4C5AE21C1F944C8500E271FD /* AutheticationService.swift in Sources */,
 				84FFD8BD1F8EC36300B28184 /* LoginViewController.swift in Sources */,
 				841B89B21F910FB500CFB3C1 /* FavoritesService.swift in Sources */,
 				4C5AE2181F918D4200E271FD /* ContactDetailsViewController.swift in Sources */,
 				84FFD8BB1F8EC36300B28184 /* AppDelegate.swift in Sources */,
 				841B89AF1F910E7700CFB3C1 /* Contact.swift in Sources */,
 				4C5AE2161F918D2500E271FD /* ContactsListViewController.swift in Sources */,
+				4C5AE2201F945B9400E271FD /* LoginService.swift in Sources */,
+				4C5AE21E1F944CC200E271FD /* NetworkRequestService.swift in Sources */,
 				4C5AE21A1F91CE7C00E271FD /* ContactViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
