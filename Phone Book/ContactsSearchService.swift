@@ -15,7 +15,7 @@ class ContactsSearchService {
     
     func makeContactsSearchRequest(with queryString: String, completion: @escaping (Array<Contact>, Error?)->Void) {
         
-        requestService.makeContactSearchRequest(with: "") { (response) in
+        requestService.makeContactSearchRequest(with: queryString) { (response) in
             //
             
             if let httpError = response.result.error {

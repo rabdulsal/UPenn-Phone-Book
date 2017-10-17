@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SVProgressHUD
 
 class ContactsListViewController : UIViewController {
     
@@ -19,14 +20,15 @@ class ContactsListViewController : UIViewController {
     @IBOutlet weak var contactsTableView: UITableView!
     
     var loginService = LoginService()
+    var searchService = ContactsSearchService()
     var contactsList = Array<Contact>()
+    var searchController: UISearchController!
     let reuseIdentifier = "ContactCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.contactsTableView.delegate = self
-        self.contactsTableView.dataSource = self
+        self.setup()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,10 +46,15 @@ class ContactsListViewController : UIViewController {
                 let vc = segue.destination as! ContactDetailsViewController
                 vc.contact = contact
             case .login:
-                break
+                guard let loginService = sender as? LoginService else { return }
+                let navVC = segue.destination as! UINavigationController
+                let vc = navVC.viewControllers.first as! LoginViewController
+                vc.loginService = loginService
         }
     }
 }
+
+// MARK: - UITableViewDelegate
 
 extension ContactsListViewController : UITableViewDelegate {
     
@@ -62,8 +69,11 @@ extension ContactsListViewController : UITableViewDelegate {
     }
 }
 
+// MARK: - UITableViewDataSource
+
 extension ContactsListViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // TODO: 'searchInProgress logic for real-time filtering of 'Favorites'
         return self.contactsList.count
     }
     
@@ -78,12 +88,51 @@ extension ContactsListViewController : UITableViewDataSource {
     }
 }
 
+// MARK: - UISearchControllerDelegate
+
+extension ContactsListViewController : UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        SVProgressHUD.show()
+        self.searchService.makeContactsSearchRequest(with: searchBar.text!) { (retrievedContacts, error) in
+            SVProgressHUD.dismiss()
+            searchBar.resignFirstResponder()
+            if let e = error {
+                SVProgressHUD.showError(withStatus: e.localizedDescription)
+            } else {
+                // TODO: Make logic for if retrievedContacts == 0 to show Alert
+                self.contactsList = retrievedContacts
+                self.contactsTableView.reloadData()
+            }
+        }
+    }
+}
+
+// MARK: - UISearchResultsUpdating
+
+extension ContactsListViewController : UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        // Filter results logic
+    }
+}
+
 private extension ContactsListViewController {
+    
+    func setup() {
+        self.searchController = UISearchController(searchResultsController: nil)
+        self.searchController.searchResultsUpdater = self
+        self.searchController.searchBar.delegate = self
+        self.searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        self.contactsTableView.delegate = self
+        self.contactsTableView.dataSource = self
+        self.contactsTableView.tableHeaderView = self.searchController.searchBar
+        self.contactsTableView.tableFooterView = UIView()
+    }
     
     func checkAuthenticationForPresentation() {
         
         if !loginService.isLoggedIn {
-            self.performSegue(withIdentifier: SegueIDs.login.rawValue, sender: nil)
+            self.performSegue(withIdentifier: SegueIDs.login.rawValue, sender: self.loginService)
         }
     }
 }
