@@ -11,6 +11,10 @@ import UIKit
 
 class ContactDetailsViewController : UIViewController {
     
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var jobTitleLabel: UILabel!
+    @IBOutlet weak var departmentLabel: UILabel!
+    
     var contact: Contact?
     
     override func viewDidLoad() {
@@ -25,6 +29,8 @@ class ContactDetailsViewController : UIViewController {
 private extension ContactDetailsViewController {
     
     func decorateView(with contact: Contact) {
-        // Populate all labels with contact info
+        self.nameLabel.text = contact.fullName
+        self.jobTitleLabel.text = contact.jobTitle
+        self.departmentLabel.text = contact.department
     }
 }

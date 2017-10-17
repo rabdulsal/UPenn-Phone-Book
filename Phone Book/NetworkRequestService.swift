@@ -36,7 +36,7 @@ class NetworkRequestService {
         }
     }
     
-    func makeContactSearchRequest(with queryString: String, completion: @escaping (DataResponse<Any>)->Void) {
+    func makeContactsListSearchRequest(with queryString: String, completion: @escaping (DataResponse<Any>)->Void) {
         guard let token = self.authToken else {
             
             return
@@ -45,6 +45,21 @@ class NetworkRequestService {
         let headers: HTTPHeaders = [ "Authorization" : "Bearer" + token ]
         let phoneSearchStr = phonebookAPIStr + "/api/phonebook/search"
         let requestURI = phoneSearchStr+"/"+queryString
+        let searchRequest = Alamofire.request(requestURI, headers: headers)
+        searchRequest.responseJSON(completionHandler: { (response) in
+            completion(response)
+        })
+    }
+    
+    func makeContactSearchRequest(with profileID: String, completion: @escaping (DataResponse<Any>)->Void) {
+        guard let token = self.authToken else {
+            
+            return
+        }
+        
+        let headers: HTTPHeaders = [ "Authorization" : "Bearer" + token ]
+        let profileSearchStr = phonebookAPIStr + "/api/phonebook/profile"
+        let requestURI = profileSearchStr+"/"+profileID
         let searchRequest = Alamofire.request(requestURI, headers: headers)
         searchRequest.responseJSON(completionHandler: { (response) in
             completion(response)

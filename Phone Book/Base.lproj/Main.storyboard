@@ -122,6 +122,7 @@
                     <connections>
                         <outlet property="contactsTableView" destination="ESW-KU-eEA" id="bBK-cl-gtE"/>
                         <segue destination="DFE-iM-jyR" kind="presentation" identifier="LoginSegue" id="EvE-Ab-Hit"/>
+                        <segue destination="Ma3-x1-OmR" kind="show" identifier="ContactDetailsSegue" id="TR7-zq-jKS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OMz-Bk-70u" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -139,12 +140,45 @@
                     <view key="view" contentMode="scaleToFill" id="F34-fT-fT9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nameLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LbE-Nv-zhe">
+                                <rect key="frame" x="145" y="102" width="84" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="departmentLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YB1-v6-TOC">
+                                <rect key="frame" x="122" y="154" width="131.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="jobTitleLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7u2-Jn-AmK">
+                                <rect key="frame" x="139" y="203" width="96.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YB1-v6-TOC" firstAttribute="centerX" secondItem="7u2-Jn-AmK" secondAttribute="centerX" id="5uE-wl-th1"/>
+                            <constraint firstItem="7u2-Jn-AmK" firstAttribute="top" secondItem="YB1-v6-TOC" secondAttribute="bottom" constant="28" id="Ccn-Nl-wht"/>
+                            <constraint firstItem="YB1-v6-TOC" firstAttribute="top" secondItem="LbE-Nv-zhe" secondAttribute="bottom" constant="31" id="E18-t1-uzu"/>
+                            <constraint firstItem="LbE-Nv-zhe" firstAttribute="centerX" secondItem="F34-fT-fT9" secondAttribute="centerX" id="QVA-2Q-DhO"/>
+                            <constraint firstItem="LbE-Nv-zhe" firstAttribute="top" secondItem="aEH-uk-Us3" secondAttribute="bottom" constant="38" id="j8O-LI-dAg"/>
+                            <constraint firstItem="7u2-Jn-AmK" firstAttribute="centerX" secondItem="LbE-Nv-zhe" secondAttribute="centerX" id="rKx-EJ-RGZ"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="departmentLabel" destination="YB1-v6-TOC" id="y0u-QW-x64"/>
+                        <outlet property="jobTitleLabel" destination="7u2-Jn-AmK" id="OXx-8D-wqg"/>
+                        <outlet property="nameLabel" destination="LbE-Nv-zhe" id="cDE-Jj-1tv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9oC-Ff-Iu2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1815.2" y="131.78410794602701"/>
+            <point key="canvasLocation" x="1545" y="386"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1Gu-GO-gI4">

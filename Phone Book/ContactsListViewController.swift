@@ -60,12 +60,17 @@ extension ContactsListViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let contact = self.contactsList[indexPath.row]
-        let profileID = contact.phonebookID
+        let profileID = String(describing: contact.phonebookID)
         
         // TODO: Make network request for contact profile using profileID
+//        self.searchService.makeContactSearchRequest(with: profileID) { (contact, error) in
+//
+//            // Push retrieved contact via segue
+//            self.performSegue(withIdentifier: SegueIDs.details.rawValue, sender: contact)
+//        }
         
-            // Push retrieved contact via segue
-            self.performSegue(withIdentifier: SegueIDs.details.rawValue, sender: contact)
+        // Push retrieved contact via segue
+        self.performSegue(withIdentifier: SegueIDs.details.rawValue, sender: contact)
     }
 }
 
@@ -93,13 +98,17 @@ extension ContactsListViewController : UITableViewDataSource {
 extension ContactsListViewController : UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         SVProgressHUD.show()
-        self.searchService.makeContactsSearchRequest(with: searchBar.text!) { (retrievedContacts, error) in
+        self.searchService.makeContactsListSearchRequest(with: searchBar.text!) { (retrievedContacts, error) in
             SVProgressHUD.dismiss()
             searchBar.resignFirstResponder()
             if let e = error {
                 SVProgressHUD.showError(withStatus: e.localizedDescription)
             } else {
                 // TODO: Make logic for if retrievedContacts == 0 to show Alert
+                if retrievedContacts.count == 0 {
+                    SVProgressHUD.showError(withStatus: "No results returned.")
+                    return
+                }
                 self.contactsList = retrievedContacts
                 self.contactsTableView.reloadData()
             }
@@ -130,7 +139,6 @@ private extension ContactsListViewController {
     }
     
     func checkAuthenticationForPresentation() {
-        
         if !loginService.isLoggedIn {
             self.performSegue(withIdentifier: SegueIDs.login.rawValue, sender: self.loginService)
         }

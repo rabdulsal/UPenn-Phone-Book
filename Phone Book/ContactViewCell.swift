@@ -11,5 +11,7 @@ import UIKit
 
 class ContactViewCell : UITableViewCell {
     
-    
+    override func awakeFromNib() {
+        self.selectionStyle = .none
+    }
 }

@@ -10,19 +10,19 @@ import Foundation
 
 class ContactsSearchService {
     
-    var retrievedContacts = Array<Contact>()
     var requestService = NetworkRequestService()
     
-    func makeContactsSearchRequest(with queryString: String, completion: @escaping (Array<Contact>, Error?)->Void) {
+    func makeContactsListSearchRequest(with queryString: String, completion: @escaping (Array<Contact>, Error?)->Void) {
         
-        requestService.makeContactSearchRequest(with: queryString) { (response) in
-            //
+        requestService.makeContactsListSearchRequest(with: queryString) { (response) in
+            
+            var retrievedContacts = Array<Contact>()
             
             if let httpError = response.result.error {
                 print("Error:", httpError.localizedDescription)
             } else {
                 guard let statusCode = response.response?.statusCode else {
-                    completion(self.retrievedContacts,nil) // TODO: Create Error object to bubble up
+                    completion(retrievedContacts,nil) // TODO: Create Error object to bubble up
                     return
                 }
                 
@@ -33,12 +33,38 @@ class ContactsSearchService {
                             
                             // Make Contacts
                             let contact = Contact(userDict: resultDict)
-                            self.retrievedContacts.append(contact)
+                            retrievedContacts.append(contact)
                         }
                     }
                 }
             }
-            completion(self.retrievedContacts, response.result.error)
+            completion(retrievedContacts, response.result.error)
+        }
+    }
+    
+    func makeContactSearchRequest(with profileID: String, completion: @escaping (Contact, Error?)->Void) {
+        
+        requestService.makeContactSearchRequest(with: profileID) { (response) in
+            
+            if let httpError = response.result.error {
+                print("Error:", httpError.localizedDescription)
+            } else {
+                guard let statusCode = response.response?.statusCode else {
+                    // TODO: Create Error object to bubble up
+                    return
+                }
+                
+                if statusCode == 200 {
+                    let j = response.result.value as? Dictionary<String,Any>
+                    if let resultsArry = j?["searchResults"] as? Array<Dictionary<String,Any>> {
+                        for resultDict in resultsArry {
+                            
+                            // Make Contacts
+                            let contact = Contact(userDict: resultDict)
+                        }
+                    }
+                }
+            }
         }
     }
 }
