@@ -82,7 +82,7 @@ private extension ContactsListViewController {
     
     func checkAuthenticationForPresentation() {
         
-        if loginService.isLoggedIn {
+        if !loginService.isLoggedIn {
             self.performSegue(withIdentifier: SegueIDs.login.rawValue, sender: nil)
         }
     }

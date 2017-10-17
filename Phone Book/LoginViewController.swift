@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class LoginViewController: UIViewController {
     
@@ -43,14 +44,15 @@ class LoginViewController: UIViewController {
         if !emptyEmail && !emptyPassword {
             self.email = emailField.text!
             self.password = passwordField.text!
-            
+            SVProgressHUD.show()
+            // TODO: Must disable button and textFields
             self.loginService.makeLoginRequest(email: self.email, password: self.password, completion: { (success, error) in
-                
+                SVProgressHUD.dismiss()
                 if success {
                     self.dismiss(animated: true, completion: nil)
                 } else if let e = error {
                     // Present Error in Alert
-                    print("Error:", e.localizedDescription)
+                    SVProgressHUD.showError(withStatus: e.localizedDescription)
                 }
             })
         }
