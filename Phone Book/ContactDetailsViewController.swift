@@ -14,6 +14,10 @@ class ContactDetailsViewController : UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var jobTitleLabel: UILabel!
     @IBOutlet weak var departmentLabel: UILabel!
+    @IBOutlet weak var addressLabel1: UILabel!
+    @IBOutlet weak var addressLabel2: UILabel!
+    @IBOutlet weak var primaryPhoneLabel: UILabel!
+    @IBOutlet weak var cellPhoneLabel: UILabel!
     
     var contact: Contact?
     
@@ -32,5 +36,9 @@ private extension ContactDetailsViewController {
         self.nameLabel.text = contact.fullName
         self.jobTitleLabel.text = contact.jobTitle
         self.departmentLabel.text = contact.department
+        self.addressLabel1.text = contact.primaryAddressLine1
+        self.addressLabel2.text = contact.primaryAddressLine2
+        self.primaryPhoneLabel.text = contact.displayPrimaryTelephone
+        self.cellPhoneLabel.text = contact.displayCellPhone
     }
 }

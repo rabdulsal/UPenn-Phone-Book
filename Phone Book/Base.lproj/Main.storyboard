@@ -159,21 +159,57 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="address1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXA-hJ-k3S">
+                                <rect key="frame" x="153" y="253" width="68.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="address2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCc-xi-9eb">
+                                <rect key="frame" x="152" y="303" width="71" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="primaryPhone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYc-q2-sIZ">
+                                <rect key="frame" x="134" y="361" width="107" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cellPhone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yWx-Fe-raG">
+                                <rect key="frame" x="150" y="412" width="75" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="DXA-hJ-k3S" firstAttribute="centerX" secondItem="7u2-Jn-AmK" secondAttribute="centerX" id="07G-Ml-oqg"/>
+                            <constraint firstItem="yWx-Fe-raG" firstAttribute="top" secondItem="eYc-q2-sIZ" secondAttribute="bottom" constant="30" id="0v5-hc-eY9"/>
+                            <constraint firstItem="eYc-q2-sIZ" firstAttribute="top" secondItem="hCc-xi-9eb" secondAttribute="bottom" constant="37" id="1Jm-3L-Hje"/>
+                            <constraint firstItem="eYc-q2-sIZ" firstAttribute="centerX" secondItem="hCc-xi-9eb" secondAttribute="centerX" id="5jO-zc-D58"/>
                             <constraint firstItem="YB1-v6-TOC" firstAttribute="centerX" secondItem="7u2-Jn-AmK" secondAttribute="centerX" id="5uE-wl-th1"/>
                             <constraint firstItem="7u2-Jn-AmK" firstAttribute="top" secondItem="YB1-v6-TOC" secondAttribute="bottom" constant="28" id="Ccn-Nl-wht"/>
                             <constraint firstItem="YB1-v6-TOC" firstAttribute="top" secondItem="LbE-Nv-zhe" secondAttribute="bottom" constant="31" id="E18-t1-uzu"/>
+                            <constraint firstItem="hCc-xi-9eb" firstAttribute="centerX" secondItem="DXA-hJ-k3S" secondAttribute="centerX" id="JPO-gS-T7b"/>
                             <constraint firstItem="LbE-Nv-zhe" firstAttribute="centerX" secondItem="F34-fT-fT9" secondAttribute="centerX" id="QVA-2Q-DhO"/>
+                            <constraint firstItem="DXA-hJ-k3S" firstAttribute="top" secondItem="7u2-Jn-AmK" secondAttribute="bottom" constant="29" id="YXt-4E-6yl"/>
+                            <constraint firstItem="yWx-Fe-raG" firstAttribute="centerX" secondItem="eYc-q2-sIZ" secondAttribute="centerX" id="hb9-z0-8DF"/>
                             <constraint firstItem="LbE-Nv-zhe" firstAttribute="top" secondItem="aEH-uk-Us3" secondAttribute="bottom" constant="38" id="j8O-LI-dAg"/>
+                            <constraint firstItem="hCc-xi-9eb" firstAttribute="top" secondItem="DXA-hJ-k3S" secondAttribute="bottom" constant="29" id="o3I-cf-Hcf"/>
                             <constraint firstItem="7u2-Jn-AmK" firstAttribute="centerX" secondItem="LbE-Nv-zhe" secondAttribute="centerX" id="rKx-EJ-RGZ"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addressLabel1" destination="DXA-hJ-k3S" id="3BX-c6-0Kg"/>
+                        <outlet property="addressLabel2" destination="hCc-xi-9eb" id="EQ5-TX-O7K"/>
+                        <outlet property="cellPhoneLabel" destination="yWx-Fe-raG" id="6DL-Dh-OD9"/>
                         <outlet property="departmentLabel" destination="YB1-v6-TOC" id="y0u-QW-x64"/>
                         <outlet property="jobTitleLabel" destination="7u2-Jn-AmK" id="OXx-8D-wqg"/>
                         <outlet property="nameLabel" destination="LbE-Nv-zhe" id="cDE-Jj-1tv"/>
+                        <outlet property="primaryPhoneLabel" destination="eYc-q2-sIZ" id="KcK-aM-all"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9oC-Ff-Iu2" userLabel="First Responder" sceneMemberID="firstResponder"/>

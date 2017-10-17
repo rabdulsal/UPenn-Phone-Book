@@ -42,7 +42,7 @@ class ContactsListViewController : UIViewController {
         
         switch segueID {
             case .details:
-                let contact = sender as! Contact
+                guard let contact = sender as? Contact else { return }
                 let vc = segue.destination as! ContactDetailsViewController
                 vc.contact = contact
             case .login:
@@ -63,14 +63,18 @@ extension ContactsListViewController : UITableViewDelegate {
         let profileID = String(describing: contact.phonebookID)
         
         // TODO: Make network request for contact profile using profileID
-//        self.searchService.makeContactSearchRequest(with: profileID) { (contact, error) in
-//
-//            // Push retrieved contact via segue
-//            self.performSegue(withIdentifier: SegueIDs.details.rawValue, sender: contact)
-//        }
+        self.searchService.makeContactSearchRequest(with: profileID) { (contact, error) in
+
+            // Push retrieved contact via segue
+            if let e = error {
+                SVProgressHUD.showError(withStatus: e.localizedDescription)
+            } else {
+                self.performSegue(withIdentifier: SegueIDs.details.rawValue, sender: contact)
+            }
+        }
         
         // Push retrieved contact via segue
-        self.performSegue(withIdentifier: SegueIDs.details.rawValue, sender: contact)
+//        self.performSegue(withIdentifier: SegueIDs.details.rawValue, sender: contact)
     }
 }
 

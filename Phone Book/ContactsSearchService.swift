@@ -30,7 +30,6 @@ class ContactsSearchService {
                     let j = response.result.value as? Dictionary<String,Any>
                     if let resultsArry = j?["searchResults"] as? Array<Dictionary<String,Any>> {
                         for resultDict in resultsArry {
-                            
                             // Make Contacts
                             let contact = Contact(userDict: resultDict)
                             retrievedContacts.append(contact)
@@ -42,12 +41,12 @@ class ContactsSearchService {
         }
     }
     
-    func makeContactSearchRequest(with profileID: String, completion: @escaping (Contact, Error?)->Void) {
+    func makeContactSearchRequest(with profileID: String, completion: @escaping (Contact?, Error?)->Void) {
         
         requestService.makeContactSearchRequest(with: profileID) { (response) in
             
             if let httpError = response.result.error {
-                print("Error:", httpError.localizedDescription)
+                completion(nil,httpError)
             } else {
                 guard let statusCode = response.response?.statusCode else {
                     // TODO: Create Error object to bubble up
@@ -55,14 +54,9 @@ class ContactsSearchService {
                 }
                 
                 if statusCode == 200 {
-                    let j = response.result.value as? Dictionary<String,Any>
-                    if let resultsArry = j?["searchResults"] as? Array<Dictionary<String,Any>> {
-                        for resultDict in resultsArry {
-                            
-                            // Make Contacts
-                            let contact = Contact(userDict: resultDict)
-                        }
-                    }
+                    let dict = response.result.value as! Dictionary<String,Any>
+                    let contact = Contact(userDict: dict)
+                    completion(contact,nil)
                 }
             }
         }

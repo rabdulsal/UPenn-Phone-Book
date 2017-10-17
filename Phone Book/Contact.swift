@@ -21,14 +21,14 @@ class Contact {
     var displayPagerNumber: String
     var pagerEmail: String
     var emailAddress: String
-    var primaryAddressLine1: String
-    var primaryAddressLine2: String
+    var primaryAddressLine1: String //
+    var primaryAddressLine2: String //
     var primaryTelephone: String
-    var displayPrimaryTelephone: String
+    var displayPrimaryTelephone: String //
     var primaryFax: String
     var displayPrimaryFax: String
     var cellphone: String
-    var displayCellPhone: String
+    var displayCellPhone: String //
     var cellEmail: String
     var isDisabled: Int
     

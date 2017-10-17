@@ -42,7 +42,7 @@ class NetworkRequestService {
             return
         }
         
-        let headers: HTTPHeaders = [ "Authorization" : "Bearer" + token ]
+        let headers: HTTPHeaders = [ "Authorization" : "Bearer " + token ]
         let phoneSearchStr = phonebookAPIStr + "/api/phonebook/search"
         let requestURI = phoneSearchStr+"/"+queryString
         let searchRequest = Alamofire.request(requestURI, headers: headers)
@@ -57,7 +57,7 @@ class NetworkRequestService {
             return
         }
         
-        let headers: HTTPHeaders = [ "Authorization" : "Bearer" + token ]
+        let headers: HTTPHeaders = [ "Authorization" : "Bearer " + token ]
         let profileSearchStr = phonebookAPIStr + "/api/phonebook/profile"
         let requestURI = profileSearchStr+"/"+profileID
         let searchRequest = Alamofire.request(requestURI, headers: headers)
