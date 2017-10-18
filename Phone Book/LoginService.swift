@@ -8,19 +8,30 @@
 
 import Foundation
 
+protocol LoginServiceDelegate {
+    func didSuccessfullyLoginUser()
+    func didFailToLoginUser(errorStr: String)
+}
+
 class LoginService {
     
     var isLoggedIn = false
     var requestService = NetworkRequestService()
+    var loginDelegate: LoginServiceDelegate
+    let genericLoginError = "Sorry an error occurred while attempting Login. Please try again."
     
-    func makeLoginRequest(email: String, password: String, completion: @escaping (_ success: Bool, _ error: Error?)->Void) {
+    init(loginDelegate: LoginServiceDelegate) {
+        self.loginDelegate = loginDelegate
+    }
+    
+    func makeLoginRequest(email: String, password: String) {
         
         let e: Error?=nil
         
         self.requestService.makeLoginRequest(email: email, password: password) { (response) in
             
             guard let statusCode = response.response?.statusCode else {
-                // TODO: Pass up some general error about Status Code
+                self.loginDelegate.didFailToLoginUser(errorStr: self.genericLoginError)
                 return
             }
             
@@ -30,8 +41,29 @@ class LoginService {
                     AuthenticationService.storeAuthenticationToken(token: token)
                     self.isLoggedIn = true
                 }
+                self.loginDelegate.didSuccessfullyLoginUser()
             }
-            completion(self.isLoggedIn,e)
+            
+            self.loginDelegate.didFailToLoginUser(errorStr: self.genericLoginError)
+            // TODO: Fire successful delegate
+        }
+    }
+    
+    func checkAuthenticationCache() {
+        AuthenticationService.checkAuthenticationCache { (username, password, error) in
+            if let e = error {
+                self.loginDelegate.didFailToLoginUser(errorStr: "Sorry, something went weirdly wrong.")
+                return
+                
+            }
+            
+            guard
+                let u = username,
+                let p = password else {
+                    self.loginDelegate.didFailToLoginUser(errorStr: "Sorry, something went weirdly wrong.")
+                    return
+            }
+            self.makeLoginRequest(email: u, password: p)
         }
     }
 }

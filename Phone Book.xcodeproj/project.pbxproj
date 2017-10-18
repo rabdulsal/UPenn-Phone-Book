@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A26C1DF1F97CDAD005C88C9 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C1DE1F97CDAD005C88C9 /* ValidationService.swift */; };
+		3A26C1E11F97D372005C88C9 /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C1E01F97D372005C88C9 /* KeychainPasswordItem.swift */; };
+		3A26C1E31F97D3BD005C88C9 /* KeyChainConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C1E21F97D3BD005C88C9 /* KeyChainConfiguration.swift */; };
 		4C5AE2161F918D2500E271FD /* ContactsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2151F918D2400E271FD /* ContactsListViewController.swift */; };
 		4C5AE2181F918D4200E271FD /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2171F918D4200E271FD /* ContactDetailsViewController.swift */; };
 		4C5AE21A1F91CE7C00E271FD /* ContactViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2191F91CE7C00E271FD /* ContactViewCell.swift */; };
@@ -48,6 +51,9 @@
 /* Begin PBXFileReference section */
 		1E816519D24726D1F49D3D6B /* Pods-Phone BookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phone BookTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Phone BookTests/Pods-Phone BookTests.debug.xcconfig"; sourceTree = "<group>"; };
 		261E2B60929BD1D5295DDDC6 /* Pods-Phone BookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phone BookTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Phone BookTests/Pods-Phone BookTests.release.xcconfig"; sourceTree = "<group>"; };
+		3A26C1DE1F97CDAD005C88C9 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
+		3A26C1E01F97D372005C88C9 /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
+		3A26C1E21F97D3BD005C88C9 /* KeyChainConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainConfiguration.swift; sourceTree = "<group>"; };
 		494755E5935655C3132B0EAB /* Pods_Phone_BookTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Phone_BookTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C5AE2151F918D2400E271FD /* ContactsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListViewController.swift; sourceTree = "<group>"; };
 		4C5AE2171F918D4200E271FD /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				841B89AE1F910E7700CFB3C1 /* Contact.swift */,
+				3A26C1E01F97D372005C88C9 /* KeychainPasswordItem.swift */,
+				3A26C1E21F97D3BD005C88C9 /* KeyChainConfiguration.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -154,6 +162,7 @@
 				4C5AE21D1F944CC200E271FD /* NetworkRequestService.swift */,
 				4C5AE21F1F945B9400E271FD /* LoginService.swift */,
 				4C5AE2211F9502AC00E271FD /* ContactsSearchService.swift */,
+				3A26C1DE1F97CDAD005C88C9 /* ValidationService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -534,6 +543,7 @@
 			files = (
 				4C5AE2221F9502AC00E271FD /* ContactsSearchService.swift in Sources */,
 				4C5AE21C1F944C8500E271FD /* AutheticationService.swift in Sources */,
+				3A26C1DF1F97CDAD005C88C9 /* ValidationService.swift in Sources */,
 				84FFD8BD1F8EC36300B28184 /* LoginViewController.swift in Sources */,
 				841B89B21F910FB500CFB3C1 /* FavoritesService.swift in Sources */,
 				4C5AE2181F918D4200E271FD /* ContactDetailsViewController.swift in Sources */,
@@ -543,6 +553,8 @@
 				4C5AE2201F945B9400E271FD /* LoginService.swift in Sources */,
 				4C5AE21E1F944CC200E271FD /* NetworkRequestService.swift in Sources */,
 				4C5AE21A1F91CE7C00E271FD /* ContactViewCell.swift in Sources */,
+				3A26C1E31F97D3BD005C88C9 /* KeyChainConfiguration.swift in Sources */,
+				3A26C1E11F97D372005C88C9 /* KeychainPasswordItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
