@@ -15,6 +15,10 @@ class NetworkRequestService {
     var authToken: String? {
         return AuthenticationService.authToken
     }
+    var headers: HTTPHeaders {
+        guard let token = self.authToken else { return [:] }
+        return [ "Authorization" : "Bearer " + token ]
+    }
     
     func makeLoginRequest(email: String, password: String, completion: @escaping (DataResponse<Any>)->Void) {
         
@@ -37,30 +41,18 @@ class NetworkRequestService {
     }
     
     func makeContactsListSearchRequest(with queryString: String, completion: @escaping (DataResponse<Any>)->Void) {
-        guard let token = self.authToken else {
-            
-            return
-        }
-        
-        let headers: HTTPHeaders = [ "Authorization" : "Bearer " + token ]
         let phoneSearchStr = phonebookAPIStr + "/api/phonebook/search"
         let requestURI = phoneSearchStr+"/"+queryString
-        let searchRequest = Alamofire.request(requestURI, headers: headers)
+        let searchRequest = Alamofire.request(requestURI, headers: self.headers)
         searchRequest.responseJSON(completionHandler: { (response) in
             completion(response)
         })
     }
     
     func makeContactSearchRequest(with profileID: String, completion: @escaping (DataResponse<Any>)->Void) {
-        guard let token = self.authToken else {
-            
-            return
-        }
-        
-        let headers: HTTPHeaders = [ "Authorization" : "Bearer " + token ]
         let profileSearchStr = phonebookAPIStr + "/api/phonebook/profile"
         let requestURI = profileSearchStr+"/"+profileID
-        let searchRequest = Alamofire.request(requestURI, headers: headers)
+        let searchRequest = Alamofire.request(requestURI, headers: self.headers)
         searchRequest.responseJSON(completionHandler: { (response) in
             completion(response)
         })
