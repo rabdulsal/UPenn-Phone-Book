@@ -41,9 +41,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2si-2m-EwZ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2si-2m-EwZ" customClass="PrimaryCTAButton" customModule="Phone_Book" customModuleProvider="target">
                                 <rect key="frame" x="16" y="308" width="343" height="50"/>
-                                <color key="backgroundColor" red="0.23137254900000001" green="0.34901960780000002" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.54509803921568623" green="0.13725490196078433" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="fGk-m1-u2b"/>
                                 </constraints>
@@ -78,6 +78,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="emailField" destination="lGi-uf-AaT" id="8eg-f3-Wq5"/>
+                        <outlet property="loginButton" destination="2si-2m-EwZ" id="cgx-bq-Omd"/>
                         <outlet property="passwordField" destination="sQq-kQ-jUA" id="8qn-gd-c0h"/>
                     </connections>
                 </viewController>
@@ -240,7 +241,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
+                                <color key="highlightedColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

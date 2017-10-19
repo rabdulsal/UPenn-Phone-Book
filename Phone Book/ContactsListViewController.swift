@@ -68,9 +68,6 @@ extension ContactsListViewController : UITableViewDelegate {
                 self.performSegue(withIdentifier: SegueIDs.details.rawValue, sender: contact)
             }
         }
-        
-        // Push retrieved contact via segue
-//        self.performSegue(withIdentifier: SegueIDs.details.rawValue, sender: contact)
     }
 }
 

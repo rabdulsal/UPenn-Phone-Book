@@ -20,8 +20,9 @@ class AuthenticationService {
         self.authToken = token
         self.isAuthenticated = true
         
-        // Check if
+        // Check if key has already been stored
         guard let _ = UserDefaults.standard.value(forKey: "hasLoginKey") else {
+            // If not previously stored, then store credentials into keychain
             self.cacheAuthenticationCredentials(username: email, password: password)
             return
         }

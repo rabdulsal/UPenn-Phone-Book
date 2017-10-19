@@ -13,7 +13,7 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
-    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var loginButton: PrimaryCTAButton!
     
     var loginService: LoginService!
     var validationService: ValidationService!
@@ -83,21 +83,6 @@ extension LoginViewController : LoginServiceDelegate {
 // MARK: - Private
 
 private extension LoginViewController {
-    
-    // Enable/disable loginButton
-    
-    func loginUser() {
-        SVProgressHUD.show()
-        // TODO: MAY NOT NEED!
-//        self.loginService.makeLoginRequest(email: self.email, password: self.password, completion: { (success, error) in
-//            SVProgressHUD.dismiss()
-//            if success {
-//                self.dismiss(animated: true, completion: nil)
-//            } else if let e = error {
-//                // Present Error in Alert
-//                SVProgressHUD.showError(withStatus: e.localizedDescription)
-//            }
-//        })
-    }
+    // TODO: Place private methods
 }
 
