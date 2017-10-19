@@ -17,19 +17,17 @@ class LoginViewController: UIViewController {
     
     var loginService: LoginService!
     var validationService: ValidationService!
-    var email = ""
-    var password = ""
     var passwordItems: [KeychainPasswordItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.loginService = LoginService(loginDelegate: self)
-        self.validationService = ValidationService(textFields: [ self.emailField, self.passwordField ])
+        self.setup()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.loginService.authenticationAutoFillCheck()
+        verifyFields()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -42,23 +40,21 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func pressedLogin(_ sender: Any) {
-        
-        if validationService.loginFieldsAreValid {
-            self.email = emailField.text!
-            self.password = passwordField.text!
-            SVProgressHUD.show()
-            // TODO: Must disable button and textFields
-            self.loginService.makeLoginRequest(email: self.email, password: self.password)
-        } else {
-            SVProgressHUD.showError(withStatus: "Login Fields cannot be empty.")
-        }
+        self.login()
     }
 }
 
 // MARK: - UITextFieldDelegate
 
 extension LoginViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.advanceTextfields(textfield: textField)
+        return true
+    }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    }
 }
 
 // MARK: - LoginService Delegate
@@ -83,6 +79,40 @@ extension LoginViewController : LoginServiceDelegate {
 // MARK: - Private
 
 private extension LoginViewController {
-    // TODO: Place private methods
+    func setup() {
+        self.loginService = LoginService(loginDelegate: self)
+        
+        // Set up textFields
+        self.emailField.delegate = self
+        self.passwordField.delegate = self        
+        self.passwordField.returnKeyType = .done
+        self.passwordField.isSecureTextEntry = true
+        self.validationService = ValidationService(textFields: [ self.emailField, self.passwordField ])
+    }
+    
+    func verifyFields() {
+        self.loginButton.isEnabled = validationService.loginFieldsAreValid
+    }
+    
+    func login() {
+        SVProgressHUD.show()
+        // TODO: Must disable button and textFields
+        self.loginService.makeLoginRequest(email: self.emailField.text!, password: self.passwordField.text!)
+    }
+    
+    @objc func textFieldDidChange(_ sender: Any) {
+        verifyFields()
+    }
+    
+    func advanceTextfields(textfield: UITextField) {
+        let nextTag: NSInteger = textfield.tag + 1
+        if let nextResponder: UIResponder = textfield.superview!.viewWithTag(nextTag) {
+            nextResponder.becomeFirstResponder()
+        } else {
+            textfield.resignFirstResponder()
+            self.login()
+        }
+        
+    }
 }
 

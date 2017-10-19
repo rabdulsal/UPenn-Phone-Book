@@ -25,6 +25,15 @@ class ValidationService {
     
     init(textFields: Array<UITextField>) {
         self.textFields = textFields
+        setTextFieldTags()
+    }
+    
+    func setTextFieldTags() {
+        var tagCount = 1
+        for field in self.textFields {
+            field.tag = tagCount
+            tagCount += 1
+        }
     }
     
     func resetTextFields() {
