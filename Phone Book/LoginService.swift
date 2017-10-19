@@ -10,6 +10,7 @@ import Foundation
 
 protocol LoginServiceDelegate {
     func didSuccessfullyLoginUser()
+    func didReturnAutoFillCredentials(username: String, password: String)
     func didFailToLoginUser(errorStr: String)
 }
 
@@ -26,8 +27,6 @@ class LoginService {
     
     func makeLoginRequest(email: String, password: String) {
         
-        let e: Error?=nil
-        
         self.requestService.makeLoginRequest(email: email, password: password) { (response) in
             
             guard let statusCode = response.response?.statusCode else {
@@ -38,10 +37,11 @@ class LoginService {
             if statusCode == 200 {
                 let json = response.result.value as? Dictionary<String,Any>
                 if let token = json?["access_token"] as? String {
-                    AuthenticationService.storeAuthenticationToken(token: token)
+                    AuthenticationService.storeAuthenticationCredentials(token: token, email: email, password: password)
                     self.isLoggedIn = true
                 }
                 self.loginDelegate.didSuccessfullyLoginUser()
+                return
             }
             
             self.loginDelegate.didFailToLoginUser(errorStr: self.genericLoginError)
@@ -49,21 +49,11 @@ class LoginService {
         }
     }
     
-    func checkAuthenticationCache() {
-        AuthenticationService.checkAuthenticationCache { (username, password, error) in
-            if let e = error {
-                self.loginDelegate.didFailToLoginUser(errorStr: "Sorry, something went weirdly wrong.")
-                return
-                
+    func authenticationAutoFillCheck() {
+        AuthenticationService.checkAuthenticationCache { (username, password) in
+            if let u = username, let p = password {
+                self.loginDelegate.didReturnAutoFillCredentials(username: u, password: p)
             }
-            
-            guard
-                let u = username,
-                let p = password else {
-                    self.loginDelegate.didFailToLoginUser(errorStr: "Sorry, something went weirdly wrong.")
-                    return
-            }
-            self.makeLoginRequest(email: u, password: p)
         }
     }
 }

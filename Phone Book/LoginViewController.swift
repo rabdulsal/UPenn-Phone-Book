@@ -29,7 +29,11 @@ class LoginViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        self.loginService.authenticationAutoFillCheck()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         self.validationService.resetTextFields()
     }
     
@@ -64,6 +68,11 @@ extension LoginViewController : LoginServiceDelegate {
     func didSuccessfullyLoginUser() {
         SVProgressHUD.dismiss()
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func didReturnAutoFillCredentials(username: String, password: String) {
+        self.emailField.text = username
+        self.passwordField.text = password
     }
     
     func didFailToLoginUser(errorStr: String) {

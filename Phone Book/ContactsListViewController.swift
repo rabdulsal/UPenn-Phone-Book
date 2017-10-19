@@ -19,7 +19,6 @@ class ContactsListViewController : UIViewController {
     
     @IBOutlet weak var contactsTableView: UITableView!
     
-    var loginService = LoginService()
     var searchService = ContactsSearchService()
     var contactsList = Array<Contact>()
     var searchController: UISearchController!
@@ -46,10 +45,7 @@ class ContactsListViewController : UIViewController {
                 let vc = segue.destination as! ContactDetailsViewController
                 vc.contact = contact
             case .login:
-                guard let loginService = sender as? LoginService else { return }
-                let navVC = segue.destination as! UINavigationController
-                let vc = navVC.viewControllers.first as! LoginViewController
-                vc.loginService = loginService
+                break
         }
     }
 }
@@ -143,8 +139,8 @@ private extension ContactsListViewController {
     }
     
     func checkAuthenticationForPresentation() {
-        if !loginService.isLoggedIn {
-            self.performSegue(withIdentifier: SegueIDs.login.rawValue, sender: self.loginService)
+        if !AuthenticationService.isAuthenticated {
+            self.performSegue(withIdentifier: SegueIDs.login.rawValue, sender: nil)
         }
     }
 }
