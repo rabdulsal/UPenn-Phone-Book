@@ -84,7 +84,7 @@ private extension LoginViewController {
         
         // Set up textFields
         self.emailField.delegate = self
-        self.passwordField.delegate = self        
+        self.passwordField.delegate = self
         self.passwordField.returnKeyType = .done
         self.passwordField.isSecureTextEntry = true
         self.validationService = ValidationService(textFields: [ self.emailField, self.passwordField ])

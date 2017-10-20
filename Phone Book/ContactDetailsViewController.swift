@@ -18,6 +18,7 @@ class ContactDetailsViewController : UIViewController {
     @IBOutlet weak var addressLabel2: UILabel!
     @IBOutlet weak var primaryPhoneLabel: UILabel!
     @IBOutlet weak var cellPhoneLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
     
     var contact: Contact?
     
@@ -33,12 +34,13 @@ class ContactDetailsViewController : UIViewController {
 private extension ContactDetailsViewController {
     
     func decorateView(with contact: Contact) {
-        self.nameLabel.text = contact.fullName
-        self.jobTitleLabel.text = contact.jobTitle
-        self.departmentLabel.text = contact.department
-        self.addressLabel1.text = contact.primaryAddressLine1
-        self.addressLabel2.text = contact.primaryAddressLine2
+        self.nameLabel.text         = contact.fullName
+        self.jobTitleLabel.text     = contact.jobTitle
+        self.departmentLabel.text   = contact.department
+        self.addressLabel1.text     = contact.primaryAddressLine1
+        self.addressLabel2.text     = contact.primaryAddressLine2
         self.primaryPhoneLabel.text = contact.displayPrimaryTelephone
-        self.cellPhoneLabel.text = contact.displayCellPhone
+        self.cellPhoneLabel.text    = contact.displayCellPhone
+        self.emailLabel.text        = contact.emailAddress
     }
 }
