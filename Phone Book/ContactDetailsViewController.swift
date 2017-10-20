@@ -28,8 +28,11 @@ class ContactDetailsViewController : UIViewController {
         guard let _contact = self.contact else { return }
         
         self.decorateView(with: _contact)
+        self.setupTapGestureRecognizers()
     }
 }
+
+extension ContactDetailsViewController : UIGestureRecognizerDelegate { }
 
 private extension ContactDetailsViewController {
     
@@ -42,5 +45,38 @@ private extension ContactDetailsViewController {
         self.primaryPhoneLabel.text = contact.displayPrimaryTelephone
         self.cellPhoneLabel.text    = contact.displayCellPhone
         self.emailLabel.text        = contact.emailAddress
+    }
+    
+    func setupTapGestureRecognizers() {
+        let tap1 = UITapGestureRecognizer(target: self, action: #selector(self.makePhoneCallable))
+        tap1.delegate = self
+        tap1.numberOfTapsRequired = 1
+        primaryPhoneLabel.isUserInteractionEnabled = true
+        primaryPhoneLabel.addGestureRecognizer(tap1)
+        let tap2 = UITapGestureRecognizer(target: self, action: #selector(self.makeCellCallable))
+        tap2.delegate = self
+        tap2.numberOfTapsRequired = 1
+        cellPhoneLabel.isUserInteractionEnabled = true
+        cellPhoneLabel.addGestureRecognizer(tap2)
+    }
+    
+    @objc func makePhoneCallable() {
+        if let phone = self.contact?.primaryTelephone, phone.isEmpty == false {
+            self.callNumber(phoneNumber: phone)
+        }
+    }
+    
+    @objc func makeCellCallable() {
+        if let cell = self.contact?.cellphone, cell.isEmpty == false {
+            self.callNumber(phoneNumber: cell)
+        }
+    }
+    
+    func callNumber(phoneNumber: String) {
+        if let url = URL(string: "telprompt:\(phoneNumber)") {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
     }
 }
