@@ -32,7 +32,6 @@ class ContactsListViewController : UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         self.checkAuthenticationForPresentation()
     }
     
@@ -82,10 +81,8 @@ extension ContactsListViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let contact = self.contactsList[indexPath.row]
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! ContactViewCell
-        
-        cell.textLabel?.text = contact.fullName
+        cell.configure(with: contact)
         return cell
     }
 }

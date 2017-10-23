@@ -101,13 +101,47 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactCell" id="BUP-iv-Bxm" customClass="ContactViewCell" customModule="Phone_Book" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactCell" rowHeight="100" id="BUP-iv-Bxm" customClass="ContactViewCell" customModule="Phone_Book" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BUP-iv-Bxm" id="DbS-8C-BpC">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ke-A7-egH">
+                                                    <rect key="frame" x="8" y="5" width="45" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Job" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7MG-rQ-V0f">
+                                                    <rect key="frame" x="8" y="61.5" width="29" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Department" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSK-1z-9yh">
+                                                    <rect key="frame" x="8" y="35.5" width="92" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="7MG-rQ-V0f" secondAttribute="bottom" constant="8" id="J04-s0-lR1"/>
+                                                <constraint firstItem="7MG-rQ-V0f" firstAttribute="top" secondItem="RSK-1z-9yh" secondAttribute="bottom" constant="5" id="ND5-Ea-Hrm"/>
+                                                <constraint firstItem="8Ke-A7-egH" firstAttribute="top" secondItem="DbS-8C-BpC" secondAttribute="top" constant="5" id="d91-75-NJs"/>
+                                                <constraint firstItem="RSK-1z-9yh" firstAttribute="leading" secondItem="DbS-8C-BpC" secondAttribute="leading" constant="8" id="hMX-LC-oqS"/>
+                                                <constraint firstItem="7MG-rQ-V0f" firstAttribute="leading" secondItem="DbS-8C-BpC" secondAttribute="leading" constant="8" id="i6k-AT-XoC"/>
+                                                <constraint firstItem="8Ke-A7-egH" firstAttribute="leading" secondItem="DbS-8C-BpC" secondAttribute="leading" constant="8" id="ieK-HI-ub8"/>
+                                                <constraint firstItem="RSK-1z-9yh" firstAttribute="top" secondItem="8Ke-A7-egH" secondAttribute="bottom" constant="8" id="vBf-uz-fB8"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="departmentLabel" destination="RSK-1z-9yh" id="f8N-mP-EPV"/>
+                                            <outlet property="jobTitleLabel" destination="7MG-rQ-V0f" id="zLs-di-Vdh"/>
+                                            <outlet property="nameLabel" destination="8Ke-A7-egH" id="TGR-l7-pTV"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
