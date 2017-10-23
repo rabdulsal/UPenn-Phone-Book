@@ -12,6 +12,8 @@ import Alamofire
 class NetworkRequestService {
     
     let phonebookAPIStr = "http://uphsnettest2012.uphs.upenn.edu/ADRS"
+    let searchAPIStr = "/api/phonebook/search"
+    let profileAPIStr = "/api/phonebook/profile"
     var authToken: String? {
         return AuthenticationService.authToken
     }
@@ -22,7 +24,7 @@ class NetworkRequestService {
     
     func makeLoginRequest(email: String, password: String, completion: @escaping (DataResponse<Any>)->Void) {
         
-        guard let url = URL(string: phonebookAPIStr + "/oauth/token") else {
+        guard let url = URL(string: self.phonebookAPIStr + "/oauth/token") else {
             // TODO: Return an Error about the URI
             return
         }
@@ -41,8 +43,9 @@ class NetworkRequestService {
     }
     
     func makeContactsListSearchRequest(with queryString: String, completion: @escaping (DataResponse<Any>)->Void) {
-        let phoneSearchStr = phonebookAPIStr + "/api/phonebook/search"
-        let requestURI = phoneSearchStr+"/"+queryString
+        guard let encodedString = queryString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
+        let phoneSearchStr = self.phonebookAPIStr + self.searchAPIStr
+        let requestURI = phoneSearchStr+"/"+encodedString
         let searchRequest = Alamofire.request(requestURI, headers: self.headers)
         searchRequest.responseJSON(completionHandler: { (response) in
             completion(response)
@@ -50,7 +53,7 @@ class NetworkRequestService {
     }
     
     func makeContactSearchRequest(with profileID: String, completion: @escaping (DataResponse<Any>)->Void) {
-        let profileSearchStr = phonebookAPIStr + "/api/phonebook/profile"
+        let profileSearchStr = self.phonebookAPIStr + self.profileAPIStr
         let requestURI = profileSearchStr+"/"+profileID
         let searchRequest = Alamofire.request(requestURI, headers: self.headers)
         searchRequest.responseJSON(completionHandler: { (response) in
