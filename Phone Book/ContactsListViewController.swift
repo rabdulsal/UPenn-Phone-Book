@@ -26,7 +26,6 @@ class ContactsListViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.setup()
     }
     
@@ -46,6 +45,13 @@ class ContactsListViewController : UIViewController {
             case .login:
                 break
         }
+    }
+    
+    // IBActions
+    @IBAction func helpPressed(_ sender: Any) {
+        let alertCtrl = UIAlertController(title: "Search Help", message: "Using 'Tom Smith' as an example:\nIn the SearchBar, to search by first name then last name, type 'Tom Smith'\nTo search by last name then first name, type 'Smith, Tom.'\nYou can also search with partial spelling like 'T Smith' or 'Sm, T'.", preferredStyle: .alert)
+        alertCtrl.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alertCtrl, animated: true, completion: nil)
     }
 }
 

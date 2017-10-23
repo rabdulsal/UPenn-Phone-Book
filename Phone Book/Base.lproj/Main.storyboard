@@ -154,7 +154,13 @@
                             <constraint firstAttribute="trailing" secondItem="ESW-KU-eEA" secondAttribute="trailing" id="kiT-6d-PgM"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Contacts" id="Z79-TG-q8L"/>
+                    <navigationItem key="navigationItem" title="Contacts" id="Z79-TG-q8L">
+                        <barButtonItem key="rightBarButtonItem" title="Help" id="6Ub-N2-uvi">
+                            <connections>
+                                <action selector="helpPressed:" destination="OeS-lq-COv" id="hlf-d1-qJF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="contactsTableView" destination="ESW-KU-eEA" id="bBK-cl-gtE"/>
                         <segue destination="DFE-iM-jyR" kind="presentation" identifier="LoginSegue" id="EvE-Ab-Hit"/>
