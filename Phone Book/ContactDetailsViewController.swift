@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import CoreLocation
+import MapKit
 
 class ContactDetailsViewController : UIViewController {
     
@@ -15,7 +17,7 @@ class ContactDetailsViewController : UIViewController {
     @IBOutlet weak var jobTitleLabel: UILabel!
     @IBOutlet weak var departmentLabel: UILabel!
     @IBOutlet weak var addressLabel1: UILabel!
-    @IBOutlet weak var addressLabel2: UILabel!
+    @IBOutlet weak var addressLabel2: UILabel! // TODO: Remove and add to address 1 with new-line break
     @IBOutlet weak var primaryPhoneLabel: UILabel!
     @IBOutlet weak var cellPhoneLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
@@ -49,15 +51,25 @@ private extension ContactDetailsViewController {
     
     func setupTapGestureRecognizers() {
         let tap1 = UITapGestureRecognizer(target: self, action: #selector(self.makePhoneCallable))
+        // Office Phone Tap
         tap1.delegate = self
         tap1.numberOfTapsRequired = 1
         primaryPhoneLabel.isUserInteractionEnabled = true
         primaryPhoneLabel.addGestureRecognizer(tap1)
+        
+        // Cell Phone Tap
         let tap2 = UITapGestureRecognizer(target: self, action: #selector(self.makeCellCallable))
         tap2.delegate = self
         tap2.numberOfTapsRequired = 1
         cellPhoneLabel.isUserInteractionEnabled = true
         cellPhoneLabel.addGestureRecognizer(tap2)
+        
+        // Work Address Tap
+        let tap3 = UITapGestureRecognizer(target: self, action: #selector(self.showInMaps))
+        tap3.delegate = self
+        tap3.numberOfTapsRequired = 1
+        addressLabel1.isUserInteractionEnabled = true
+        addressLabel1.addGestureRecognizer(tap3)
     }
     
     @objc func makePhoneCallable() {
@@ -77,6 +89,24 @@ private extension ContactDetailsViewController {
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
+        }
+    }
+    
+    @objc func showInMaps() {
+        guard let address1 = contact?.primaryAddressLine1, let address2 = contact?.primaryAddressLine2 else { return }
+        let geocoder = CLGeocoder()
+        let addStr = address1 + " " + address2
+        let regionDistance: CLLocationDistance = 1000
+        geocoder.geocodeAddressString(addStr) { (placemarksOptional, error) -> Void in
+            guard
+                let placemarks = placemarksOptional,
+                let placemark = placemarks.first,
+                let location = placemark.location else { return }
+            
+            let regionSpan = MKCoordinateRegionMakeWithDistance(location.coordinate, regionDistance, regionDistance)
+            let options = [MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center), MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)]
+            let mapItem = MKMapItem(placemark: MKPlacemark(placemark: placemark))
+            mapItem.openInMaps(launchOptions: options)
         }
     }
 }
