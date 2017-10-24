@@ -32,6 +32,11 @@ class ContactDetailsViewController : UIViewController {
         self.decorateView(with: _contact)
         self.setupTapGestureRecognizers()
     }
+    
+    @IBAction func addFavoritesPressed(_ sender: Any) {
+        print("Pressed Add to Favorites")
+    }
+    
 }
 
 extension ContactDetailsViewController : UIGestureRecognizerDelegate { }

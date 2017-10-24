@@ -23,6 +23,8 @@ class ContactsListViewController : UIViewController {
     var contactsList = Array<Contact>()
     var searchController: UISearchController!
     let reuseIdentifier = "ContactCell"
+    let helpText = "Using 'Tom Smith' as an example:\nIn the SearchBar, to search by first name then last name, type 'Tom Smith'\nTo search by last name then first name, type 'Smith, Tom.'\nYou can also search with partial spelling like 'T Smith' or 'Sm, T'."
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,13 +45,27 @@ class ContactsListViewController : UIViewController {
                 let vc = segue.destination as! ContactDetailsViewController
                 vc.contact = contact
             case .login:
-                break
+                let navVC = segue.destination as! UINavigationController
+                navVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         }
+    }
+    
+    override func setup() {
+        super.setup()
+        self.searchController = UISearchController(searchResultsController: nil)
+        self.searchController.searchResultsUpdater = self
+        self.searchController.searchBar.delegate = self
+        self.searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        self.contactsTableView.delegate = self
+        self.contactsTableView.dataSource = self
+        self.contactsTableView.tableHeaderView = self.searchController.searchBar
+        self.contactsTableView.tableFooterView = UIView()
     }
     
     // IBActions
     @IBAction func helpPressed(_ sender: Any) {
-        let alertCtrl = UIAlertController(title: "Search Help", message: "Using 'Tom Smith' as an example:\nIn the SearchBar, to search by first name then last name, type 'Tom Smith'\nTo search by last name then first name, type 'Smith, Tom.'\nYou can also search with partial spelling like 'T Smith' or 'Sm, T'.", preferredStyle: .alert)
+        let alertCtrl = UIAlertController(title: "Search Help", message: self.helpText, preferredStyle: .alert)
         alertCtrl.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alertCtrl, animated: true, completion: nil)
     }
@@ -125,18 +141,6 @@ extension ContactsListViewController : UISearchResultsUpdating {
 }
 
 private extension ContactsListViewController {
-    
-    func setup() {
-        self.searchController = UISearchController(searchResultsController: nil)
-        self.searchController.searchResultsUpdater = self
-        self.searchController.searchBar.delegate = self
-        self.searchController.dimsBackgroundDuringPresentation = false
-        definesPresentationContext = true
-        self.contactsTableView.delegate = self
-        self.contactsTableView.dataSource = self
-        self.contactsTableView.tableHeaderView = self.searchController.searchBar
-        self.contactsTableView.tableFooterView = UIView()
-    }
     
     func checkAuthenticationForPresentation() {
         if !AuthenticationService.isAuthenticated {
