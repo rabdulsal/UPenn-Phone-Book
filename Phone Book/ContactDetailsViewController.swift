@@ -8,8 +8,8 @@
 
 import Foundation
 import UIKit
-import CoreLocation
 import MapKit
+import SVProgressHUD
 
 class ContactDetailsViewController : UIViewController {
     
@@ -23,6 +23,7 @@ class ContactDetailsViewController : UIViewController {
     @IBOutlet weak var emailLabel: UILabel!
     
     var contact: Contact?
+    let messagingService = MessagingService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,7 +81,8 @@ private extension ContactDetailsViewController {
     
     @objc func makeCellCallable() {
         if let cell = self.contact?.cellphone, cell.isEmpty == false {
-            self.callNumber(phoneNumber: cell)
+//            self.callNumber(phoneNumber: cell)
+            self.textNumber(phoneNumber: cell)
         }
     }
     
@@ -89,6 +91,16 @@ private extension ContactDetailsViewController {
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
+        }
+    }
+    
+    @objc func textNumber(phoneNumber: String) {
+        let recipients = [phoneNumber]
+        if messagingService.canSendText {
+            let messageComposeVC = messagingService.configuredMessageComposeViewController(textMessageRecipients: recipients)
+            present(messageComposeVC, animated: true, completion: nil)
+        } else {
+            SVProgressHUD.showError(withStatus: "Cannot send text message from this device.")
         }
     }
     

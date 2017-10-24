@@ -13,6 +13,7 @@
 		3A2BDF931F991E0A0018E13A /* UIColor+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2BDF921F991E0A0018E13A /* UIColor+UPenn.swift */; };
 		3A2BDF951F9920A60018E13A /* UIButton+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2BDF941F9920A60018E13A /* UIButton+UPenn.swift */; };
 		3A2BDF971F993AE00018E13A /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2BDF961F993AE00018E13A /* LoginTextField.swift */; };
+		3A317CC71F9F7DDE00786C95 /* MessagingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A317CC61F9F7DDE00786C95 /* MessagingService.swift */; };
 		4C5AE2161F918D2500E271FD /* ContactsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2151F918D2400E271FD /* ContactsListViewController.swift */; };
 		4C5AE2181F918D4200E271FD /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2171F918D4200E271FD /* ContactDetailsViewController.swift */; };
 		4C5AE21A1F91CE7C00E271FD /* ContactViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2191F91CE7C00E271FD /* ContactViewCell.swift */; };
@@ -60,6 +61,7 @@
 		3A2BDF921F991E0A0018E13A /* UIColor+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+UPenn.swift"; sourceTree = "<group>"; };
 		3A2BDF941F9920A60018E13A /* UIButton+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+UPenn.swift"; sourceTree = "<group>"; };
 		3A2BDF961F993AE00018E13A /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
+		3A317CC61F9F7DDE00786C95 /* MessagingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingService.swift; sourceTree = "<group>"; };
 		494755E5935655C3132B0EAB /* Pods_Phone_BookTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Phone_BookTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C5AE2151F918D2400E271FD /* ContactsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListViewController.swift; sourceTree = "<group>"; };
 		4C5AE2171F918D4200E271FD /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				4C5AE21F1F945B9400E271FD /* LoginService.swift */,
 				4C5AE2211F9502AC00E271FD /* ContactsSearchService.swift */,
 				3A26C1DE1F97CDAD005C88C9 /* ValidationService.swift */,
+				3A317CC61F9F7DDE00786C95 /* MessagingService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A317CC71F9F7DDE00786C95 /* MessagingService.swift in Sources */,
 				4C5AE2221F9502AC00E271FD /* ContactsSearchService.swift in Sources */,
 				3A2BDF931F991E0A0018E13A /* UIColor+UPenn.swift in Sources */,
 				4C5AE21C1F944C8500E271FD /* AutheticationService.swift in Sources */,
