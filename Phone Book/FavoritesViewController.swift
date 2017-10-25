@@ -14,7 +14,7 @@ class FavoritesViewController : UIViewController {
     
     enum Identifiers : String {
         case details = "ContactDetailsSegue"
-        case cellIdentifier = "ContactCell"
+        case cellIdentifier = "FavoritesCell"
     }
     
     @IBOutlet weak var favoritesTableView: UITableView!

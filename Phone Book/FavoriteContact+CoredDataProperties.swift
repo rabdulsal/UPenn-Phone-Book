@@ -10,11 +10,11 @@ import Foundation
 import CoreData
 
 //extension FavoritesContact {
-//
+//    
 //    @nonobjc public class func fetchRequest() -> NSFetchRequest<FavoritesContact> {
-//        return NSFetchRequest<FavoritesContact>(entityName: "FavoriteContact")
+//        return NSFetchRequest<FavoritesContact>(entityName: "FavoritesContact")
 //    }
-//
+//    
 //    @NSManaged public var fullName: String?
 //    @NSManaged public var firstName: String?
 //    @NSManaged public var lastName: String?
