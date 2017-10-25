@@ -1,15 +1,15 @@
 //
-//  ContactViewCell.swift
+//  FavoritesContactViewCell.swift
 //  Phone Book
 //
-//  Created by Rashad Abdul-Salaam on 10/14/17.
+//  Created by Rashad Abdul-Salam on 10/25/17.
 //  Copyright © 2017 UPenn. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class ContactViewCell : UITableViewCell {
+class FavoritesContactViewCell : UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var jobTitleLabel: UILabel!
@@ -20,9 +20,9 @@ class ContactViewCell : UITableViewCell {
         self.selectionStyle = .none
     }
     
-    func configure(with contact: Contact) {
-        self.nameLabel.text = contact.fullName
-        self.jobTitleLabel.text = contact.jobTitle
-        self.departmentLabel.text = contact.department
+    func configure(with favContact: FavoritesContact) {
+        self.nameLabel.text = favContact.fullName
+        self.jobTitleLabel.text = favContact.jobTitle
+        self.departmentLabel.text = favContact.department
     }
 }

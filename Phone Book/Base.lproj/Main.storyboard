@@ -407,7 +407,6 @@
         <!--Navigation Controller-->
         <scene sceneID="1Gu-GO-gI4">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UxM-gO-IAl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ibE-jm-7q2" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="search" id="lLI-iz-11l"/>
                     <toolbarItems/>
@@ -420,6 +419,7 @@
                         <segue destination="OeS-lq-COv" kind="relationship" relationship="rootViewController" id="5wa-r5-BCo"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UxM-gO-IAl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="814" y="-465"/>
         </scene>
@@ -494,7 +494,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Favorites" id="XKj-8y-WvQ"/>
                     <connections>
-                        <outlet property="favortiesTableView" destination="y8Q-7a-jEI" id="0RT-2m-CeG"/>
+                        <outlet property="favoritesTableView" destination="y8Q-7a-jEI" id="cQu-cW-gzX"/>
                         <segue destination="Ma3-x1-OmR" kind="show" identifier="ContactDetailsSegue" id="LMO-z9-AcH"/>
                     </connections>
                 </viewController>
@@ -526,6 +526,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="I3b-nD-Ick" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GJs-B3-zdb">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>

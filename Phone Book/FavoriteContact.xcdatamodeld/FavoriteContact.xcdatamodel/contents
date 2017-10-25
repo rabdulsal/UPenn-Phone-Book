@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+    <entity name="FavoritesContact" representedClassName="FavoritesContact" syncable="YES" codeGenerationType="class">
+        <attribute name="cellEmail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cellphone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="department" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayCellPhone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayPagerNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayPrimaryFax" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayPrimaryTelephone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="emailAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fullName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isDisabled" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="jobTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="middleName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pagerEmail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pagerNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phonebookID" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="primaryAddressLine1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="primaryAddressLine2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="primaryFax" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="primaryTelephone" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="FavoritesContact" positionX="-63" positionY="-18" width="128" height="360"/>
+    </elements>
 </model>

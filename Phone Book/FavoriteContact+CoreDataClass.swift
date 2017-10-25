@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 
-public class FavoritesContact : NSManagedObject {
-    
-}
+//public class FavoritesContact : NSManagedObject {
+//    
+//}
+

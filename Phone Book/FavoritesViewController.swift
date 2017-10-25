@@ -17,13 +17,19 @@ class FavoritesViewController : UIViewController {
         case cellIdentifier = "ContactCell"
     }
     
-    @IBOutlet weak var favortiesTableView: UITableView!
+    @IBOutlet weak var favoritesTableView: UITableView!
     
-    var favoriteContacts = Array<Contact>()
+    var favoriteContacts = Array<FavoritesContact>()
     var searchService = ContactsSearchService()
     
     override func viewDidLoad() {
         self.setup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.getData()
+        self.favoritesTableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -40,8 +46,8 @@ class FavoritesViewController : UIViewController {
     
     override func setup() {
         super.setup()
-        self.favortiesTableView.delegate = self
-        self.favortiesTableView.dataSource = self
+        self.favoritesTableView.delegate = self
+        self.favoritesTableView.dataSource = self
     }
 }
 
@@ -67,7 +73,7 @@ extension FavoritesViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.cellIdentifier.rawValue) as! ContactViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.cellIdentifier.rawValue) as! FavoritesContactViewCell
         let contact = self.favoriteContacts[indexPath.row]
         cell.configure(with: contact)
         
@@ -77,5 +83,15 @@ extension FavoritesViewController : UITableViewDataSource {
 
 private extension FavoritesViewController {
     
-    
+    func getData() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        do {
+            self.favoriteContacts = try managedContext.fetch(FavoritesContact.fetchRequest())
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
 }
