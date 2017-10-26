@@ -301,6 +301,27 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OoV-me-aaj">
+                                <rect key="frame" x="204" y="407" width="30" height="30"/>
+                                <state key="normal" title="Call"/>
+                                <connections>
+                                    <action selector="pressedCallCellButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="9nc-f7-vx0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DJr-o8-JI9">
+                                <rect key="frame" x="242" y="407" width="30" height="30"/>
+                                <state key="normal" title="Text"/>
+                                <connections>
+                                    <action selector="pressedTextButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="ekp-5j-k9a"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufP-kB-dnm">
+                                <rect key="frame" x="236" y="356" width="30" height="30"/>
+                                <state key="normal" title="Call"/>
+                                <connections>
+                                    <action selector="pressedCallPhoneButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="GJ2-Up-jom"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -333,6 +354,7 @@
                             <constraint firstItem="YB1-v6-TOC" firstAttribute="top" secondItem="CK9-aX-jql" secondAttribute="top" id="IzZ-0c-mcI"/>
                             <constraint firstItem="DXA-hJ-k3S" firstAttribute="top" secondItem="0T7-Np-wUv" secondAttribute="top" id="JNY-rF-lCY"/>
                             <constraint firstItem="hCc-xi-9eb" firstAttribute="leading" secondItem="eYc-q2-sIZ" secondAttribute="leading" id="Jea-og-k09"/>
+                            <constraint firstItem="ufP-kB-dnm" firstAttribute="centerY" secondItem="eYc-q2-sIZ" secondAttribute="centerY" id="JrA-8R-OlB"/>
                             <constraint firstItem="LbE-Nv-zhe" firstAttribute="leading" secondItem="CK9-aX-jql" secondAttribute="trailing" constant="8" id="Jrp-HQ-YhZ"/>
                             <constraint firstItem="7u2-Jn-AmK" firstAttribute="leading" secondItem="yWx-Fe-raG" secondAttribute="leading" id="KJ1-aa-XBg"/>
                             <constraint firstItem="CK9-aX-jql" firstAttribute="leading" secondItem="iLm-6w-hUN" secondAttribute="leading" id="KVN-cf-VbE"/>
@@ -348,6 +370,7 @@
                             <constraint firstItem="yWx-Fe-raG" firstAttribute="leading" secondItem="DXA-hJ-k3S" secondAttribute="leading" id="R6S-73-OdO"/>
                             <constraint firstItem="YB1-v6-TOC" firstAttribute="leading" secondItem="LbE-Nv-zhe" secondAttribute="leading" id="RQB-tT-n03"/>
                             <constraint firstItem="7u2-Jn-AmK" firstAttribute="leading" secondItem="YB1-v6-TOC" secondAttribute="leading" id="RUj-Lf-HUB"/>
+                            <constraint firstItem="ufP-kB-dnm" firstAttribute="leading" secondItem="eYc-q2-sIZ" secondAttribute="trailing" constant="8" id="SRg-NR-gkn"/>
                             <constraint firstItem="yWx-Fe-raG" firstAttribute="leading" secondItem="FNL-VB-ELm" secondAttribute="trailing" constant="23" id="TA0-RT-pzz"/>
                             <constraint firstItem="DXA-hJ-k3S" firstAttribute="leading" secondItem="7u2-Jn-AmK" secondAttribute="leading" id="TFY-vl-cTD"/>
                             <constraint firstItem="cPa-yH-L97" firstAttribute="leading" secondItem="FNL-VB-ELm" secondAttribute="leading" id="VgQ-Ql-Xdw"/>
@@ -377,11 +400,15 @@
                             <constraint firstItem="rfw-ng-GBe" firstAttribute="top" secondItem="hCc-xi-9eb" secondAttribute="bottom" constant="37" id="nty-Xc-pQW"/>
                             <constraint firstItem="hCc-xi-9eb" firstAttribute="top" secondItem="DXA-hJ-k3S" secondAttribute="bottom" constant="29" id="oQp-gm-OLp"/>
                             <constraint firstItem="cPa-yH-L97" firstAttribute="top" secondItem="FNL-VB-ELm" secondAttribute="bottom" constant="30" id="oam-Om-a9I"/>
+                            <constraint firstItem="OoV-me-aaj" firstAttribute="leading" secondItem="yWx-Fe-raG" secondAttribute="trailing" constant="8" id="obb-dP-VaD"/>
                             <constraint firstItem="LbE-Nv-zhe" firstAttribute="leading" secondItem="eYc-q2-sIZ" secondAttribute="leading" id="pFE-Zn-ITO"/>
                             <constraint firstItem="JYT-Uf-vlK" firstAttribute="top" secondItem="YB1-v6-TOC" secondAttribute="bottom" constant="28" id="pZI-3a-XJA"/>
                             <constraint firstItem="iLm-6w-hUN" firstAttribute="top" secondItem="aEH-uk-Us3" secondAttribute="bottom" constant="38" id="qHf-Ms-9d9"/>
+                            <constraint firstItem="OoV-me-aaj" firstAttribute="centerY" secondItem="yWx-Fe-raG" secondAttribute="centerY" id="r3d-Db-Gxg"/>
                             <constraint firstItem="LbE-Nv-zhe" firstAttribute="baseline" secondItem="iLm-6w-hUN" secondAttribute="baseline" id="s5Q-al-5as"/>
                             <constraint firstItem="eYc-q2-sIZ" firstAttribute="top" secondItem="rfw-ng-GBe" secondAttribute="top" id="sQH-gv-RfD"/>
+                            <constraint firstItem="DJr-o8-JI9" firstAttribute="leading" secondItem="OoV-me-aaj" secondAttribute="trailing" constant="8" id="tx2-fT-dWq"/>
+                            <constraint firstItem="DJr-o8-JI9" firstAttribute="centerY" secondItem="OoV-me-aaj" secondAttribute="centerY" id="v9g-e8-gZQ"/>
                             <constraint firstItem="YB1-v6-TOC" firstAttribute="leading" secondItem="eYc-q2-sIZ" secondAttribute="leading" id="vZG-C9-Zhb"/>
                             <constraint firstItem="DXA-hJ-k3S" firstAttribute="bottom" secondItem="0T7-Np-wUv" secondAttribute="bottom" id="vzh-NY-neP"/>
                             <constraint firstItem="CK9-aX-jql" firstAttribute="top" secondItem="iLm-6w-hUN" secondAttribute="bottom" constant="31" id="wgc-1P-eSS"/>
@@ -402,6 +429,8 @@
                     <connections>
                         <outlet property="addressLabel1" destination="DXA-hJ-k3S" id="3BX-c6-0Kg"/>
                         <outlet property="addressLabel2" destination="hCc-xi-9eb" id="EQ5-TX-O7K"/>
+                        <outlet property="callCellButton" destination="OoV-me-aaj" id="uDp-7c-JJ7"/>
+                        <outlet property="callPhoneButton" destination="ufP-kB-dnm" id="jX2-Nu-Dbc"/>
                         <outlet property="cellPhoneLabel" destination="yWx-Fe-raG" id="6DL-Dh-OD9"/>
                         <outlet property="departmentLabel" destination="YB1-v6-TOC" id="y0u-QW-x64"/>
                         <outlet property="emailLabel" destination="wvu-IY-Ywi" id="ez2-CY-KeJ"/>
@@ -409,6 +438,7 @@
                         <outlet property="jobTitleLabel" destination="7u2-Jn-AmK" id="OXx-8D-wqg"/>
                         <outlet property="nameLabel" destination="LbE-Nv-zhe" id="cDE-Jj-1tv"/>
                         <outlet property="primaryPhoneLabel" destination="eYc-q2-sIZ" id="KcK-aM-all"/>
+                        <outlet property="textButton" destination="DJr-o8-JI9" id="VY6-Cz-BTz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9oC-Ff-Iu2" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -20,6 +20,7 @@
 		3A317CD71F9FD32700786C95 /* FavoriteContact+CoredDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A317CD61F9FD32700786C95 /* FavoriteContact+CoredDataProperties.swift */; };
 		3A317CD91F9FD35F00786C95 /* FavoriteContact+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A317CD81F9FD35F00786C95 /* FavoriteContact+CoreDataClass.swift */; };
 		3A317CDB1FA0C91F00786C95 /* FavoritesContactViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A317CDA1FA0C91F00786C95 /* FavoritesContactViewCell.swift */; };
+		3A317CDD1FA2676800786C95 /* EmailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A317CDC1FA2676800786C95 /* EmailService.swift */; };
 		4C5AE2161F918D2500E271FD /* ContactsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2151F918D2400E271FD /* ContactsListViewController.swift */; };
 		4C5AE2181F918D4200E271FD /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2171F918D4200E271FD /* ContactDetailsViewController.swift */; };
 		4C5AE21A1F91CE7C00E271FD /* ContactViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2191F91CE7C00E271FD /* ContactViewCell.swift */; };
@@ -74,6 +75,7 @@
 		3A317CD61F9FD32700786C95 /* FavoriteContact+CoredDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteContact+CoredDataProperties.swift"; sourceTree = "<group>"; };
 		3A317CD81F9FD35F00786C95 /* FavoriteContact+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteContact+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3A317CDA1FA0C91F00786C95 /* FavoritesContactViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesContactViewCell.swift; sourceTree = "<group>"; };
+		3A317CDC1FA2676800786C95 /* EmailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailService.swift; sourceTree = "<group>"; };
 		494755E5935655C3132B0EAB /* Pods_Phone_BookTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Phone_BookTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C5AE2151F918D2400E271FD /* ContactsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListViewController.swift; sourceTree = "<group>"; };
 		4C5AE2171F918D4200E271FD /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				4C5AE2211F9502AC00E271FD /* ContactsSearchService.swift */,
 				3A26C1DE1F97CDAD005C88C9 /* ValidationService.swift */,
 				3A317CC61F9F7DDE00786C95 /* MessagingService.swift */,
+				3A317CDC1FA2676800786C95 /* EmailService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -597,6 +600,7 @@
 				3A317CD51F9FD2E800786C95 /* FavoriteContact.xcdatamodeld in Sources */,
 				3A2BDF951F9920A60018E13A /* UIButton+UPenn.swift in Sources */,
 				4C5AE2201F945B9400E271FD /* LoginService.swift in Sources */,
+				3A317CDD1FA2676800786C95 /* EmailService.swift in Sources */,
 				4C5AE21E1F944CC200E271FD /* NetworkRequestService.swift in Sources */,
 				4C5AE21A1F91CE7C00E271FD /* ContactViewCell.swift in Sources */,
 				3A317CD91F9FD35F00786C95 /* FavoriteContact+CoreDataClass.swift in Sources */,
