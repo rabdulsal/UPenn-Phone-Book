@@ -54,9 +54,11 @@ class ContactsSearchService {
                 }
                 
                 if statusCode == 200 {
-                    let dict = response.result.value as! Dictionary<String,Any>
-                    let contact = Contact(userDict: dict)
-                    completion(contact,nil)
+                    if let dict = response.result.value as? Dictionary<String,Any> {
+                        let contact = Contact(userDict: dict)
+                        completion(contact,nil)
+                        return
+                    }
                 }
             }
         }

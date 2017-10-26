@@ -1,5 +1,5 @@
 //
-//  User.swift
+//  Contact.swift
 //  Phone Book
 //
 //  Created by Admin on 10/13/17.
@@ -31,6 +31,7 @@ class Contact {
     var displayCellPhone: String //
     var cellEmail: String
     var isDisabled: Int
+    var isFavorited: Bool = false
     
     init(userDict: Dictionary<String,Any>)
     {
@@ -55,5 +56,10 @@ class Contact {
         self.displayCellPhone = userDict["displayCellPhone"] as? String ?? ""
         self.cellEmail = userDict["cellEmail"] as? String ?? ""
         self.isDisabled = userDict["isDisabled"] as? Int ?? -1
+        self.updateFavoritesStatus()
+    }
+    
+    func updateFavoritesStatus() {
+        self.isFavorited = FavoritesService.updateFavoritesStatus(self)
     }
 }

@@ -35,6 +35,18 @@ class LoginViewController: UIViewController {
         self.validationService.resetTextFields()
     }
     
+    override func setup() {
+        super.setup()
+        self.loginService = LoginService(loginDelegate: self)
+        
+        // Set up textFields
+        self.emailField.delegate = self
+        self.passwordField.delegate = self
+        self.passwordField.returnKeyType = .done
+        self.passwordField.isSecureTextEntry = true
+        self.validationService = ValidationService(textFields: [ self.emailField, self.passwordField ])
+    }
+    
     @IBAction func pressedClose(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -79,16 +91,6 @@ extension LoginViewController : LoginServiceDelegate {
 // MARK: - Private
 
 private extension LoginViewController {
-    func setup() {
-        self.loginService = LoginService(loginDelegate: self)
-        
-        // Set up textFields
-        self.emailField.delegate = self
-        self.passwordField.delegate = self
-        self.passwordField.returnKeyType = .done
-        self.passwordField.isSecureTextEntry = true
-        self.validationService = ValidationService(textFields: [ self.emailField, self.passwordField ])
-    }
     
     func verifyFields() {
         self.loginButton.isEnabled = validationService.loginFieldsAreValid
