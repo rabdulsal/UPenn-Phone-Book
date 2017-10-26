@@ -393,7 +393,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Contact" id="sUP-9Y-qOD">
-                        <barButtonItem key="rightBarButtonItem" systemItem="organize" id="LKE-lD-LoD">
+                        <barButtonItem key="rightBarButtonItem" title="Favorite" id="LKE-lD-LoD">
                             <connections>
                                 <action selector="addFavoritesPressed:" destination="Ma3-x1-OmR" id="ipv-Jm-05Q"/>
                             </connections>
@@ -405,6 +405,7 @@
                         <outlet property="cellPhoneLabel" destination="yWx-Fe-raG" id="6DL-Dh-OD9"/>
                         <outlet property="departmentLabel" destination="YB1-v6-TOC" id="y0u-QW-x64"/>
                         <outlet property="emailLabel" destination="wvu-IY-Ywi" id="ez2-CY-KeJ"/>
+                        <outlet property="favoriteToggleButton" destination="LKE-lD-LoD" id="IRv-kL-AlQ"/>
                         <outlet property="jobTitleLabel" destination="7u2-Jn-AmK" id="OXx-8D-wqg"/>
                         <outlet property="nameLabel" destination="LbE-Nv-zhe" id="cDE-Jj-1tv"/>
                         <outlet property="primaryPhoneLabel" destination="eYc-q2-sIZ" id="KcK-aM-all"/>

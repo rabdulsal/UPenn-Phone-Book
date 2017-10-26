@@ -36,6 +36,11 @@ class ContactsListViewController : UIViewController {
         self.checkAuthenticationForPresentation()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // TODO: If User toggles Favorites tab, should wipe out VC, so when they return everything is blank. Handles scenario where updates are made in Favorites tab but not reflected on Search results
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let segueID = SegueIDs.init(rawValue: segue.identifier!) else { return }
         

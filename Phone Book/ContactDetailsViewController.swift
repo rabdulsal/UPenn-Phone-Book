@@ -21,22 +21,34 @@ class ContactDetailsViewController : UIViewController {
     @IBOutlet weak var primaryPhoneLabel: UILabel!
     @IBOutlet weak var cellPhoneLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var favoriteToggleButton: UIBarButtonItem!
     
-    var contact: Contact?
+    var contact: Contact! {
+        didSet {
+            self.toggleFavoritesButton()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let _contact = self.contact else { return }
-        
-        self.decorateView(with: _contact)
+        self.decorateView(with: self.contact)
         self.setupTapGestureRecognizers()
     }
     
     @IBAction func addFavoritesPressed(_ sender: Any) {
-        print("Pressed Add to Favorites")
+        if self.contact.isFavorited {
+            FavoritesService.removeFromFavorites(self.contact, completion: { (success) in
+                self.contact.isFavorited = false
+                self.toggleFavoritesButton()
+            })
+        } else {
+            FavoritesService.addToFavorites(self.contact, completion: { (favContact) in
+                self.contact.isFavorited = true
+                self.toggleFavoritesButton()
+            })
+        }
     }
-    
 }
 
 extension ContactDetailsViewController : UIGestureRecognizerDelegate { }
@@ -113,5 +125,9 @@ private extension ContactDetailsViewController {
             let mapItem = MKMapItem(placemark: MKPlacemark(placemark: placemark))
             mapItem.openInMaps(launchOptions: options)
         }
+    }
+    
+    func toggleFavoritesButton() {
+        self.favoriteToggleButton.title = self.contact.isFavorited ? "UnFavorite" : "Favorite"
     }
 }
