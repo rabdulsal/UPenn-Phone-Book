@@ -19,7 +19,7 @@ class FavoritesViewController : UIViewController {
     
     @IBOutlet weak var favoritesTableView: UITableView!
     
-    var favoriteContacts = Array<FavoritesContact>()
+    var favoriteContacts: Array<FavoritesContact> { return FavoritesService.allFavoritedContacts }
     var searchService = ContactsSearchService()
     
     override func viewDidLoad() {
@@ -28,7 +28,6 @@ class FavoritesViewController : UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.getData()
         self.favoritesTableView.reloadData()
     }
     
@@ -54,7 +53,7 @@ class FavoritesViewController : UIViewController {
 extension FavoritesViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let contact = self.favoriteContacts[indexPath.row]
-        let profileID = String(describing: contact.phonebookID)
+        let profileID = String(describing: Int(contact.phonebookID))
          self.searchService.makeContactSearchRequest(with: profileID) { (contact, error) in
             
             if let e = error {
@@ -83,15 +82,4 @@ extension FavoritesViewController : UITableViewDataSource {
 
 private extension FavoritesViewController {
     
-    func getData() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        do {
-            self.favoriteContacts = try managedContext.fetch(FavoritesContact.fetchRequest())
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
-    }
 }

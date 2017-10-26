@@ -24,12 +24,20 @@ class ContactViewCell : UITableViewCell {
     var favoritesDelegate: FavoritesDelegate?
     
     @IBAction func pressedFavoritesButton(_ sender: UIButton) {
-        FavoritesService.saveContact(with: self.contact, completion: { (favContact: FavoritesContact) -> Void in
-            // TODO: Update isFavorited on self.contact and fire protocol
-                self.toggleFavoritesButton(isFavorited: true)
+        if self.contact.isFavorited {
+            FavoritesService.removeFromFavorites(self.contact, completion: { (success) in
+                self.contact.isFavorited = false
+                self.toggleFavoritesButton(isFavorited: self.contact.isFavorited)
+                // TODO: Fire protocol?
             })
+        } else {
+            FavoritesService.addToFavorites(self.contact, completion: { (favContact: FavoritesContact) -> Void in
+                self.contact.isFavorited = true
+                    self.toggleFavoritesButton(isFavorited: self.contact.isFavorited)
+                // TODO: Fire protocol
+            })
+        }
     }
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,7 +49,7 @@ class ContactViewCell : UITableViewCell {
         self.nameLabel.text = contact.fullName
         self.jobTitleLabel.text = contact.jobTitle
         self.departmentLabel.text = contact.department
-        self.toggleFavoritesButton(isFavorited: false)
+        self.toggleFavoritesButton(isFavorited: self.contact.isFavorited)
     }
 }
 
@@ -49,8 +57,10 @@ private extension ContactViewCell {
     
     func toggleFavoritesButton(isFavorited: Bool) {
         if isFavorited {
+            self.favoritesButton.setTitle("UnFavorite", for: .normal)
             self.favoritesButton.setTitleColor(UIColor.upennCTAGreen, for: .normal)
         } else {
+            self.favoritesButton.setTitle("Favorite", for: .normal)
             self.favoritesButton.setTitleColor(UIColor.upennMediumBlue, for: .normal)
         }
     }

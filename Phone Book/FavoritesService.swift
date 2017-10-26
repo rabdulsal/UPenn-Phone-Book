@@ -16,13 +16,16 @@ class FavoritesService {
         return UIApplication.shared.delegate as? AppDelegate
     }
     
-    static func saveContact(with contact: Contact, completion: ((_ contact: FavoritesContact)->Void)?=nil) {
+    static var allFavoritedContacts: Array<FavoritesContact> {
+        return self.getAllFavorites()
+    }
+    
+    static func addToFavorites(_ contact: Contact, completion: ((_ contact: FavoritesContact)->Void)?=nil) {
         guard let appDelegate = FavoritesService.appDelegate else { return }
         
         let managedContext = appDelegate.persistentContainer.viewContext
         
         let favContact = FavoritesContact(context: managedContext)
-        // TODO: Create new save func from here
         favContact.firstName = contact.firstName
         favContact.lastName = contact.lastName
         favContact.fullName = contact.fullName
@@ -49,7 +52,53 @@ class FavoritesService {
         }
     }
     
-    static func updateContact(with contact: Contact, completion: ((_ favContact: FavoritesContact)->Void)?=nil) {
+    static func removeFromFavorites(_ contact: Contact, completion: ((_ success: Bool)->Void)?=nil) {
+        guard let appDelegate = FavoritesService.appDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        if let favContact = self.getFavoriteContact(contact) {
+            managedContext.delete(favContact)
+            appDelegate.saveContext()
+            if let _completion = completion {
+                _completion(true)
+            }
+        }
+    }
+    
+    static func getAllFavorites() -> Array<FavoritesContact> {
+        guard let appDelegate = FavoritesService.appDelegate else { return [] }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        do {
+            return try managedContext.fetch(FavoritesContact.fetchRequest())
+        } catch let error as NSError {
+            // TODO: Add Error handling to completion
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        return []
+    }
+    
+    static func getFavoriteContact(_ contact: Contact) -> FavoritesContact? {
+        
+        guard let appDelegate = FavoritesService.appDelegate else { return nil }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        var favorites = [FavoritesContact]()
+        
+        do {
+            favorites = try managedContext.fetch(FavoritesContact.fetchRequest())
+            let faveContact = favorites.filter { $0.fullName == contact.fullName }.first
+            if let fave = faveContact {
+                return fave
+            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        return nil
+    }
+    
+    static func updateFavoritesStatus(_ contact: Contact) -> Bool {
+        return self.allFavoritedContacts.filter { $0.fullName == contact.fullName }.first != nil
         
     }
 }
