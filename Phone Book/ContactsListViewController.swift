@@ -25,7 +25,6 @@ class ContactsListViewController : UIViewController {
     let reuseIdentifier = "ContactCell"
     let helpText = "Using 'Tom Smith' as an example:\nIn the SearchBar, to search by first name then last name, type 'Tom Smith'\nTo search by last name then first name, type 'Smith, Tom.'\nYou can also search with partial spelling like 'T Smith' or 'Sm, T'."
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setup()
@@ -34,11 +33,6 @@ class ContactsListViewController : UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.checkAuthenticationForPresentation()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        // TODO: If User toggles Favorites tab, should wipe out VC, so when they return everything is blank. Handles scenario where updates are made in Favorites tab but not reflected on Search results
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -66,6 +60,7 @@ class ContactsListViewController : UIViewController {
         self.contactsTableView.dataSource = self
         self.contactsTableView.tableHeaderView = self.searchController.searchBar
         self.contactsTableView.tableFooterView = UIView()
+        self.tabBarController?.delegate = self
     }
     
     // IBActions
@@ -84,10 +79,8 @@ extension ContactsListViewController : UITableViewDelegate {
         let contact = self.contactsList[indexPath.row]
         let profileID = String(describing: contact.phonebookID)
         
-        // TODO: Make network request for contact profile using profileID
         self.searchService.makeContactSearchRequest(with: profileID) { (contact, error) in
 
-            // Push retrieved contact via segue
             if let e = error {
                 SVProgressHUD.showError(withStatus: e.localizedDescription)
             } else {
@@ -135,6 +128,20 @@ extension ContactsListViewController : UISearchBarDelegate {
             }
         }
     }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.reloadView()
+    }
+}
+
+// MARK: - UITabBarViewController
+
+extension ContactsListViewController : UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if viewController.childViewControllers.first! is FavoritesViewController {
+            self.reloadView()
+        }
+    }
 }
 
 // MARK: - UISearchResultsUpdating
@@ -151,5 +158,10 @@ private extension ContactsListViewController {
         if !AuthenticationService.isAuthenticated {
             self.performSegue(withIdentifier: SegueIDs.login.rawValue, sender: nil)
         }
+    }
+    
+    func reloadView() {
+        self.contactsList.removeAll()
+        self.contactsTableView.reloadData()
     }
 }
