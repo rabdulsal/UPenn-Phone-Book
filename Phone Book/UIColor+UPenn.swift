@@ -38,4 +38,8 @@ extension UIColor {
     static var upennCTALightBlue: UIColor {
         return UIColor(displayP3Red: 183.0/255.0, green: 210.0/255.0, blue: 238.0/255.0, alpha: 1.0)
     }
+    
+    static var upennBlack: UIColor {
+        return UIColor(displayP3Red: 51.0/255.0, green: 51.0/255.0, blue: 51.0/255.0, alpha: 1.0)
+    }
 }

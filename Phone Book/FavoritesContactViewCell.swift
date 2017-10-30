@@ -11,9 +11,9 @@ import UIKit
 
 class FavoritesContactViewCell : UITableViewCell {
     
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var nameLabel: ContactNameLabel!
     @IBOutlet weak var jobTitleLabel: UILabel!
-    @IBOutlet weak var departmentLabel: UILabel!
+    @IBOutlet weak var departmentLabel: ContactDepartmentLabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

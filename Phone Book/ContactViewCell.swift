@@ -15,9 +15,9 @@ protocol FavoritesDelegate {
 
 class ContactViewCell : UITableViewCell {
     
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var nameLabel: ContactNameLabel!
     @IBOutlet weak var jobTitleLabel: UILabel!
-    @IBOutlet weak var departmentLabel: UILabel!
+    @IBOutlet weak var departmentLabel: ContactDepartmentLabel!
     @IBOutlet weak var favoritesButton: UIButton!
     
     var contact: Contact!
@@ -42,6 +42,7 @@ class ContactViewCell : UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
+        self.setStyles()
     }
     
     func configure(with contact: Contact) {
@@ -63,5 +64,9 @@ private extension ContactViewCell {
             self.favoritesButton.setTitle("Favorite", for: .normal)
             self.favoritesButton.setTitleColor(UIColor.upennMediumBlue, for: .normal)
         }
+    }
+    
+    func setStyles() {
+        self.jobTitleLabel.textColor = UIColor.darkGray
     }
 }

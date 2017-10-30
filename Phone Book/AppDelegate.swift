@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UINavigationBar.appearance().barTintColor = UIColor.upennDarkBlue
         UINavigationBar.appearance().tintColor = UIColor.white
+        UILabel.appearance().font = UIFont.init(name: "Helvetica Neue", size: 15.0)
         
         return true
     }
