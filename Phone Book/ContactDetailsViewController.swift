@@ -79,17 +79,17 @@ extension ContactDetailsViewController : UIGestureRecognizerDelegate { }
 private extension ContactDetailsViewController {
     
     func decorateView(with contact: Contact) {
-        self.nameLabel.text         = contact.fullName
-        self.jobTitleLabel.text     = contact.jobTitle
-        self.departmentLabel.text   = contact.department
-        self.addressLabel1.text     = contact.primaryAddressLine1
-        self.addressLabel2.text     = contact.primaryAddressLine2
-        self.primaryPhoneLabel.text = contact.displayPrimaryTelephone
-        self.cellPhoneLabel.text    = contact.displayCellPhone
-        self.emailLabel.text        = contact.emailAddress
-        self.callCellButton.isHidden    = self.contact.cellphone.isEmpty
-        self.textButton.isHidden    = self.contact.cellphone.isEmpty
-        self.callPhoneButton.isHidden = contact.primaryTelephone.isEmpty
+        self.nameLabel.text             = contact.fullName
+        self.jobTitleLabel.text         = contact.jobTitle
+        self.departmentLabel.text       = contact.department
+        self.addressLabel1.text         = contact.primaryAddressLine1
+        self.addressLabel2.text         = contact.primaryAddressLine2
+        self.primaryPhoneLabel.text     = contact.displayPrimaryTelephone
+        self.cellPhoneLabel.text        = contact.displayCellPhone
+        self.emailLabel.text            = contact.emailAddress
+        self.callCellButton.isHidden    = self.contact.displayCellPhone.isEmpty
+        self.textButton.isHidden        = self.contact.displayCellPhone.isEmpty
+        self.callPhoneButton.isHidden   = contact.displayPrimaryTelephone.isEmpty
     }
     
     func setupTapGestureRecognizers() {

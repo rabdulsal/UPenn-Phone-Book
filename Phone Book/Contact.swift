@@ -59,6 +59,32 @@ class Contact {
         self.updateFavoritesStatus()
     }
     
+    init(favoriteContact: FavoritesContact) {
+        self.fullName = favoriteContact.fullName ?? ""
+        self.phonebookID = Int(favoriteContact.phonebookID)
+        self.department = favoriteContact.department ?? ""
+        self.jobTitle = favoriteContact.jobTitle ?? ""
+        self.firstName = favoriteContact.firstName ?? ""
+        self.lastName = favoriteContact.lastName ?? ""
+        self.middleName = favoriteContact.middleName ?? ""
+        self.pagerNumber = favoriteContact.pagerNumber ?? ""
+        self.displayPagerNumber = favoriteContact.displayPagerNumber ?? ""
+        self.pagerEmail = favoriteContact.pagerEmail ?? ""
+        self.emailAddress = favoriteContact.emailAddress ?? ""
+        self.primaryAddressLine1 = favoriteContact.primaryAddressLine1 ?? ""
+        self.primaryAddressLine2 = favoriteContact.primaryAddressLine2 ?? ""
+        self.primaryTelephone = favoriteContact.primaryTelephone ?? ""
+        self.displayPrimaryTelephone = favoriteContact.displayPrimaryTelephone ?? ""
+        self.primaryFax = favoriteContact.primaryFax ?? ""
+        self.displayPrimaryFax = favoriteContact.displayPrimaryFax
+            ?? ""
+        self.cellphone = favoriteContact.cellphone ?? ""
+        self.displayCellPhone = favoriteContact.displayCellPhone ?? ""
+        self.cellEmail = favoriteContact.cellEmail ?? ""
+        self.isDisabled = Int(favoriteContact.isDisabled)
+        self.isFavorited = true
+    }
+    
     func updateFavoritesStatus() {
         self.isFavorited = FavoritesService.updateFavoritesStatus(self)
     }

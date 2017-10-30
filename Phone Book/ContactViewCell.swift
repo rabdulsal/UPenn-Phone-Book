@@ -33,7 +33,7 @@ class ContactViewCell : UITableViewCell {
         } else {
             FavoritesService.addToFavorites(self.contact, completion: { (favContact: FavoritesContact) -> Void in
                 self.contact.isFavorited = true
-                    self.toggleFavoritesButton(isFavorited: self.contact.isFavorited)
+                self.toggleFavoritesButton(isFavorited: self.contact.isFavorited)
                 // TODO: Fire protocol
             })
         }

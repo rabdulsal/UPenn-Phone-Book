@@ -52,16 +52,20 @@ class FavoritesViewController : UIViewController {
 
 extension FavoritesViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let contact = self.favoriteContacts[indexPath.row]
-        let profileID = String(describing: Int(contact.phonebookID))
-         self.searchService.makeContactSearchRequest(with: profileID) { (contact, error) in
-            
-            if let e = error {
-                SVProgressHUD.showError(withStatus: e.localizedDescription)
-            } else {
-                self.performSegue(withIdentifier: Identifiers.details.rawValue, sender: contact)
-            }
-        }
+        let favContact = self.favoriteContacts[indexPath.row]
+        let contact = Contact(favoriteContact: favContact)
+        self.performSegue(withIdentifier: Identifiers.details.rawValue, sender: contact)
+        
+        // TODO: Change from Search to transforming FavContact into Contact object, and sending to Segue
+//        let profileID = String(describing: Int(contact.phonebookID))
+//         self.searchService.makeContactSearchRequest(with: profileID) { (contact, error) in
+//            
+//            if let e = error {
+//                SVProgressHUD.showError(withStatus: e.localizedDescription)
+//            } else {
+//                self.performSegue(withIdentifier: Identifiers.details.rawValue, sender: contact)
+//            }
+//        }
     }
 }
 
