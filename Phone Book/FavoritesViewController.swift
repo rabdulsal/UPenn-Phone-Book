@@ -89,7 +89,7 @@ extension FavoritesViewController : ToggleFavoritesDelegate {
     func addToFavorites(for indexPath: IndexPath) {
         /*
          * 1. Use IndexPath Section and Row to get FavoritesContact
-         * 2. Make RemoveFromFavorites Service call
+         * 2. Make AddToFavorites Service call
          * 3. Within completion, get cell using indexPath and toggle the favoritesButton passing 'false'
          */
     }

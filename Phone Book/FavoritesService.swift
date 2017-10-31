@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 
-struct FavoritesGroup {
+class FavoritesGroup {
     var title: String
     var favoritedContacts = Array<FavoritesContact>()
     
@@ -33,12 +33,12 @@ class FavoritesService {
     }
     
     /***
-     * Intended to take a Section Int & return Group title string, which can key into the favoritesHash
+     * Dictionary intended to take a Section Int & return Group title string, which can key into the favoritesHash
      */
     static var favoritesSectionHash = Dictionary<Int,String>()
     
     /***
-     * Intended to expedite retrieving FavoritesGroup by Title String
+     * Dictionary intended to expedite retrieving FavoritesGroup by Title String
      */
     static var favoritesGroupHash = Dictionary<String,FavoritesGroup>()
     
@@ -64,7 +64,18 @@ class FavoritesService {
         }
     }
     
-    static func removeFromFavorites(_ contact: Contact, completion: ((_ success: Bool)->Void)) {
+    /***
+     * Convenience method to add particular FavoritesContact to existing FavoritesGroup using indexPath.section
+     */
+    static func addFavoriteContactToExistingGroup(contact: Contact, indexPath: IndexPath, completion: @escaping ((_ success: Bool)->Void)) {
+        let groupTitle = self.getAllFavoritesGroups()[indexPath.row]
+        self.addToFavorites(contact, groupTitle: groupTitle) { (favContact) in
+            // TODO: Create Error logic
+            completion(true)
+        }
+    }
+    
+    static func removeFromFavorites(contact: Contact, completion: ((_ success: Bool)->Void)) {
         guard let appDelegate = FavoritesService.appDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext
         if let favContact = self.getFavoriteContact(contact) {
@@ -72,6 +83,18 @@ class FavoritesService {
             appDelegate.saveContext()
             completion(true)
         }
+        completion(false)
+    }
+    
+    static func removeFromFavorites(favoriteContact: FavoritesContact, completion: ((_ success: Bool)->Void)) {
+        guard let appDelegate = FavoritesService.appDelegate else {
+            completion(false)
+            return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        managedContext.delete(favoriteContact)
+        appDelegate.saveContext()
+        completion(true)
     }
     
     static func getAllFavorites() -> Array<FavoritesContact> {
@@ -153,9 +176,15 @@ class FavoritesService {
     }
     
     /***
+     * Convenience method to return Array of all FavoritesGroup titles
+     */
+    static func getAllFavoritesGroups() -> Array<String> {
+        return Array(self.favoritesGroupHash.keys)
+    }
+    
+    /***
      * Convenience method to return Array of FavoritedContacts based on Section, when displaying in TableViews
      */
-    
     static func getFavoritesGroup(for section: Int) -> Array<FavoritesContact>? {
         if
             let groupTitle = self.favoritesSectionHash[section],

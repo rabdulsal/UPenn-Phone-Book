@@ -15,6 +15,7 @@ class ContactsListViewController : UIViewController {
     enum SegueIDs : String {
         case details = "ContactDetailsSegue"
         case login = "LoginSegue"
+        case favorites = "FavoritesGroupsSegue"
     }
     
     @IBOutlet weak var contactsTableView: UITableView!
@@ -46,6 +47,12 @@ class ContactsListViewController : UIViewController {
             case .login:
                 let navVC = segue.destination as! UINavigationController
                 navVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+            case .favorites:
+                guard let contact = sender as? Contact else { return }
+                let navVC = segue.destination as! UINavigationController
+                navVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+                let favsListVC = navVC.viewControllers.first as! FavoritesGroupsListViewController
+                favsListVC.contact = contact
         }
     }
     
@@ -102,7 +109,7 @@ extension ContactsListViewController : UITableViewDataSource {
         
         let contact = self.contactsList[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! ContactViewCell
-        cell.configure(with: contact)
+        cell.configure(with: contact, delegate: self, sectionIndex: indexPath)
         return cell
     }
 }
@@ -149,6 +156,33 @@ extension ContactsListViewController : UITabBarControllerDelegate {
 extension ContactsListViewController : UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         // Filter results logic
+    }
+}
+
+// MARK: - ToggleFavoritesDelegate
+
+extension ContactsListViewController : ToggleFavoritesDelegate {
+    func addToFavorites(for indexPath: IndexPath) {
+        /*
+         * 1. Get reference to FavoritesGroupsListVC
+         * 2. Set self as delegate
+         * 3. Show FavoritesGroupsListVC
+         */
+        let contact = self.contactsList[indexPath.row]
+        self.performSegue(withIdentifier: SegueIDs.favorites.rawValue, sender: contact)
+    }
+    
+    func removeFromFavorites(for indexPath: IndexPath) {
+        /*
+         * 1. Use IndexPath Section and Row to get FavoritesContact
+         * 2. Make RemoveFromFavorites Service call
+         * 3. Within completion, get cell using indexPath and toggle the favoritesButton passing 'false'
+         */
+        if let favContact = FavoritesService.getFavoriteContact(with: indexPath) {
+            FavoritesService.removeFromFavorites(favoriteContact: favContact) { (success) in
+                self.contactsTableView.reloadData()
+            }
+        }
     }
 }
 

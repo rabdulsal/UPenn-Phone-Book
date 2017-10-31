@@ -43,15 +43,19 @@ class ContactDetailsViewController : UIViewController {
     
     @IBAction func addFavoritesPressed(_ sender: Any) {
         if self.contact.isFavorited {
-            FavoritesService.removeFromFavorites(self.contact, completion: { (success) in
-                self.contact.isFavorited = false
-                self.toggleFavoritesButton()
-            })
+            /*
+             * 1. TODO: Erase and Move
+             */
+//            FavoritesService.removeFromFavorites(self.contact, completion: { (success) in
+//                self.contact.isFavorited = false
+//                self.toggleFavoritesButton()
+//            })
         } else {
-            FavoritesService.addToFavorites(self.contact, completion: { (favContact) in
-                self.contact.isFavorited = true
-                self.toggleFavoritesButton()
-            })
+            // TODO: Erase and Move
+//            FavoritesService.addToFavorites(self.contact, completion: { (favContact) in
+//                self.contact.isFavorited = true
+//                self.toggleFavoritesButton()
+//            })
         }
     }
     

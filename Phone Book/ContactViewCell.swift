@@ -32,20 +32,20 @@ class ContactViewCell : UITableViewCell {
     
     @IBAction func pressedFavoritesButton(_ sender: UIButton) {
         if self.contact.isFavorited {
-            //            self.favoritesDelegate?.removeFromFavorites() TODO: Un-comment once full flow created
-            FavoritesService.removeFromFavorites(self.contact, completion: { (success) in
-                self.contact.isFavorited = false
-                self.toggleFavoritesButton(isFavorited: self.contact.isFavorited)
-                // TODO: Fire protocol?
-            })
+            self.favoritesDelegate?.removeFromFavorites(for: self.sectionIndex)
+//            FavoritesService.removeFromFavorites(self.contact, completion: { (success) in
+//                self.contact.isFavorited = false
+//                self.toggleFavoritesButton(isFavorited: self.contact.isFavorited)
+//                // TODO: Fire protocol?
+//            })
         } else {
-            //            self.favoritesDelegate?.addToFavorites() TODO: Un-comment once full flow created
+            self.favoritesDelegate?.addToFavorites(for: self.sectionIndex)
             // TODO: Fire delegate to show Alert, and pass -addToFaves method
-            FavoritesService.addToFavorites(self.contact, completion: { (favContact: FavoritesContact) -> Void in
-                self.contact.isFavorited = true
-                self.toggleFavoritesButton(isFavorited: self.contact.isFavorited)
-                // TODO: Fire protocol
-            })
+//            FavoritesService.addToFavorites(self.contact, completion: { (favContact: FavoritesContact) -> Void in
+//                self.contact.isFavorited = true
+//                self.toggleFavoritesButton(isFavorited: self.contact.isFavorited)
+//                // TODO: Fire protocol
+//            })
         }
     }
     
@@ -55,16 +55,16 @@ class ContactViewCell : UITableViewCell {
         self.setStyles()
     }
     
-    func configure(with contact: Contact) {
+    func configure(with contact: Contact, delegate: ToggleFavoritesDelegate, sectionIndex: IndexPath) {
         self.contact = contact
         self.nameLabel.text = contact.fullName
         self.jobTitleLabel.text = contact.jobTitle
         self.departmentLabel.text = contact.department
+        self.favoritesDelegate = delegate
+        self.sectionIndex = sectionIndex
         self.toggleFavoritesButton(isFavorited: self.contact.isFavorited)
-        // TODO: Set
     }
     
-    // TODO: Should be handled by FavoritesVC to reduce complexity
     func toggleFavoritesButton(isFavorited: Bool) {
         if isFavorited {
             self.favoritesButton.setTitle("UnFavorite", for: .normal)
