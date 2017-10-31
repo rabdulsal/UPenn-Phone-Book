@@ -10,6 +10,16 @@ import Foundation
 import CoreData
 import UIKit
 
+struct FavoritesGroup {
+    var title: String
+    var favoritedContacts = Array<FavoritesContact>()
+    
+    init(with favorite: FavoritesContact) {
+        self.title = favorite.groupName!
+        self.favoritedContacts.append(favorite)
+    }
+}
+
 class FavoritesService {
     
     private static var appDelegate: AppDelegate? {
@@ -22,7 +32,17 @@ class FavoritesService {
         return self.getAllFavorites()
     }
     
-    static func addToFavorites(_ contact: Contact, completion: @escaping ((_ contact: FavoritesContact)->Void)) {
+    /***
+     * Intended to take a Section Int & return Group title string, which can key into the favoritesHash
+     */
+    static var favoritesSectionHash = Dictionary<Int,String>()
+    
+    /***
+     * Intended to expedite retrieving FavoritesGroup by Title String
+     */
+    static var favoritesGroupHash = Dictionary<String,FavoritesGroup>()
+    
+    static func addToFavorites(_ contact: Contact, groupTitle: String, completion: @escaping ((_ contact: FavoritesContact)->Void)) {
         /*
          * When Adding to Favorites, must always search for contact to:
          * 1: Ensure the most-recent Contact data is being stored,
@@ -36,7 +56,7 @@ class FavoritesService {
             } else {
                 guard
                     let c = _contact,
-                    let favContact = self.makeFavoriteContact(with: c) else { return }
+                    let favContact = self.makeFavoriteContact(with: c, groupTitle: groupTitle) else { return }
                 
                 completion(favContact)
             }
@@ -91,7 +111,7 @@ class FavoritesService {
         return self.allFavoritedContacts.filter { $0.fullName == contact.fullName }.first != nil
     }
     
-    static func makeFavoriteContact(with contact: Contact) -> FavoritesContact? {
+    static func makeFavoriteContact(with contact: Contact, groupTitle: String) -> FavoritesContact? {
         guard let appDelegate = FavoritesService.appDelegate else { return nil }
         let managedContext = appDelegate.persistentContainer.viewContext
         let favContact = FavoritesContact(context: managedContext)
@@ -115,7 +135,46 @@ class FavoritesService {
         favContact.displayCellPhone     = contact.displayCellPhone
         favContact.cellEmail            = contact.cellEmail
         favContact.isDisabled           = Double(contact.isDisabled)
+        favContact.groupName            = groupTitle
         appDelegate.saveContext()
         return favContact
+    }
+    
+    static func makeFavoritesGroups() {
+        for contact in self.allFavoritedContacts {
+            if var favGroup = favoritesGroupHash[contact.groupName!] {
+                favGroup.favoritedContacts.append(contact)
+            } else {
+                let favGroup = FavoritesGroup(with: contact)
+                favoritesGroupHash[contact.groupName!] = favGroup
+                self.favoritesSectionHash[self.favoritesSectionHash.count+1] = contact.groupName!
+            }
+        }
+    }
+    
+    /***
+     * Convenience method to return Array of FavoritedContacts based on Section, when displaying in TableViews
+     */
+    
+    static func getFavoritesGroup(for section: Int) -> Array<FavoritesContact>? {
+        if
+            let groupTitle = self.favoritesSectionHash[section],
+            let favsGroup = self.favoritesGroupHash[groupTitle] {
+            return favsGroup.favoritedContacts
+        }
+        return nil
+    }
+    
+    static func getFavoriteContact(with indexPath: IndexPath) -> FavoritesContact? {
+        guard let favContacts = self.getFavoritesGroup(for: indexPath.section) else { return nil }
+        return favContacts[indexPath.row]
+    }
+    
+    /***
+     * Convenience method to return Count for each FavoritesGroup when displaying in TableViews
+     */
+    static func getFavoritesGroupCount(for section: Int) -> Int {
+        guard let favContacts = self.getFavoritesGroup(for: section) else { return 0 }
+        return favContacts.count
     }
 }

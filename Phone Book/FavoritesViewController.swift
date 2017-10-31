@@ -72,6 +72,7 @@ extension FavoritesViewController : UITableViewDelegate {
 extension FavoritesViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // TODO: FavoritesService needs method that takes a section Int & returns the FavoritesGroup array count
         return self.favoriteContacts.count
     }
     
@@ -81,6 +82,24 @@ extension FavoritesViewController : UITableViewDataSource {
         cell.configure(with: contact)
         
         return cell
+    }
+}
+
+extension FavoritesViewController : ToggleFavoritesDelegate {
+    func addToFavorites(for indexPath: IndexPath) {
+        /*
+         * 1. Use IndexPath Section and Row to get FavoritesContact
+         * 2. Make RemoveFromFavorites Service call
+         * 3. Within completion, get cell using indexPath and toggle the favoritesButton passing 'false'
+         */
+    }
+    
+    func removeFromFavorites(for indexPath: IndexPath) {
+        /*
+         * 1. Use IndexPath Section and Row to get FavoritesContact
+         * 2. Make RemoveFromFavorites Service call
+         * 3. Within completion, get cell using indexPath and toggle the favoritesButton passing 'false'
+         */
     }
 }
 

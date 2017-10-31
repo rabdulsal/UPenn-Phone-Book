@@ -9,8 +9,14 @@
 import Foundation
 import UIKit
 
-protocol FavoritesDelegate {
-    func favoritedContact(_ contact: Contact)
+protocol AddToFavoritesDelegate {
+    func addToExistingFavoritesGroup()
+    func createNewFavoritesGroup()
+}
+
+protocol ToggleFavoritesDelegate {
+    func addToFavorites(for indexPath: IndexPath)
+    func removeFromFavorites(for indexPath: IndexPath)
 }
 
 class ContactViewCell : UITableViewCell {
@@ -21,16 +27,20 @@ class ContactViewCell : UITableViewCell {
     @IBOutlet weak var favoritesButton: UIButton!
     
     var contact: Contact!
-    var favoritesDelegate: FavoritesDelegate?
+    var favoritesDelegate: ToggleFavoritesDelegate?
+    var sectionIndex: IndexPath! // Includes Cells
     
     @IBAction func pressedFavoritesButton(_ sender: UIButton) {
         if self.contact.isFavorited {
+            //            self.favoritesDelegate?.removeFromFavorites() TODO: Un-comment once full flow created
             FavoritesService.removeFromFavorites(self.contact, completion: { (success) in
                 self.contact.isFavorited = false
                 self.toggleFavoritesButton(isFavorited: self.contact.isFavorited)
                 // TODO: Fire protocol?
             })
         } else {
+            //            self.favoritesDelegate?.addToFavorites() TODO: Un-comment once full flow created
+            // TODO: Fire delegate to show Alert, and pass -addToFaves method
             FavoritesService.addToFavorites(self.contact, completion: { (favContact: FavoritesContact) -> Void in
                 self.contact.isFavorited = true
                 self.toggleFavoritesButton(isFavorited: self.contact.isFavorited)
@@ -51,11 +61,10 @@ class ContactViewCell : UITableViewCell {
         self.jobTitleLabel.text = contact.jobTitle
         self.departmentLabel.text = contact.department
         self.toggleFavoritesButton(isFavorited: self.contact.isFavorited)
+        // TODO: Set
     }
-}
-
-private extension ContactViewCell {
     
+    // TODO: Should be handled by FavoritesVC to reduce complexity
     func toggleFavoritesButton(isFavorited: Bool) {
         if isFavorited {
             self.favoritesButton.setTitle("UnFavorite", for: .normal)
@@ -65,6 +74,9 @@ private extension ContactViewCell {
             self.favoritesButton.setTitleColor(UIColor.upennMediumBlue, for: .normal)
         }
     }
+}
+
+private extension ContactViewCell {
     
     func setStyles() {
         self.jobTitleLabel.textColor = UIColor.darkGray

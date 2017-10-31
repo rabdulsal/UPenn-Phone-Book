@@ -87,8 +87,8 @@ private extension ContactDetailsViewController {
         self.primaryPhoneLabel.text     = contact.displayPrimaryTelephone
         self.cellPhoneLabel.text        = contact.displayCellPhone
         self.emailLabel.text            = contact.emailAddress
-        self.callCellButton.isHidden    = self.contact.displayCellPhone.isEmpty
-        self.textButton.isHidden        = self.contact.displayCellPhone.isEmpty
+        self.callCellButton.isHidden    = contact.displayCellPhone.isEmpty
+        self.textButton.isHidden        = contact.displayCellPhone.isEmpty
         self.callPhoneButton.isHidden   = contact.displayPrimaryTelephone.isEmpty
     }
     
