@@ -19,7 +19,6 @@ class FavoritesViewController : UIViewController {
     
     @IBOutlet weak var favoritesTableView: UITableView!
     
-    var favoriteContacts: Array<FavoritesContact> { return FavoritesService.allFavoritedContacts }
     var searchService = ContactsSearchService()
     
     override func viewDidLoad() {
@@ -52,54 +51,40 @@ class FavoritesViewController : UIViewController {
 
 extension FavoritesViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let favContact = self.favoriteContacts[indexPath.row]
+        guard let favContact = FavoritesService.getFavoriteContact(with: indexPath) else { return }
         let contact = Contact(favoriteContact: favContact)
         self.performSegue(withIdentifier: Identifiers.details.rawValue, sender: contact)
-        
-        // TODO: Change from Search to transforming FavContact into Contact object, and sending to Segue
-//        let profileID = String(describing: Int(contact.phonebookID))
-//         self.searchService.makeContactSearchRequest(with: profileID) { (contact, error) in
-//            
-//            if let e = error {
-//                SVProgressHUD.showError(withStatus: e.localizedDescription)
-//            } else {
-//                self.performSegue(withIdentifier: Identifiers.details.rawValue, sender: contact)
-//            }
-//        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        guard let favContact = FavoritesService.getFavoriteContact(with: indexPath) else { return }
+        if editingStyle == .delete {
+            FavoritesService.removeFromFavorites(favoriteContact: favContact, completion: { (success) in
+                self.favoritesTableView.reloadData()
+            })
+        }
     }
 }
 
 extension FavoritesViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // TODO: FavoritesService needs method that takes a section Int & returns the FavoritesGroup array count
-        return self.favoriteContacts.count
+        return FavoritesService.getFavoritesGroup(for: section)?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let favContact = FavoritesService.getFavoriteContact(with: indexPath) else { return UITableViewCell() }
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.cellIdentifier.rawValue) as! FavoritesContactViewCell
-        let contact = self.favoriteContacts[indexPath.row]
-        cell.configure(with: contact)
-        
+        cell.configure(with: favContact)
         return cell
     }
-}
-
-extension FavoritesViewController : ToggleFavoritesDelegate {
-    func addToFavorites(for indexPath: IndexPath) {
-        /*
-         * 1. Use IndexPath Section and Row to get FavoritesContact
-         * 2. Make AddToFavorites Service call
-         * 3. Within completion, get cell using indexPath and toggle the favoritesButton passing 'false'
-         */
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return FavoritesService.getAllFavoritesGroups()?[section]
     }
     
-    func removeFromFavorites(for indexPath: IndexPath) {
-        /*
-         * 1. Use IndexPath Section and Row to get FavoritesContact
-         * 2. Make RemoveFromFavorites Service call
-         * 3. Within completion, get cell using indexPath and toggle the favoritesButton passing 'false'
-         */
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return FavoritesService.favoritesGroupsCount
     }
 }
 

@@ -16,7 +16,7 @@ class FavoritesGroupsListViewController : UIViewController {
     
     let cellIdentifier = "favoritesGroupCell"
     var contact: Contact!
-    var favoritesGroups : Array<String> {
+    var favoritesGroups : Array<String>? {
         return FavoritesService.getAllFavoritesGroups()
     }
     
@@ -38,10 +38,13 @@ class FavoritesGroupsListViewController : UIViewController {
             
             let textField = alertController.textFields?.first
             
-            if let text = textField?.text, text.isEmpty == false  {
-                print("Group Name: \(text)")
+            if let title = textField?.text, title.isEmpty == false  {
+                print("Group Name: \(title)")
+                FavoritesService.addToFavorites(self.contact, groupTitle: title, completion: { (favContact) in
+                    self.dismissWithSuccess()
+                })
             } else {
-                print("Must provide a Group Name")
+                SVProgressHUD.showError(withStatus: "Must provide a Group Name")
             }
         })
         
@@ -70,7 +73,7 @@ extension FavoritesGroupsListViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         FavoritesService.addFavoriteContactToExistingGroup(contact: self.contact, indexPath: indexPath) { (success) in
             if success {
-                SVProgressHUD.showSuccess(withStatus: "New Contact Successfully Added!")
+                self.dismissWithSuccess()
             }
         }
     }
@@ -81,19 +84,23 @@ extension FavoritesGroupsListViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.favoritesGroups.count
+        return self.favoritesGroups?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier) else { return UITableViewCell() }
-        let groupTitle = self.favoritesGroups[indexPath.row]
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier),
+            let groupTitle = self.favoritesGroups?[indexPath.row]
+            else { return UITableViewCell() }
         cell.textLabel?.text = groupTitle
         return cell
     }
 }
 
 private extension FavoritesGroupsListViewController {
-    
-    
+    func dismissWithSuccess() {
+        SVProgressHUD.showSuccess(withStatus: "New Contact Successfully Added!")
+        self.dismiss(animated: true, completion: nil)
+    }
 }

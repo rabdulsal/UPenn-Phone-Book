@@ -28,19 +28,23 @@ class FavoritesService {
     
     private static var searchService = ContactsSearchService()
     
-    static var allFavoritedContacts: Array<FavoritesContact> {
-        return self.getAllFavorites()
-    }
-    
     /***
      * Dictionary intended to take a Section Int & return Group title string, which can key into the favoritesHash
      */
-    static var favoritesSectionHash = Dictionary<Int,String>()
+    private static var favoritesSectionHash = Dictionary<Int,String>()
     
     /***
      * Dictionary intended to expedite retrieving FavoritesGroup by Title String
      */
-    static var favoritesGroupHash = Dictionary<String,FavoritesGroup>()
+    private static var favoritesGroupHash = Dictionary<String,FavoritesGroup>()
+    
+    static var allFavoritedContacts: Array<FavoritesContact> {
+        return self.getAllFavorites()
+    }
+    
+    static var favoritesGroupsCount : Int {
+        return self.favoritesGroupHash.count
+    }
     
     static func addToFavorites(_ contact: Contact, groupTitle: String, completion: @escaping ((_ contact: FavoritesContact)->Void)) {
         /*
@@ -54,10 +58,24 @@ class FavoritesService {
             if let e = error {
                 // TODO: Bubble error up to VC
             } else {
+                
+                /*
+                 * 1: Use the contact variable to create a FavoritesContact, passing in the groupTitle variable
+                 * 2: Check if favContact's groupName already exists in the favoritesGroupHash, and conditionally add to existing hash or create a new one
+                 * 3: Update favoritesGroupHash for easy retrieval of FavoritesGroups Array later
+                 * 4: Update favoritesSectionHash for easy retrieval of FavoritesGroups Titles later
+                 */
+                
                 guard
                     let c = _contact,
                     let favContact = self.makeFavoriteContact(with: c, groupTitle: groupTitle) else { return }
-                
+                if let favGroup = favoritesGroupHash[favContact.groupName!] {
+                    favGroup.favoritedContacts.append(favContact)
+                } else {
+                    let favGroup = FavoritesGroup(with: favContact)
+                    favoritesGroupHash[favContact.groupName!] = favGroup
+                    self.favoritesSectionHash[self.favoritesGroupHash.count-1] = favContact.groupName!
+                }
                 completion(favContact)
             }
             // TODO: Provide error-related completion
@@ -68,7 +86,10 @@ class FavoritesService {
      * Convenience method to add particular FavoritesContact to existing FavoritesGroup using indexPath.section
      */
     static func addFavoriteContactToExistingGroup(contact: Contact, indexPath: IndexPath, completion: @escaping ((_ success: Bool)->Void)) {
-        let groupTitle = self.getAllFavoritesGroups()[indexPath.row]
+        guard let groupTitle = self.getAllFavoritesGroups()?[indexPath.row] else {
+            completion(false)
+            return
+        }
         self.addToFavorites(contact, groupTitle: groupTitle) { (favContact) in
             // TODO: Create Error logic
             completion(true)
@@ -163,22 +184,10 @@ class FavoritesService {
         return favContact
     }
     
-    static func makeFavoritesGroups() {
-        for contact in self.allFavoritedContacts {
-            if var favGroup = favoritesGroupHash[contact.groupName!] {
-                favGroup.favoritedContacts.append(contact)
-            } else {
-                let favGroup = FavoritesGroup(with: contact)
-                favoritesGroupHash[contact.groupName!] = favGroup
-                self.favoritesSectionHash[self.favoritesSectionHash.count+1] = contact.groupName!
-            }
-        }
-    }
-    
     /***
      * Convenience method to return Array of all FavoritesGroup titles
      */
-    static func getAllFavoritesGroups() -> Array<String> {
+    static func getAllFavoritesGroups() -> Array<String>? {
         return Array(self.favoritesGroupHash.keys)
     }
     
@@ -194,6 +203,9 @@ class FavoritesService {
         return nil
     }
     
+    /***
+     * Convenience method to return single FavoriteContact based on Section, when displaying in TableViews
+     */
     static func getFavoriteContact(with indexPath: IndexPath) -> FavoritesContact? {
         guard let favContacts = self.getFavoritesGroup(for: indexPath.section) else { return nil }
         return favContacts[indexPath.row]
