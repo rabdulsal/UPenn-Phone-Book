@@ -46,6 +46,7 @@ class FavoritesViewController : UIViewController {
         super.setup()
         self.favoritesTableView.delegate = self
         self.favoritesTableView.dataSource = self
+        FavoritesService.loadFavoritesData()
     }
 }
 
@@ -80,7 +81,7 @@ extension FavoritesViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return FavoritesService.getAllFavoritesGroups()?[section]
+        return FavoritesService.getFavoritesGroupTitle(for: section)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

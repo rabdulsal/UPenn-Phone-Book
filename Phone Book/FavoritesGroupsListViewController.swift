@@ -71,7 +71,11 @@ class FavoritesGroupsListViewController : UIViewController {
 extension FavoritesGroupsListViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        FavoritesService.addFavoriteContactToExistingGroup(contact: self.contact, indexPath: indexPath) { (success) in
+        guard let title = self.favoritesGroups?[indexPath.row] else {
+            SVProgressHUD.showError(withStatus: "Sorry, something went wrong.")
+            return
+        }
+        FavoritesService.addFavoriteContactToExistingGroup(contact: self.contact, groupTitle: title) { (success) in
             if success {
                 self.dismissWithSuccess()
             }
