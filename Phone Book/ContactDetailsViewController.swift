@@ -28,7 +28,7 @@ class ContactDetailsViewController : UIViewController {
     
     let messagingService = MessagingService()
     let emailService = EmailService()
-    
+    var favoritesDelegate: FavoritesUpdatable?
     var contact: Contact! {
         didSet {
             self.toggleFavoritesButton()
@@ -41,21 +41,23 @@ class ContactDetailsViewController : UIViewController {
         self.setupTapGestureRecognizers()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let navVC = segue.destination as! UINavigationController
+        navVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        let favsListVC = navVC.viewControllers.first as! FavoritesGroupsListViewController
+        favsListVC.contact = self.contact
+        favsListVC.addFavoritesDelegate = self
+    }
+    
     @IBAction func addFavoritesPressed(_ sender: Any) {
         if self.contact.isFavorited {
-            /*
-             * 1. TODO: Erase and Move
-             */
-//            FavoritesService.removeFromFavorites(self.contact, completion: { (success) in
-//                self.contact.isFavorited = false
-//                self.toggleFavoritesButton()
-//            })
+            FavoritesService.removeFromFavorites(contact: self.contact, completion: { (success) in
+                self.contact.isFavorited = false
+                self.toggleFavoritesButton()
+                self.favoritesDelegate?.successfullyRemovedContactFromFavorites()
+            })
         } else {
-            // TODO: Erase and Move
-//            FavoritesService.addToFavorites(self.contact, completion: { (favContact) in
-//                self.contact.isFavorited = true
-//                self.toggleFavoritesButton()
-//            })
+            self.performSegue(withIdentifier: "FavoritesGroupsSegue", sender: nil)
         }
     }
     
@@ -79,6 +81,14 @@ class ContactDetailsViewController : UIViewController {
 }
 
 extension ContactDetailsViewController : UIGestureRecognizerDelegate { }
+
+extension ContactDetailsViewController : AddToFavoritesDelegate {
+    func successfullyAddedContactToFavorites() {
+        self.contact.isFavorited = true
+        self.toggleFavoritesButton()
+        self.favoritesDelegate?.successfullyAddedContactToFavorites()
+    }
+}
 
 private extension ContactDetailsViewController {
     

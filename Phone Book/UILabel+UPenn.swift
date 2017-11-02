@@ -29,7 +29,7 @@ class ContactNameLabel : UPennLabel {
     
     override func setBaseStyles() {
         super.setBaseStyles()
-        self.textColor = UIColor.upennDarkBlue
+        self.textColor = UIColor.upennDeepBlue
         self.setFontHeight(size: 20.0)
     }
 }
@@ -43,7 +43,7 @@ class ContactDepartmentLabel : UPennLabel {
     
     override func setBaseStyles() {
         super.setBaseStyles()
-        self.textColor = UIColor.upennCTAGreen
+        self.textColor = UIColor.upennDarkBlue
         self.setFontHeight(size: 17.0)
     }
 }

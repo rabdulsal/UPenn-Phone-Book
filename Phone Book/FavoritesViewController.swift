@@ -38,6 +38,7 @@ class FavoritesViewController : UIViewController {
             guard let contact = sender as? Contact else { return }
             let vc = segue.destination as! ContactDetailsViewController
             vc.contact = contact
+//            vc.favoritesDelegate = self
         default: break
         }
     }

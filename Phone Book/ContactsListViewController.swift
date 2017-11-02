@@ -10,8 +10,14 @@ import Foundation
 import UIKit
 import SVProgressHUD
 
+protocol FavoritesUpdatable : AddToFavoritesDelegate, RemoveFromFavoritesDelegate { }
+
 protocol AddToFavoritesDelegate {
     func successfullyAddedContactToFavorites()
+}
+
+protocol RemoveFromFavoritesDelegate {
+    func successfullyRemovedContactFromFavorites()
 }
 
 class ContactsListViewController : UIViewController {
@@ -54,6 +60,7 @@ class ContactsListViewController : UIViewController {
                 guard let contact = sender as? Contact else { return }
                 let vc = segue.destination as! ContactDetailsViewController
                 vc.contact = contact
+                vc.favoritesDelegate = self
             case .login:
                 let navVC = segue.destination as! UINavigationController
                 navVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
@@ -101,6 +108,7 @@ extension ContactsListViewController : UITableViewDelegate {
             if let e = error {
                 SVProgressHUD.showError(withStatus: e.localizedDescription)
             } else {
+                self.favIndexPath = indexPath
                 self.performSegue(withIdentifier: SegueIDs.details.rawValue, sender: contact)
             }
         }
@@ -190,22 +198,22 @@ extension ContactsListViewController : ContactFavoritingDelegate {
          * 3. Within completion, get cell using indexPath and toggle the favoritesButton passing 'false'
          */
         let contact = self.contactsList[indexPath.row]
+        self.favIndexPath = indexPath
         if let favContact = FavoritesService.getFavoriteContact(contact) {
             FavoritesService.removeFromFavorites(favoriteContact: favContact) { (success) in
-                contact.isFavorited = false
-                self.contactsTableView.reloadData()
+                self.updateFavoritesState(favorited: false)
             }
         }
     }
 }
 
-extension ContactsListViewController : AddToFavoritesDelegate {
+extension ContactsListViewController : FavoritesUpdatable {
     func successfullyAddedContactToFavorites() {
-        if let idxPth = self.favIndexPath {
-            let contact = self.contactsList[idxPth.row]
-            contact.isFavorited = true
-            self.contactsTableView.reloadData()
-        }
+        self.updateFavoritesState(favorited: true)
+    }
+    
+    func successfullyRemovedContactFromFavorites() {
+        self.updateFavoritesState(favorited: false)
     }
 }
 
@@ -214,6 +222,15 @@ private extension ContactsListViewController {
     func checkAuthenticationForPresentation() {
         if !AuthenticationService.isAuthenticated {
             self.performSegue(withIdentifier: SegueIDs.login.rawValue, sender: nil)
+        }
+    }
+    
+    func updateFavoritesState(favorited: Bool) {
+        if let idxPth = self.favIndexPath {
+            let contact = self.contactsList[idxPth.row]
+            contact.isFavorited = favorited
+            self.favIndexPath = nil
+            self.contactsTableView.reloadData()
         }
     }
     

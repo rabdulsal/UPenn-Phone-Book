@@ -41,7 +41,7 @@ class FavoritesGroupsListViewController : UIViewController {
             
             if let title = textField?.text, title.isEmpty == false  {
                 FavoritesService.addToFavorites(self.contact, groupTitle: title, completion: { (favContact) in
-                    self.dismissWithSuccess()
+                    self.dismissWithSuccess(groupTitle: title)
                 })
             } else {
                 SVProgressHUD.showError(withStatus: "Must provide a Group Name")
@@ -77,7 +77,7 @@ extension FavoritesGroupsListViewController : UITableViewDelegate {
         }
         FavoritesService.addFavoriteContactToExistingGroup(contact: self.contact, groupTitle: title) { (success) in
             if success {
-                self.dismissWithSuccess()
+                self.dismissWithSuccess(groupTitle: title)
             }
         }
     }
@@ -102,8 +102,8 @@ extension FavoritesGroupsListViewController : UITableViewDataSource {
 }
 
 private extension FavoritesGroupsListViewController {
-    func dismissWithSuccess() {
-        SVProgressHUD.showSuccess(withStatus: "New Contact Successfully Added!")
+    func dismissWithSuccess(groupTitle: String) {
+        SVProgressHUD.showSuccess(withStatus: "New Contact Successfully Added to \(groupTitle)!")
         self.dismiss(animated: true, completion: nil)
          self.addFavoritesDelegate?.successfullyAddedContactToFavorites()
     }

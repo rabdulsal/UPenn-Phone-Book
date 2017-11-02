@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import CoreData
+import SVProgressHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = UIColor.upennDarkBlue
         UINavigationBar.appearance().tintColor = UIColor.white
         UILabel.appearance().font = UIFont.init(name: "Helvetica Neue", size: 15.0)
+        SVProgressHUD.setDefaultMaskType(.black)
         
         return true
     }

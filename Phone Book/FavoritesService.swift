@@ -157,6 +157,7 @@ class FavoritesService {
      * Convenience method to return Array of all FavoritesGroup titles
      */
     static func getAllFavoritesGroups() -> Array<String> {
+        self.loadFavoritesData()
         return Array(self.favoritesGroupHash.keys)
     }
     
