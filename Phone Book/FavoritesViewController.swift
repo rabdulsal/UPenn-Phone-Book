@@ -46,6 +46,7 @@ class FavoritesViewController : UIViewController {
         super.setup()
         self.favoritesTableView.delegate = self
         self.favoritesTableView.dataSource = self
+        self.favoritesTableView.isEditing = true
         FavoritesService.loadFavoritesData()
     }
 }
@@ -65,6 +66,14 @@ extension FavoritesViewController : UITableViewDelegate {
                 self.favoritesTableView.reloadData()
             })
         }
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .none
+    }
+    
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
     }
 }
 
@@ -88,6 +97,11 @@ extension FavoritesViewController : UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return FavoritesService.favoritesGroupsCount
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        FavoritesService.moveContact(from: sourceIndexPath, to: destinationIndexPath)
+         self.favoritesTableView.reloadData()
     }
 }
 

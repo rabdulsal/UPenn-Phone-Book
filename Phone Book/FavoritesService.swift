@@ -189,6 +189,31 @@ class FavoritesService {
         guard let favContacts = self.getFavoritesGroup(for: section) else { return 0 }
         return favContacts.count
     }
+    
+    static func moveContact(from source: IndexPath, to destination: IndexPath) {
+        guard
+            let favContact = FavoritesService.getFavoriteContact(with: source),
+            let appDelegate = FavoritesService.appDelegate else { return }
+//        let movedObject = self.fruits[sourceIndexPath.row]
+        /*
+         * Get source Group using indexPath.section
+         * Remove favContact from that Group using indexPath.row
+         * Get destination Group using indexPath.section
+         * Insert favContact into new group using indexPath.row
+         * Update favContact.groupName to be destination favGroup.title
+         * Save context
+         */
+        var sourceGroup = self.getFavoritesGroup(for: source.section)
+        var destinationGroup = self.getFavoritesGroup(for: destination.section)
+        favContact.groupName = self.favoritesSectionHash[destination.section]
+        appDelegate.saveContext()
+        self.loadFavoritesData()
+        sourceGroup?.remove(at: source.row)
+        destinationGroup?.insert(favContact, at: destination.row)
+        print("Check favContact GroupName: \(favContact.groupName) and destinationGroup contents")
+//        fruits.remove(at: sourceIndexPath.row)
+//        fruits.insert(movedObject, at: destinationIndexPath.row)
+    }
 }
 
 private extension FavoritesService {
