@@ -255,7 +255,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Department:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CK9-aX-jql">
                                 <rect key="frame" x="16" y="154" width="97" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="TtF-vb-gfD"/>
+                                    <constraint firstAttribute="width" constant="97" id="9Rj-Gj-SPg"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>

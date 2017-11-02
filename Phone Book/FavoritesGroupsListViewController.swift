@@ -33,33 +33,29 @@ class FavoritesGroupsListViewController : UIViewController {
     
     @IBAction func newFavoritesGroupButtonPressed(_ sender: Any) {
         let alertController = UIAlertController(title: "New Favorites Group", message: "Enter a name for this new Group", preferredStyle: .alert)
-        
         let saveAction = UIAlertAction(title: "Create", style: .default, handler: {
             alert -> Void in
-            
             let textField = alertController.textFields?.first
-            
             if let title = textField?.text, title.isEmpty == false  {
-                FavoritesService.addToFavorites(self.contact, groupTitle: title, completion: { (favContact) in
-                    self.dismissWithSuccess(groupTitle: title)
+                FavoritesService.addToFavorites(self.contact, groupTitle: title, completion: { (favContact, errorString) in
+                    if let e = errorString {
+                        SVProgressHUD.showError(withStatus: e)
+                    } else {
+                        self.dismissWithSuccess(groupTitle: title)
+                    }
                 })
             } else {
                 SVProgressHUD.showError(withStatus: "Must provide a Group Name")
             }
         })
-        
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
             (action : UIAlertAction!) -> Void in
-            
         })
-        
         alertController.addTextField { (textField : UITextField!) -> Void in
             textField.placeholder = "Enter New Group Name"
         }
-        
-        alertController.addAction(saveAction)
         alertController.addAction(cancelAction)
-        
+        alertController.addAction(saveAction)
         self.present(alertController, animated: true, completion: nil)
     }
     

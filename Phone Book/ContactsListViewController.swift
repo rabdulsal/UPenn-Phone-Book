@@ -181,22 +181,12 @@ extension ContactsListViewController : UISearchResultsUpdating {
 
 extension ContactsListViewController : ContactFavoritingDelegate {
     func addToFavorites(for indexPath: IndexPath) {
-        /*
-         * 1. Get reference to FavoritesGroupsListVC
-         * 2. Set self as delegate
-         * 3. Show FavoritesGroupsListVC
-         */
         let contact = self.contactsList[indexPath.row]
         self.favIndexPath = indexPath
         self.performSegue(withIdentifier: SegueIDs.favorites.rawValue, sender: contact)
     }
     
     func removeFromFavorites(for indexPath: IndexPath) {
-        /*
-         * 1. Use IndexPath Section and Row to get FavoritesContact
-         * 2. Make RemoveFromFavorites Service call
-         * 3. Within completion, get cell using indexPath and toggle the favoritesButton passing 'false'
-         */
         let contact = self.contactsList[indexPath.row]
         self.favIndexPath = indexPath
         if let favContact = FavoritesService.getFavoriteContact(contact) {
@@ -207,6 +197,7 @@ extension ContactsListViewController : ContactFavoritingDelegate {
     }
 }
 
+// MARK: - FavoritesUpdatable
 extension ContactsListViewController : FavoritesUpdatable {
     func successfullyAddedContactToFavorites() {
         self.updateFavoritesState(favorited: true)
@@ -217,6 +208,7 @@ extension ContactsListViewController : FavoritesUpdatable {
     }
 }
 
+// MARK: - Private
 private extension ContactsListViewController {
     
     func checkAuthenticationForPresentation() {

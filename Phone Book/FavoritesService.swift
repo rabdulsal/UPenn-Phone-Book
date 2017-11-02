@@ -39,26 +39,28 @@ class FavoritesService {
         }
     }
     
-    static func addToFavorites(_ contact: Contact, groupTitle: String, completion: @escaping ((_ contact: FavoritesContact)->Void)) {
+    static func addToFavorites(_ contact: Contact, groupTitle: String, completion: @escaping ((_ contact: FavoritesContact?, _ errorString: String?)->Void)) {
         /*
          * When Adding to Favorites, must always search for contact to:
          * 1: Ensure the most-recent Contact data is being stored,
          * 2: Ensure that when favoriting from either the ContactList or ContactDetials views, all the necessary Contact data is being cached
          */
-        
-        let phoneID = String(describing: contact.phonebookID)
-        self.searchService.makeContactSearchRequest(with: phoneID) { (_contact, error) in
-            if let e = error {
-                // TODO: Bubble error up to VC
-            } else {
-                guard
-                    let c = _contact,
-                    let favContact = self.makeFavoriteContact(with: c, groupTitle: groupTitle) else { return }
-                self.bucketFavoritesContacts(with: favContact)
-                completion(favContact)
+        guard let _ = self.favoritesGroupHash[groupTitle] else {
+            let phoneID = String(describing: contact.phonebookID)
+            self.searchService.makeContactSearchRequest(with: phoneID) { (_contact, error) in
+                if let e = error {
+                    completion(nil,e.localizedDescription)
+                } else {
+                    guard
+                        let c = _contact,
+                        let favContact = self.makeFavoriteContact(with: c, groupTitle: groupTitle) else { return }
+                    self.bucketFavoritesContacts(with: favContact)
+                    completion(favContact,nil)
+                }
             }
-            // TODO: Provide error-related completion
+            return
         }
+        completion(nil,"Please use a unique Favorites Group Name.")
     }
     
     /***
@@ -101,27 +103,19 @@ class FavoritesService {
         completion(true)
     }
     
+    /***
+     * Convenience method fetches returns FavoritesContact from CoreData using a Contact
+     */
     static func getFavoriteContact(_ contact: Contact) -> FavoritesContact? {
-        
-        guard let appDelegate = FavoritesService.appDelegate else { return nil }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        var favorites = [FavoritesContact]()
-        
-        do {
-            favorites = try managedContext.fetch(FavoritesContact.fetchRequest())
-            let faveContact = favorites.filter { $0.phonebookID == Double(contact.phonebookID) }.first
-            if let fave = faveContact {
-                return fave
-            }
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
+        let faveContact = self.allFavoritedContacts.filter { $0.phonebookID == Double(contact.phonebookID) }.first
+        if let fave = faveContact {
+            return fave
         }
         return nil
     }
     
     static func updateFavoritesStatus(_ contact: Contact) -> Bool {
-        return self.allFavoritedContacts.filter { $0.fullName == contact.fullName }.first != nil
+        return self.allFavoritedContacts.filter { $0.phonebookID == Double(contact.phonebookID) }.first != nil
     }
     
     static func makeFavoriteContact(with contact: Contact, groupTitle: String) -> FavoritesContact? {
@@ -226,9 +220,7 @@ private extension FavoritesService {
      */
     static func getAllFavorites() -> Array<FavoritesContact> {
         guard let appDelegate = FavoritesService.appDelegate else { return [] }
-        
         let managedContext = appDelegate.persistentContainer.viewContext
-        
         do {
             return try managedContext.fetch(FavoritesContact.fetchRequest())
         } catch let error as NSError {

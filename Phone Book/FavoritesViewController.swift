@@ -38,7 +38,6 @@ class FavoritesViewController : UIViewController {
             guard let contact = sender as? Contact else { return }
             let vc = segue.destination as! ContactDetailsViewController
             vc.contact = contact
-//            vc.favoritesDelegate = self
         default: break
         }
     }
@@ -51,6 +50,7 @@ class FavoritesViewController : UIViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension FavoritesViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let favContact = FavoritesService.getFavoriteContact(with: indexPath) else { return }
@@ -68,6 +68,7 @@ extension FavoritesViewController : UITableViewDelegate {
     }
 }
 
+// MARK: - UITableViewDataSource
 extension FavoritesViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

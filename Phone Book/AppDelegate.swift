@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor.white
         UILabel.appearance().font = UIFont.init(name: "Helvetica Neue", size: 15.0)
         SVProgressHUD.setDefaultMaskType(.black)
+        SVProgressHUD.setMaximumDismissTimeInterval(2.0)
         
         return true
     }
