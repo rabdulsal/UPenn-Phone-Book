@@ -23,16 +23,12 @@ class FavoritesGroup {
 
 class FavoritesService {
     
-    static var allFavoritedContacts: Array<FavoritesContact> {
-        return self.getAllFavorites()
-    }
-    
     static var favoritesGroupsCount : Int {
         return self.favoritesGroupHash.count
     }
     
     /***
-     * Load all the Favorites Contacts from CoreData then group them based on groupName
+     * Empty all hash tables and reload/bucket data from CoreData
      */
     static func loadFavoritesData() {
         self.favoritesSectionHash.removeAll()
@@ -75,6 +71,9 @@ class FavoritesService {
         }
     }
     
+    /***
+     * Convenience method to removeFromFavorites using a Contact
+     */
     static func removeFromFavorites(contact: Contact, completion: ((_ success: Bool)->Void)) {
         guard let appDelegate = FavoritesService.appDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -87,6 +86,9 @@ class FavoritesService {
         completion(false)
     }
     
+    /***
+     * Convenience method to removeFromFavorites using a FavoritesContact
+     */
     static func removeFromFavorites(favoriteContact: FavoritesContact, completion: ((_ success: Bool)->Void)) {
         guard let appDelegate = FavoritesService.appDelegate else {
             completion(false)
@@ -99,20 +101,6 @@ class FavoritesService {
         completion(true)
     }
     
-    static func getAllFavorites() -> Array<FavoritesContact> {
-        guard let appDelegate = FavoritesService.appDelegate else { return [] }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        do {
-            return try managedContext.fetch(FavoritesContact.fetchRequest())
-        } catch let error as NSError {
-            // TODO: Add Error handling to completion
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
-        return []
-    }
-    
     static func getFavoriteContact(_ contact: Contact) -> FavoritesContact? {
         
         guard let appDelegate = FavoritesService.appDelegate else { return nil }
@@ -122,7 +110,7 @@ class FavoritesService {
         
         do {
             favorites = try managedContext.fetch(FavoritesContact.fetchRequest())
-            let faveContact = favorites.filter { $0.fullName == contact.fullName }.first
+            let faveContact = favorites.filter { $0.phonebookID == Double(contact.phonebookID) }.first
             if let fave = faveContact {
                 return fave
             }
@@ -216,6 +204,13 @@ private extension FavoritesService {
     static var searchService = ContactsSearchService()
     
     /***
+     * Returns all FavoritesContacts from CoreData, unbucketed
+     */
+    static var allFavoritedContacts: Array<FavoritesContact> {
+        return self.getAllFavorites()
+    }
+    
+    /***
      * Dictionary intended to take a Section Int & return Group title string, which can key into the favoritesHash
      */
     static var favoritesSectionHash = Dictionary<Int,String>()
@@ -226,12 +221,26 @@ private extension FavoritesService {
     static var favoritesGroupHash = Dictionary<String,FavoritesGroup>()
     
     /***
-     * Convenience method to return Count for each FavoritesGroup when displaying in TableViews
+     * Returns an Array of all FavoritesContacts loaded from CoreData
+     */
+    static func getAllFavorites() -> Array<FavoritesContact> {
+        guard let appDelegate = FavoritesService.appDelegate else { return [] }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        do {
+            return try managedContext.fetch(FavoritesContact.fetchRequest())
+        } catch let error as NSError {
+            // TODO: Add Error handling to completion
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        return []
+    }
+    
+    /***
+     * Add favoriteContact into an existing FavoritesGroup, or create a new Group and add to that while updating favoritesGroupHash & favoritesSectionHash
      */
     static func bucketFavoritesContacts(with favContact: FavoritesContact) {
-        /*
-         * 1. Get all favorites and bucket based on groupName
-         */
         if let favGroup = favoritesGroupHash[favContact.groupName!] {
             favGroup.favoritedContacts.append(favContact)
         } else {

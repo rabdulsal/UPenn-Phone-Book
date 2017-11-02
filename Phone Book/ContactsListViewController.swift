@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import SVProgressHUD
 
+protocol AddToFavoritesDelegate {
+    func successfullyAddedContactToFavorites()
+}
+
 class ContactsListViewController : UIViewController {
     
     enum SegueIDs : String {
@@ -24,6 +28,7 @@ class ContactsListViewController : UIViewController {
     var contactsList = Array<Contact>()
     var searchController: UISearchController!
     let reuseIdentifier = "ContactCell"
+    var favIndexPath: IndexPath?
     let helpText = "Using 'Tom Smith' as an example:\nIn the SearchBar, to search by first name then last name, type 'Tom Smith'\nTo search by last name then first name, type 'Smith, Tom.'\nYou can also search with partial spelling like 'T Smith' or 'Sm, T'."
     
     override func viewDidLoad() {
@@ -58,6 +63,7 @@ class ContactsListViewController : UIViewController {
                 navVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
                 let favsListVC = navVC.viewControllers.first as! FavoritesGroupsListViewController
                 favsListVC.contact = contact
+                favsListVC.addFavoritesDelegate = self
         }
     }
     
@@ -90,7 +96,6 @@ extension ContactsListViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let contact = self.contactsList[indexPath.row]
         let profileID = String(describing: contact.phonebookID)
-        
         self.searchService.makeContactSearchRequest(with: profileID) { (contact, error) in
 
             if let e = error {
@@ -166,7 +171,7 @@ extension ContactsListViewController : UISearchResultsUpdating {
 
 // MARK: - ToggleFavoritesDelegate
 
-extension ContactsListViewController : ToggleFavoritesDelegate {
+extension ContactsListViewController : ContactFavoritingDelegate {
     func addToFavorites(for indexPath: IndexPath) {
         /*
          * 1. Get reference to FavoritesGroupsListVC
@@ -174,6 +179,7 @@ extension ContactsListViewController : ToggleFavoritesDelegate {
          * 3. Show FavoritesGroupsListVC
          */
         let contact = self.contactsList[indexPath.row]
+        self.favIndexPath = indexPath
         self.performSegue(withIdentifier: SegueIDs.favorites.rawValue, sender: contact)
     }
     
@@ -183,10 +189,22 @@ extension ContactsListViewController : ToggleFavoritesDelegate {
          * 2. Make RemoveFromFavorites Service call
          * 3. Within completion, get cell using indexPath and toggle the favoritesButton passing 'false'
          */
-        if let favContact = FavoritesService.getFavoriteContact(with: indexPath) {
+        let contact = self.contactsList[indexPath.row]
+        if let favContact = FavoritesService.getFavoriteContact(contact) {
             FavoritesService.removeFromFavorites(favoriteContact: favContact) { (success) in
+                contact.isFavorited = false
                 self.contactsTableView.reloadData()
             }
+        }
+    }
+}
+
+extension ContactsListViewController : AddToFavoritesDelegate {
+    func successfullyAddedContactToFavorites() {
+        if let idxPth = self.favIndexPath {
+            let contact = self.contactsList[idxPth.row]
+            contact.isFavorited = true
+            self.contactsTableView.reloadData()
         }
     }
 }

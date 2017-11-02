@@ -19,6 +19,7 @@ class FavoritesGroupsListViewController : UIViewController {
     var favoritesGroups : Array<String>? {
         return FavoritesService.getAllFavoritesGroups()
     }
+    var addFavoritesDelegate: AddToFavoritesDelegate?
     
     override func viewDidLoad() {
         self.setup()
@@ -39,7 +40,6 @@ class FavoritesGroupsListViewController : UIViewController {
             let textField = alertController.textFields?.first
             
             if let title = textField?.text, title.isEmpty == false  {
-                print("Group Name: \(title)")
                 FavoritesService.addToFavorites(self.contact, groupTitle: title, completion: { (favContact) in
                     self.dismissWithSuccess()
                 })
@@ -81,7 +81,6 @@ extension FavoritesGroupsListViewController : UITableViewDelegate {
             }
         }
     }
-    
 }
 
 extension FavoritesGroupsListViewController : UITableViewDataSource {
@@ -106,5 +105,6 @@ private extension FavoritesGroupsListViewController {
     func dismissWithSuccess() {
         SVProgressHUD.showSuccess(withStatus: "New Contact Successfully Added!")
         self.dismiss(animated: true, completion: nil)
+         self.addFavoritesDelegate?.successfullyAddedContactToFavorites()
     }
 }
