@@ -17,7 +17,7 @@ class FavoritesGroup {
     
     init(with favorite: FavoritesContact) {
         self.title = favorite.groupName!
-        self.favoritedContacts.append(favorite)
+        self.favoritedContacts.append(favorite) // TODO: Append favorite at favorite.index
     }
 }
 
@@ -143,6 +143,7 @@ class FavoritesService {
         favContact.cellEmail            = contact.cellEmail
         favContact.isDisabled           = Double(contact.isDisabled)
         favContact.groupName            = groupTitle
+        // TODO: favContact.groupPosition = Double(favoritesGroupHash[groupTitle].count)
         appDelegate.saveContext()
         return favContact
     }
@@ -205,11 +206,12 @@ class FavoritesService {
          */
         var sourceGroup = self.getFavoritesGroup(for: source.section)
         var destinationGroup = self.getFavoritesGroup(for: destination.section)
+        sourceGroup?.remove(at: source.row)
+        destinationGroup?.insert(favContact, at: destination.row)
         favContact.groupName = self.favoritesSectionHash[destination.section]
         appDelegate.saveContext()
         self.loadFavoritesData()
-        sourceGroup?.remove(at: source.row)
-        destinationGroup?.insert(favContact, at: destination.row)
+        
         print("Check favContact GroupName: \(favContact.groupName) and destinationGroup contents")
 //        fruits.remove(at: sourceIndexPath.row)
 //        fruits.insert(movedObject, at: destinationIndexPath.row)
@@ -260,7 +262,7 @@ private extension FavoritesService {
      */
     static func bucketFavoritesContacts(with favContact: FavoritesContact) {
         if let favGroup = favoritesGroupHash[favContact.groupName!] {
-            favGroup.favoritedContacts.append(favContact)
+            favGroup.favoritedContacts.append(favContact) // TODO: Append at index favContact.index
         } else {
             let favGroup = FavoritesGroup(with: favContact)
             favoritesGroupHash[favContact.groupName!] = favGroup
