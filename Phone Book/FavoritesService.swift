@@ -17,7 +17,8 @@ class FavoritesGroup {
     
     init(with favorite: FavoritesContact) {
         self.title = favorite.groupName!
-        self.favoritedContacts.append(favorite) // TODO: Append favorite at favorite.index
+//        self.favoritedContacts.append(favorite) // TODO: Append favorite at favorite.groupPosition
+        favoritedContacts.insert(favorite, at: Int(favorite.groupPosition))
     }
 }
 
@@ -38,6 +39,14 @@ class FavoritesService {
             self.bucketFavoritesContacts(with: favorite)
         }
     }
+    static func addNewFavorite(_ contact: Contact, groupTitle: String, completion: @escaping ((_ contact: FavoritesContact?, _ errorString: String?)->Void)) {
+        
+        guard let _ = self.favoritesGroupHash[groupTitle] else {
+            self.addToFavorites(contact, groupTitle: groupTitle, completion: completion)
+            return
+        }
+        completion(nil,"Please use a unique Favorites Group Name.")
+    }
     
     static func addToFavorites(_ contact: Contact, groupTitle: String, completion: @escaping ((_ contact: FavoritesContact?, _ errorString: String?)->Void)) {
         /*
@@ -45,30 +54,30 @@ class FavoritesService {
          * 1: Ensure the most-recent Contact data is being stored,
          * 2: Ensure that when favoriting from either the ContactList or ContactDetials views, all the necessary Contact data is being cached
          */
-        guard let _ = self.favoritesGroupHash[groupTitle] else {
-            let phoneID = String(describing: contact.phonebookID)
-            self.searchService.makeContactSearchRequest(with: phoneID) { (_contact, error) in
-                if let e = error {
-                    completion(nil,e.localizedDescription)
-                } else {
-                    guard
-                        let c = _contact,
-                        let favContact = self.makeFavoriteContact(with: c, groupTitle: groupTitle) else { return }
-                    self.bucketFavoritesContacts(with: favContact)
-                    completion(favContact,nil)
-                }
+        let phoneID = String(describing: contact.phonebookID)
+        self.searchService.makeContactSearchRequest(with: phoneID) { (_contact, error) in
+            if let e = error {
+                completion(nil,e.localizedDescription)
+            } else {
+                guard
+                    let c = _contact,
+                    let favContact = self.makeFavoriteContact(with: c, groupTitle: groupTitle) else { return }
+                self.bucketFavoritesContacts(with: favContact)
+                completion(favContact,nil)
             }
-            return
         }
-        completion(nil,"Please use a unique Favorites Group Name.")
     }
     
     /***
      * Convenience method to add particular FavoritesContact to existing FavoritesGroup using indexPath.section
      */
     static func addFavoriteContactToExistingGroup(contact: Contact, groupTitle: String, completion: @escaping ((_ success: Bool)->Void)) {
-        self.addToFavorites(contact, groupTitle: groupTitle) { (favContact) in
+        self.addToFavorites(contact, groupTitle: groupTitle) { (favContact, errorString) in
             // TODO: Create Error logic
+            if let _ = errorString {
+                completion(false)
+                return
+            }
             completion(true)
         }
     }
@@ -143,7 +152,7 @@ class FavoritesService {
         favContact.cellEmail            = contact.cellEmail
         favContact.isDisabled           = Double(contact.isDisabled)
         favContact.groupName            = groupTitle
-        // TODO: favContact.groupPosition = Double(favoritesGroupHash[groupTitle].count)
+        favContact.groupPosition        =   self.generateFavoritesGroupPosition(groupTitle: groupTitle)
         appDelegate.saveContext()
         return favContact
     }
@@ -184,7 +193,7 @@ class FavoritesService {
     }
     
     /***
-     * Convenience method to return Count for each FavoritesGroup when displaying in TableViews
+     * Convenience method to return Count for each FavoritesGroup when displaying in TableViews by Section
      */
     static func getFavoritesGroupCount(for section: Int) -> Int {
         guard let favContacts = self.getFavoritesGroup(for: section) else { return 0 }
@@ -209,6 +218,9 @@ class FavoritesService {
         sourceGroup?.remove(at: source.row)
         destinationGroup?.insert(favContact, at: destination.row)
         favContact.groupName = self.favoritesSectionHash[destination.section]
+        // TODO: Update all other FavoriteGroup Contacts' positions
+        favContact.groupPosition = Double(destination.row)
+        self.updateFavoritesGroupPositions(group: favContact.groupName!, starting: destination.row)
         appDelegate.saveContext()
         self.loadFavoritesData()
         
@@ -258,11 +270,29 @@ private extension FavoritesService {
     }
     
     /***
+     * Create a FavoritesContact groupPosition for FavoritesGroup using a groupTitle
+     */
+    static func generateFavoritesGroupPosition(groupTitle: String) -> Double {
+        guard
+            let favorites = favoritesGroupHash[groupTitle]?.favoritedContacts else { return 0.0 }
+        return Double(favorites.count)
+    }
+    
+    static func updateFavoritesGroupPositions(group: String, starting position: Int) {
+        guard let favGroup = favoritesGroupHash[group] else { return }
+        for index in position..<favGroup.favoritedContacts.count {
+            let favContact = favGroup.favoritedContacts[index]
+            favContact.groupPosition = Double(index+1)
+        }
+    }
+    
+    /***
      * Add favoriteContact into an existing FavoritesGroup, or create a new Group and add to that while updating favoritesGroupHash & favoritesSectionHash
      */
     static func bucketFavoritesContacts(with favContact: FavoritesContact) {
         if let favGroup = favoritesGroupHash[favContact.groupName!] {
-            favGroup.favoritedContacts.append(favContact) // TODO: Append at index favContact.index
+//            favGroup.favoritedContacts.append(favContact) // TODO: Append at index favContact.groupPosition
+            favGroup.favoritedContacts.insert(favContact, at: Int(favContact.groupPosition))
         } else {
             let favGroup = FavoritesGroup(with: favContact)
             favoritesGroupHash[favContact.groupName!] = favGroup

@@ -37,7 +37,7 @@ class FavoritesGroupsListViewController : UIViewController {
             alert -> Void in
             let textField = alertController.textFields?.first
             if let title = textField?.text, title.isEmpty == false  {
-                FavoritesService.addToFavorites(self.contact, groupTitle: title, completion: { (favContact, errorString) in
+                FavoritesService.addNewFavorite(self.contact, groupTitle: title, completion: { (favContact, errorString) in
                     if let e = errorString {
                         SVProgressHUD.showError(withStatus: e)
                     } else {
