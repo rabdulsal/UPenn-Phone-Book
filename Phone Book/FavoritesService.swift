@@ -17,8 +17,7 @@ class FavoritesGroup {
     
     init(with favorite: FavoritesContact) {
         self.title = favorite.groupName!
-//        self.favoritedContacts.append(favorite) // TODO: Append favorite at favorite.groupPosition
-        favoritedContacts.insert(favorite, at: Int(favorite.groupPosition))
+        self.favoritedContacts.append(favorite)
     }
 }
 
@@ -48,11 +47,12 @@ class FavoritesService {
         completion(nil,"Please use a unique Favorites Group Name.")
     }
     
+    
     static func addToFavorites(_ contact: Contact, groupTitle: String, completion: @escaping ((_ contact: FavoritesContact?, _ errorString: String?)->Void)) {
         /*
          * When Adding to Favorites, must always search for contact to:
          * 1: Ensure the most-recent Contact data is being stored,
-         * 2: Ensure that when favoriting from either the ContactList or ContactDetials views, all the necessary Contact data is being cached
+         * 2: Ensure that when favoriting from either the ContactList or ContactDetails views, all the necessary Contact data is being cached
          */
         let phoneID = String(describing: contact.phonebookID)
         self.searchService.makeContactSearchRequest(with: phoneID) { (_contact, error) in
@@ -127,6 +127,9 @@ class FavoritesService {
         return self.allFavoritedContacts.filter { $0.phonebookID == Double(contact.phonebookID) }.first != nil
     }
     
+    /***
+     * Factory method to create a FavoritesContact CoreData object & store into persistence
+     */
     static func makeFavoriteContact(with contact: Contact, groupTitle: String) -> FavoritesContact? {
         guard let appDelegate = FavoritesService.appDelegate else { return nil }
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -152,7 +155,7 @@ class FavoritesService {
         favContact.cellEmail            = contact.cellEmail
         favContact.isDisabled           = Double(contact.isDisabled)
         favContact.groupName            = groupTitle
-        favContact.groupPosition        =   self.generateFavoritesGroupPosition(groupTitle: groupTitle)
+        favContact.groupPosition        = self.generateFavoritesGroupPosition(groupTitle: groupTitle)
         appDelegate.saveContext()
         return favContact
     }
@@ -200,11 +203,13 @@ class FavoritesService {
         return favContacts.count
     }
     
+    /***
+     * Convenience method for re-arranging rows in FavortiesViewController
+     */
     static func moveContact(from source: IndexPath, to destination: IndexPath) {
         guard
             let favContact = FavoritesService.getFavoriteContact(with: source),
             let appDelegate = FavoritesService.appDelegate else { return }
-//        let movedObject = self.fruits[sourceIndexPath.row]
         /*
          * Get source Group using indexPath.section
          * Remove favContact from that Group using indexPath.row
@@ -215,18 +220,23 @@ class FavoritesService {
          */
         var sourceGroup = self.getFavoritesGroup(for: source.section)
         var destinationGroup = self.getFavoritesGroup(for: destination.section)
-        sourceGroup?.remove(at: source.row)
+        if sourceGroup! == destinationGroup! {
+            destinationGroup?.remove(at: source.row)
+        } else {
+            sourceGroup?.remove(at: source.row)
+        }
         destinationGroup?.insert(favContact, at: destination.row)
         favContact.groupName = self.favoritesSectionHash[destination.section]
-        // TODO: Update all other FavoriteGroup Contacts' positions
         favContact.groupPosition = Double(destination.row)
-        self.updateFavoritesGroupPositions(group: favContact.groupName!, starting: destination.row)
+        if let group = destinationGroup {
+            for index in 0..<group.count {
+                let favContact = group[index]
+                favContact.groupPosition = Double(index)
+                print(favContact.groupPosition)
+            }
+        }
         appDelegate.saveContext()
         self.loadFavoritesData()
-        
-        print("Check favContact GroupName: \(favContact.groupName) and destinationGroup contents")
-//        fruits.remove(at: sourceIndexPath.row)
-//        fruits.insert(movedObject, at: destinationIndexPath.row)
     }
 }
 
@@ -278,21 +288,26 @@ private extension FavoritesService {
         return Double(favorites.count)
     }
     
-    static func updateFavoritesGroupPositions(group: String, starting position: Int) {
-        guard let favGroup = favoritesGroupHash[group] else { return }
-        for index in position..<favGroup.favoritedContacts.count {
-            let favContact = favGroup.favoritedContacts[index]
-            favContact.groupPosition = Double(index+1)
-        }
-    }
-    
     /***
      * Add favoriteContact into an existing FavoritesGroup, or create a new Group and add to that while updating favoritesGroupHash & favoritesSectionHash
      */
     static func bucketFavoritesContacts(with favContact: FavoritesContact) {
+        /*
+         * If adding to an existing group:
+         * 1. Loop through favGroup's favorites
+         * 2. Check if favContact is less than current contact, insert it, stop looping
+         * 3. Otherwise if at the end for the favGroups just append the contact
+         */
         if let favGroup = favoritesGroupHash[favContact.groupName!] {
-//            favGroup.favoritedContacts.append(favContact) // TODO: Append at index favContact.groupPosition
-            favGroup.favoritedContacts.insert(favContact, at: Int(favContact.groupPosition))
+            let last = favGroup.favoritedContacts.count-1
+            for i in 0...last {
+                if favContact.groupPosition < favGroup.favoritedContacts[i].groupPosition {
+                    favGroup.favoritedContacts.insert(favContact, at: i)
+                    break
+                } else if i==last {
+                    favGroup.favoritedContacts.append(favContact)
+                }
+            }
         } else {
             let favGroup = FavoritesGroup(with: favContact)
             favoritesGroupHash[favContact.groupName!] = favGroup
