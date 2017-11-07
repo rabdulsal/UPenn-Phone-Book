@@ -47,3 +47,15 @@ class ContactDepartmentLabel : UPennLabel {
         self.setFontHeight(size: 17.0)
     }
 }
+
+class ActionLabel : UPennLabel {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.setBaseStyles()
+    }
+    
+    override func setBaseStyles() {
+        super.setBaseStyles()
+        self.textColor = UIColor.upennMediumBlue
+    }
+}

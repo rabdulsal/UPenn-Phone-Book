@@ -29,6 +29,7 @@ class FavoritesGroupsListViewController : UIViewController {
         super.setup()
         self.groupsTableView.delegate = self
         self.groupsTableView.dataSource = self
+        self.groupsTableView.tableFooterView = UIView()
     }
     
     @IBAction func newFavoritesGroupButtonPressed(_ sender: Any) {

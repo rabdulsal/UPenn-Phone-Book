@@ -121,7 +121,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Department" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSK-1z-9yh" customClass="ContactDepartmentLabel" customModule="Phone_Book" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="35.5" width="92" height="21"/>
+                                                    <rect key="frame" x="8" y="36" width="359" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -147,6 +147,7 @@
                                                 <constraint firstItem="8Ke-A7-egH" firstAttribute="leading" secondItem="DbS-8C-BpC" secondAttribute="leading" constant="8" id="ieK-HI-ub8"/>
                                                 <constraint firstAttribute="trailing" secondItem="Hej-e6-ZRM" secondAttribute="trailing" constant="8" id="ogp-zi-TDw"/>
                                                 <constraint firstItem="Hej-e6-ZRM" firstAttribute="centerY" secondItem="7MG-rQ-V0f" secondAttribute="centerY" id="qaZ-y3-HLw"/>
+                                                <constraint firstAttribute="trailing" secondItem="RSK-1z-9yh" secondAttribute="trailing" constant="8" id="sN3-so-LTy"/>
                                                 <constraint firstItem="RSK-1z-9yh" firstAttribute="top" secondItem="8Ke-A7-egH" secondAttribute="bottom" constant="8" id="vBf-uz-fB8"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -184,7 +185,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OMz-Bk-70u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1646" y="-466"/>
+            <point key="canvasLocation" x="1645.5999999999999" y="-466.41679160419795"/>
         </scene>
         <!--Contact-->
         <scene sceneID="lc2-Pf-HXb">
@@ -213,13 +214,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="238" placeholderIntrinsicHeight="21" text="address1" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXA-hJ-k3S">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="238" placeholderIntrinsicHeight="21" text="address1" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXA-hJ-k3S" customClass="ActionLabel" customModule="Phone_Book" customModuleProvider="target">
                                 <rect key="frame" x="121" y="253" width="238" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="address2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCc-xi-9eb">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="address2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCc-xi-9eb" customClass="ActionLabel" customModule="Phone_Book" customModuleProvider="target">
                                 <rect key="frame" x="121" y="303" width="71" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="fV8-AG-7Gu"/>
@@ -300,7 +301,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="emailLabel" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvu-IY-Ywi">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="emailLabel" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvu-IY-Ywi" customClass="ActionLabel" customModule="Phone_Book" customModuleProvider="target">
                                 <rect key="frame" x="121" y="463" width="82" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -562,7 +563,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Department" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyU-wL-VXj" customClass="ContactDepartmentLabel" customModule="Phone_Book" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="35.5" width="92" height="21"/>
+                                                    <rect key="frame" x="8" y="36" width="359" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -573,6 +574,7 @@
                                                 <constraint firstItem="bun-Nj-fTE" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="8" id="AX6-Pq-O94"/>
                                                 <constraint firstAttribute="bottom" secondItem="bun-Nj-fTE" secondAttribute="bottom" constant="8" id="FJb-h3-YJ4"/>
                                                 <constraint firstItem="oyU-wL-VXj" firstAttribute="top" secondItem="GD1-2f-ZXK" secondAttribute="bottom" constant="8" id="Nng-31-Hzu"/>
+                                                <constraint firstAttribute="trailing" secondItem="oyU-wL-VXj" secondAttribute="trailing" constant="8" id="WvU-Uf-DeI"/>
                                                 <constraint firstItem="GD1-2f-ZXK" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="8" id="XGw-Gq-Hp2"/>
                                                 <constraint firstItem="GD1-2f-ZXK" firstAttribute="top" secondItem="8hb-14-HhD" secondAttribute="top" constant="5" id="oX7-Mu-e4f"/>
                                                 <constraint firstItem="oyU-wL-VXj" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="8" id="sTg-hq-IXs"/>
@@ -595,15 +597,22 @@
                             <constraint firstItem="y8Q-7a-jEI" firstAttribute="leading" secondItem="BNY-RK-iIr" secondAttribute="leading" id="zkc-gZ-HgR"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Favorites" id="XKj-8y-WvQ"/>
+                    <navigationItem key="navigationItem" title="Favorites" id="XKj-8y-WvQ">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="EBf-Al-bJ0">
+                            <connections>
+                                <action selector="pressedEditButton:" destination="Sgp-jM-aqG" id="eUV-gR-Sk6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="editBarButton" destination="EBf-Al-bJ0" id="j2A-Bv-mzh"/>
                         <outlet property="favoritesTableView" destination="y8Q-7a-jEI" id="cQu-cW-gzX"/>
                         <segue destination="Ma3-x1-OmR" kind="show" identifier="ContactDetailsSegue" id="LMO-z9-AcH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z1L-LT-lNX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1646" y="386"/>
+            <point key="canvasLocation" x="1645.5999999999999" y="385.45727136431788"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sXG-us-ReQ">
@@ -681,7 +690,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="AgV-Js-0Xu"/>
-        <segue reference="LMO-z9-AcH"/>
+        <segue reference="dh5-u8-fgQ"/>
+        <segue reference="TR7-zq-jKS"/>
     </inferredMetricsTieBreakers>
 </document>

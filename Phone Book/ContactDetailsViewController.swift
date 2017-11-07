@@ -16,11 +16,11 @@ class ContactDetailsViewController : UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var jobTitleLabel: UILabel!
     @IBOutlet weak var departmentLabel: UILabel!
-    @IBOutlet weak var addressLabel1: UILabel!
-    @IBOutlet weak var addressLabel2: UILabel! // TODO: Remove and add to address 1 with new-line break
+    @IBOutlet weak var addressLabel1: ActionLabel!
+    @IBOutlet weak var addressLabel2: ActionLabel! // TODO: Remove and add to address 1 with new-line break
     @IBOutlet weak var primaryPhoneLabel: UILabel!
     @IBOutlet weak var cellPhoneLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var emailLabel: ActionLabel!
     @IBOutlet weak var favoriteToggleButton: UIBarButtonItem!
     @IBOutlet weak var callCellButton: UIButton!
     @IBOutlet weak var textButton: UIButton!
@@ -116,6 +116,12 @@ private extension ContactDetailsViewController {
         primaryPhoneLabel.addGestureRecognizer(tap1)
         
         // Work Address Tap
+        let tap2 = UITapGestureRecognizer(target: self, action: #selector(self.showInMaps))
+        tap2.delegate = self
+        tap2.numberOfTapsRequired = 1
+        addressLabel2.isUserInteractionEnabled = true
+        addressLabel2.addGestureRecognizer(tap2)
+        
         let tap3 = UITapGestureRecognizer(target: self, action: #selector(self.showInMaps))
         tap3.delegate = self
         tap3.numberOfTapsRequired = 1

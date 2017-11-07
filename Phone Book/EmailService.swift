@@ -18,7 +18,7 @@ class EmailService : NSObject, MFMailComposeViewControllerDelegate {
     func configuredMailComposeViewController(mailRecipients: Array<String>) -> MFMailComposeViewController {
         let mailComposeVC = MFMailComposeViewController()
         mailComposeVC.mailComposeDelegate = self
-        
+        mailComposeVC.setToRecipients(mailRecipients)
         return mailComposeVC
     }
     

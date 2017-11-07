@@ -164,6 +164,8 @@ extension ContactsListViewController : UISearchBarDelegate {
 extension ContactsListViewController : UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if viewController.childViewControllers.first! is FavoritesViewController {
+            self.navigationController?.popToRootViewController(animated: false)
+            self.searchController.isActive = false
             self.reloadView()
         }
     }

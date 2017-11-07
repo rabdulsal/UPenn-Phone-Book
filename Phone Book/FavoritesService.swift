@@ -232,7 +232,6 @@ class FavoritesService {
             for index in 0..<group.count {
                 let favContact = group[index]
                 favContact.groupPosition = Double(index)
-                print(favContact.groupPosition)
             }
         }
         appDelegate.saveContext()
