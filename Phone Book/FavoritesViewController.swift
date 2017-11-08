@@ -33,7 +33,7 @@ class FavoritesViewController : UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.favoritesTableView.isEditing = false
+        self.toggleEditing(false)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -59,13 +59,7 @@ class FavoritesViewController : UIViewController {
     // MARK: IBActions
     
     @IBAction func pressedEditButton(_ sender: Any) {
-        if self.favoritesTableView.isEditing {
-            self.favoritesTableView.isEditing = false
-            self.editBarButton.title = "Edit"
-        } else {
-            self.favoritesTableView.isEditing = true
-            self.editBarButton.title = "Cancel"
-        }
+        self.toggleEditing(!self.favoritesTableView.isEditing)
     }
 }
 
@@ -112,5 +106,16 @@ extension FavoritesViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         FavoritesService.moveContact(from: sourceIndexPath, to: destinationIndexPath)
          self.favoritesTableView.reloadData()
+    }
+}
+
+private extension FavoritesViewController {
+    func toggleEditing(_ isEditing: Bool) {
+        self.favoritesTableView.isEditing = isEditing
+        if self.favoritesTableView.isEditing {
+            self.editBarButton.title = "Done"
+        } else {
+            self.editBarButton.title = "Edit"
+        }
     }
 }

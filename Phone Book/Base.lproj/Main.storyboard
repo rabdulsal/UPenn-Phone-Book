@@ -581,8 +581,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="departmentLabel" destination="bun-Nj-fTE" id="OPy-qi-VFn"/>
-                                            <outlet property="jobTitleLabel" destination="oyU-wL-VXj" id="5yJ-iz-xps"/>
+                                            <outlet property="departmentLabel" destination="oyU-wL-VXj" id="AX2-Vs-41Y"/>
+                                            <outlet property="jobTitleLabel" destination="bun-Nj-fTE" id="Aw3-l3-ezU"/>
                                             <outlet property="nameLabel" destination="GD1-2f-ZXK" id="7Qc-V3-zSR"/>
                                         </connections>
                                     </tableViewCell>
@@ -691,6 +691,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="dh5-u8-fgQ"/>
-        <segue reference="TR7-zq-jKS"/>
+        <segue reference="LMO-z9-AcH"/>
     </inferredMetricsTieBreakers>
 </document>

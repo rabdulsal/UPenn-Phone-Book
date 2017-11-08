@@ -46,12 +46,7 @@ class ContactViewCell : UITableViewCell {
         self.contact = contact
         self.nameLabel.text = contact.fullName
         self.jobTitleLabel.text = contact.jobTitle
-        let strippedText = contact.department.components(separatedBy: ", Department of")
-        if let text = strippedText.first, text.isEmpty == false {
-            self.departmentLabel.text = String(describing: text)
-        } else {
-            self.departmentLabel.text = contact.department
-        }
+        self.departmentLabel.text = contact.department
         self.favoritesDelegate = delegate
         self.sectionIndex = sectionIndex
         self.toggleFavoritesButton(isFavorited: self.contact.isFavorited)

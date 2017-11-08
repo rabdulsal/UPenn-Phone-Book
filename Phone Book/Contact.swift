@@ -16,19 +16,19 @@ class Contact {
     var middleName: String
     var phonebookID: Int
     var jobTitle: String
-    var department: String
+    var department: String = ""
     var pagerNumber: String
     var displayPagerNumber: String
     var pagerEmail: String
     var emailAddress: String
-    var primaryAddressLine1: String //
-    var primaryAddressLine2: String //
+    var primaryAddressLine1: String
+    var primaryAddressLine2: String
     var primaryTelephone: String
-    var displayPrimaryTelephone: String //
+    var displayPrimaryTelephone: String
     var primaryFax: String
     var displayPrimaryFax: String
     var cellphone: String
-    var displayCellPhone: String //
+    var displayCellPhone: String
     var cellEmail: String
     var isDisabled: Int
     var isFavorited: Bool = false
@@ -37,7 +37,13 @@ class Contact {
     {
         self.fullName = userDict["pbFullname"] as? String ?? ""
         self.phonebookID = userDict["phonebookID"] as? Int ?? -1
-        self.department = userDict["departmentName"] as? String ?? ""
+        if let department = userDict["departmentName"] as? String {
+            // Strip ", Department of" from departmentName
+            let strippedText = department.components(separatedBy: ", Department of")
+            if let text = strippedText.first, text.isEmpty == false {
+                self.department = String(describing: text)
+            }
+        }
         self.jobTitle = userDict["jobTitle"] as? String ?? ""
         self.firstName = userDict["firstName"] as? String ?? ""
         self.lastName = userDict["lastName"] as? String ?? ""
@@ -85,6 +91,10 @@ class Contact {
         self.isFavorited = true
     }
     
+    
+}
+
+private extension Contact {
     func updateFavoritesStatus() {
         self.isFavorited = FavoritesService.updateFavoritesStatus(self)
     }
