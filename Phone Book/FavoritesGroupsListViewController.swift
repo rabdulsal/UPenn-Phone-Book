@@ -13,11 +13,16 @@ import SVProgressHUD
 class FavoritesGroupsListViewController : UIViewController {
     
     @IBOutlet weak var groupsTableView : UITableView!
+    @IBOutlet weak var noGroupsView: UIView!
+    @IBOutlet weak var noGroupsViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var noGroupsLabel: NoDataInstructionsLabel!
     
     let cellIdentifier = "favoritesGroupCell"
     var contact: Contact!
     var favoritesGroups : Array<String>? {
-        return FavoritesService.getAllFavoritesGroups()
+        let allFavorites = FavoritesService.getAllFavoritesGroups()
+        self.toggleNoGroupsView(show: allFavorites.count == 0)
+        return allFavorites
     }
     var addFavoritesDelegate: AddToFavoritesDelegate?
     
@@ -30,6 +35,7 @@ class FavoritesGroupsListViewController : UIViewController {
         self.groupsTableView.delegate = self
         self.groupsTableView.dataSource = self
         self.groupsTableView.tableFooterView = UIView()
+        self.noGroupsView.backgroundColor = UIColor.upennLightGray
     }
     
     @IBAction func newFavoritesGroupButtonPressed(_ sender: Any) {
@@ -103,5 +109,17 @@ private extension FavoritesGroupsListViewController {
         SVProgressHUD.showSuccess(withStatus: "New Contact Successfully Added to \(groupTitle)!")
         self.dismiss(animated: true, completion: nil)
          self.addFavoritesDelegate?.successfullyAddedContactToFavorites()
+    }
+    
+    func toggleNoGroupsView(show: Bool) {
+        if show {
+            self.noGroupsView.isHidden = false
+            self.noGroupsViewHeight.constant = 100
+            self.noGroupsLabel.text = "Looks like you don't have any Favorites Groups. Create one now by pressing the '+' button."
+        } else {
+            self.noGroupsView.isHidden = true
+            self.noGroupsViewHeight.constant = 0
+            self.noGroupsLabel.text = ""
+        }
     }
 }

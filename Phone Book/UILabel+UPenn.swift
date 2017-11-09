@@ -59,3 +59,16 @@ class ActionLabel : UPennLabel {
         self.textColor = UIColor.upennMediumBlue
     }
 }
+
+class NoDataInstructionsLabel : UPennLabel {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.setBaseStyles()
+    }
+    
+    override func setBaseStyles() {
+        super.awakeFromNib()
+        self.textColor = UIColor.upennDarkBlue
+        self.setFontHeight(size: 20.0)
+    }
+}

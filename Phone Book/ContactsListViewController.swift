@@ -29,9 +29,16 @@ class ContactsListViewController : UIViewController {
     }
     
     @IBOutlet weak var contactsTableView: UITableView!
+    @IBOutlet weak var noContactsView: UIView!
+    @IBOutlet weak var noContactsViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var noContactsLabel: NoDataInstructionsLabel!
     
     var searchService = ContactsSearchService()
-    var contactsList = Array<Contact>()
+    var contactsList: Array<Contact>! {
+        didSet {
+            self.toggleNoContactsView(show: self.contactsList.count == 0)
+        }
+    }
     var searchController: UISearchController!
     let reuseIdentifier = "ContactCell"
     var favIndexPath: IndexPath?
@@ -76,6 +83,7 @@ class ContactsListViewController : UIViewController {
     
     override func setup() {
         super.setup()
+        self.contactsList = [Contact]()
         self.searchController = UISearchController(searchResultsController: nil)
         self.searchController.searchResultsUpdater = self
         self.searchController.searchBar.delegate = self
@@ -86,6 +94,7 @@ class ContactsListViewController : UIViewController {
         self.contactsTableView.tableHeaderView = self.searchController.searchBar
         self.contactsTableView.tableFooterView = UIView()
         self.tabBarController?.delegate = self
+        self.noContactsLabel.setFontHeight(size: 20.0)
     }
     
     // IBActions
@@ -140,6 +149,7 @@ extension ContactsListViewController : UISearchBarDelegate {
         self.searchService.makeContactsListSearchRequest(with: searchBar.text!) { (retrievedContacts, error) in
             SVProgressHUD.dismiss()
             searchBar.resignFirstResponder()
+            self.searchController.isActive = false
             if let e = error {
                 SVProgressHUD.showError(withStatus: e.localizedDescription)
             } else {
@@ -175,7 +185,7 @@ extension ContactsListViewController : UITabBarControllerDelegate {
 
 extension ContactsListViewController : UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        // Filter results logic
+        self.toggleNoContactsView(show: !self.searchController.isActive && self.contactsList.count == 0, delay: true)
     }
 }
 
@@ -231,5 +241,24 @@ private extension ContactsListViewController {
     func reloadView() {
         self.contactsList.removeAll()
         self.contactsTableView.reloadData()
+    }
+    
+    func toggleNoContactsView(show: Bool, delay: Bool=false) {
+        if show {
+            
+            self.noContactsViewHeight.constant = 100
+            if delay {
+                Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (timer) in
+                    self.noContactsView.isHidden = false
+                })
+            } else {
+                self.noContactsView.isHidden = false
+            }
+            self.noContactsLabel.text = "Search for a UPenn Employee by First or Last Name."
+        } else {
+            self.noContactsView.isHidden = true
+            self.noContactsViewHeight.constant = 0
+            self.noContactsLabel.text = ""
+        }
     }
 }

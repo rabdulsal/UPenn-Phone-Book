@@ -97,8 +97,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j8m-pA-Emy">
+                                <rect key="frame" x="0.0" y="64" width="375" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWX-Mz-LiV" customClass="NoDataInstructionsLabel" customModule="Phone_Book" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="-0.5" width="343" height="100"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="ZWX-Mz-LiV" firstAttribute="leading" secondItem="j8m-pA-Emy" secondAttribute="leading" constant="16" id="Azo-3H-I07"/>
+                                    <constraint firstAttribute="height" constant="100" id="IeN-rd-o45"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZWX-Mz-LiV" secondAttribute="trailing" constant="16" id="PCJ-pH-gd0"/>
+                                    <constraint firstItem="ZWX-Mz-LiV" firstAttribute="centerX" secondItem="j8m-pA-Emy" secondAttribute="centerX" id="SM0-ky-wdF"/>
+                                    <constraint firstItem="ZWX-Mz-LiV" firstAttribute="height" secondItem="j8m-pA-Emy" secondAttribute="height" id="VO2-zW-nqs"/>
+                                    <constraint firstItem="ZWX-Mz-LiV" firstAttribute="centerY" secondItem="j8m-pA-Emy" secondAttribute="centerY" id="rS5-o2-NMK"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ESW-KU-eEA">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="164" width="375" height="454"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactCell" rowHeight="100" id="BUP-iv-Bxm" customClass="ContactViewCell" customModule="Phone_Book" customModuleProvider="target">
@@ -164,9 +184,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ESW-KU-eEA" firstAttribute="leading" secondItem="Mgr-xW-Lce" secondAttribute="leading" id="0IB-WA-PtI"/>
-                            <constraint firstItem="ESW-KU-eEA" firstAttribute="top" secondItem="ru7-ov-aLa" secondAttribute="bottom" id="BoM-on-Kfn"/>
+                            <constraint firstAttribute="trailing" secondItem="j8m-pA-Emy" secondAttribute="trailing" id="5g3-HB-lNL"/>
+                            <constraint firstItem="j8m-pA-Emy" firstAttribute="top" secondItem="ru7-ov-aLa" secondAttribute="bottom" id="BFm-23-n1M"/>
                             <constraint firstItem="opH-Jb-nCV" firstAttribute="top" secondItem="ESW-KU-eEA" secondAttribute="bottom" id="EKo-VF-cbq"/>
+                            <constraint firstItem="j8m-pA-Emy" firstAttribute="leading" secondItem="Mgr-xW-Lce" secondAttribute="leading" id="YTZ-et-Z9A"/>
                             <constraint firstAttribute="trailing" secondItem="ESW-KU-eEA" secondAttribute="trailing" id="kiT-6d-PgM"/>
+                            <constraint firstItem="ESW-KU-eEA" firstAttribute="top" secondItem="j8m-pA-Emy" secondAttribute="bottom" id="rwk-7D-xaX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Contacts" id="Z79-TG-q8L">
@@ -178,6 +201,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="contactsTableView" destination="ESW-KU-eEA" id="bBK-cl-gtE"/>
+                        <outlet property="noContactsLabel" destination="ZWX-Mz-LiV" id="8MU-PU-jQh"/>
+                        <outlet property="noContactsView" destination="j8m-pA-Emy" id="Vr6-4Q-n27"/>
+                        <outlet property="noContactsViewHeight" destination="IeN-rd-o45" id="Fg5-D0-khX"/>
                         <segue destination="DFE-iM-jyR" kind="presentation" identifier="LoginSegue" id="EvE-Ab-Hit"/>
                         <segue destination="Ma3-x1-OmR" kind="show" identifier="ContactDetailsSegue" id="TR7-zq-jKS"/>
                         <segue destination="Xgg-qC-MMT" kind="presentation" identifier="FavoritesGroupsSegue" id="dh5-u8-fgQ"/>
@@ -465,8 +491,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K3t-ss-u86">
+                                <rect key="frame" x="0.0" y="64" width="375" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drG-9k-My4" customClass="NoDataInstructionsLabel" customModule="Phone_Book" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="-0.5" width="343" height="100"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="drG-9k-My4" firstAttribute="height" secondItem="K3t-ss-u86" secondAttribute="height" id="3St-yL-fcK"/>
+                                    <constraint firstAttribute="height" constant="100" id="5Mc-PY-aMX"/>
+                                    <constraint firstItem="drG-9k-My4" firstAttribute="centerY" secondItem="K3t-ss-u86" secondAttribute="centerY" id="Eux-rQ-ZQ1"/>
+                                    <constraint firstItem="drG-9k-My4" firstAttribute="leading" secondItem="K3t-ss-u86" secondAttribute="leading" constant="16" id="NTf-XM-4jR"/>
+                                    <constraint firstAttribute="trailing" secondItem="drG-9k-My4" secondAttribute="trailing" constant="16" id="P5C-VQ-pc2"/>
+                                    <constraint firstItem="drG-9k-My4" firstAttribute="centerX" secondItem="K3t-ss-u86" secondAttribute="centerX" id="kd1-qR-1LJ"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dYA-vc-oID">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="164" width="375" height="503"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="favoritesGroupCell" id="CQg-hk-ymh">
@@ -482,9 +528,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="dYA-vc-oID" firstAttribute="top" secondItem="a5x-JL-pqS" secondAttribute="bottom" id="1jR-wO-tnj"/>
+                            <constraint firstItem="K3t-ss-u86" firstAttribute="leading" secondItem="cqW-EV-hII" secondAttribute="leading" id="CEH-uf-h6Y"/>
+                            <constraint firstItem="K3t-ss-u86" firstAttribute="top" secondItem="a5x-JL-pqS" secondAttribute="bottom" id="QLt-0X-30F"/>
                             <constraint firstAttribute="trailing" secondItem="dYA-vc-oID" secondAttribute="trailing" id="RYi-uk-RDk"/>
                             <constraint firstItem="9Jw-X0-IDK" firstAttribute="top" secondItem="dYA-vc-oID" secondAttribute="bottom" id="ixJ-9a-zQy"/>
+                            <constraint firstAttribute="trailing" secondItem="K3t-ss-u86" secondAttribute="trailing" id="jl5-gm-blO"/>
+                            <constraint firstItem="dYA-vc-oID" firstAttribute="top" secondItem="K3t-ss-u86" secondAttribute="bottom" id="pK5-xR-U2U"/>
                             <constraint firstItem="dYA-vc-oID" firstAttribute="leading" secondItem="cqW-EV-hII" secondAttribute="leading" id="wDs-Mm-LmL"/>
                         </constraints>
                     </view>
@@ -502,6 +551,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="groupsTableView" destination="dYA-vc-oID" id="QNm-61-q1V"/>
+                        <outlet property="noGroupsLabel" destination="drG-9k-My4" id="Q5e-NH-X9g"/>
+                        <outlet property="noGroupsView" destination="K3t-ss-u86" id="tXI-EL-pjW"/>
+                        <outlet property="noGroupsViewHeight" destination="5Mc-PY-aMX" id="r5T-VJ-gKN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nrg-2R-l0R" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -691,6 +743,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="dh5-u8-fgQ"/>
-        <segue reference="LMO-z9-AcH"/>
+        <segue reference="TR7-zq-jKS"/>
     </inferredMetricsTieBreakers>
 </document>
