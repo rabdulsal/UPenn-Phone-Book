@@ -95,6 +95,7 @@ class ContactsListViewController : UIViewController {
         self.contactsTableView.tableFooterView = UIView()
         self.tabBarController?.delegate = self
         self.noContactsLabel.setFontHeight(size: 20.0)
+        self.noContactsView.backgroundColor = UIColor.upennLightGray
     }
     
     // IBActions

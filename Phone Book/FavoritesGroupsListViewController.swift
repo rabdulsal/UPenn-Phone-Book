@@ -115,7 +115,7 @@ private extension FavoritesGroupsListViewController {
         if show {
             self.noGroupsView.isHidden = false
             self.noGroupsViewHeight.constant = 100
-            self.noGroupsLabel.text = "Looks like you don't have any Favorites Groups. Create one now by pressing the '+' button."
+            self.noGroupsLabel.text = "You have no Favorites Groups. Create one now by pressing the '+' button."
         } else {
             self.noGroupsView.isHidden = true
             self.noGroupsViewHeight.constant = 0

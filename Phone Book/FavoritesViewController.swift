@@ -19,8 +19,18 @@ class FavoritesViewController : UIViewController {
     
     @IBOutlet weak var favoritesTableView: UITableView!
     @IBOutlet weak var editBarButton: UIBarButtonItem!
+    @IBOutlet weak var noFavoritesView: UIView!
+    @IBOutlet weak var noFavoritesViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var noFavoritesLabel: NoDataInstructionsLabel!
     
     var searchService = ContactsSearchService()
+    var favGroupsCount : Int {
+        let groupsCount = FavoritesService.favoritesGroupsCount
+        self.editBarButton.isEnabled = groupsCount != 0
+        if !self.editBarButton.isEnabled { self.toggleEditing(false) }
+        self.toggleNoFavoritesView(show: groupsCount == 0)
+        return groupsCount
+    }
     
     override func viewDidLoad() {
         self.setup()
@@ -53,6 +63,7 @@ class FavoritesViewController : UIViewController {
         self.favoritesTableView.delegate = self
         self.favoritesTableView.dataSource = self
         self.favoritesTableView.tableFooterView = UIView()
+        self.noFavoritesView.backgroundColor = UIColor.upennLightGray
         FavoritesService.loadFavoritesData()
     }
     
@@ -100,7 +111,7 @@ extension FavoritesViewController : UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return FavoritesService.favoritesGroupsCount
+        return self.favGroupsCount
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
@@ -112,10 +123,18 @@ extension FavoritesViewController : UITableViewDataSource {
 private extension FavoritesViewController {
     func toggleEditing(_ isEditing: Bool) {
         self.favoritesTableView.isEditing = isEditing
-        if self.favoritesTableView.isEditing {
-            self.editBarButton.title = "Done"
+        self.editBarButton.title = isEditing ? "Done" : "Edit"
+    }
+    
+    func toggleNoFavoritesView(show: Bool) {
+        if show {
+            self.noFavoritesView.isHidden = false
+            self.noFavoritesViewHeight.constant = 100
+            self.noFavoritesLabel.text = "You have no Favorites. Find Contacts in the Search Tab and Favorite them to see here."
         } else {
-            self.editBarButton.title = "Edit"
+            self.noFavoritesView.isHidden = true
+            self.noFavoritesViewHeight.constant = 0
+            self.noFavoritesLabel.text = ""
         }
     }
 }
