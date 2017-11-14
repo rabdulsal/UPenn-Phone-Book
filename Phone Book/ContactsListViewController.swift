@@ -154,7 +154,6 @@ extension ContactsListViewController : UISearchBarDelegate {
             if let e = error {
                 SVProgressHUD.showError(withStatus: e.localizedDescription)
             } else {
-                // TODO: Make logic for if retrievedContacts == 0 to show Alert
                 if retrievedContacts.count == 0 {
                     SVProgressHUD.showError(withStatus: "No results returned.")
                     return

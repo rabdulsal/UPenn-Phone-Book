@@ -69,11 +69,10 @@ class FavoritesService {
     }
     
     /***
-     * Convenience method to add particular FavoritesContact to existing FavoritesGroup using indexPath.section
+     * Convenience method to add particular FavoritesContact to existing through passed-in FavoritesGroup title
      */
     static func addFavoriteContactToExistingGroup(contact: Contact, groupTitle: String, completion: @escaping ((_ success: Bool)->Void)) {
         self.addToFavorites(contact, groupTitle: groupTitle) { (favContact, errorString) in
-            // TODO: Create Error logic
             if let _ = errorString {
                 completion(false)
                 return

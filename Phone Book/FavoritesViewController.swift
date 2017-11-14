@@ -86,7 +86,11 @@ extension FavoritesViewController : UITableViewDelegate {
         guard let favContact = FavoritesService.getFavoriteContact(with: indexPath) else { return }
         if editingStyle == .delete {
             FavoritesService.removeFromFavorites(favoriteContact: favContact, completion: { (success) in
-                self.favoritesTableView.reloadData()
+                if success {
+                    self.favoritesTableView.reloadData()
+                } else {
+                    SVProgressHUD.showError(withStatus: "Sorry, there was an error updating this record.")
+                }
             })
         }
     }
