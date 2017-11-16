@@ -224,6 +224,7 @@ extension ContactsListViewController : FavoritesUpdatable {
 private extension ContactsListViewController {
     
     func checkAuthenticationForPresentation() {
+        // TODO: Update checking to use attemptSilentLogin
         if !AuthenticationService.isAuthenticated {
             self.performSegue(withIdentifier: SegueIDs.login.rawValue, sender: nil)
         }

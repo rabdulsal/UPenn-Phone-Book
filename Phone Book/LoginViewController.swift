@@ -14,7 +14,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: PrimaryCTAButton!
-    @IBOutlet weak var autoLoginButton: PrimaryCTAButtonText!
+    @IBOutlet weak var autoLoginButton: PrimaryCTAButtonText! // TODO: Eventually change to Auto-fill
     
     var loginService: LoginService!
     var validationService: ValidationService!
@@ -24,13 +24,16 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         self.setup()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.loginService.checkAutoLogin()
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.loginService.authenticationAutoFillCheck()
         verifyFields()
-        // TODO: Un-comment when AutoLogin ready
-//        self.autoLoginButton.isSelected = self.loginService.shouldAutoLogin
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -53,8 +56,8 @@ class LoginViewController: UIViewController {
         
         // Set up Buttons
         self.autoLoginButton.adjustsImageWhenHighlighted = false
-        self.autoLoginButton.setTitle("Do Not Auto-login", for: .selected)
-        self.autoLoginButton.setTitle("Auto-login?", for: .normal)
+        self.autoLoginButton.setTitle("Do Not Auto-Fill", for: .selected)
+        self.autoLoginButton.setTitle("Auto-Fill?", for: .normal)
     }
     
     @IBAction func pressedClose(_ sender: Any) {
@@ -67,7 +70,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func pressedAutoLoginButton(_ sender: UIButton) {
         self.autoLoginButton.isSelected = !self.autoLoginButton.isSelected
-        // TODO: Un-comment when AutoLogin ready
+        // TODO: Eventually change to Auto-fill & un-comment
 //        self.loginService.toggleShouldAutoLogin(self.autoLoginButton.isSelected)
     }
     
