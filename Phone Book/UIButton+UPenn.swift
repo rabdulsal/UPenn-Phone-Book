@@ -36,3 +36,26 @@ class PrimaryCTAButton : UIButton {
         backgroundColor = UIColor.lightGray
     }
 }
+
+class PrimaryCTAButtonText : UIButton {
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setDeSelectedStyle()
+        backgroundColor = UIColor.clear
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            isSelected ? setSelectedStyle() : setDeSelectedStyle()
+        }
+    }
+    
+    func setSelectedStyle() {
+        setTitleColor(UIColor.upennWarningRed, for: .selected)
+    }
+    
+    func setDeSelectedStyle() {
+        setTitleColor(UIColor.upennMediumBlue, for: .normal)
+    }
+}

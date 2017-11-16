@@ -85,8 +85,7 @@ class FavoritesService {
      * Convenience method to removeFromFavorites using a Contact
      */
     static func removeFromFavorites(contact: Contact, completion: ((_ success: Bool)->Void)) {
-        guard let appDelegate = FavoritesService.appDelegate else { return }
-        let managedContext = appDelegate.persistentContainer.viewContext
+        guard let appDelegate = self.appDelegate, let managedContext = self.managedContext else { return }
         if let favContact = self.getFavoriteContact(contact) {
             managedContext.delete(favContact)
             appDelegate.saveContext()
@@ -100,11 +99,7 @@ class FavoritesService {
      * Convenience method to removeFromFavorites using a FavoritesContact
      */
     static func removeFromFavorites(favoriteContact: FavoritesContact, completion: ((_ success: Bool)->Void)) {
-        guard let appDelegate = FavoritesService.appDelegate else {
-            completion(false)
-            return
-        }
-        let managedContext = appDelegate.persistentContainer.viewContext
+        guard let appDelegate = self.appDelegate, let managedContext = self.managedContext else { return }
         managedContext.delete(favoriteContact)
         appDelegate.saveContext()
         self.loadFavoritesData()
@@ -122,7 +117,7 @@ class FavoritesService {
         return nil
     }
     
-    static func updateFavoritesStatus(_ contact: Contact) -> Bool {
+    static func updateFavoritedStatus(_ contact: Contact) -> Bool {
         return self.allFavoritedContacts.filter { $0.phonebookID == Double(contact.phonebookID) }.first != nil
     }
     
@@ -130,8 +125,7 @@ class FavoritesService {
      * Factory method to create a FavoritesContact CoreData object & store into persistence
      */
     static func makeFavoriteContact(with contact: Contact, groupTitle: String) -> FavoritesContact? {
-        guard let appDelegate = FavoritesService.appDelegate else { return nil }
-        let managedContext = appDelegate.persistentContainer.viewContext
+        guard let appDelegate = self.appDelegate, let managedContext = self.managedContext else { return nil }
         let favContact = FavoritesContact(context: managedContext)
         favContact.firstName            = contact.firstName
         favContact.lastName             = contact.lastName
@@ -240,7 +234,13 @@ class FavoritesService {
 
 private extension FavoritesService {
     static var appDelegate: AppDelegate? {
-        return UIApplication.shared.delegate as? AppDelegate
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
+        return appDelegate
+    }
+    
+    static var managedContext: NSManagedObjectContext? {
+        guard let appDelegate = self.appDelegate else { return nil }
+        return appDelegate.persistentContainer.viewContext
     }
     
     static var searchService = ContactsSearchService()
@@ -266,8 +266,8 @@ private extension FavoritesService {
      * Returns an Array of all FavoritesContacts loaded from CoreData
      */
     static func getAllFavorites() -> Array<FavoritesContact> {
-        guard let appDelegate = FavoritesService.appDelegate else { return [] }
-        let managedContext = appDelegate.persistentContainer.viewContext
+        guard let managedContext = self.managedContext else { return [] }
+        
         do {
             return try managedContext.fetch(FavoritesContact.fetchRequest())
         } catch let error as NSError {

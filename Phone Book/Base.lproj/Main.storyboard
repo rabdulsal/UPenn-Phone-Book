@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lGi-uf-AaT">
-                                <rect key="frame" x="16" y="172.5" width="343" height="50"/>
+                                <rect key="frame" x="16" y="180" width="343" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="IQJ-x4-DHc"/>
                                 </constraints>
@@ -32,7 +32,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sQq-kQ-jUA">
-                                <rect key="frame" x="16" y="238.5" width="343" height="50"/>
+                                <rect key="frame" x="16" y="246" width="343" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="wBo-bl-da0"/>
                                 </constraints>
@@ -41,7 +41,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2si-2m-EwZ" customClass="PrimaryCTAButton" customModule="Phone_Book" customModuleProvider="target">
-                                <rect key="frame" x="16" y="308" width="343" height="50"/>
+                                <rect key="frame" x="16" y="370" width="343" height="50"/>
                                 <color key="backgroundColor" red="0.54509803921568623" green="0.13725490196078433" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="fGk-m1-u2b"/>
@@ -53,19 +53,30 @@
                                     <action selector="pressedLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pqv-xC-QMI"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iwr-TA-RYM" customClass="PrimaryCTAButtonText" customModule="Phone_Book" customModuleProvider="target">
+                                <rect key="frame" x="111.5" y="316" width="151" height="34"/>
+                                <state key="normal" title="Should Auto-Login">
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressedAutoLoginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x1l-rv-Zeq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="lGi-uf-AaT" firstAttribute="trailing" secondItem="sQq-kQ-jUA" secondAttribute="trailing" id="AIV-Ji-psF"/>
+                            <constraint firstItem="Iwr-TA-RYM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BkK-mv-3Ld"/>
                             <constraint firstItem="sQq-kQ-jUA" firstAttribute="leading" secondItem="2si-2m-EwZ" secondAttribute="leading" id="ER4-XM-HyY"/>
                             <constraint firstItem="sQq-kQ-jUA" firstAttribute="top" secondItem="lGi-uf-AaT" secondAttribute="bottom" constant="16" id="OLO-OY-snn"/>
-                            <constraint firstItem="2si-2m-EwZ" firstAttribute="top" secondItem="sQq-kQ-jUA" secondAttribute="bottom" constant="20" id="OyJ-rr-ZGU"/>
-                            <constraint firstItem="2si-2m-EwZ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="bby-ef-V6w"/>
+                            <constraint firstItem="Iwr-TA-RYM" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="R5a-nc-IcP"/>
+                            <constraint firstItem="Iwr-TA-RYM" firstAttribute="top" secondItem="sQq-kQ-jUA" secondAttribute="bottom" constant="20" id="Rc0-yD-FjA"/>
                             <constraint firstItem="lGi-uf-AaT" firstAttribute="leading" secondItem="sQq-kQ-jUA" secondAttribute="leading" id="hVo-a3-o71"/>
                             <constraint firstAttribute="trailing" secondItem="2si-2m-EwZ" secondAttribute="trailing" constant="16" id="n4H-IN-bTN"/>
                             <constraint firstItem="2si-2m-EwZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="na2-tw-cIy"/>
                             <constraint firstItem="sQq-kQ-jUA" firstAttribute="trailing" secondItem="2si-2m-EwZ" secondAttribute="trailing" id="sfo-8h-6aq"/>
                             <constraint firstItem="2si-2m-EwZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ucE-s3-tcW"/>
+                            <constraint firstItem="2si-2m-EwZ" firstAttribute="top" secondItem="Iwr-TA-RYM" secondAttribute="bottom" constant="20" id="wkI-Y3-a1L"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="gve-Ic-RII">
@@ -76,6 +87,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="autoLoginButton" destination="Iwr-TA-RYM" id="EUe-ZI-myT"/>
                         <outlet property="emailField" destination="lGi-uf-AaT" id="8eg-f3-Wq5"/>
                         <outlet property="loginButton" destination="2si-2m-EwZ" id="cgx-bq-Omd"/>
                         <outlet property="passwordField" destination="sQq-kQ-jUA" id="8qn-gd-c0h"/>
@@ -129,19 +141,19 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ke-A7-egH" customClass="ContactNameLabel" customModule="Phone_Book" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="5" width="45" height="21"/>
+                                                    <rect key="frame" x="16" y="5" width="45" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Job" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7MG-rQ-V0f">
-                                                    <rect key="frame" x="8" y="62" width="261" height="21"/>
+                                                    <rect key="frame" x="16" y="62" width="253" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Department" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSK-1z-9yh" customClass="ContactDepartmentLabel" customModule="Phone_Book" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="36" width="359" height="21"/>
+                                                    <rect key="frame" x="16" y="36" width="343" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -162,12 +174,12 @@
                                                 <constraint firstItem="7MG-rQ-V0f" firstAttribute="top" secondItem="RSK-1z-9yh" secondAttribute="bottom" constant="5" id="ND5-Ea-Hrm"/>
                                                 <constraint firstItem="8Ke-A7-egH" firstAttribute="top" secondItem="DbS-8C-BpC" secondAttribute="top" constant="5" id="d91-75-NJs"/>
                                                 <constraint firstItem="Hej-e6-ZRM" firstAttribute="leading" secondItem="7MG-rQ-V0f" secondAttribute="trailing" constant="8" id="gny-Nq-abp"/>
-                                                <constraint firstItem="RSK-1z-9yh" firstAttribute="leading" secondItem="DbS-8C-BpC" secondAttribute="leading" constant="8" id="hMX-LC-oqS"/>
-                                                <constraint firstItem="7MG-rQ-V0f" firstAttribute="leading" secondItem="DbS-8C-BpC" secondAttribute="leading" constant="8" id="i6k-AT-XoC"/>
-                                                <constraint firstItem="8Ke-A7-egH" firstAttribute="leading" secondItem="DbS-8C-BpC" secondAttribute="leading" constant="8" id="ieK-HI-ub8"/>
+                                                <constraint firstItem="RSK-1z-9yh" firstAttribute="leading" secondItem="DbS-8C-BpC" secondAttribute="leading" constant="16" id="hMX-LC-oqS"/>
+                                                <constraint firstItem="7MG-rQ-V0f" firstAttribute="leading" secondItem="DbS-8C-BpC" secondAttribute="leading" constant="16" id="i6k-AT-XoC"/>
+                                                <constraint firstItem="8Ke-A7-egH" firstAttribute="leading" secondItem="DbS-8C-BpC" secondAttribute="leading" constant="16" id="ieK-HI-ub8"/>
                                                 <constraint firstAttribute="trailing" secondItem="Hej-e6-ZRM" secondAttribute="trailing" constant="8" id="ogp-zi-TDw"/>
                                                 <constraint firstItem="Hej-e6-ZRM" firstAttribute="centerY" secondItem="7MG-rQ-V0f" secondAttribute="centerY" id="qaZ-y3-HLw"/>
-                                                <constraint firstAttribute="trailing" secondItem="RSK-1z-9yh" secondAttribute="trailing" constant="8" id="sN3-so-LTy"/>
+                                                <constraint firstAttribute="trailing" secondItem="RSK-1z-9yh" secondAttribute="trailing" constant="16" id="sN3-so-LTy"/>
                                                 <constraint firstItem="RSK-1z-9yh" firstAttribute="top" secondItem="8Ke-A7-egH" secondAttribute="bottom" constant="8" id="vBf-uz-fB8"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -623,19 +635,19 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GD1-2f-ZXK" customClass="ContactNameLabel" customModule="Phone_Book" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="5" width="45" height="21"/>
+                                                    <rect key="frame" x="16" y="5" width="45" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Job" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bun-Nj-fTE">
-                                                    <rect key="frame" x="8" y="61.5" width="29" height="21"/>
+                                                    <rect key="frame" x="16" y="61.5" width="29" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Department" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyU-wL-VXj" customClass="ContactDepartmentLabel" customModule="Phone_Book" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="36" width="359" height="21"/>
+                                                    <rect key="frame" x="16" y="36" width="343" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -643,13 +655,13 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="bun-Nj-fTE" firstAttribute="top" secondItem="oyU-wL-VXj" secondAttribute="bottom" constant="5" id="9wg-Yu-hUj"/>
-                                                <constraint firstItem="bun-Nj-fTE" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="8" id="AX6-Pq-O94"/>
+                                                <constraint firstItem="bun-Nj-fTE" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="16" id="AX6-Pq-O94"/>
                                                 <constraint firstAttribute="bottom" secondItem="bun-Nj-fTE" secondAttribute="bottom" constant="8" id="FJb-h3-YJ4"/>
                                                 <constraint firstItem="oyU-wL-VXj" firstAttribute="top" secondItem="GD1-2f-ZXK" secondAttribute="bottom" constant="8" id="Nng-31-Hzu"/>
-                                                <constraint firstAttribute="trailing" secondItem="oyU-wL-VXj" secondAttribute="trailing" constant="8" id="WvU-Uf-DeI"/>
-                                                <constraint firstItem="GD1-2f-ZXK" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="8" id="XGw-Gq-Hp2"/>
+                                                <constraint firstAttribute="trailing" secondItem="oyU-wL-VXj" secondAttribute="trailing" constant="16" id="WvU-Uf-DeI"/>
+                                                <constraint firstItem="GD1-2f-ZXK" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="16" id="XGw-Gq-Hp2"/>
                                                 <constraint firstItem="GD1-2f-ZXK" firstAttribute="top" secondItem="8hb-14-HhD" secondAttribute="top" constant="5" id="oX7-Mu-e4f"/>
-                                                <constraint firstItem="oyU-wL-VXj" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="8" id="sTg-hq-IXs"/>
+                                                <constraint firstItem="oyU-wL-VXj" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="16" id="sTg-hq-IXs"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -769,6 +781,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="dh5-u8-fgQ"/>
-        <segue reference="LMO-z9-AcH"/>
+        <segue reference="TR7-zq-jKS"/>
     </inferredMetricsTieBreakers>
 </document>

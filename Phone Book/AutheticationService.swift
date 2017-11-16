@@ -12,6 +12,13 @@ class AuthenticationService {
     
     private(set) static var isAuthenticated = false
     private(set) static var authToken: String?
+    private static let hasLoginKey = "hasLoginKey"
+    private static let autoLoginKey = "shouldAutoLogin"
+    private static let usernameKey = "username"
+    static var shouldAutoLogin : Bool {
+        guard let autoLogin = UserDefaults.standard.value(forKey: self.autoLoginKey) as? Bool else { return false }
+        return autoLogin
+    }
     
     static func storeAuthenticationCredentials(
         token: String,
@@ -21,7 +28,7 @@ class AuthenticationService {
         self.isAuthenticated = true
         
         // Check if key has already been stored
-        guard let _ = UserDefaults.standard.value(forKey: "hasLoginKey") else {
+        guard let _ = UserDefaults.standard.value(forKey: self.hasLoginKey) else {
             // If not previously stored, then store credentials into keychain
             self.cacheAuthenticationCredentials(username: email, password: password)
             return
@@ -30,7 +37,7 @@ class AuthenticationService {
     
     static func cacheAuthenticationCredentials(username: String, password: String) {
         
-        UserDefaults.standard.setValue(username, forKey: "username")
+        UserDefaults.standard.setValue(username, forKey: self.usernameKey)
         
         do {
             
@@ -45,12 +52,12 @@ class AuthenticationService {
             fatalError("Error updating keychain - \(error)")
         }
         
-        UserDefaults.standard.set(true, forKey: "hasLoginKey")
+        UserDefaults.standard.set(true, forKey: self.hasLoginKey)
     }
     
     static func checkAuthenticationCache(completion:(_ username: String?, _ password: String?)->Void) {
         
-        guard let username = UserDefaults.standard.value(forKey: "username") as? String else {
+        guard let username = UserDefaults.standard.value(forKey: self.usernameKey) as? String else {
             completion(nil,nil)
             return
         }
@@ -66,5 +73,9 @@ class AuthenticationService {
         catch {
             completion(nil,nil)
         }
+    }
+    
+    static func toggleShouldAutoLogin(_ autoLogin: Bool) {
+        UserDefaults.standard.set(autoLogin, forKey: self.autoLoginKey)
     }
 }

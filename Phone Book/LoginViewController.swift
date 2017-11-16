@@ -14,6 +14,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: PrimaryCTAButton!
+    @IBOutlet weak var autoLoginButton: PrimaryCTAButtonText!
     
     var loginService: LoginService!
     var validationService: ValidationService!
@@ -28,6 +29,8 @@ class LoginViewController: UIViewController {
         super.viewDidAppear(animated)
         self.loginService.authenticationAutoFillCheck()
         verifyFields()
+        // TODO: Un-comment when AutoLogin ready
+//        self.autoLoginButton.isSelected = self.loginService.shouldAutoLogin
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -47,6 +50,11 @@ class LoginViewController: UIViewController {
         self.passwordField.returnKeyType = .done
         self.passwordField.isSecureTextEntry = true
         self.validationService = ValidationService(textFields: [ self.emailField, self.passwordField ])
+        
+        // Set up Buttons
+        self.autoLoginButton.adjustsImageWhenHighlighted = false
+        self.autoLoginButton.setTitle("Do Not Auto-login", for: .selected)
+        self.autoLoginButton.setTitle("Auto-login?", for: .normal)
     }
     
     @IBAction func pressedClose(_ sender: Any) {
@@ -56,6 +64,13 @@ class LoginViewController: UIViewController {
     @IBAction func pressedLogin(_ sender: Any) {
         self.login()
     }
+    
+    @IBAction func pressedAutoLoginButton(_ sender: UIButton) {
+        self.autoLoginButton.isSelected = !self.autoLoginButton.isSelected
+        // TODO: Un-comment when AutoLogin ready
+//        self.loginService.toggleShouldAutoLogin(self.autoLoginButton.isSelected)
+    }
+    
 }
 
 // MARK: - UITextFieldDelegate
@@ -116,7 +131,6 @@ private extension LoginViewController {
             textfield.resignFirstResponder()
             self.login()
         }
-        
     }
 }
 

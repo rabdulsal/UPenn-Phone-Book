@@ -245,7 +245,6 @@ private extension ContactsListViewController {
     
     func toggleNoContactsView(show: Bool, delay: Bool=false) {
         if show {
-            
             self.noContactsViewHeight.constant = 100
             if delay {
                 Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (timer) in
@@ -254,7 +253,7 @@ private extension ContactsListViewController {
             } else {
                 self.noContactsView.isHidden = false
             }
-            self.noContactsLabel.text = "Search for a UPenn Employee by First or Last Name."
+            self.noContactsLabel.text = "Search for a Penn Medicine employee by last name or first name."
         } else {
             self.noContactsView.isHidden = true
             self.noContactsViewHeight.constant = 0

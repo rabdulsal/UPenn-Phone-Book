@@ -21,7 +21,7 @@ class FavoritesGroupsListViewController : UIViewController {
     var contact: Contact!
     var favoritesGroups : Array<String>? {
         let allFavorites = FavoritesService.getAllFavoritesGroups()
-        self.toggleNoGroupsView(show: allFavorites.count == 0)
+        self.updateFavoritesViewInstructions(hasFavorites: allFavorites.count == 0)
         return allFavorites
     }
     var addFavoritesDelegate: AddToFavoritesDelegate?
@@ -36,6 +36,7 @@ class FavoritesGroupsListViewController : UIViewController {
         self.groupsTableView.dataSource = self
         self.groupsTableView.tableFooterView = UIView()
         self.noGroupsView.backgroundColor = UIColor.upennLightGray
+        self.noGroupsViewHeight.constant = 100
     }
     
     @IBAction func newFavoritesGroupButtonPressed(_ sender: Any) {
@@ -106,20 +107,12 @@ extension FavoritesGroupsListViewController : UITableViewDataSource {
 
 private extension FavoritesGroupsListViewController {
     func dismissWithSuccess(groupTitle: String) {
-        SVProgressHUD.showSuccess(withStatus: "New Contact Successfully Added to \(groupTitle)!")
+        SVProgressHUD.showSuccess(withStatus: "New Contact Successfully Added to \"\(groupTitle)\".")
         self.dismiss(animated: true, completion: nil)
-         self.addFavoritesDelegate?.successfullyAddedContactToFavorites()
+        self.addFavoritesDelegate?.successfullyAddedContactToFavorites()
     }
     
-    func toggleNoGroupsView(show: Bool) {
-        if show {
-            self.noGroupsView.isHidden = false
-            self.noGroupsViewHeight.constant = 100
-            self.noGroupsLabel.text = "You have no Favorites Groups. Create one now by pressing the '+' button."
-        } else {
-            self.noGroupsView.isHidden = true
-            self.noGroupsViewHeight.constant = 0
-            self.noGroupsLabel.text = ""
-        }
+    func updateFavoritesViewInstructions(hasFavorites: Bool) {
+        self.noGroupsLabel.text = hasFavorites ? "You have no Favorites Groups. Create one now by pressing the '+' button." : "Add to one of your Favorites Groups below, or click “+” to create a new Group."
     }
 }

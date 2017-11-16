@@ -62,7 +62,7 @@ class Contact {
         self.displayCellPhone = userDict["displayCellPhone"] as? String ?? ""
         self.cellEmail = userDict["cellEmail"] as? String ?? ""
         self.isDisabled = userDict["isDisabled"] as? Int ?? -1
-        self.updateFavoritesStatus()
+        self.updateFavoritedStatus()
     }
     
     init(favoriteContact: FavoritesContact) {
@@ -90,12 +90,10 @@ class Contact {
         self.isDisabled = Int(favoriteContact.isDisabled)
         self.isFavorited = true
     }
-    
-    
 }
 
 private extension Contact {
-    func updateFavoritesStatus() {
-        self.isFavorited = FavoritesService.updateFavoritesStatus(self)
+    func updateFavoritedStatus() {
+        self.isFavorited = FavoritesService.updateFavoritedStatus(self)
     }
 }
