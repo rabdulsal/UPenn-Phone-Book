@@ -119,6 +119,10 @@ class ContactsListViewController : UIViewController {
         self.searchController.isActive = false
         self.reloadTableView()
     }
+    
+    func showLoginView() {
+        self.performSegue(withIdentifier: SegueIDs.login.rawValue, sender: nil)
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -252,12 +256,11 @@ extension ContactsListViewController : FavoritesUpdatable {
 private extension ContactsListViewController {
     
     func checkAuthenticationForPresentation() {
-        // TODO: Update checking to use attemptSilentLogin
-        
+        // TODO: Update checking to use AppDelegate
         if self.loginService.shouldAutoLogin {
             self.loginService.attemptSilentLogin()
         } else {
-            self.performSegue(withIdentifier: SegueIDs.login.rawValue, sender: nil)
+            self.showLoginView()
         }
     }
     

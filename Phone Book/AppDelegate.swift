@@ -17,6 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var authToken: String?
     var users = Array<Contact>()
+    var tabBarController : UITabBarController? {
+        return self.window?.rootViewController as? UITabBarController
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -28,8 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setDefaultMaskType(.black)
         SVProgressHUD.setMaximumDismissTimeInterval(2.0)
         
-        let tabBarController = self.window?.rootViewController as? UITabBarController
-        tabBarController?.delegate = self
+        self.tabBarController?.delegate = self
         
         return true
     }
@@ -50,7 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-//        self.window?.rootViewController?.tabBarController?.delegate = self
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -99,6 +100,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    
+    func logout() {
+        
+        // Go To Search Screen
+        
     }
 }
 
