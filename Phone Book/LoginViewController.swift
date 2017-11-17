@@ -58,6 +58,7 @@ class LoginViewController: UIViewController {
         self.autoLoginButton.adjustsImageWhenHighlighted = false
         self.autoLoginButton.setTitle("Do Not Auto-Fill", for: .selected)
         self.autoLoginButton.setTitle("Auto-Fill?", for: .normal)
+        self.autoLoginButton.isSelected = self.loginService.shouldAutoFill
     }
     
     @IBAction func pressedClose(_ sender: Any) {
@@ -71,7 +72,7 @@ class LoginViewController: UIViewController {
     @IBAction func pressedAutoLoginButton(_ sender: UIButton) {
         self.autoLoginButton.isSelected = !self.autoLoginButton.isSelected
         // TODO: Eventually change to Auto-fill & un-comment
-//        self.loginService.toggleShouldAutoLogin(self.autoLoginButton.isSelected)
+        self.loginService.toggleShouldAutoFill(self.autoLoginButton.isSelected)
     }
     
 }

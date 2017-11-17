@@ -10,14 +10,20 @@ import Foundation
 
 class AuthenticationService {
     
-    private(set) static var isAuthenticated = false
     private(set) static var authToken: String?
     private static let hasLoginKey = "hasLoginKey"
     private static let autoLoginKey = "shouldAutoLogin"
+    private static let autoFillKey = "shouldAutoFill"
     private static let usernameKey = "username"
+    static var isAuthenticated = false // TODO: Look to change this for better encapsulation
     static var shouldAutoLogin : Bool {
         guard let autoLogin = UserDefaults.standard.value(forKey: self.autoLoginKey) as? Bool else { return false }
         return autoLogin
+    }
+    
+    static var shouldAutoFill : Bool {
+        guard let autoFill = UserDefaults.standard.value(forKey: self.autoFillKey) as? Bool else { return false }
+        return autoFill
     }
     
     static func storeAuthenticationCredentials(
@@ -77,5 +83,9 @@ class AuthenticationService {
     
     static func toggleShouldAutoLogin(_ autoLogin: Bool) {
         UserDefaults.standard.set(autoLogin, forKey: self.autoLoginKey)
+    }
+    
+    static func toggleShouldAutoFill(_ autoFill: Bool) {
+        UserDefaults.standard.set(autoFill, forKey: self.autoFillKey)
     }
 }

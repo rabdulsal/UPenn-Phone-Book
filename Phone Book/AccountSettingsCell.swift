@@ -18,15 +18,20 @@ class AccountSettingsCell : UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
-        textLabel?.text = "Auto-Login"
         autoLoginSwitch.onTintColor = UIColor.upennMediumBlue
-        self.autoLoginSwitch.setOn(self.shouldAutoLogin, animated: false)
-        self.autoLoginSwitch.isSelected = self.shouldAutoLogin
-        print("Switch State Launch:", self.autoLoginSwitch.isSelected)
+        if AuthenticationService.shouldAutoFill {
+            textLabel?.text = "Auto-Login"
+            self.autoLoginSwitch.setOn(self.shouldAutoLogin, animated: false)
+            self.autoLoginSwitch.isSelected = self.shouldAutoLogin
+        } else {
+            self.autoLoginSwitch.setOn(false, animated: false)
+            self.autoLoginSwitch.isEnabled = false
+            textLabel?.text = "Auto-Login (Disabled)"
+            textLabel?.textColor = UIColor.upennCTALightBlue
+        }
     }
     
     @IBAction func toggledAutoLoginSwitch(_ sender: UISwitch) {
         AuthenticationService.toggleShouldAutoLogin(!self.autoLoginSwitch.isSelected)
-        print("Switch State Toggle:", self.autoLoginSwitch.isSelected)
     }
 }

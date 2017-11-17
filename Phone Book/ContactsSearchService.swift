@@ -19,7 +19,7 @@ class ContactsSearchService {
             var retrievedContacts = Array<Contact>()
             
             if let httpError = response.result.error {
-                print("Error:", httpError.localizedDescription)
+                completion([],httpError)
             } else {
                 guard let statusCode = response.response?.statusCode else {
                     completion(retrievedContacts,nil) // TODO: Create Error object to bubble up
