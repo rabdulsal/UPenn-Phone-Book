@@ -68,7 +68,7 @@ class LoginService {
         }
     }
     
-    private func attemptSilentLogin() {
+    func attemptSilentLogin() {
         AuthenticationService.checkAuthenticationCache { (username, password) in
             guard let u = username, let p = password else {
                 self.loginDelegate.didFailToLoginUser(errorStr: self.autoLoginError)
@@ -84,9 +84,5 @@ class LoginService {
     
     func toggleShouldAutoFill(_ autoFill: Bool) {
         AuthenticationService.toggleShouldAutoFill(autoFill)
-    }
-    
-    func checkAutoLogin() {
-        if self.shouldAutoLogin { self.attemptSilentLogin() }
     }
 }

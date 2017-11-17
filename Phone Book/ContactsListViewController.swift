@@ -33,6 +33,7 @@ class ContactsListViewController : UIViewController {
     @IBOutlet weak var noContactsViewHeight: NSLayoutConstraint!
     @IBOutlet weak var noContactsLabel: NoDataInstructionsLabel!
     
+    var loginService: LoginService!
     var searchService = ContactsSearchService()
     var contactsList: Array<Contact>! {
         didSet {
@@ -56,7 +57,6 @@ class ContactsListViewController : UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.checkAuthenticationForPresentation()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -84,18 +84,26 @@ class ContactsListViewController : UIViewController {
     override func setup() {
         super.setup()
         self.contactsList = [Contact]()
+        
+        // SearchController configs
         self.searchController = UISearchController(searchResultsController: nil)
         self.searchController.searchResultsUpdater = self
         self.searchController.searchBar.delegate = self
         self.searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
+        
+        // TableView configs
         self.contactsTableView.delegate = self
         self.contactsTableView.dataSource = self
         self.contactsTableView.tableHeaderView = self.searchController.searchBar
         self.contactsTableView.tableFooterView = UIView()
-        self.tabBarController?.delegate = self
+        
+        // Miscellaneous configs
+        self.loginService = LoginService(loginDelegate: self)
+//        self.tabBarController?.delegate = self
         self.noContactsLabel.setFontHeight(size: 20.0)
         self.noContactsView.backgroundColor = UIColor.upennLightGray
+        self.checkAuthenticationForPresentation()
     }
     
     // IBActions
@@ -103,6 +111,13 @@ class ContactsListViewController : UIViewController {
         let alertCtrl = UIAlertController(title: "Search Help", message: self.helpText, preferredStyle: .alert)
         alertCtrl.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alertCtrl, animated: true, completion: nil)
+    }
+    
+    // Public
+    func reloadView() {
+        self.navigationController?.popToRootViewController(animated: false)
+        self.searchController.isActive = false
+        self.reloadTableView()
     }
 }
 
@@ -142,6 +157,21 @@ extension ContactsListViewController : UITableViewDataSource {
     }
 }
 
+// MARK: - LoginService Delegate
+
+extension ContactsListViewController : LoginServiceDelegate {
+    
+    func didSuccessfullyLoginUser() {
+        SVProgressHUD.showSuccess(withStatus: "You are logged in!")
+    }
+    
+    func didReturnAutoFillCredentials(username: String, password: String) { }
+    
+    func didFailToLoginUser(errorStr: String) {
+        SVProgressHUD.showError(withStatus: errorStr)
+    }
+}
+
 // MARK: - UISearchControllerDelegate
 
 extension ContactsListViewController : UISearchBarDelegate {
@@ -165,7 +195,7 @@ extension ContactsListViewController : UISearchBarDelegate {
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        self.reloadView()
+        self.reloadTableView()
     }
 }
 
@@ -174,8 +204,6 @@ extension ContactsListViewController : UISearchBarDelegate {
 extension ContactsListViewController : UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if viewController.childViewControllers.first! is FavoritesViewController {
-            self.navigationController?.popToRootViewController(animated: false)
-            self.searchController.isActive = false
             self.reloadView()
         }
     }
@@ -225,7 +253,10 @@ private extension ContactsListViewController {
     
     func checkAuthenticationForPresentation() {
         // TODO: Update checking to use attemptSilentLogin
-        if !AuthenticationService.isAuthenticated {
+        
+        if self.loginService.shouldAutoLogin {
+            self.loginService.attemptSilentLogin()
+        } else {
             self.performSegue(withIdentifier: SegueIDs.login.rawValue, sender: nil)
         }
     }
@@ -239,9 +270,11 @@ private extension ContactsListViewController {
         }
     }
     
-    func reloadView() {
+    func reloadTableView() {
         self.contactsList.removeAll()
         self.contactsTableView.reloadData()
+        let heightOffsetAdjustment = 0.0 - self.contactsTableView.contentOffset.y
+        self.contactsTableView.setContentOffset(CGPoint.init(x: 0.0, y: 0.0), animated: true)
     }
     
     func toggleNoContactsView(show: Bool, delay: Bool=false) {

@@ -24,11 +24,6 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         self.setup()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.loginService.checkAutoLogin()
-    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

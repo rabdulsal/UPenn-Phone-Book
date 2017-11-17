@@ -28,8 +28,14 @@ class AccountTableViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let _section = Sections(rawValue: section) else { return 0 }
         
-        return 1
+        switch _section {
+        case .Settings:
+            return 2
+        default:
+            return 0
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -38,8 +44,22 @@ class AccountTableViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AccountCell") as! AccountSettingsCell
-        return cell
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AccountCell") as! AccountSettingsCell
+            return cell
+//        case 1:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "LogoutCell") as! UITableViewCell
+//            cell.textLabel?.text = "Logout"
+//            return cell
+        default:
+            return UITableViewCell()
+        }
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Logout User
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

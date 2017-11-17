@@ -28,6 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setDefaultMaskType(.black)
         SVProgressHUD.setMaximumDismissTimeInterval(2.0)
         
+        let tabBarController = self.window?.rootViewController as? UITabBarController
+        tabBarController?.delegate = self
+        
         return true
     }
 
@@ -47,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+//        self.window?.rootViewController?.tabBarController?.delegate = self
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -96,5 +100,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
 }
+
+// MARK: - UITabBarViewController
+
+extension AppDelegate : UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if viewController.childViewControllers.first! is FavoritesViewController {
+            
+            print("Favorites Tapped")
+        } else if viewController.childViewControllers.first! is ContactsListViewController {
+            let contactsVC = viewController.childViewControllers.first as! ContactsListViewController
+            contactsVC.reloadView()
+            print("Search Tapped")
+        } else {
+            print("Accounts Tapped")
+        }
+    }
+}
+
