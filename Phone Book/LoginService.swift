@@ -19,7 +19,7 @@ class LoginService {
     var isLoggedIn = false
     var requestService = NetworkRequestService()
     var loginDelegate: LoginServiceDelegate
-    var shouldAutoLogin : Bool { return AuthenticationService.shouldAutoLogin  }
+    var shouldAutoLogin : Bool { return AuthenticationService.shouldAutoLogin }
     var shouldAutoFill : Bool { return AuthenticationService.shouldAutoFill }
     let genericLoginError = "Sorry an error occurred while attempting Login. Please try again."
     let statusCodeError = "Something went wrong getting a Status Code for your Login Request. Please try again."

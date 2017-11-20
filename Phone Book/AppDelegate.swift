@@ -103,9 +103,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func logout() {
-        
-        // Go To Search Screen
-        
+        /*
+         * 1. Go To Search Screen
+         * 2. Launch LoginView
+         */
+        self.tabBarController?.selectedIndex = 0
+        if let navVC = self.tabBarController?.selectedViewController as? UINavigationController, let contactsVC = navVC.childViewControllers.first as? ContactsListViewController {
+            contactsVC.showLoginView()
+        }
     }
 }
 
@@ -113,15 +118,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate : UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        if viewController.childViewControllers.first! is FavoritesViewController {
-            
-            print("Favorites Tapped")
-        } else if viewController.childViewControllers.first! is ContactsListViewController {
-            let contactsVC = viewController.childViewControllers.first as! ContactsListViewController
+        
+        // Clear out view if ContactsListViewController
+        if let contactsVC = viewController.childViewControllers.first as? ContactsListViewController {
             contactsVC.reloadView()
-            print("Search Tapped")
-        } else {
-            print("Accounts Tapped")
         }
     }
 }

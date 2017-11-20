@@ -79,13 +79,7 @@
                             <constraint firstItem="2si-2m-EwZ" firstAttribute="top" secondItem="Iwr-TA-RYM" secondAttribute="bottom" constant="20" id="wkI-Y3-a1L"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Login" id="gve-Ic-RII">
-                        <barButtonItem key="leftBarButtonItem" title="Close" id="oRN-hs-92w">
-                            <connections>
-                                <action selector="pressedClose:" destination="BYZ-38-t0r" id="4bg-6S-WNc"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Login" id="gve-Ic-RII"/>
                     <connections>
                         <outlet property="autoLoginButton" destination="Iwr-TA-RYM" id="EUe-ZI-myT"/>
                         <outlet property="emailField" destination="lGi-uf-AaT" id="8eg-f3-Wq5"/>
@@ -735,6 +729,14 @@
                                 <connections>
                                     <outlet property="autoLoginSwitch" destination="dVn-SQ-AjF" id="dwB-cM-y0h"/>
                                 </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogoutCell" id="77U-rs-SBm">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="77U-rs-SBm" id="HKA-wF-0Xx">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>

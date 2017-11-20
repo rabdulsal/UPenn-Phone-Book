@@ -17,10 +17,24 @@ class AccountTableViewController : UITableViewController {
         static var count : Int {
             return Settings.rawValue+1
         }
+        
+        enum Rows : Int {
+            case AutoLogin
+            case Logout
+        }
     }
     
     enum SectionTitles : String {
         case Settings = "Settings"
+    }
+    
+    enum Identifiers : String {
+        case AutoLogin = "AccountCell"
+        case Logout = "LogoutCell"
+    }
+    
+    var appDelegate : AppDelegate? {
+        return UIApplication.shared.delegate as? AppDelegate
     }
     
     override func viewDidLoad() {
@@ -46,12 +60,12 @@ class AccountTableViewController : UITableViewController {
         
         switch indexPath.row {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AccountCell") as! AccountSettingsCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.AutoLogin.rawValue) as! AccountSettingsCell
             return cell
-//        case 1:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "LogoutCell") as! UITableViewCell
-//            cell.textLabel?.text = "Logout"
-//            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Logout.rawValue) as! UITableViewCell
+            cell.textLabel?.text = "Logout"
+            return cell
         default:
             return UITableViewCell()
         }
@@ -59,7 +73,18 @@ class AccountTableViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let section = Sections(rawValue: indexPath.section), let row = Sections.Rows(rawValue: indexPath.row) else { return }
         // Logout User
+        switch section {
+        case .Settings:
+            switch row {
+            case .Logout:
+                guard let appDelegate = self.appDelegate else { return }
+                appDelegate.logout()
+            default: return
+            }
+//        default: return Un-comment if more Sections added
+        }
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

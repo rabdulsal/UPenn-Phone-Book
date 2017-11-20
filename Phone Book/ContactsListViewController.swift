@@ -100,7 +100,6 @@ class ContactsListViewController : UIViewController {
         
         // Miscellaneous configs
         self.loginService = LoginService(loginDelegate: self)
-//        self.tabBarController?.delegate = self
         self.noContactsLabel.setFontHeight(size: 20.0)
         self.noContactsView.backgroundColor = UIColor.upennLightGray
         self.checkAuthenticationForPresentation()
@@ -200,16 +199,6 @@ extension ContactsListViewController : UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         self.reloadTableView()
-    }
-}
-
-// MARK: - UITabBarViewController
-
-extension ContactsListViewController : UITabBarControllerDelegate {
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        if viewController.childViewControllers.first! is FavoritesViewController {
-            self.reloadView()
-        }
     }
 }
 
