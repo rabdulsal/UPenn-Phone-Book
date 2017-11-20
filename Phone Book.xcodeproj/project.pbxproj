@@ -25,6 +25,8 @@
 		3A7FAE3D1FA78F42009765F8 /* UILabel+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FAE3C1FA78F42009765F8 /* UILabel+UPenn.swift */; };
 		3A7FAE3F1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FAE3E1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift */; };
 		3ACFC7D71FBE2CB500D472FB /* AccountSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFC7D61FBE2CB500D472FB /* AccountSettingsCell.swift */; };
+		3ACFC7D91FC367FC00D472FB /* TimerUIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFC7D81FC367FC00D472FB /* TimerUIApplication.swift */; };
+		3ACFC7DB1FC3692B00D472FB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFC7DA1FC3692B00D472FB /* main.swift */; };
 		4C5AE2161F918D2500E271FD /* ContactsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2151F918D2400E271FD /* ContactsListViewController.swift */; };
 		4C5AE2181F918D4200E271FD /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2171F918D4200E271FD /* ContactDetailsViewController.swift */; };
 		4C5AE21A1F91CE7C00E271FD /* ContactViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2191F91CE7C00E271FD /* ContactViewCell.swift */; };
@@ -84,6 +86,8 @@
 		3A7FAE3C1FA78F42009765F8 /* UILabel+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+UPenn.swift"; sourceTree = "<group>"; };
 		3A7FAE3E1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesGroupsListViewController.swift; sourceTree = "<group>"; };
 		3ACFC7D61FBE2CB500D472FB /* AccountSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsCell.swift; sourceTree = "<group>"; };
+		3ACFC7D81FC367FC00D472FB /* TimerUIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerUIApplication.swift; sourceTree = "<group>"; };
+		3ACFC7DA1FC3692B00D472FB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		494755E5935655C3132B0EAB /* Pods_Phone_BookTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Phone_BookTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C5AE2151F918D2400E271FD /* ContactsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListViewController.swift; sourceTree = "<group>"; };
 		4C5AE2171F918D4200E271FD /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +167,8 @@
 				3A2BDF941F9920A60018E13A /* UIButton+UPenn.swift */,
 				3A317CCA1F9F9FFD00786C95 /* UIViewController+UPenn.swift */,
 				3A7FAE3C1FA78F42009765F8 /* UILabel+UPenn.swift */,
+				3ACFC7D81FC367FC00D472FB /* TimerUIApplication.swift */,
+				3ACFC7DA1FC3692B00D472FB /* main.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -604,7 +610,9 @@
 				84FFD8BD1F8EC36300B28184 /* LoginViewController.swift in Sources */,
 				841B89B21F910FB500CFB3C1 /* FavoritesService.swift in Sources */,
 				3A2BDF971F993AE00018E13A /* LoginTextField.swift in Sources */,
+				3ACFC7D91FC367FC00D472FB /* TimerUIApplication.swift in Sources */,
 				4C5AE2181F918D4200E271FD /* ContactDetailsViewController.swift in Sources */,
+				3ACFC7DB1FC3692B00D472FB /* main.swift in Sources */,
 				84FFD8BB1F8EC36300B28184 /* AppDelegate.swift in Sources */,
 				841B89AF1F910E7700CFB3C1 /* Contact.swift in Sources */,
 				3A7FAE3F1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift in Sources */,

@@ -74,7 +74,7 @@ class AccountTableViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let section = Sections(rawValue: indexPath.section), let row = Sections.Rows(rawValue: indexPath.row) else { return }
-        // Logout User
+        // Logout User if Logout Cell pressed
         switch section {
         case .Settings:
             switch row {

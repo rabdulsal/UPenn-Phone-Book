@@ -11,9 +11,10 @@ import Alamofire
 import CoreData
 import SVProgressHUD
 
-@UIApplicationMain
+//@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    
     var window: UIWindow?
     var authToken: String?
     var users = Array<Contact>()
@@ -32,6 +33,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setMaximumDismissTimeInterval(2.0)
         
         self.tabBarController?.delegate = self
+        
+        // Register for Timeout Notification
+        NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidTimout(notification:)), name: NSNotification.Name.init(TimerUIApplication.ApplicationDidTimeoutNotification), object: nil)
+        
+        // Trigger Auto-logout Timer
+        TimerUIApplication.resetIdleTimer()
         
         return true
     }
@@ -107,8 +114,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          * 1. Go To Search Screen
          * 2. Launch LoginView
          */
+        TimerUIApplication.invalidateActiveTimer()
         self.tabBarController?.selectedIndex = 0
         if let navVC = self.tabBarController?.selectedViewController as? UINavigationController, let contactsVC = navVC.childViewControllers.first as? ContactsListViewController {
+            contactsVC.reloadView()
             contactsVC.showLoginView()
         }
     }
@@ -123,6 +132,18 @@ extension AppDelegate : UITabBarControllerDelegate {
         if let contactsVC = viewController.childViewControllers.first as? ContactsListViewController {
             contactsVC.reloadView()
         }
+    }
+    
+    // Callback for when the timeout was fired.
+    func applicationDidTimout(notification: NSNotification) {
+        // Show Alert indicating app will close due to inactivity
+        let alertController = UIAlertController(title: "You've Been Logged-out", message: "You've been automatically logged-out due to inactivity. Please log back in.", preferredStyle: .alert)
+        let logoutAction = UIAlertAction(title: "Login", style: .cancel, handler: {
+            alert -> Void in
+            self.logout()
+        })
+        alertController.addAction(logoutAction)
+        self.tabBarController?.present(alertController, animated: true, completion: nil)
     }
 }
 
