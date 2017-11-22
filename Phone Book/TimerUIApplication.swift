@@ -12,7 +12,7 @@ import UIKit
 class TimerUIApplication : UIApplication {
     
     static let ApplicationDidTimeoutNotification = "AppTimeout"
-    static let timeoutInSeconds: TimeInterval = 10//5 * 60
+    static let timeoutInSeconds: TimeInterval = 2*60 // 2 mins for timeout
     static var idleTimer: Timer?
     
     // Listen for any touch. If the screen receives a touch, the timer is reset.

@@ -37,8 +37,9 @@ class AccountTableViewController : UITableViewController {
         return UIApplication.shared.delegate as? AppDelegate
     }
     
-    override func viewDidLoad() {
-        
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,6 +62,7 @@ class AccountTableViewController : UITableViewController {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.AutoLogin.rawValue) as! AccountSettingsCell
+            cell.configure()
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Logout.rawValue) as! UITableViewCell

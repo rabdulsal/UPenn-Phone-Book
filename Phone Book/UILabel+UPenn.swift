@@ -72,3 +72,16 @@ class NoDataInstructionsLabel : UPennLabel {
         self.setFontHeight(size: 20.0)
     }
 }
+
+class BannerLabel : UPennLabel {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.setBaseStyles()
+    }
+    
+    override func setBaseStyles() {
+        super.awakeFromNib()
+        self.textColor = UIColor.upennDarkBlue
+        self.setFontHeight(size: 30.0)
+    }
+}

@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: PrimaryCTAButton!
     @IBOutlet weak var autoLoginButton: PrimaryCTAButtonText! // TODO: Eventually change to Auto-fill
     
+    @IBOutlet weak var titleLabel: BannerLabel!
     var loginService: LoginService!
     var validationService: ValidationService!
     var passwordItems: [KeychainPasswordItem] = []
@@ -51,8 +52,8 @@ class LoginViewController: UIViewController {
         
         // Set up Buttons
         self.autoLoginButton.adjustsImageWhenHighlighted = false
-        self.autoLoginButton.setTitle("Do Not Auto-Fill", for: .selected)
-        self.autoLoginButton.setTitle("Auto-Fill?", for: .normal)
+        self.autoLoginButton.setImage(UIImage.init(named: "checked"), for: .selected)
+        self.autoLoginButton.setImage(UIImage.init(named: "un_checked"), for: .normal)
         self.autoLoginButton.isSelected = self.loginService.shouldAutoFill
     }
     
@@ -96,7 +97,6 @@ extension LoginViewController : LoginServiceDelegate {
     
     func didReturnAutoFillCredentials(username: String, password: String) {
         self.emailField.text = username
-        self.passwordField.text = password
     }
     
     func didFailToLoginUser(errorStr: String) {

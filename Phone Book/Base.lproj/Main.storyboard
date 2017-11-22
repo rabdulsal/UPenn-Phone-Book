@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,7 +24,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lGi-uf-AaT">
-                                <rect key="frame" x="16" y="180" width="343" height="50"/>
+                                <rect key="frame" x="16" y="275" width="343" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="IQJ-x4-DHc"/>
                                 </constraints>
@@ -32,7 +33,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sQq-kQ-jUA">
-                                <rect key="frame" x="16" y="246" width="343" height="50"/>
+                                <rect key="frame" x="16" y="341" width="343" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="wBo-bl-da0"/>
                                 </constraints>
@@ -41,7 +42,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2si-2m-EwZ" customClass="PrimaryCTAButton" customModule="Phone_Book" customModuleProvider="target">
-                                <rect key="frame" x="16" y="370" width="343" height="50"/>
+                                <rect key="frame" x="16" y="452" width="343" height="50"/>
                                 <color key="backgroundColor" red="0.54509803921568623" green="0.13725490196078433" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="fGk-m1-u2b"/>
@@ -54,24 +55,53 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iwr-TA-RYM" customClass="PrimaryCTAButtonText" customModule="Phone_Book" customModuleProvider="target">
-                                <rect key="frame" x="111.5" y="316" width="151" height="34"/>
-                                <state key="normal" title="Should Auto-Login">
+                                <rect key="frame" x="16" y="411" width="21" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ktN-Cc-6r9"/>
+                                    <constraint firstAttribute="width" secondItem="Iwr-TA-RYM" secondAttribute="height" multiplier="1:1" id="u6p-PF-wDe"/>
+                                </constraints>
+                                <state key="normal" image="un_checked">
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="pressedAutoLoginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x1l-rv-Zeq"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="penn_shield" translatesAutoresizingMaskIntoConstraints="NO" id="1ZH-Wl-szx">
+                                <rect key="frame" x="143.5" y="94" width="88" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="1ZH-Wl-szx" secondAttribute="height" multiplier="14:16" id="Pev-bj-Rc5"/>
+                                    <constraint firstAttribute="height" constant="100" id="QJj-y3-RdF"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Penn Phonebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNl-CE-J3T" customClass="BannerLabel" customModule="Phone_Book" customModuleProvider="target">
+                                <rect key="frame" x="122" y="224" width="130" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto-fill Login Credentials" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wv5-o8-1jZ" customClass="ContactDepartmentLabel" customModule="Phone_Book" customModuleProvider="target">
+                                <rect key="frame" x="45" y="411" width="198" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="lGi-uf-AaT" firstAttribute="trailing" secondItem="sQq-kQ-jUA" secondAttribute="trailing" id="AIV-Ji-psF"/>
-                            <constraint firstItem="Iwr-TA-RYM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BkK-mv-3Ld"/>
+                            <constraint firstItem="Wv5-o8-1jZ" firstAttribute="centerY" secondItem="Iwr-TA-RYM" secondAttribute="centerY" id="AtU-Ma-8UW"/>
+                            <constraint firstItem="1ZH-Wl-szx" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="DTU-B4-IAN"/>
                             <constraint firstItem="sQq-kQ-jUA" firstAttribute="leading" secondItem="2si-2m-EwZ" secondAttribute="leading" id="ER4-XM-HyY"/>
                             <constraint firstItem="sQq-kQ-jUA" firstAttribute="top" secondItem="lGi-uf-AaT" secondAttribute="bottom" constant="16" id="OLO-OY-snn"/>
-                            <constraint firstItem="Iwr-TA-RYM" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="R5a-nc-IcP"/>
+                            <constraint firstItem="cNl-CE-J3T" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QxN-sZ-0Gk"/>
                             <constraint firstItem="Iwr-TA-RYM" firstAttribute="top" secondItem="sQq-kQ-jUA" secondAttribute="bottom" constant="20" id="Rc0-yD-FjA"/>
+                            <constraint firstItem="cNl-CE-J3T" firstAttribute="top" secondItem="1ZH-Wl-szx" secondAttribute="bottom" constant="30" id="Wp9-V2-cPH"/>
+                            <constraint firstItem="lGi-uf-AaT" firstAttribute="top" secondItem="cNl-CE-J3T" secondAttribute="bottom" constant="30" id="eb8-qX-z47"/>
+                            <constraint firstItem="Iwr-TA-RYM" firstAttribute="leading" secondItem="sQq-kQ-jUA" secondAttribute="leading" id="gg7-Pg-ocv"/>
+                            <constraint firstItem="Wv5-o8-1jZ" firstAttribute="leading" secondItem="Iwr-TA-RYM" secondAttribute="trailing" constant="8" id="hBQ-fE-TzG"/>
                             <constraint firstItem="lGi-uf-AaT" firstAttribute="leading" secondItem="sQq-kQ-jUA" secondAttribute="leading" id="hVo-a3-o71"/>
+                            <constraint firstItem="1ZH-Wl-szx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mb2-eg-Vgd"/>
                             <constraint firstAttribute="trailing" secondItem="2si-2m-EwZ" secondAttribute="trailing" constant="16" id="n4H-IN-bTN"/>
                             <constraint firstItem="2si-2m-EwZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="na2-tw-cIy"/>
                             <constraint firstItem="sQq-kQ-jUA" firstAttribute="trailing" secondItem="2si-2m-EwZ" secondAttribute="trailing" id="sfo-8h-6aq"/>
@@ -85,11 +115,12 @@
                         <outlet property="emailField" destination="lGi-uf-AaT" id="8eg-f3-Wq5"/>
                         <outlet property="loginButton" destination="2si-2m-EwZ" id="cgx-bq-Omd"/>
                         <outlet property="passwordField" destination="sQq-kQ-jUA" id="8qn-gd-c0h"/>
+                        <outlet property="titleLabel" destination="cNl-CE-J3T" id="vle-3y-BzA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2510" y="-1212"/>
+            <point key="canvasLocation" x="2509.5999999999999" y="-1212.1439280359821"/>
         </scene>
         <!--Contacts-->
         <scene sceneID="Nlb-mn-PFV">
@@ -339,23 +370,31 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OoV-me-aaj">
-                                <rect key="frame" x="204" y="407" width="30" height="30"/>
-                                <state key="normal" title="Call"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OoV-me-aaj">
+                                <rect key="frame" x="204" y="411.5" width="27.5" height="21"/>
+                                <state key="normal" title="Call" image="phone"/>
                                 <connections>
                                     <action selector="pressedCallCellButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="9nc-f7-vx0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DJr-o8-JI9">
-                                <rect key="frame" x="242" y="407" width="30" height="30"/>
-                                <state key="normal" title="Text"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DJr-o8-JI9">
+                                <rect key="frame" x="241.5" y="411.5" width="28" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="DJr-o8-JI9" secondAttribute="height" multiplier="4:3" id="U2P-dp-0Wu"/>
+                                    <constraint firstAttribute="height" constant="21" id="qee-DP-X6Y"/>
+                                </constraints>
+                                <state key="normal" title="Text" image="chat_bubbles"/>
                                 <connections>
                                     <action selector="pressedTextButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="ekp-5j-k9a"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufP-kB-dnm">
-                                <rect key="frame" x="236" y="356" width="30" height="30"/>
-                                <state key="normal" title="Call"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufP-kB-dnm">
+                                <rect key="frame" x="236" y="361" width="27.5" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ufP-kB-dnm" secondAttribute="height" multiplier="4:3" id="BCy-ij-eMT"/>
+                                    <constraint firstAttribute="height" constant="21" id="Bc6-ZV-ZT2"/>
+                                </constraints>
+                                <state key="normal" title="Call" image="phone"/>
                                 <connections>
                                     <action selector="pressedCallPhoneButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="GJ2-Up-jom"/>
                                 </connections>
@@ -423,6 +462,7 @@
                             <constraint firstItem="LbE-Nv-zhe" firstAttribute="leading" secondItem="DXA-hJ-k3S" secondAttribute="leading" id="eWS-7W-p9O"/>
                             <constraint firstItem="eYc-q2-sIZ" firstAttribute="centerY" secondItem="rfw-ng-GBe" secondAttribute="centerY" id="eh9-Dg-DtJ"/>
                             <constraint firstItem="wvu-IY-Ywi" firstAttribute="centerY" secondItem="cPa-yH-L97" secondAttribute="centerY" id="f1f-eN-guR"/>
+                            <constraint firstItem="OoV-me-aaj" firstAttribute="width" secondItem="ufP-kB-dnm" secondAttribute="width" id="fF6-Tx-Qa0"/>
                             <constraint firstItem="yWx-Fe-raG" firstAttribute="leading" secondItem="hCc-xi-9eb" secondAttribute="leading" id="flf-DG-aGn"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YB1-v6-TOC" secondAttribute="trailing" constant="16" id="fvj-pG-j6H"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LbE-Nv-zhe" secondAttribute="trailing" constant="16" id="gmW-LE-wA2"/>
@@ -446,7 +486,8 @@
                             <constraint firstItem="OoV-me-aaj" firstAttribute="centerY" secondItem="yWx-Fe-raG" secondAttribute="centerY" id="r3d-Db-Gxg"/>
                             <constraint firstItem="LbE-Nv-zhe" firstAttribute="baseline" secondItem="iLm-6w-hUN" secondAttribute="baseline" id="s5Q-al-5as"/>
                             <constraint firstItem="eYc-q2-sIZ" firstAttribute="top" secondItem="rfw-ng-GBe" secondAttribute="top" id="sQH-gv-RfD"/>
-                            <constraint firstItem="DJr-o8-JI9" firstAttribute="leading" secondItem="OoV-me-aaj" secondAttribute="trailing" constant="8" id="tx2-fT-dWq"/>
+                            <constraint firstItem="OoV-me-aaj" firstAttribute="height" secondItem="ufP-kB-dnm" secondAttribute="height" id="tku-uj-ZAZ"/>
+                            <constraint firstItem="DJr-o8-JI9" firstAttribute="leading" secondItem="OoV-me-aaj" secondAttribute="trailing" constant="10" id="tx2-fT-dWq"/>
                             <constraint firstItem="DJr-o8-JI9" firstAttribute="centerY" secondItem="OoV-me-aaj" secondAttribute="centerY" id="v9g-e8-gZQ"/>
                             <constraint firstItem="YB1-v6-TOC" firstAttribute="leading" secondItem="eYc-q2-sIZ" secondAttribute="leading" id="vZG-C9-Zhb"/>
                             <constraint firstItem="DXA-hJ-k3S" firstAttribute="bottom" secondItem="0T7-Np-wUv" secondAttribute="bottom" id="vzh-NY-neP"/>
@@ -485,7 +526,7 @@
             </objects>
             <point key="canvasLocation" x="2510" y="385"/>
         </scene>
-        <!--Favorites Groups List View Controller-->
+        <!--Favorites Groups-->
         <scene sceneID="dvJ-1i-n8t">
             <objects>
                 <viewController id="gg4-UL-heI" customClass="FavoritesGroupsListViewController" customModule="Phone_Book" customModuleProvider="target" sceneMemberID="viewController">
@@ -543,7 +584,7 @@
                             <constraint firstItem="dYA-vc-oID" firstAttribute="leading" secondItem="cqW-EV-hII" secondAttribute="leading" id="wDs-Mm-LmL"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="EkJ-ep-eL7">
+                    <navigationItem key="navigationItem" title="Favorites Groups" id="EkJ-ep-eL7">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="sjh-wh-YrT">
                             <connections>
                                 <action selector="cancelButtonPressed:" destination="gg4-UL-heI" id="6RI-FE-sgn"/>
@@ -844,10 +885,14 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chat_bubbles" width="50" height="50"/>
         <image name="male" width="50" height="50"/>
+        <image name="penn_shield" width="140" height="163"/>
+        <image name="phone" width="50" height="50"/>
+        <image name="un_checked" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dh5-u8-fgQ"/>
+        <segue reference="AgV-Js-0Xu"/>
         <segue reference="LMO-z9-AcH"/>
     </inferredMetricsTieBreakers>
 </document>
