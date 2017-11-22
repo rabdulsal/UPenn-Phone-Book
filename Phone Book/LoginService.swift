@@ -24,7 +24,7 @@ class LoginService {
     let genericLoginError = "Sorry an error occurred while attempting Login. Please try again."
     let statusCodeError = "Something went wrong getting a Status Code for your Login Request. Please try again."
     let autoLoginError = "Something went wrong attempting Auto-Login - could not retrieve Username & Password. Please try again."
-    let usernamePasswordError = "You have entered an incorrect Username or Password. Note: your Password is case-sensitive. Please try again."
+    let usernamePasswordError = "You have entered an incorrect Username or Password. Please try again."
     
     init(loginDelegate: LoginServiceDelegate) {
         self.loginDelegate = loginDelegate

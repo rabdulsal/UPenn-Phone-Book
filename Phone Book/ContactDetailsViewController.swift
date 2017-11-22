@@ -107,7 +107,6 @@ private extension ContactDetailsViewController {
     }
     
     func setupTapGestureRecognizers() {
-        // TODO: Change to UIButton
         let tap1 = UITapGestureRecognizer(target: self, action: #selector(self.makePhoneCallable))
         // Office Phone Tap
         tap1.delegate = self
@@ -116,13 +115,13 @@ private extension ContactDetailsViewController {
         primaryPhoneLabel.addGestureRecognizer(tap1)
         
         // Work Address Tap
-        let tap2 = UITapGestureRecognizer(target: self, action: #selector(self.showInMaps))
+        let tap2 = UITapGestureRecognizer(target: self, action: #selector(self.displayShowInMapsAlert))
         tap2.delegate = self
         tap2.numberOfTapsRequired = 1
         addressLabel2.isUserInteractionEnabled = true
         addressLabel2.addGestureRecognizer(tap2)
         
-        let tap3 = UITapGestureRecognizer(target: self, action: #selector(self.showInMaps))
+        let tap3 = UITapGestureRecognizer(target: self, action: #selector(self.displayShowInMapsAlert))
         tap3.delegate = self
         tap3.numberOfTapsRequired = 1
         addressLabel1.isUserInteractionEnabled = true
@@ -136,7 +135,6 @@ private extension ContactDetailsViewController {
         emailLabel.addGestureRecognizer(tap4)
     }
     
-    // TODO: Make into Button method
     @objc func makePhoneCallable() {
         if let phone = self.contact?.primaryTelephone, phone.isEmpty == false {
             self.callNumber(phoneNumber: phone)
@@ -177,7 +175,20 @@ private extension ContactDetailsViewController {
         }
     }
     
-    @objc func showInMaps() {
+    @objc func displayShowInMapsAlert() {
+        // Show Alert indicating app will close due to inactivity
+        let alertController = UIAlertController(title: "Directions in Apple Maps", message: "You are leaving the Phonebook App to view Directions in the Apple Maps App. From Maps, press the 'Phonebook' button in the upper-left corner to return here.", preferredStyle: .alert)
+        let logoutAction = UIAlertAction(title: "Go", style: .cancel, handler: {
+            alert -> Void in
+            self.showInMaps()
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        alertController.addAction(cancelAction)
+        alertController.addAction(logoutAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func showInMaps() {
         guard let address1 = contact?.primaryAddressLine1, let address2 = contact?.primaryAddressLine2 else { return }
         let geocoder = CLGeocoder()
         let addStr = address1 + " " + address2

@@ -127,7 +127,7 @@ extension FavoritesViewController : UITableViewDataSource {
 private extension FavoritesViewController {
     func toggleEditing(_ isEditing: Bool) {
         self.favoritesTableView.isEditing = isEditing
-        self.editBarButton.title = isEditing ? "Done" : "Edit"
+        self.editBarButton.title = isEditing ? "Done" : "Reorder"
     }
     
     func toggleNoFavoritesView(show: Bool) {

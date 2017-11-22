@@ -112,7 +112,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func logout() {
         /*
          * 1. Go To Search Screen
-         * 2. Launch LoginView
+         * 2. Reload Contact view
+         * 3. Launch LoginView
          */
         TimerUIApplication.invalidateActiveTimer()
         self.tabBarController?.selectedIndex = 0
@@ -136,14 +137,18 @@ extension AppDelegate : UITabBarControllerDelegate {
     
     // Callback for when the timeout was fired.
     func applicationDidTimout(notification: NSNotification) {
-        // Show Alert indicating app will close due to inactivity
-        let alertController = UIAlertController(title: "You've Been Logged-out", message: "You've been automatically logged-out due to inactivity. Please log back in.", preferredStyle: .alert)
-        let logoutAction = UIAlertAction(title: "Login", style: .cancel, handler: {
-            alert -> Void in
-            self.logout()
-        })
-        alertController.addAction(logoutAction)
-        self.tabBarController?.present(alertController, animated: true, completion: nil)
+        // Check if the LoginViewController is presented, if not, show Auto-logout alert
+        guard let navVC = self.tabBarController?.presentedViewController as? UINavigationController, let _ = navVC.childViewControllers.first as? LoginViewController else {
+            // Show Alert indicating app will close due to inactivity
+            let alertController = UIAlertController(title: "You've Been Logged-out", message: "For security purposes you've been automatically logged-out due to inactivity. Please log back in.", preferredStyle: .alert)
+            let logoutAction = UIAlertAction(title: "Login", style: .cancel, handler: {
+                alert -> Void in
+                self.logout()
+            })
+            alertController.addAction(logoutAction)
+            self.tabBarController?.present(alertController, animated: true, completion: nil)
+            return
+        }
     }
 }
 
