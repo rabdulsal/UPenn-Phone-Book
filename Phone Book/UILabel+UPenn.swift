@@ -82,6 +82,6 @@ class BannerLabel : UPennLabel {
     override func setBaseStyles() {
         super.awakeFromNib()
         self.textColor = UIColor.upennDarkBlue
-        self.setFontHeight(size: 30.0)
+        self.setFontHeight(size: 25.0)
     }
 }

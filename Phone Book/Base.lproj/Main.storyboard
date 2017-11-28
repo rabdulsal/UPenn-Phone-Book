@@ -24,7 +24,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lGi-uf-AaT">
-                                <rect key="frame" x="16" y="275" width="343" height="50"/>
+                                <rect key="frame" x="16" y="215" width="343" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="IQJ-x4-DHc"/>
                                 </constraints>
@@ -33,7 +33,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sQq-kQ-jUA">
-                                <rect key="frame" x="16" y="341" width="343" height="50"/>
+                                <rect key="frame" x="16" y="281" width="343" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="wBo-bl-da0"/>
                                 </constraints>
@@ -42,7 +42,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2si-2m-EwZ" customClass="PrimaryCTAButton" customModule="Phone_Book" customModuleProvider="target">
-                                <rect key="frame" x="16" y="452" width="343" height="50"/>
+                                <rect key="frame" x="16" y="392" width="343" height="50"/>
                                 <color key="backgroundColor" red="0.54509803921568623" green="0.13725490196078433" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="fGk-m1-u2b"/>
@@ -55,7 +55,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iwr-TA-RYM" customClass="PrimaryCTAButtonText" customModule="Phone_Book" customModuleProvider="target">
-                                <rect key="frame" x="16" y="411" width="21" height="21"/>
+                                <rect key="frame" x="16" y="351" width="21" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="ktN-Cc-6r9"/>
                                     <constraint firstAttribute="width" secondItem="Iwr-TA-RYM" secondAttribute="height" multiplier="1:1" id="u6p-PF-wDe"/>
@@ -67,21 +67,21 @@
                                     <action selector="pressedAutoLoginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x1l-rv-Zeq"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="penn_shield" translatesAutoresizingMaskIntoConstraints="NO" id="1ZH-Wl-szx">
-                                <rect key="frame" x="143.5" y="94" width="88" height="100"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="penn_medicine_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="1ZH-Wl-szx">
+                                <rect key="frame" x="29" y="94" width="317" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="1ZH-Wl-szx" secondAttribute="height" multiplier="14:16" id="Pev-bj-Rc5"/>
-                                    <constraint firstAttribute="height" constant="100" id="QJj-y3-RdF"/>
+                                    <constraint firstAttribute="height" constant="50" id="oIM-sm-deS"/>
+                                    <constraint firstAttribute="width" secondItem="1ZH-Wl-szx" secondAttribute="height" multiplier="222:35" id="pep-dp-Mon"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Penn Phonebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNl-CE-J3T" customClass="BannerLabel" customModule="Phone_Book" customModuleProvider="target">
-                                <rect key="frame" x="122" y="224" width="130" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UPHS Phonebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNl-CE-J3T" customClass="BannerLabel" customModule="Phone_Book" customModuleProvider="target">
+                                <rect key="frame" x="118.5" y="164" width="137" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto-fill Login Credentials" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wv5-o8-1jZ" customClass="ContactDepartmentLabel" customModule="Phone_Book" customModuleProvider="target">
-                                <rect key="frame" x="45" y="411" width="198" height="21"/>
+                                <rect key="frame" x="45" y="351" width="198" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -96,7 +96,7 @@
                             <constraint firstItem="sQq-kQ-jUA" firstAttribute="top" secondItem="lGi-uf-AaT" secondAttribute="bottom" constant="16" id="OLO-OY-snn"/>
                             <constraint firstItem="cNl-CE-J3T" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QxN-sZ-0Gk"/>
                             <constraint firstItem="Iwr-TA-RYM" firstAttribute="top" secondItem="sQq-kQ-jUA" secondAttribute="bottom" constant="20" id="Rc0-yD-FjA"/>
-                            <constraint firstItem="cNl-CE-J3T" firstAttribute="top" secondItem="1ZH-Wl-szx" secondAttribute="bottom" constant="30" id="Wp9-V2-cPH"/>
+                            <constraint firstItem="cNl-CE-J3T" firstAttribute="top" secondItem="1ZH-Wl-szx" secondAttribute="bottom" constant="20" id="Wp9-V2-cPH"/>
                             <constraint firstItem="lGi-uf-AaT" firstAttribute="top" secondItem="cNl-CE-J3T" secondAttribute="bottom" constant="30" id="eb8-qX-z47"/>
                             <constraint firstItem="Iwr-TA-RYM" firstAttribute="leading" secondItem="sQq-kQ-jUA" secondAttribute="leading" id="gg7-Pg-ocv"/>
                             <constraint firstItem="Wv5-o8-1jZ" firstAttribute="leading" secondItem="Iwr-TA-RYM" secondAttribute="trailing" constant="8" id="hBQ-fE-TzG"/>
@@ -887,7 +887,7 @@
     <resources>
         <image name="chat_bubbles" width="50" height="50"/>
         <image name="male" width="50" height="50"/>
-        <image name="penn_shield" width="140" height="163"/>
+        <image name="penn_medicine_transparent" width="222" height="35"/>
         <image name="phone" width="50" height="50"/>
         <image name="un_checked" width="50" height="50"/>
     </resources>

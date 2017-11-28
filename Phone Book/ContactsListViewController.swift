@@ -265,7 +265,6 @@ private extension ContactsListViewController {
     func reloadTableView() {
         self.contactsList.removeAll()
         self.contactsTableView.reloadData()
-        let heightOffsetAdjustment = 0.0 - self.contactsTableView.contentOffset.y
         self.contactsTableView.setContentOffset(CGPoint.init(x: 0.0, y: 0.0), animated: true)
     }
     
