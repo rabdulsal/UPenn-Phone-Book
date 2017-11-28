@@ -21,6 +21,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var tabBarController : UITabBarController? {
         return self.window?.rootViewController as? UITabBarController
     }
+    
+    lazy var logoutAlertController : UIAlertController = {
+        let alertController = UIAlertController(title: "You've Been Logged-out", message: "For security purposes you've been automatically logged-out due to inactivity. Please log back in.", preferredStyle: .alert)
+        let logoutAction = UIAlertAction(title: "Login", style: .cancel, handler: {
+            alert -> Void in
+            self.logout()
+        })
+        alertController.addAction(logoutAction)
+        return alertController
+    }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -30,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setDefaultStyle(.custom)
         SVProgressHUD.setForegroundColor(UIColor.upennMediumBlue)
         SVProgressHUD.setDefaultMaskType(.black)
-        SVProgressHUD.setMaximumDismissTimeInterval(2.0)
+        SVProgressHUD.setMaximumDismissTimeInterval(3.0)
         
         self.tabBarController?.delegate = self
         
@@ -154,13 +164,7 @@ extension AppDelegate : UITabBarControllerDelegate {
     }
     
     func showLogoutAlert() {
-        let alertController = UIAlertController(title: "You've Been Logged-out", message: "For security purposes you've been automatically logged-out due to inactivity. Please log back in.", preferredStyle: .alert)
-        let logoutAction = UIAlertAction(title: "Login", style: .cancel, handler: {
-            alert -> Void in
-            self.logout()
-        })
-        alertController.addAction(logoutAction)
-        self.tabBarController?.present(alertController, animated: true, completion: nil)
+        self.tabBarController?.present(self.logoutAlertController, animated: true, completion: nil)
     }
 }
 

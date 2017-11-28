@@ -26,21 +26,8 @@ class FavoritesGroupsListViewController : UIViewController {
     }
     var addFavoritesDelegate: AddToFavoritesDelegate?
     
-    override func viewDidLoad() {
-        self.setup()
-    }
-    
-    override func setup() {
-        super.setup()
-        self.groupsTableView.delegate = self
-        self.groupsTableView.dataSource = self
-        self.groupsTableView.tableFooterView = UIView()
-        self.noGroupsView.backgroundColor = UIColor.upennLightGray
-        self.noGroupsViewHeight.constant = 100
-    }
-    
-    @IBAction func newFavoritesGroupButtonPressed(_ sender: Any) {
-        let alertController = UIAlertController(title: "New Favorites Group", message: "Enter a name for this new Group", preferredStyle: .alert)
+    lazy var favoritesAlertController : UIAlertController = {
+        let alertController = UIAlertController(title: "New Favorites Group", message: "Create a name for you new Favorite group", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Create", style: .default, handler: {
             alert -> Void in
             let textField = alertController.textFields?.first
@@ -60,11 +47,28 @@ class FavoritesGroupsListViewController : UIViewController {
             (action : UIAlertAction!) -> Void in
         })
         alertController.addTextField { (textField : UITextField!) -> Void in
-            textField.placeholder = "Enter New Group Name"
+            textField.placeholder = "Type group name"
         }
         alertController.addAction(cancelAction)
         alertController.addAction(saveAction)
-        self.present(alertController, animated: true, completion: nil)
+        return alertController
+    }()
+    
+    override func viewDidLoad() {
+        self.setup()
+    }
+    
+    override func setup() {
+        super.setup()
+        self.groupsTableView.delegate = self
+        self.groupsTableView.dataSource = self
+        self.groupsTableView.tableFooterView = UIView()
+        self.noGroupsView.backgroundColor = UIColor.upennLightGray
+        self.noGroupsViewHeight.constant = 100
+    }
+    
+    @IBAction func newFavoritesGroupButtonPressed(_ sender: Any) {
+        self.present(self.favoritesAlertController, animated: true, completion: nil)
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
@@ -113,6 +117,6 @@ private extension FavoritesGroupsListViewController {
     }
     
     func updateFavoritesViewInstructions(hasFavorites: Bool) {
-        self.noGroupsLabel.text = hasFavorites ? "You have no Favorites Groups. Create one now by pressing the '+' button." : "Add to one of your Favorites Groups below, or click “+” to create a new Group."
+        self.noGroupsLabel.text = hasFavorites ? "You have no favorites groups. Create one now by pressing the '+' button." : "Add this person to one of your favorites groups below or select the '+' to create a new group."
     }
 }

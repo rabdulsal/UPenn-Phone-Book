@@ -12,8 +12,11 @@ import UIKit
 class TimerUIApplication : UIApplication {
     
     static let ApplicationDidTimeoutNotification = "AppTimeout"
-    static let timeoutInSeconds: TimeInterval = 2*60 // 2 mins for timeout
-    static var idleTimer: Timer?
+    static private var timeoutInSeconds: TimeInterval {
+        // TODO: Return cached setting from UserDefaults
+        return 2*60 // 2 mins for timeout
+    }
+    static private var idleTimer: Timer?
     
     // Listen for any touch. If the screen receives a touch, the timer is reset.
     override func sendEvent(_ event: UIEvent) {
@@ -48,5 +51,9 @@ class TimerUIApplication : UIApplication {
     // If the timer reaches the limit as defined in timeoutInSeconds, post this notification.
     static func idleTimerExceeded() {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: TimerUIApplication.ApplicationDidTimeoutNotification), object: nil)
+    }
+    
+    static func updateTimeoutInterval(intervalSeconds: TimeInterval) {
+        // TODO: Update timeoutInterval in UserDefaults w/ intervalSeconds
     }
 }

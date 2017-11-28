@@ -35,6 +35,18 @@ class ContactDetailsViewController : UIViewController {
         }
     }
     
+    lazy var mapsAlertController : UIAlertController = {
+        let alertController = UIAlertController(title: "Directions in Apple Maps", message: "You are leaving the Phonebook App to view directions in the Apple Maps App. From Maps, press the 'UPHS Phonebook' button in the upper-left corner to return here.", preferredStyle: .alert)
+        let goToMapsAction = UIAlertAction(title: "Go", style: .cancel, handler: {
+            alert -> Void in
+            self.showInMaps()
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        alertController.addAction(cancelAction)
+        alertController.addAction(goToMapsAction)
+        return alertController
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.decorateView(with: self.contact)
@@ -176,16 +188,7 @@ private extension ContactDetailsViewController {
     }
     
     @objc func displayShowInMapsAlert() {
-        // Show Alert indicating app will close due to inactivity
-        let alertController = UIAlertController(title: "Directions in Apple Maps", message: "You are leaving the Phonebook App to view Directions in the Apple Maps App. From Maps, press the 'Phonebook' button in the upper-left corner to return here.", preferredStyle: .alert)
-        let logoutAction = UIAlertAction(title: "Go", style: .cancel, handler: {
-            alert -> Void in
-            self.showInMaps()
-        })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-        alertController.addAction(cancelAction)
-        alertController.addAction(logoutAction)
-        self.present(alertController, animated: true, completion: nil)
+        self.present(self.mapsAlertController, animated: true, completion: nil)
     }
     
     func showInMaps() {

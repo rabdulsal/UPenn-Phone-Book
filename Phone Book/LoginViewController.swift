@@ -43,8 +43,8 @@ class LoginViewController: UIViewController {
         
         // Set up textFields
         self.emailField.delegate = self
-        self.emailField.placeholder = "Username"
-        self.passwordField.placeholder = "Password"
+        self.emailField.placeholder = "username"
+        self.passwordField.placeholder = "password"
         self.passwordField.delegate = self
         self.passwordField.returnKeyType = .done
         self.passwordField.isSecureTextEntry = true
