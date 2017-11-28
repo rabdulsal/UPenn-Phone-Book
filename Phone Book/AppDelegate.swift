@@ -137,18 +137,30 @@ extension AppDelegate : UITabBarControllerDelegate {
     
     // Callback for when the timeout was fired.
     func applicationDidTimout(notification: NSNotification) {
-        // Check if the LoginViewController is presented, if not, show Auto-logout alert
-        guard let navVC = self.tabBarController?.presentedViewController as? UINavigationController, let _ = navVC.childViewControllers.first as? LoginViewController else {
-            // Show Alert indicating app will close due to inactivity
-            let alertController = UIAlertController(title: "You've Been Logged-out", message: "For security purposes you've been automatically logged-out due to inactivity. Please log back in.", preferredStyle: .alert)
-            let logoutAction = UIAlertAction(title: "Login", style: .cancel, handler: {
-                alert -> Void in
-                self.logout()
-            })
-            alertController.addAction(logoutAction)
-            self.tabBarController?.present(alertController, animated: true, completion: nil)
+        // Check if a viewController is presented, if not, show Auto-logout alert
+        guard let navVC = self.tabBarController?.presentedViewController as? UINavigationController else {
+            self.showLogoutAlert()
             return
         }
+        
+        // Check if the LoginViewController is presented, if not, show Auto-logout alert
+        guard let _ = navVC.childViewControllers.first as? LoginViewController else {
+            // Dismiss whatever presentedVC is showing, then display LogoutAlert
+            navVC.dismiss(animated: true, completion: {
+                self.showLogoutAlert()
+            })
+            return
+        }
+    }
+    
+    func showLogoutAlert() {
+        let alertController = UIAlertController(title: "You've Been Logged-out", message: "For security purposes you've been automatically logged-out due to inactivity. Please log back in.", preferredStyle: .alert)
+        let logoutAction = UIAlertAction(title: "Login", style: .cancel, handler: {
+            alert -> Void in
+            self.logout()
+        })
+        alertController.addAction(logoutAction)
+        self.tabBarController?.present(alertController, animated: true, completion: nil)
     }
 }
 
