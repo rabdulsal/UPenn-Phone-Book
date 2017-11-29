@@ -18,13 +18,14 @@ class ContactDetailsViewController : UIViewController {
     @IBOutlet weak var departmentLabel: UILabel!
     @IBOutlet weak var addressLabel1: ActionLabel!
     @IBOutlet weak var addressLabel2: ActionLabel! // TODO: Remove and add to address 1 with new-line break
-    @IBOutlet weak var primaryPhoneLabel: UILabel!
-    @IBOutlet weak var cellPhoneLabel: UILabel!
+    @IBOutlet weak var primaryPhoneLabel: ActionLabel!
+    @IBOutlet weak var cellPhoneLabel: ActionLabel!
     @IBOutlet weak var emailLabel: ActionLabel!
     @IBOutlet weak var favoriteToggleButton: UIBarButtonItem!
     @IBOutlet weak var callCellButton: UIButton!
     @IBOutlet weak var textButton: UIButton!
     @IBOutlet weak var callPhoneButton: UIButton!
+    @IBOutlet weak var mobileTextLabel: ActionLabel!
     
     let messagingService = MessagingService()
     let emailService = EmailService()
@@ -74,21 +75,15 @@ class ContactDetailsViewController : UIViewController {
     }
     
     @IBAction func pressedCallCellButton(_ sender: Any) {
-        if let cell = self.contact?.cellphone, cell.isEmpty == false {
-            self.callNumber(phoneNumber: cell)
-        }
+        self.makeCellCallable()
     }
     
     @IBAction func pressedTextButton(_ sender: Any) {
-        if let cell = self.contact?.cellphone, cell.isEmpty == false {
-            self.textNumber(phoneNumber: cell)
-        }
+        self.makeTextable()
     }
     
     @IBAction func pressedCallPhoneButton(_ sender: Any) {
-        if let phone = self.contact?.primaryTelephone, phone.isEmpty == false {
-            self.callNumber(phoneNumber: phone)
-        }
+        self.makePhoneCallable()
     }
 }
 
@@ -112,6 +107,7 @@ private extension ContactDetailsViewController {
         self.addressLabel2.text         = contact.primaryAddressLine2
         self.primaryPhoneLabel.text     = contact.displayPrimaryTelephone
         self.cellPhoneLabel.text        = contact.displayCellPhone
+        self.mobileTextLabel.text       = contact.displayCellPhone
         self.emailLabel.text            = contact.emailAddress
         self.callCellButton.isHidden    = contact.displayCellPhone.isEmpty
         self.textButton.isHidden        = contact.displayCellPhone.isEmpty
@@ -145,6 +141,20 @@ private extension ContactDetailsViewController {
         tap4.numberOfTapsRequired = 1
         emailLabel.isUserInteractionEnabled = true
         emailLabel.addGestureRecognizer(tap4)
+        
+        // Text Mobile Number
+        let tap5 = UITapGestureRecognizer(target: self, action: #selector(self.makeTextable))
+        tap5.delegate = self
+        tap5.numberOfTapsRequired = 1
+        mobileTextLabel.isUserInteractionEnabled = true
+        mobileTextLabel.addGestureRecognizer(tap5)
+        
+        // Call Mobile Number
+        let tap6 = UITapGestureRecognizer(target: self, action: #selector(self.makeCellCallable))
+        tap6.delegate = self
+        tap6.numberOfTapsRequired = 1
+        cellPhoneLabel.isUserInteractionEnabled = true
+        cellPhoneLabel.addGestureRecognizer(tap6)
     }
     
     @objc func makePhoneCallable() {
@@ -153,9 +163,21 @@ private extension ContactDetailsViewController {
         }
     }
     
+    @objc func makeCellCallable() {
+        if let cell = self.contact?.cellphone, cell.isEmpty == false {
+            self.callNumber(phoneNumber: cell)
+        }
+    }
+    
     @objc func makeEmailable() {
         if let email = self.contact?.emailAddress, email.isEmpty == false {
             self.emailContact(emailAddress: email)
+        }
+    }
+    
+    @objc func makeTextable() {
+        if let cell = self.contact?.cellphone, cell.isEmpty == false {
+            self.textNumber(phoneNumber: cell)
         }
     }
     
