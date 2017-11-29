@@ -210,6 +210,6 @@ private extension ContactDetailsViewController {
     }
     
     func toggleFavoritesButton() {
-        self.favoriteToggleButton.title = self.contact.isFavorited ? "UnFavorite" : "Favorite"
+        self.favoriteToggleButton.title = self.contact.isFavorited ? "Unfavorite" : "Favorite"
     }
 }

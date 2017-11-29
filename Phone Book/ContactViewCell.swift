@@ -54,7 +54,7 @@ class ContactViewCell : UITableViewCell {
     
     func toggleFavoritesButton(isFavorited: Bool) {
         if isFavorited {
-            self.favoritesButton.setTitle("UnFavorite", for: .normal)
+            self.favoritesButton.setTitle("Unfavorite", for: .normal)
             self.favoritesButton.setTitleColor(UIColor.upennCTAGreen, for: .normal)
         } else {
             self.favoritesButton.setTitle("Favorite", for: .normal)
