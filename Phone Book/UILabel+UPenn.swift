@@ -11,8 +11,14 @@ import UIKit
 
 class UPennLabel : UILabel {
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.setBaseStyles()
+    }
+    
     func setBaseStyles() {
         self.textColor = UIColor.upennBlack
+        self.setFontHeight(size: 15.0)
     }
     
     func setFontHeight(size: CGFloat) {
@@ -67,7 +73,7 @@ class NoDataInstructionsLabel : UPennLabel {
     }
     
     override func setBaseStyles() {
-        super.awakeFromNib()
+        super.setBaseStyles()
         self.textColor = UIColor.upennDarkBlue
         self.setFontHeight(size: 20.0)
     }
@@ -80,7 +86,7 @@ class BannerLabel : UPennLabel {
     }
     
     override func setBaseStyles() {
-        super.awakeFromNib()
+        super.setBaseStyles()
         self.textColor = UIColor.upennDarkBlue
         self.setFontHeight(size: 25.0)
     }

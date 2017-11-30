@@ -27,8 +27,10 @@ class ContactDetailsViewController : UIViewController {
     @IBOutlet weak var callPhoneButton: UIButton!
     @IBOutlet weak var mobileTextLabel: ActionLabel!
     
+    // TODO: Eventually Remove and replace with ContactService
     let messagingService = MessagingService()
     let emailService = EmailService()
+    // ----------------------
     var favoritesDelegate: FavoritesUpdatable?
     var contact: Contact! {
         didSet {
@@ -157,6 +159,7 @@ private extension ContactDetailsViewController {
         cellPhoneLabel.addGestureRecognizer(tap6)
     }
     
+    // TODO: Remove Follow Refactor ---------------
     @objc func makePhoneCallable() {
         if let phone = self.contact?.primaryTelephone, phone.isEmpty == false {
             self.callNumber(phoneNumber: phone)
@@ -188,7 +191,9 @@ private extension ContactDetailsViewController {
             }
         }
     }
+    // -----------------------------
     
+    // TODO: Leave if/else check, replace w/ ContactService method
     func textNumber(phoneNumber: String) {
         let recipients = [phoneNumber]
         if messagingService.canSendText {
@@ -198,7 +203,7 @@ private extension ContactDetailsViewController {
             SVProgressHUD.showError(withStatus: "Cannot send text message from this device.")
         }
     }
-    
+    // TODO: Leave if/else check, replace w/ ContactService method
     func emailContact(emailAddress: String) {
         let recipients = [emailAddress]
         if emailService.canSendMail {
