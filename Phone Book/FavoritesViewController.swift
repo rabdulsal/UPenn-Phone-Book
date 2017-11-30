@@ -127,28 +127,34 @@ extension FavoritesViewController : UITableViewDataSource {
 
 extension FavoritesViewController : FavoritesContactDelegate {
     func pressedCallPhoneButton(for contact: FavoritesContact) {
-        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact))
+        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact), delegate: self)
         self.contactService.callPhone()
     }
     
     func pressedCallCellButton(for contact: FavoritesContact) {
-        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact))
+        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact), delegate: self)
         self.contactService.callCell()
     }
     
     func pressedTextButton(for contact: FavoritesContact) {
-        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact))
+        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact), delegate: self)
         self.contactService.sendText()
     }
     
     func pressedEmailButton(for contact: FavoritesContact) {
-        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact))
+        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact), delegate: self)
         self.contactService.sendEmail()
     }
 }
 
 extension FavoritesViewController : ContactServicable {
+    func cannotEmailError() {
+        SVProgressHUD.showError(withStatus: "Cannot send email from this device.")
+    }
     
+    func cannotTextError() {
+        SVProgressHUD.showError(withStatus: "Cannot send text message from this device.")
+    }
 }
 
 private extension FavoritesViewController {

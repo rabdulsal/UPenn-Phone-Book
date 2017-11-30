@@ -53,7 +53,7 @@ class ContactDetailsViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.contactService = ContactService(viewController: self, contact: self.contact)
+        self.contactService = ContactService(viewController: self, contact: self.contact, delegate: self)
         self.decorateView(with: self.contact)
         self.setupTapGestureRecognizers()
     }
@@ -160,57 +160,6 @@ private extension ContactDetailsViewController {
         cellPhoneLabel.isUserInteractionEnabled = true
         cellPhoneLabel.addGestureRecognizer(tap6)
     }
-    
-    // TODO: Remove Follow Refactor ---------------
-//    @objc func makePhoneCallable() {
-//        if let phone = self.contact?.primaryTelephone, phone.isEmpty == false {
-//            self.callNumber(phoneNumber: phone)
-//        }
-//    }
-//
-//    @objc func makeCellCallable() {
-//        if let cell = self.contact?.cellphone, cell.isEmpty == false {
-//            self.callNumber(phoneNumber: cell)
-//        }
-//    }
-//
-//    @objc func makeEmailable() {
-//        if let email = self.contact?.emailAddress, email.isEmpty == false {
-//            self.emailContact(emailAddress: email)
-//        }
-//    }
-//
-//    @objc func makeTextable() {
-//        if let cell = self.contact?.cellphone, cell.isEmpty == false {
-//            self.textNumber(phoneNumber: cell)
-//        }
-//    }
-//
-//    func callNumber(phoneNumber: String) {
-//        if let url = URL(string: "telprompt:\(phoneNumber)") {
-//            if UIApplication.shared.canOpenURL(url) {
-//                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-//            }
-//        }
-//    }
-    // -----------------------------
-    
-    // TODO: Leave if/else check, replace w/ ContactService method
-//    @objc func sendText() {
-//        if self.contactService.canText {
-//            self.contactService.sendText()
-//        } else {
-//            SVProgressHUD.showError(withStatus: "Cannot send text message from this device.")
-//        }
-//    }
-//    // TODO: Leave if/else check, replace w/ ContactService method
-//    @objc func sendEmail() {
-//        if self.contactService.canEmail {
-//            self.contactService.sendEmail()
-//        } else {
-//            SVProgressHUD.showError(withStatus: "Cannot send email from this device.")
-//        }
-//    }
     
     @objc func displayShowInMapsAlert() {
         self.present(self.mapsAlertController, animated: true, completion: nil)
