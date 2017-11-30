@@ -28,9 +28,10 @@ class ContactDetailsViewController : UIViewController {
     @IBOutlet weak var mobileTextLabel: ActionLabel!
     
     // TODO: Eventually Remove and replace with ContactService
-    let messagingService = MessagingService()
-    let emailService = EmailService()
+//    let messagingService = MessagingService()
+//    let emailService = EmailService()
     // ----------------------
+    var contactService: ContactService!
     var favoritesDelegate: FavoritesUpdatable?
     var contact: Contact! {
         didSet {
@@ -52,6 +53,7 @@ class ContactDetailsViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.contactService = ContactService(viewController: self, contact: self.contact)
         self.decorateView(with: self.contact)
         self.setupTapGestureRecognizers()
     }
@@ -77,15 +79,15 @@ class ContactDetailsViewController : UIViewController {
     }
     
     @IBAction func pressedCallCellButton(_ sender: Any) {
-        self.makeCellCallable()
+        self.contactService.callCell()
     }
     
     @IBAction func pressedTextButton(_ sender: Any) {
-        self.makeTextable()
+        self.contactService.sendText()
     }
     
     @IBAction func pressedCallPhoneButton(_ sender: Any) {
-        self.makePhoneCallable()
+        self.contactService.callPhone()
     }
 }
 
@@ -117,7 +119,7 @@ private extension ContactDetailsViewController {
     }
     
     func setupTapGestureRecognizers() {
-        let tap1 = UITapGestureRecognizer(target: self, action: #selector(self.makePhoneCallable))
+        let tap1 = UITapGestureRecognizer(target: self, action: #selector(self.contactService.callPhone))
         // Office Phone Tap
         tap1.delegate = self
         tap1.numberOfTapsRequired = 1
@@ -138,21 +140,21 @@ private extension ContactDetailsViewController {
         addressLabel1.addGestureRecognizer(tap3)
         
         // Email Address Tap
-        let tap4 = UITapGestureRecognizer(target: self, action: #selector(self.makeEmailable))
+        let tap4 = UITapGestureRecognizer(target: self, action: #selector(self.contactService.sendEmail))
         tap4.delegate = self
         tap4.numberOfTapsRequired = 1
         emailLabel.isUserInteractionEnabled = true
         emailLabel.addGestureRecognizer(tap4)
         
         // Text Mobile Number
-        let tap5 = UITapGestureRecognizer(target: self, action: #selector(self.makeTextable))
+        let tap5 = UITapGestureRecognizer(target: self, action: #selector(self.contactService.sendText))
         tap5.delegate = self
         tap5.numberOfTapsRequired = 1
         mobileTextLabel.isUserInteractionEnabled = true
         mobileTextLabel.addGestureRecognizer(tap5)
         
         // Call Mobile Number
-        let tap6 = UITapGestureRecognizer(target: self, action: #selector(self.makeCellCallable))
+        let tap6 = UITapGestureRecognizer(target: self, action: #selector(self.contactService.callCell))
         tap6.delegate = self
         tap6.numberOfTapsRequired = 1
         cellPhoneLabel.isUserInteractionEnabled = true
@@ -160,59 +162,55 @@ private extension ContactDetailsViewController {
     }
     
     // TODO: Remove Follow Refactor ---------------
-    @objc func makePhoneCallable() {
-        if let phone = self.contact?.primaryTelephone, phone.isEmpty == false {
-            self.callNumber(phoneNumber: phone)
-        }
-    }
-    
-    @objc func makeCellCallable() {
-        if let cell = self.contact?.cellphone, cell.isEmpty == false {
-            self.callNumber(phoneNumber: cell)
-        }
-    }
-    
-    @objc func makeEmailable() {
-        if let email = self.contact?.emailAddress, email.isEmpty == false {
-            self.emailContact(emailAddress: email)
-        }
-    }
-    
-    @objc func makeTextable() {
-        if let cell = self.contact?.cellphone, cell.isEmpty == false {
-            self.textNumber(phoneNumber: cell)
-        }
-    }
-    
-    func callNumber(phoneNumber: String) {
-        if let url = URL(string: "telprompt:\(phoneNumber)") {
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        }
-    }
+//    @objc func makePhoneCallable() {
+//        if let phone = self.contact?.primaryTelephone, phone.isEmpty == false {
+//            self.callNumber(phoneNumber: phone)
+//        }
+//    }
+//
+//    @objc func makeCellCallable() {
+//        if let cell = self.contact?.cellphone, cell.isEmpty == false {
+//            self.callNumber(phoneNumber: cell)
+//        }
+//    }
+//
+//    @objc func makeEmailable() {
+//        if let email = self.contact?.emailAddress, email.isEmpty == false {
+//            self.emailContact(emailAddress: email)
+//        }
+//    }
+//
+//    @objc func makeTextable() {
+//        if let cell = self.contact?.cellphone, cell.isEmpty == false {
+//            self.textNumber(phoneNumber: cell)
+//        }
+//    }
+//
+//    func callNumber(phoneNumber: String) {
+//        if let url = URL(string: "telprompt:\(phoneNumber)") {
+//            if UIApplication.shared.canOpenURL(url) {
+//                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//            }
+//        }
+//    }
     // -----------------------------
     
     // TODO: Leave if/else check, replace w/ ContactService method
-    func textNumber(phoneNumber: String) {
-        let recipients = [phoneNumber]
-        if messagingService.canSendText {
-            let messageComposeVC = messagingService.configuredMessageComposeViewController(textMessageRecipients: recipients)
-            self.present(messageComposeVC, animated: true, completion: nil)
-        } else {
-            SVProgressHUD.showError(withStatus: "Cannot send text message from this device.")
-        }
-    }
-    // TODO: Leave if/else check, replace w/ ContactService method
-    func emailContact(emailAddress: String) {
-        let recipients = [emailAddress]
-        if emailService.canSendMail {
-            let emailComposeVC = emailService.configuredMailComposeViewController(mailRecipients: recipients)
-            self.present(emailComposeVC, animated: true, completion: nil)
-        } else {
-            SVProgressHUD.showError(withStatus: "Cannot send email from this device.")
-        }
-    }
+//    @objc func sendText() {
+//        if self.contactService.canText {
+//            self.contactService.sendText()
+//        } else {
+//            SVProgressHUD.showError(withStatus: "Cannot send text message from this device.")
+//        }
+//    }
+//    // TODO: Leave if/else check, replace w/ ContactService method
+//    @objc func sendEmail() {
+//        if self.contactService.canEmail {
+//            self.contactService.sendEmail()
+//        } else {
+//            SVProgressHUD.showError(withStatus: "Cannot send email from this device.")
+//        }
+//    }
     
     @objc func displayShowInMapsAlert() {
         self.present(self.mapsAlertController, animated: true, completion: nil)
@@ -238,5 +236,15 @@ private extension ContactDetailsViewController {
     
     func toggleFavoritesButton() {
         self.favoriteToggleButton.title = self.contact.isFavorited ? "Unfavorite" : "Favorite"
+    }
+}
+
+extension ContactDetailsViewController : ContactServicable {
+    func cannotEmailError() {
+        SVProgressHUD.showError(withStatus: "Cannot send email from this device.")
+    }
+    
+    func cannotTextError() {
+        SVProgressHUD.showError(withStatus: "Cannot send text message from this device.")
     }
 }

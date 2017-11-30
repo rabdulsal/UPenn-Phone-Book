@@ -23,6 +23,7 @@ class FavoritesViewController : UIViewController {
     @IBOutlet weak var noFavoritesViewHeight: NSLayoutConstraint!
     @IBOutlet weak var noFavoritesLabel: NoDataInstructionsLabel!
     
+    var contactService: ContactService!
     var searchService = ContactsSearchService()
     var favGroupsCount : Int {
         let groupsCount = FavoritesService.favoritesGroupsCount
@@ -106,7 +107,7 @@ extension FavoritesViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let favContact = FavoritesService.getFavoriteContact(with: indexPath) else { return UITableViewCell() }
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.cellIdentifier.rawValue) as! FavoritesContactViewCell
-        cell.configure(with: favContact)
+        cell.configure(with: favContact, and: self)
         return cell
     }
     
@@ -122,6 +123,32 @@ extension FavoritesViewController : UITableViewDataSource {
         FavoritesService.moveContact(from: sourceIndexPath, to: destinationIndexPath)
          self.favoritesTableView.reloadData()
     }
+}
+
+extension FavoritesViewController : FavoritesContactDelegate {
+    func pressedCallPhoneButton(for contact: FavoritesContact) {
+        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact))
+        self.contactService.callPhone()
+    }
+    
+    func pressedCallCellButton(for contact: FavoritesContact) {
+        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact))
+        self.contactService.callCell()
+    }
+    
+    func pressedTextButton(for contact: FavoritesContact) {
+        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact))
+        self.contactService.sendText()
+    }
+    
+    func pressedEmailButton(for contact: FavoritesContact) {
+        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact))
+        self.contactService.sendEmail()
+    }
+}
+
+extension FavoritesViewController : ContactServicable {
+    
 }
 
 private extension FavoritesViewController {

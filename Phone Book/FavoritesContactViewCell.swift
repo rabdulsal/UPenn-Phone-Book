@@ -9,13 +9,17 @@
 import Foundation
 import UIKit
 
+protocol ContactServicable {
+    func cannotEmailError()
+    func cannotTextError()
+}
 class ContactService {
     
     let messagingService = MessagingService()
     let emailService = EmailService()
     var delegateViewController: UIViewController
     var contact: Contact!
-    
+    var contactDelegate: ContactServicable?
     var canEmail : Bool { return self.emailService.canSendMail }
     
     var canText : Bool { return self.messagingService.canSendText }
@@ -23,6 +27,7 @@ class ContactService {
     init(viewController: UIViewController, contact: Contact) {
         self.delegateViewController = viewController
         self.contact = contact
+        self.contactDelegate = viewController as? ContactServicable
     }
     
     @objc func callPhone() {
@@ -49,7 +54,7 @@ class ContactService {
         }
     }
     
-    func callNumber(phoneNumber: String) {
+    private func callNumber(phoneNumber: String) {
         if let url = URL(string: "telprompt:\(phoneNumber)") {
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -57,37 +62,68 @@ class ContactService {
         }
     }
     
-    func textNumber(phoneNumber: String) {
+    private func textNumber(phoneNumber: String) {
         let recipients = [phoneNumber]
-        let messageComposeVC = messagingService.configuredMessageComposeViewController(textMessageRecipients: recipients)
-        self.delegateViewController.present(messageComposeVC, animated: true, completion: nil)
+        if canText {
+            let messageComposeVC = messagingService.configuredMessageComposeViewController(textMessageRecipients: recipients)
+            self.delegateViewController.present(messageComposeVC, animated: true, completion: nil)
+        } else {
+            self.contactDelegate?.cannotTextError()
+        }
     }
     
-    func emailContact(emailAddress: String) {
+    private func emailContact(emailAddress: String) {
         let recipients = [emailAddress]
-        let emailComposeVC = emailService.configuredMailComposeViewController(mailRecipients: recipients)
-        self.delegateViewController.present(emailComposeVC, animated: true, completion: nil)
+        if canEmail {
+            let emailComposeVC = emailService.configuredMailComposeViewController(mailRecipients: recipients)
+            self.delegateViewController.present(emailComposeVC, animated: true, completion: nil)
+        } else {
+            self.contactDelegate?.cannotEmailError()
+        }
     }
-    
-    
 }
 
+protocol FavoritesContactDelegate {
+    func pressedCallPhoneButton(for contact: FavoritesContact)
+    func pressedCallCellButton(for contact: FavoritesContact)
+    func pressedTextButton(for contact: FavoritesContact)
+    func pressedEmailButton(for contact: FavoritesContact)
+}
 class FavoritesContactViewCell : UITableViewCell {
     
     @IBOutlet weak var nameLabel: ContactNameLabel!
     @IBOutlet weak var jobTitleLabel: UILabel!
     @IBOutlet weak var departmentLabel: ContactDepartmentLabel!
+    var favoritesDelegate: FavoritesContactDelegate?
+    var favoriteContact: FavoritesContact!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
     }
     
-    func configure(with favContact: FavoritesContact) {
+    func configure(with favContact: FavoritesContact, and delegate: FavoritesContactDelegate) {
+        self.favoriteContact = favContact
+        self.favoritesDelegate = delegate
         self.nameLabel.text = favContact.fullName
         self.jobTitleLabel.text = favContact.jobTitle
         self.departmentLabel.text = favContact.department
-        
-        // TODO: Set up GestureRecognizers
     }
+    
+    @IBAction func pressedCallPhoneButton(_ sender: Any) {
+        self.favoritesDelegate?.pressedCallPhoneButton(for: self.favoriteContact)
+    }
+    
+    @IBAction func pressedCallCellButton(_ sender: Any) {
+        self.favoritesDelegate?.pressedCallCellButton(for: self.favoriteContact)
+    }
+    
+    @IBAction func pressedTextButton(_ sender: Any) {
+        self.favoritesDelegate?.pressedTextButton(for: self.favoriteContact)
+    }
+    
+    @IBAction func pressedEmailButton(_ sender: Any) {
+        self.favoritesDelegate?.pressedEmailButton(for: self.favoriteContact)
+    }
+    
 }

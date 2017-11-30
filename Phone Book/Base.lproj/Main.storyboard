@@ -710,16 +710,18 @@
                                                     </constraints>
                                                     <state key="normal" title="Text" image="chat_bubbles"/>
                                                     <connections>
+                                                        <action selector="pressedTextButton:" destination="ICB-aP-E7D" eventType="touchUpInside" id="5vF-nM-Mzf"/>
                                                         <action selector="pressedTextButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="EQV-VM-oeY"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rmj-LG-Pt6">
-                                                    <rect key="frame" x="85" y="90" width="25" height="25"/>
+                                                    <rect key="frame" x="87.5" y="90" width="25" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="SDg-7A-JO7"/>
                                                     </constraints>
                                                     <state key="normal" title="Call" image="phone"/>
                                                     <connections>
+                                                        <action selector="pressedCallCellButton:" destination="ICB-aP-E7D" eventType="touchUpInside" id="BCf-i6-0sA"/>
                                                         <action selector="pressedCallPhoneButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="oKF-Qj-eFd"/>
                                                     </connections>
                                                 </button>
@@ -731,6 +733,7 @@
                                                     <state key="normal" title="Call" image="phone"/>
                                                     <connections>
                                                         <action selector="pressedCallPhoneButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="Zwu-xD-lAV"/>
+                                                        <action selector="pressedCallPhoneButton:" destination="ICB-aP-E7D" eventType="touchUpInside" id="rgL-og-STs"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Office" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTb-XG-p3t" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
@@ -740,7 +743,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Mobile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xFq-bv-pMZ" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                    <rect key="frame" x="72" y="118" width="51.5" height="21"/>
+                                                    <rect key="frame" x="74.5" y="118" width="51.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -752,19 +755,20 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y8V-fP-Ffp" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                    <rect key="frame" x="199" y="118" width="41" height="21"/>
+                                                    <rect key="frame" x="182.5" y="118" width="41" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNu-DA-88n">
-                                                    <rect key="frame" x="204.5" y="85" width="30" height="30"/>
+                                                    <rect key="frame" x="188" y="85" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="iwO-4P-3U6"/>
                                                         <constraint firstAttribute="width" secondItem="mNu-DA-88n" secondAttribute="height" multiplier="1:1" id="sto-fP-vO4"/>
                                                     </constraints>
                                                     <state key="normal" title="Text" image="chat_bubbles"/>
                                                     <connections>
+                                                        <action selector="pressedEmailButton:" destination="ICB-aP-E7D" eventType="touchUpInside" id="Dvm-Tr-um4"/>
                                                         <action selector="pressedTextButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="Shi-sb-NsA"/>
                                                     </connections>
                                                 </button>
@@ -776,10 +780,10 @@
                                                 <constraint firstItem="bun-Nj-fTE" firstAttribute="top" secondItem="oyU-wL-VXj" secondAttribute="bottom" constant="5" id="9wg-Yu-hUj"/>
                                                 <constraint firstItem="bun-Nj-fTE" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="16" id="AX6-Pq-O94"/>
                                                 <constraint firstItem="mNu-DA-88n" firstAttribute="centerX" secondItem="y8V-fP-Ffp" secondAttribute="centerX" id="BDK-aL-zcN"/>
-                                                <constraint firstItem="y8V-fP-Ffp" firstAttribute="leading" secondItem="Kru-rp-9vd" secondAttribute="trailing" constant="28.5" id="Fci-RR-dgb"/>
+                                                <constraint firstItem="y8V-fP-Ffp" firstAttribute="leading" secondItem="Kru-rp-9vd" secondAttribute="trailing" constant="12" id="Fci-RR-dgb"/>
                                                 <constraint firstItem="aWI-5S-NEG" firstAttribute="centerY" secondItem="rmj-LG-Pt6" secondAttribute="centerY" id="NFa-nc-XA0"/>
                                                 <constraint firstItem="oyU-wL-VXj" firstAttribute="top" secondItem="GD1-2f-ZXK" secondAttribute="bottom" constant="8" id="Nng-31-Hzu"/>
-                                                <constraint firstItem="xFq-bv-pMZ" firstAttribute="leading" secondItem="pTb-XG-p3t" secondAttribute="trailing" constant="9.5" id="QBI-Ra-kkS"/>
+                                                <constraint firstItem="xFq-bv-pMZ" firstAttribute="leading" secondItem="pTb-XG-p3t" secondAttribute="trailing" constant="12" id="QBI-Ra-kkS"/>
                                                 <constraint firstItem="ZGK-FS-kLV" firstAttribute="centerX" secondItem="pTb-XG-p3t" secondAttribute="centerX" id="SXX-2n-5f8"/>
                                                 <constraint firstItem="pTb-XG-p3t" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="16" id="U6h-kz-UTJ"/>
                                                 <constraint firstItem="ZGK-FS-kLV" firstAttribute="top" secondItem="bun-Nj-fTE" secondAttribute="bottom" constant="8" id="WkR-1i-b4s"/>
@@ -794,7 +798,7 @@
                                                 <constraint firstItem="GD1-2f-ZXK" firstAttribute="top" secondItem="8hb-14-HhD" secondAttribute="top" constant="5" id="oX7-Mu-e4f"/>
                                                 <constraint firstItem="pTb-XG-p3t" firstAttribute="top" secondItem="ZGK-FS-kLV" secondAttribute="bottom" constant="5" id="rIE-Z2-VTC"/>
                                                 <constraint firstItem="oyU-wL-VXj" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="16" id="sTg-hq-IXs"/>
-                                                <constraint firstItem="Kru-rp-9vd" firstAttribute="leading" secondItem="xFq-bv-pMZ" secondAttribute="trailing" constant="14.5" id="zCb-s4-he9"/>
+                                                <constraint firstItem="Kru-rp-9vd" firstAttribute="leading" secondItem="xFq-bv-pMZ" secondAttribute="trailing" constant="12" id="zCb-s4-he9"/>
                                                 <constraint firstItem="ZGK-FS-kLV" firstAttribute="width" secondItem="ZGK-FS-kLV" secondAttribute="height" multiplier="1:1" id="ze5-Ie-0ir"/>
                                             </constraints>
                                         </tableViewCellContentView>
