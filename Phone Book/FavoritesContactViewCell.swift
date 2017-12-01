@@ -32,8 +32,8 @@ class FavoritesContactViewCell : UITableViewCell {
         self.favoriteContact = favContact
         self.favoritesDelegate = delegate
         self.nameLabel.text = favContact.fullName
-        self.jobTitleLabel.text = favContact.jobTitle
-        self.departmentLabel.text = favContact.department
+//        self.jobTitleLabel.text = favContact.jobTitle
+//        self.departmentLabel.text = favContact.department
     }
     
     @IBAction func pressedCallPhoneButton(_ sender: Any) {

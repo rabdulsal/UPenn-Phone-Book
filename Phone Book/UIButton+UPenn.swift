@@ -59,3 +59,10 @@ class PrimaryCTAButtonText : UIButton {
         setTitleColor(UIColor.upennMediumBlue, for: .normal)
     }
 }
+
+class ContactIconButton : UIButton {
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+}

@@ -14,7 +14,7 @@
         <!--Login-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="UPHS_Phonebook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="Phone_Book" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -41,7 +41,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2si-2m-EwZ" customClass="PrimaryCTAButton" customModule="UPHS_Phonebook" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2si-2m-EwZ" customClass="PrimaryCTAButton" customModule="Phone_Book" customModuleProvider="target">
                                 <rect key="frame" x="16" y="392" width="343" height="50"/>
                                 <color key="backgroundColor" red="0.54509803921568623" green="0.13725490196078433" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -54,7 +54,7 @@
                                     <action selector="pressedLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pqv-xC-QMI"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iwr-TA-RYM" customClass="PrimaryCTAButtonText" customModule="UPHS_Phonebook" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iwr-TA-RYM" customClass="PrimaryCTAButtonText" customModule="Phone_Book" customModuleProvider="target">
                                 <rect key="frame" x="16" y="351" width="21" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="ktN-Cc-6r9"/>
@@ -74,13 +74,13 @@
                                     <constraint firstAttribute="width" secondItem="1ZH-Wl-szx" secondAttribute="height" multiplier="222:35" id="pep-dp-Mon"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UPHS Phonebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNl-CE-J3T" customClass="BannerLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UPHS Phonebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNl-CE-J3T" customClass="BannerLabel" customModule="Phone_Book" customModuleProvider="target">
                                 <rect key="frame" x="118.5" y="164" width="137" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto-fill Login Credentials" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wv5-o8-1jZ" customClass="ContactDepartmentLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto-fill Login Credentials" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wv5-o8-1jZ" customClass="ContactDepartmentLabel" customModule="Phone_Book" customModuleProvider="target">
                                 <rect key="frame" x="45" y="351" width="198" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -125,7 +125,7 @@
         <!--Contacts-->
         <scene sceneID="Nlb-mn-PFV">
             <objects>
-                <viewController id="OeS-lq-COv" customClass="ContactsListViewController" customModule="UPHS_Phonebook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="OeS-lq-COv" customClass="ContactsListViewController" customModule="Phone_Book" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ru7-ov-aLa"/>
                         <viewControllerLayoutGuide type="bottom" id="opH-Jb-nCV"/>
@@ -137,7 +137,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j8m-pA-Emy">
                                 <rect key="frame" x="0.0" y="64" width="375" height="100"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWX-Mz-LiV" customClass="NoDataInstructionsLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWX-Mz-LiV" customClass="NoDataInstructionsLabel" customModule="Phone_Book" customModuleProvider="target">
                                         <rect key="frame" x="16" y="-0.5" width="343" height="100"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -158,14 +158,14 @@
                                 <rect key="frame" x="0.0" y="164" width="375" height="454"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactCell" rowHeight="100" id="BUP-iv-Bxm" customClass="ContactViewCell" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactCell" rowHeight="100" id="BUP-iv-Bxm" customClass="ContactViewCell" customModule="Phone_Book" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BUP-iv-Bxm" id="DbS-8C-BpC">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ke-A7-egH" customClass="ContactNameLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ke-A7-egH" customClass="ContactNameLabel" customModule="Phone_Book" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="5" width="45" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -177,7 +177,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Department" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSK-1z-9yh" customClass="ContactDepartmentLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Department" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSK-1z-9yh" customClass="ContactDepartmentLabel" customModule="Phone_Book" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="36" width="343" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -253,7 +253,7 @@
         <!--Contact-->
         <scene sceneID="lc2-Pf-HXb">
             <objects>
-                <viewController id="Ma3-x1-OmR" customClass="ContactDetailsViewController" customModule="UPHS_Phonebook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Ma3-x1-OmR" customClass="ContactDetailsViewController" customModule="Phone_Book" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aEH-uk-Us3"/>
                         <viewControllerLayoutGuide type="bottom" id="1po-Kp-Hee"/>
@@ -274,13 +274,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="238" placeholderIntrinsicHeight="21" text="address1" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXA-hJ-k3S" customClass="ActionLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="238" placeholderIntrinsicHeight="21" text="address1" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXA-hJ-k3S" customClass="ActionLabel" customModule="Phone_Book" customModuleProvider="target">
                                 <rect key="frame" x="121" y="213" width="238" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="address2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCc-xi-9eb" customClass="ActionLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="address2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCc-xi-9eb" customClass="ActionLabel" customModule="Phone_Book" customModuleProvider="target">
                                 <rect key="frame" x="121" y="250" width="71" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="fV8-AG-7Gu"/>
@@ -289,7 +289,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="primaryPhone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYc-q2-sIZ" customClass="ActionLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="primaryPhone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYc-q2-sIZ" customClass="ActionLabel" customModule="Phone_Book" customModuleProvider="target">
                                 <rect key="frame" x="121" y="287" width="107" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="qjc-sP-vAa"/>
@@ -298,8 +298,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cellPhone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yWx-Fe-raG" customClass="ActionLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                <rect key="frame" x="121" y="324" width="75" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cellPhone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yWx-Fe-raG" customClass="ActionLabel" customModule="Phone_Book" customModuleProvider="target">
+                                <rect key="frame" x="121" y="330.5" width="75" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="8bb-Li-4Jk"/>
                                 </constraints>
@@ -341,7 +341,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mobile:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNL-VB-ELm">
-                                <rect key="frame" x="16" y="324" width="56" height="21"/>
+                                <rect key="frame" x="16" y="330.5" width="56" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -356,29 +356,32 @@
                                 <color key="highlightedColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPa-yH-L97">
-                                <rect key="frame" x="16" y="398" width="46" height="21"/>
+                                <rect key="frame" x="16" y="421.5" width="46" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="emailLabel" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvu-IY-Ywi" customClass="ActionLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                <rect key="frame" x="121" y="398" width="82" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="emailLabel" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvu-IY-Ywi" customClass="ActionLabel" customModule="Phone_Book" customModuleProvider="target">
+                                <rect key="frame" x="121" y="421.5" width="82" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OoV-me-aaj">
-                                <rect key="frame" x="208" y="321.5" width="25" height="25"/>
+                                <rect key="frame" x="208" y="323" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="eD0-fU-ORw"/>
+                                </constraints>
                                 <state key="normal" title="Call" image="phone"/>
                                 <connections>
                                     <action selector="pressedCallCellButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="9nc-f7-vx0"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DJr-o8-JI9">
-                                <rect key="frame" x="203.5" y="356.5" width="30" height="30"/>
+                                <rect key="frame" x="203.5" y="366" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="DJr-o8-JI9" secondAttribute="height" multiplier="1:1" id="U2P-dp-0Wu"/>
-                                    <constraint firstAttribute="height" constant="30" id="qee-DP-X6Y"/>
+                                    <constraint firstAttribute="height" constant="40" id="qee-DP-X6Y"/>
                                 </constraints>
                                 <state key="normal" title="Text" image="chat_bubbles"/>
                                 <connections>
@@ -386,24 +389,24 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufP-kB-dnm">
-                                <rect key="frame" x="240" y="285" width="25" height="25"/>
+                                <rect key="frame" x="240" y="280" width="35" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ufP-kB-dnm" secondAttribute="height" multiplier="1:1" id="BCy-ij-eMT"/>
-                                    <constraint firstAttribute="height" constant="25" id="Bc6-ZV-ZT2"/>
+                                    <constraint firstAttribute="height" constant="35" id="Bc6-ZV-ZT2"/>
                                 </constraints>
                                 <state key="normal" title="Call" image="phone"/>
                                 <connections>
                                     <action selector="pressedCallPhoneButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="GJ2-Up-jom"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Text:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dR5-7U-XqO">
-                                <rect key="frame" x="16" y="361" width="46" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dR5-7U-XqO">
+                                <rect key="frame" x="16" y="375.5" width="37" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="textLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ixv-OD-H3l" customClass="ActionLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                <rect key="frame" x="121" y="361" width="70.5" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="textLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ixv-OD-H3l" customClass="ActionLabel" customModule="Phone_Book" customModuleProvider="target">
+                                <rect key="frame" x="121" y="375.5" width="70.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -435,7 +438,7 @@
                             <constraint firstItem="LbE-Nv-zhe" firstAttribute="centerY" secondItem="iLm-6w-hUN" secondAttribute="centerY" id="F4i-Hc-z48"/>
                             <constraint firstItem="CK9-aX-jql" firstAttribute="leading" secondItem="FNL-VB-ELm" secondAttribute="leading" id="FAm-n2-ndw"/>
                             <constraint firstItem="DXA-hJ-k3S" firstAttribute="leading" secondItem="YB1-v6-TOC" secondAttribute="leading" id="GGG-Jh-mzO"/>
-                            <constraint firstItem="cPa-yH-L97" firstAttribute="top" secondItem="dR5-7U-XqO" secondAttribute="bottom" constant="16" id="GcK-WP-xjW"/>
+                            <constraint firstItem="cPa-yH-L97" firstAttribute="top" secondItem="dR5-7U-XqO" secondAttribute="bottom" constant="25" id="GcK-WP-xjW"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="DJr-o8-JI9" secondAttribute="trailing" constant="16" id="HPV-gR-Z5Q"/>
                             <constraint firstItem="LbE-Nv-zhe" firstAttribute="centerY" secondItem="iLm-6w-hUN" secondAttribute="centerY" id="Hbi-Cy-paG"/>
                             <constraint firstItem="yWx-Fe-raG" firstAttribute="firstBaseline" secondItem="FNL-VB-ELm" secondAttribute="firstBaseline" id="IBI-ur-ccC"/>
@@ -467,7 +470,6 @@
                             <constraint firstItem="cPa-yH-L97" firstAttribute="leading" secondItem="dR5-7U-XqO" secondAttribute="leading" id="VC2-DS-hv2"/>
                             <constraint firstItem="cPa-yH-L97" firstAttribute="leading" secondItem="FNL-VB-ELm" secondAttribute="leading" id="VgQ-Ql-Xdw"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="DXA-hJ-k3S" secondAttribute="trailing" constant="16" id="XK2-hy-vBd"/>
-                            <constraint firstItem="FNL-VB-ELm" firstAttribute="top" secondItem="rfw-ng-GBe" secondAttribute="bottom" constant="16" id="YWH-xt-FP0"/>
                             <constraint firstItem="eYc-q2-sIZ" firstAttribute="leading" secondItem="yWx-Fe-raG" secondAttribute="leading" id="Zzh-gj-Ta8"/>
                             <constraint firstItem="eYc-q2-sIZ" firstAttribute="baseline" secondItem="rfw-ng-GBe" secondAttribute="baseline" id="a0v-2g-w1w"/>
                             <constraint firstItem="YB1-v6-TOC" firstAttribute="leading" secondItem="hCc-xi-9eb" secondAttribute="leading" id="bRm-Y8-Py8"/>
@@ -483,10 +485,11 @@
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LbE-Nv-zhe" secondAttribute="trailing" constant="16" id="gmW-LE-wA2"/>
                             <constraint firstItem="7u2-Jn-AmK" firstAttribute="firstBaseline" secondItem="JYT-Uf-vlK" secondAttribute="firstBaseline" id="gyd-kn-VlC"/>
                             <constraint firstItem="CK9-aX-jql" firstAttribute="leading" secondItem="JYT-Uf-vlK" secondAttribute="leading" id="h0O-b7-hG3"/>
+                            <constraint firstItem="OoV-me-aaj" firstAttribute="top" secondItem="ufP-kB-dnm" secondAttribute="bottom" constant="8" id="hAe-up-IbK"/>
                             <constraint firstItem="eYc-q2-sIZ" firstAttribute="leading" secondItem="hCc-xi-9eb" secondAttribute="leading" id="iYr-YB-Jqd"/>
-                            <constraint firstItem="dR5-7U-XqO" firstAttribute="top" secondItem="FNL-VB-ELm" secondAttribute="bottom" constant="16" id="idc-dC-3hJ"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7u2-Jn-AmK" secondAttribute="trailing" constant="16" id="jEi-oJ-cb8"/>
                             <constraint firstItem="LbE-Nv-zhe" firstAttribute="top" secondItem="iLm-6w-hUN" secondAttribute="top" id="jJI-Ly-hm0"/>
+                            <constraint firstItem="DJr-o8-JI9" firstAttribute="top" secondItem="OoV-me-aaj" secondAttribute="bottom" constant="8" id="kR3-ad-jbB"/>
                             <constraint firstItem="LbE-Nv-zhe" firstAttribute="bottom" secondItem="iLm-6w-hUN" secondAttribute="bottom" id="lx5-QM-5Hj"/>
                             <constraint firstItem="0T7-Np-wUv" firstAttribute="leading" secondItem="JYT-Uf-vlK" secondAttribute="leading" id="mOf-qM-c3a"/>
                             <constraint firstItem="YB1-v6-TOC" firstAttribute="leading" secondItem="7u2-Jn-AmK" secondAttribute="leading" id="nOp-dT-ef9"/>
@@ -544,7 +547,7 @@
         <!--Favorites Groups-->
         <scene sceneID="dvJ-1i-n8t">
             <objects>
-                <viewController id="gg4-UL-heI" customClass="FavoritesGroupsListViewController" customModule="UPHS_Phonebook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gg4-UL-heI" customClass="FavoritesGroupsListViewController" customModule="Phone_Book" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="a5x-JL-pqS"/>
                         <viewControllerLayoutGuide type="bottom" id="9Jw-X0-IDK"/>
@@ -556,7 +559,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K3t-ss-u86">
                                 <rect key="frame" x="0.0" y="64" width="375" height="100"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drG-9k-My4" customClass="NoDataInstructionsLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drG-9k-My4" customClass="NoDataInstructionsLabel" customModule="Phone_Book" customModuleProvider="target">
                                         <rect key="frame" x="16" y="-0.5" width="343" height="100"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -644,7 +647,7 @@
         <!--Favorites-->
         <scene sceneID="Qbn-S3-1f0">
             <objects>
-                <viewController id="Sgp-jM-aqG" customClass="FavoritesViewController" customModule="UPHS_Phonebook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Sgp-jM-aqG" customClass="FavoritesViewController" customModule="Phone_Book" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Lxm-sO-sTW"/>
                         <viewControllerLayoutGuide type="bottom" id="IGZ-Gm-Asb"/>
@@ -656,7 +659,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cXi-3w-2Dl" userLabel="No Favorites View">
                                 <rect key="frame" x="0.0" y="64" width="375" height="100"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U2m-ld-Fr9" customClass="NoDataInstructionsLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U2m-ld-Fr9" customClass="NoDataInstructionsLabel" customModule="Phone_Book" customModuleProvider="target">
                                         <rect key="frame" x="16" y="-0.5" width="343" height="100"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -677,36 +680,24 @@
                                 <rect key="frame" x="0.0" y="164" width="375" height="454"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavoritesCell" rowHeight="159" id="ICB-aP-E7D" customClass="FavoritesContactViewCell" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="159"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavoritesCell" rowHeight="97" id="ICB-aP-E7D" customClass="FavoritesContactViewCell" customModule="Phone_Book" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="97"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ICB-aP-E7D" id="8hb-14-HhD">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="158.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="96.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GD1-2f-ZXK" customClass="ContactNameLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GD1-2f-ZXK" customClass="ContactNameLabel" customModule="Phone_Book" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="5" width="45" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Job" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bun-Nj-fTE">
-                                                    <rect key="frame" x="16" y="61.5" width="29" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Department" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oyU-wL-VXj" customClass="ContactDepartmentLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="36" width="343" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aWI-5S-NEG">
-                                                    <rect key="frame" x="139.5" y="85" width="30" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aWI-5S-NEG" customClass="ContactIconButton" customModule="UPHS_Phonebook">
+                                                    <rect key="frame" x="142.5" y="34" width="40" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="aWI-5S-NEG" secondAttribute="height" multiplier="1:1" id="pjy-lQ-PqL"/>
-                                                        <constraint firstAttribute="height" constant="30" id="vs7-iQ-rNA"/>
+                                                        <constraint firstAttribute="height" constant="40" id="vs7-iQ-rNA"/>
                                                     </constraints>
                                                     <state key="normal" title="Text" image="chat_bubbles"/>
                                                     <connections>
@@ -714,10 +705,10 @@
                                                         <action selector="pressedTextButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="EQV-VM-oeY"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rmj-LG-Pt6">
-                                                    <rect key="frame" x="87.5" y="90" width="25" height="25"/>
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rmj-LG-Pt6" customClass="ContactIconButton" customModule="UPHS_Phonebook">
+                                                    <rect key="frame" x="82.5" y="34" width="35" height="25"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="SDg-7A-JO7"/>
+                                                        <constraint firstAttribute="height" constant="35" id="SDg-7A-JO7"/>
                                                     </constraints>
                                                     <state key="normal" title="Call" image="phone"/>
                                                     <connections>
@@ -725,10 +716,10 @@
                                                         <action selector="pressedCallPhoneButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="oKF-Qj-eFd"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZGK-FS-kLV">
-                                                    <rect key="frame" x="27.5" y="90" width="25" height="25"/>
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZGK-FS-kLV" customClass="ContactIconButton" customModule="UPHS_Phonebook">
+                                                    <rect key="frame" x="22.5" y="34" width="35" height="25"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="BtU-6h-SRO"/>
+                                                        <constraint firstAttribute="height" constant="35" id="BtU-6h-SRO"/>
                                                     </constraints>
                                                     <state key="normal" title="Call" image="phone"/>
                                                     <connections>
@@ -736,34 +727,34 @@
                                                         <action selector="pressedCallPhoneButton:" destination="ICB-aP-E7D" eventType="touchUpInside" id="rgL-og-STs"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Office" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTb-XG-p3t" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="115.5" width="46.5" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Office" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTb-XG-p3t" customClass="UPennLabel" customModule="Phone_Book" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="67" width="46.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Mobile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xFq-bv-pMZ" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                    <rect key="frame" x="74.5" y="118" width="51.5" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Mobile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xFq-bv-pMZ" customClass="UPennLabel" customModule="Phone_Book" customModuleProvider="target">
+                                                    <rect key="frame" x="74.5" y="67" width="51.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kru-rp-9vd" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                    <rect key="frame" x="138" y="118" width="32.5" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kru-rp-9vd" customClass="UPennLabel" customModule="Phone_Book" customModuleProvider="target">
+                                                    <rect key="frame" x="146" y="67" width="32.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y8V-fP-Ffp" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                    <rect key="frame" x="182.5" y="118" width="41" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y8V-fP-Ffp" customClass="UPennLabel" customModule="Phone_Book" customModuleProvider="target">
+                                                    <rect key="frame" x="207" y="67" width="41" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNu-DA-88n">
-                                                    <rect key="frame" x="188" y="85" width="30" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNu-DA-88n" customClass="ContactIconButton" customModule="UPHS_Phonebook">
+                                                    <rect key="frame" x="207.5" y="34" width="40" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="iwO-4P-3U6"/>
+                                                        <constraint firstAttribute="height" constant="40" id="iwO-4P-3U6"/>
                                                         <constraint firstAttribute="width" secondItem="mNu-DA-88n" secondAttribute="height" multiplier="1:1" id="sto-fP-vO4"/>
                                                     </constraints>
                                                     <state key="normal" title="Text" image="chat_bubbles"/>
@@ -774,22 +765,19 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="aWI-5S-NEG" firstAttribute="leading" secondItem="rmj-LG-Pt6" secondAttribute="trailing" constant="25" id="0QB-b5-spy"/>
                                                 <constraint firstItem="mNu-DA-88n" firstAttribute="centerY" secondItem="aWI-5S-NEG" secondAttribute="centerY" id="2bX-Qd-sqN"/>
                                                 <constraint firstItem="y8V-fP-Ffp" firstAttribute="centerY" secondItem="Kru-rp-9vd" secondAttribute="centerY" id="5Y9-cU-0XF"/>
+                                                <constraint firstItem="ZGK-FS-kLV" firstAttribute="top" secondItem="GD1-2f-ZXK" secondAttribute="bottom" constant="8" id="6MF-IL-txz"/>
                                                 <constraint firstItem="rmj-LG-Pt6" firstAttribute="width" secondItem="rmj-LG-Pt6" secondAttribute="height" multiplier="1:1" id="7oJ-Xu-Z6y"/>
-                                                <constraint firstItem="bun-Nj-fTE" firstAttribute="top" secondItem="oyU-wL-VXj" secondAttribute="bottom" constant="5" id="9wg-Yu-hUj"/>
-                                                <constraint firstItem="bun-Nj-fTE" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="16" id="AX6-Pq-O94"/>
+                                                <constraint firstItem="rmj-LG-Pt6" firstAttribute="leading" secondItem="ZGK-FS-kLV" secondAttribute="trailing" constant="25" id="At3-fQ-Y3G"/>
                                                 <constraint firstItem="mNu-DA-88n" firstAttribute="centerX" secondItem="y8V-fP-Ffp" secondAttribute="centerX" id="BDK-aL-zcN"/>
-                                                <constraint firstItem="y8V-fP-Ffp" firstAttribute="leading" secondItem="Kru-rp-9vd" secondAttribute="trailing" constant="12" id="Fci-RR-dgb"/>
                                                 <constraint firstItem="aWI-5S-NEG" firstAttribute="centerY" secondItem="rmj-LG-Pt6" secondAttribute="centerY" id="NFa-nc-XA0"/>
-                                                <constraint firstItem="oyU-wL-VXj" firstAttribute="top" secondItem="GD1-2f-ZXK" secondAttribute="bottom" constant="8" id="Nng-31-Hzu"/>
-                                                <constraint firstItem="xFq-bv-pMZ" firstAttribute="leading" secondItem="pTb-XG-p3t" secondAttribute="trailing" constant="12" id="QBI-Ra-kkS"/>
                                                 <constraint firstItem="ZGK-FS-kLV" firstAttribute="centerX" secondItem="pTb-XG-p3t" secondAttribute="centerX" id="SXX-2n-5f8"/>
                                                 <constraint firstItem="pTb-XG-p3t" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="16" id="U6h-kz-UTJ"/>
-                                                <constraint firstItem="ZGK-FS-kLV" firstAttribute="top" secondItem="bun-Nj-fTE" secondAttribute="bottom" constant="8" id="WkR-1i-b4s"/>
-                                                <constraint firstAttribute="trailing" secondItem="oyU-wL-VXj" secondAttribute="trailing" constant="16" id="WvU-Uf-DeI"/>
                                                 <constraint firstItem="GD1-2f-ZXK" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="16" id="XGw-Gq-Hp2"/>
                                                 <constraint firstItem="xFq-bv-pMZ" firstAttribute="centerY" secondItem="pTb-XG-p3t" secondAttribute="centerY" id="Zqz-Ch-M0L"/>
+                                                <constraint firstItem="mNu-DA-88n" firstAttribute="leading" secondItem="aWI-5S-NEG" secondAttribute="trailing" constant="25" id="aIo-4u-Pqk"/>
                                                 <constraint firstItem="aWI-5S-NEG" firstAttribute="centerX" secondItem="Kru-rp-9vd" secondAttribute="centerX" id="bjJ-zh-Uiw"/>
                                                 <constraint firstItem="rmj-LG-Pt6" firstAttribute="centerX" secondItem="xFq-bv-pMZ" secondAttribute="centerX" id="dl9-3g-zyK"/>
                                                 <constraint firstAttribute="bottom" secondItem="pTb-XG-p3t" secondAttribute="bottom" constant="8" id="ea5-RI-5kP"/>
@@ -797,14 +785,10 @@
                                                 <constraint firstItem="Kru-rp-9vd" firstAttribute="centerY" secondItem="xFq-bv-pMZ" secondAttribute="centerY" id="nYw-6U-xUx"/>
                                                 <constraint firstItem="GD1-2f-ZXK" firstAttribute="top" secondItem="8hb-14-HhD" secondAttribute="top" constant="5" id="oX7-Mu-e4f"/>
                                                 <constraint firstItem="pTb-XG-p3t" firstAttribute="top" secondItem="ZGK-FS-kLV" secondAttribute="bottom" constant="5" id="rIE-Z2-VTC"/>
-                                                <constraint firstItem="oyU-wL-VXj" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="16" id="sTg-hq-IXs"/>
-                                                <constraint firstItem="Kru-rp-9vd" firstAttribute="leading" secondItem="xFq-bv-pMZ" secondAttribute="trailing" constant="12" id="zCb-s4-he9"/>
                                                 <constraint firstItem="ZGK-FS-kLV" firstAttribute="width" secondItem="ZGK-FS-kLV" secondAttribute="height" multiplier="1:1" id="ze5-Ie-0ir"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="departmentLabel" destination="oyU-wL-VXj" id="AX2-Vs-41Y"/>
-                                            <outlet property="jobTitleLabel" destination="bun-Nj-fTE" id="Aw3-l3-ezU"/>
                                             <outlet property="nameLabel" destination="GD1-2f-ZXK" id="7Qc-V3-zSR"/>
                                         </connections>
                                     </tableViewCell>
@@ -845,13 +829,13 @@
         <!--Account-->
         <scene sceneID="1zZ-CS-TLE">
             <objects>
-                <tableViewController id="DYI-z6-Ks2" customClass="AccountTableViewController" customModule="UPHS_Phonebook" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="DYI-z6-Ks2" customClass="AccountTableViewController" customModule="Phone_Book" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="4Ed-x0-cBw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountCell" id="hRZ-BG-vl4" customClass="AccountSettingsCell" customModule="UPHS_Phonebook" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountCell" id="hRZ-BG-vl4" customClass="AccountSettingsCell" customModule="Phone_Book" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hRZ-BG-vl4" id="nCt-ad-u5g">
