@@ -11,9 +11,22 @@ import Alamofire
 
 class NetworkRequestService {
     
-    let phonebookAPIStr = "http://uphsnettest2012.uphs.upenn.edu/ADRS"
+    let phonebookAPIStr = "https://uphsnettest2012.uphs.upenn.edu/ADRS"
     let searchAPIStr = "/api/phonebook/search"
     let profileAPIStr = "/api/phonebook/profile"
+    let defaultManager: SessionManager = {
+        let serverTrustPolicies: [String: ServerTrustPolicy] = [
+            "uphsnettest2012.uphs.upenn.edu": ServerTrustPolicy.disableEvaluation
+        ]
+
+        let configuration = URLSessionConfiguration.default
+        configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
+
+        return SessionManager(
+            configuration: configuration,
+            serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies)
+        )
+    }()
     var authToken: String? {
         return AuthenticationService.authToken
     }
@@ -36,7 +49,7 @@ class NetworkRequestService {
         ]
         
         // Make Request for JWT
-        let jwtRequest = Alamofire.request(url, method: .post, parameters: parameters, encoding: URLEncoding.httpBody)
+        let jwtRequest = defaultManager.request(url, method: .post, parameters: parameters, encoding: URLEncoding.httpBody)
         jwtRequest.responseJSON { (response) in
             completion(response)
         }
@@ -46,7 +59,7 @@ class NetworkRequestService {
         guard let encodedString = queryString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
         let phoneSearchStr = self.phonebookAPIStr + self.searchAPIStr
         let requestURI = phoneSearchStr+"/"+encodedString
-        let searchRequest = Alamofire.request(requestURI, headers: self.headers)
+        let searchRequest = defaultManager.request(requestURI, headers: self.headers)
         searchRequest.responseJSON(completionHandler: { (response) in
             completion(response)
         })
@@ -55,7 +68,7 @@ class NetworkRequestService {
     func makeContactSearchRequest(with profileID: String, completion: @escaping (DataResponse<Any>)->Void) {
         let profileSearchStr = self.phonebookAPIStr + self.profileAPIStr
         let requestURI = profileSearchStr+"/"+profileID
-        let searchRequest = Alamofire.request(requestURI, headers: self.headers)
+        let searchRequest = defaultManager.request(requestURI, headers: self.headers)
         searchRequest.responseJSON(completionHandler: { (response) in
             completion(response)
         })
