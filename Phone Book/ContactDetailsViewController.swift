@@ -79,15 +79,15 @@ class ContactDetailsViewController : UIViewController {
     }
     
     @IBAction func pressedCallCellButton(_ sender: Any) {
-        self.contactService.callCell()
+        self.callCell()
     }
     
     @IBAction func pressedTextButton(_ sender: Any) {
-        self.contactService.sendText()
+        self.sendText()
     }
     
     @IBAction func pressedCallPhoneButton(_ sender: Any) {
-        self.contactService.callPhone()
+        self.callPhone()
     }
 }
 
@@ -102,6 +102,22 @@ extension ContactDetailsViewController : AddToFavoritesDelegate {
 }
 
 private extension ContactDetailsViewController {
+    
+    @objc func callPhone() {
+        self.contactService.callPhone()
+    }
+    
+    @objc func callCell() {
+        self.contactService.callCell()
+    }
+    
+    @objc func sendText() {
+        self.contactService.sendText()
+    }
+    
+    @objc func sendEmail() {
+        self.contactService.sendEmail()
+    }
     
     func decorateView(with contact: Contact) {
         self.nameLabel.text             = contact.fullName
@@ -119,7 +135,7 @@ private extension ContactDetailsViewController {
     }
     
     func setupTapGestureRecognizers() {
-        let tap1 = UITapGestureRecognizer(target: self, action: #selector(self.contactService.callPhone))
+        let tap1 = UITapGestureRecognizer(target: self, action: #selector(self.callPhone))
         // Office Phone Tap
         tap1.delegate = self
         tap1.numberOfTapsRequired = 1
@@ -140,21 +156,21 @@ private extension ContactDetailsViewController {
         addressLabel1.addGestureRecognizer(tap3)
         
         // Email Address Tap
-        let tap4 = UITapGestureRecognizer(target: self, action: #selector(self.contactService.sendEmail))
+        let tap4 = UITapGestureRecognizer(target: self, action: #selector(self.sendEmail))
         tap4.delegate = self
         tap4.numberOfTapsRequired = 1
         emailLabel.isUserInteractionEnabled = true
         emailLabel.addGestureRecognizer(tap4)
         
         // Text Mobile Number
-        let tap5 = UITapGestureRecognizer(target: self, action: #selector(self.contactService.sendText))
+        let tap5 = UITapGestureRecognizer(target: self, action: #selector(self.sendText))
         tap5.delegate = self
         tap5.numberOfTapsRequired = 1
         mobileTextLabel.isUserInteractionEnabled = true
         mobileTextLabel.addGestureRecognizer(tap5)
         
         // Call Mobile Number
-        let tap6 = UITapGestureRecognizer(target: self, action: #selector(self.contactService.callCell))
+        let tap6 = UITapGestureRecognizer(target: self, action: #selector(self.callCell))
         tap6.delegate = self
         tap6.numberOfTapsRequired = 1
         cellPhoneLabel.isUserInteractionEnabled = true
@@ -190,10 +206,14 @@ private extension ContactDetailsViewController {
 
 extension ContactDetailsViewController : ContactServicable {
     func cannotEmailError() {
-        SVProgressHUD.showError(withStatus: "Cannot send email from this device.")
+        SVProgressHUD.showError(withStatus: "Sorry, something went wrong. Cannot send email at this time.")
     }
     
     func cannotTextError() {
-        SVProgressHUD.showError(withStatus: "Cannot send text message from this device.")
+        SVProgressHUD.showError(withStatus: "Sorry, something went wrong. Cannot send at this time.")
+    }
+    
+    func cannotCallError() {
+        SVProgressHUD.showError(withStatus: "Sorry, something went wrong. Cannot make call at this time.")
     }
 }

@@ -26,6 +26,10 @@ class FavoritesViewController : UIViewController {
     var contactService: ContactService!
     var searchService = ContactsSearchService()
     var favGroupsCount : Int {
+        /* Dynamically compute favoritesGroupsCount to:
+         * 1. Enable/disable Editing state
+         * 2. Toggle NoFavoritesView
+        */
         let groupsCount = FavoritesService.favoritesGroupsCount
         self.editBarButton.isEnabled = groupsCount != 0
         if !self.editBarButton.isEnabled { self.toggleEditing(false) }
@@ -149,11 +153,15 @@ extension FavoritesViewController : FavoritesContactDelegate {
 
 extension FavoritesViewController : ContactServicable {
     func cannotEmailError() {
-        SVProgressHUD.showError(withStatus: "Cannot send email from this device.")
+        SVProgressHUD.showError(withStatus: "Sorry, something went wrong. Cannot send email at this time.")
     }
     
     func cannotTextError() {
-        SVProgressHUD.showError(withStatus: "Cannot send text message from this device.")
+        SVProgressHUD.showError(withStatus: "Sorry, something went wrong. Cannot send text at this time.")
+    }
+    
+    func cannotCallError() {
+        SVProgressHUD.showError(withStatus: "Sorry, something went wrong. Cannot make call at this time.")
     }
 }
 

@@ -11,6 +11,19 @@ import Foundation
 import CoreData
 import UIKit
 
+/**
+ - parameters:
+ - contact: An option FavoritesContact is successfully added/cached.
+ - errorString: An optional String representing an error if the Contact cannot be cached.
+ */
+typealias AddContactHandler = (_ contact: FavoritesContact?, _ errorString: String?)->Void
+
+/**
+ - parameters:
+ - success: Bool returning a failed/successful execution
+ */
+typealias SuccessHandler = (_ success: Bool)->Void
+
 class FavoritesGroup {
     var title: String
     var favoritedContacts = Array<FavoritesContact>()
@@ -27,8 +40,8 @@ class FavoritesService {
         return self.favoritesGroupHash.count
     }
     
-    /***
-     * Empty all hash tables and reload/bucket data from CoreData
+    /**
+     Empty all hash tables and reload/bucket data from CoreData
      */
     static func loadFavoritesData() {
         self.favoritesSectionHash.removeAll()
@@ -38,7 +51,16 @@ class FavoritesService {
             self.bucketFavoritesContacts(with: favorite)
         }
     }
-    static func addNewFavorite(_ contact: Contact, groupTitle: String, completion: @escaping ((_ contact: FavoritesContact?, _ errorString: String?)->Void)) {
+    
+    /**
+     Convenience method to add a Contact to a new Favorites Group. Method returns an error if the groupTitle is not unique.
+     
+    - parameters:
+        - contact: The contact object to be added the Favorites Group
+        - groupTitle: String representing the title of the New Favorites Group.
+        - completion: Invoked upon successful/failed attempt to add to Favorites cache.
+    */
+    static func addNewFavorite(_ contact: Contact, groupTitle: String, completion: @escaping (AddContactHandler)) {
         
         guard let _ = self.favoritesGroupHash[groupTitle] else {
             self.addToFavorites(contact, groupTitle: groupTitle, completion: completion)
@@ -48,11 +70,11 @@ class FavoritesService {
     }
     
     
-    static func addToFavorites(_ contact: Contact, groupTitle: String, completion: @escaping ((_ contact: FavoritesContact?, _ errorString: String?)->Void)) {
+    static func addToFavorites(_ contact: Contact, groupTitle: String, completion: @escaping (AddContactHandler)) {
         /*
-         * When Adding to Favorites, must always search for contact to:
-         * 1: Ensure the most-recent Contact data is being stored,
-         * 2: Ensure that when favoriting from either the ContactList or ContactDetails views, all the necessary Contact data is being cached
+         When Adding to Favorites, must always search for contact to:
+         1: Ensure the most-recent Contact data is being stored,
+         2: Ensure that when favoriting from either the ContactList or ContactDetails views, all the necessary Contact data is being cached
          */
         let phoneID = String(describing: contact.phonebookID)
         self.searchService.makeContactSearchRequest(with: phoneID) { (_contact, error) in
@@ -68,10 +90,15 @@ class FavoritesService {
         }
     }
     
-    /***
-     * Convenience method to add particular FavoritesContact to existing through passed-in FavoritesGroup title
+    /**
+     Convenience method to add particular FavoritesContact to an existing FavoritesGroup
+     
+    - parameters:
+        - contact: Contact object to be added to the Favorites cache.
+        - groupTitle: String representing the title of the existing Favorites Group.
+        - completion: Invoked upon successful/failed attempt to add to Favorites cache.
      */
-    static func addFavoriteContactToExistingGroup(contact: Contact, groupTitle: String, completion: @escaping ((_ success: Bool)->Void)) {
+    static func addFavoriteContactToExistingGroup(contact: Contact, groupTitle: String, completion: @escaping (SuccessHandler)) {
         self.addToFavorites(contact, groupTitle: groupTitle) { (favContact, errorString) in
             if let _ = errorString {
                 completion(false)
@@ -81,10 +108,14 @@ class FavoritesService {
         }
     }
     
-    /***
-     * Convenience method to removeFromFavorites using a Contact
+    /**
+     Convenience method to removeFromFavorites using a Contact
+     
+    - parameters:
+        - contact: Contact object to be removed from the Favorites cache.
+        - completion: Invoked upon successful/failed attempt to remove from Favorites cache.
      */
-    static func removeFromFavorites(contact: Contact, completion: ((_ success: Bool)->Void)) {
+    static func removeFromFavorites(contact: Contact, completion: (SuccessHandler)) {
         guard let appDelegate = self.appDelegate, let managedContext = self.managedContext else { return }
         if let favContact = self.getFavoriteContact(contact) {
             managedContext.delete(favContact)
@@ -95,10 +126,14 @@ class FavoritesService {
         completion(false)
     }
     
-    /***
-     * Convenience method to removeFromFavorites using a FavoritesContact
+    /**
+     Convenience method to removeFromFavorites using a FavoritesContact
+     
+     - parameters:
+        - favoriteContact: FavoriteContact object to be removed from the Favorites cache.
+        - completion: Invoked upon successful/failed attempt to remove from Favorites cache.
      */
-    static func removeFromFavorites(favoriteContact: FavoritesContact, completion: ((_ success: Bool)->Void)) {
+    static func removeFromFavorites(favoriteContact: FavoritesContact, completion: (SuccessHandler)) {
         guard let appDelegate = self.appDelegate, let managedContext = self.managedContext else { return }
         managedContext.delete(favoriteContact)
         appDelegate.saveContext()
@@ -106,8 +141,10 @@ class FavoritesService {
         completion(true)
     }
     
-    /***
-     * Convenience method fetches returns FavoritesContact from CoreData using a Contact
+    /**
+     Convenience method fetches and returns FavoritesContact from CoreData using a Contact
+     
+     - parameter contact: Contact object to be fetched from CoreData
      */
     static func getFavoriteContact(_ contact: Contact) -> FavoritesContact? {
         let faveContact = self.allFavoritedContacts.filter { $0.phonebookID == Double(contact.phonebookID) }.first
@@ -121,8 +158,12 @@ class FavoritesService {
         return self.allFavoritedContacts.filter { $0.phonebookID == Double(contact.phonebookID) }.first != nil
     }
     
-    /***
-     * Factory method to create a FavoritesContact CoreData object & store into persistence
+    /**
+     Factory method to create a FavoritesContact CoreData object & store into persistence
+     
+     - parameters
+        - contact: Contact object used to create a FavoritesContact object and store into CoreData
+        - groupTitle: Title String to set to FavoritesContact groupName attribute
      */
     static func makeFavoriteContact(with contact: Contact, groupTitle: String) -> FavoritesContact? {
         guard let appDelegate = self.appDelegate, let managedContext = self.managedContext else { return nil }
@@ -153,23 +194,23 @@ class FavoritesService {
         return favContact
     }
     
-    /***
-     * Convenience method to return Array of all FavoritesGroup titles
+    /**
+     Convenience method to return Array of all FavoritesGroup titles
      */
     static func getAllFavoritesGroups() -> Array<String> {
         self.loadFavoritesData()
         return Array(self.favoritesGroupHash.keys)
     }
     
-    /***
-     * Convenience method to FavoritesGroup Title from index
+    /**
+     Convenience method to FavoritesGroup Title from index
      */
     static func getFavoritesGroupTitle(for index: Int) -> String? {
         return self.favoritesSectionHash[index]
     }
     
-    /***
-     * Convenience method to return Array of FavoritedContacts based on Section, when displaying in TableViews
+    /**
+     Convenience method to return Array of FavoritedContacts based on Section, when displaying in TableViews
      */
     static func getFavoritesGroup(for section: Int) -> Array<FavoritesContact>? {
         if
@@ -180,36 +221,42 @@ class FavoritesService {
         return nil
     }
     
-    /***
-     * Convenience method to return single FavoriteContact based on Section, when displaying in TableViews
+    /**
+     Convenience method to return single FavoriteContact based on Section, when displaying in TableViews
+     
+    - parameter indexPath: IndexPath object providing section & row from which to fetch/return FavoriteContact
      */
     static func getFavoriteContact(with indexPath: IndexPath) -> FavoritesContact? {
         guard let favContacts = self.getFavoritesGroup(for: indexPath.section) else { return nil }
         return favContacts[indexPath.row]
     }
     
-    /***
-     * Convenience method to return Count for each FavoritesGroup when displaying in TableViews by Section
+    /**
+     Convenience method to return Count for each FavoritesGroup when displaying in TableViews by Section
      */
     static func getFavoritesGroupCount(for section: Int) -> Int {
         guard let favContacts = self.getFavoritesGroup(for: section) else { return 0 }
         return favContacts.count
     }
     
-    /***
-     * Convenience method for re-arranging rows in FavortiesViewController
+    /**
+     Convenience method for re-arranging rows in FavortiesViewController
+     
+    - parameters:
+        - source: IndexPath of the source FavoritesGroup contacts to fetch contact to be moved.
+        - destination: IndexPath of the destination FavoritesGroup contacts to place the contact being moved.
      */
     static func moveContact(from source: IndexPath, to destination: IndexPath) {
         guard
             let favContact = FavoritesService.getFavoriteContact(with: source),
             let appDelegate = FavoritesService.appDelegate else { return }
         /*
-         * Get source Group using indexPath.section
-         * Remove favContact from that Group using indexPath.row
-         * Get destination Group using indexPath.section
-         * Insert favContact into new group using indexPath.row
-         * Update favContact.groupName to be destination favGroup.title
-         * Save context
+         Get source Group using indexPath.section
+         Remove favContact from that Group using indexPath.row
+         Get destination Group using indexPath.section
+         Insert favContact into new group using indexPath.row
+         Update favContact.groupName to be destination favGroup.title
+         Save context
          */
         var sourceGroup = self.getFavoritesGroup(for: source.section)
         var destinationGroup = self.getFavoritesGroup(for: destination.section)
@@ -245,25 +292,25 @@ private extension FavoritesService {
     
     static var searchService = ContactsSearchService()
     
-    /***
-     * Returns all FavoritesContacts from CoreData, unbucketed
+    /**
+     Returns all FavoritesContacts from CoreData, unbucketed
      */
     static var allFavoritedContacts: Array<FavoritesContact> {
         return self.getAllFavorites()
     }
     
-    /***
-     * Dictionary intended to take a Section Int & return Group title string, which can key into the favoritesHash
+    /**
+     Dictionary intended to take a Section Int & return Group title string, which can key into the favoritesHash
      */
     static var favoritesSectionHash = Dictionary<Int,String>()
     
-    /***
-     * Dictionary intended to expedite retrieving FavoritesGroup by Title String
+    /**
+     Dictionary intended to expedite retrieving FavoritesGroup by Title String
      */
     static var favoritesGroupHash = Dictionary<String,FavoritesGroup>()
     
-    /***
-     * Returns an Array of all FavoritesContacts loaded from CoreData
+    /**
+     Returns an Array of all FavoritesContacts loaded from CoreData
      */
     static func getAllFavorites() -> Array<FavoritesContact> {
         guard let managedContext = self.managedContext else { return [] }
@@ -277,8 +324,8 @@ private extension FavoritesService {
         return []
     }
     
-    /***
-     * Create a FavoritesContact groupPosition for FavoritesGroup using a groupTitle
+    /**
+     Create a FavoritesContact groupPosition for FavoritesGroup using a groupTitle
      */
     static func generateFavoritesGroupPosition(groupTitle: String) -> Double {
         guard
@@ -286,15 +333,18 @@ private extension FavoritesService {
         return Double(favorites.count)
     }
     
-    /***
-     * Add favoriteContact into an existing FavoritesGroup, or create a new Group and add to that while updating favoritesGroupHash & favoritesSectionHash
+    /**
+     Add favoriteContact into an existing FavoritesGroup, or create a new Group and add to that while updating favoritesGroupHash & favoritesSectionHash
+     
+     - parameters:
+        - favContact: FavoritesContact to be added to FavoritesGroup
      */
     static func bucketFavoritesContacts(with favContact: FavoritesContact) {
         /*
-         * If adding to an existing group:
-         * 1. Loop through favGroup's favorites
-         * 2. Check if favContact is less than current contact, insert it, stop looping
-         * 3. Otherwise if at the end for the favGroups just append the contact
+         If adding to an existing group:
+         1. Loop through favGroup's favorites
+         2. Check if favContact is less than current contact, insert it, stop looping
+         3. Otherwise if at the end for the favGroups just append the contact
          */
         if let favGroup = favoritesGroupHash[favContact.groupName!] {
             let last = favGroup.favoritedContacts.count-1
