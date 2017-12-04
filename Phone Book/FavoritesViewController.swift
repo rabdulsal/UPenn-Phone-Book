@@ -123,6 +123,18 @@ extension FavoritesViewController : UITableViewDataSource {
         return self.favGroupsCount
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        // Create View
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
+        view.backgroundColor = UIColor.upennMediumBlue
+        // Create Label
+        let titleLabel = UPennLabel(frame: CGRect(x: 16, y: 0, width: 200, height: 30))
+        titleLabel.textColor = UIColor.white
+        titleLabel.text = FavoritesService.getFavoritesGroupTitle(for: section)
+        view.addSubview(titleLabel)
+        return view
+    }
+    
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         FavoritesService.moveContact(from: sourceIndexPath, to: destinationIndexPath)
          self.favoritesTableView.reloadData()

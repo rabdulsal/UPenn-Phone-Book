@@ -55,8 +55,9 @@ class ContactsListViewController : UIViewController {
         self.contactsTableView.reloadData()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.searchController.isActive = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

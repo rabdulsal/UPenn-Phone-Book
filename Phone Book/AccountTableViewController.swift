@@ -37,6 +37,10 @@ class AccountTableViewController : UITableViewController {
         return UIApplication.shared.delegate as? AppDelegate
     }
     
+    override func viewDidLoad() {
+        self.setup()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.tableView.reloadData()
