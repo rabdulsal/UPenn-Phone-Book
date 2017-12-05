@@ -12,22 +12,25 @@ class ContactsSearchService {
     
     var requestService = NetworkRequestService()
     
-    func makeContactsListSearchRequest(with queryString: String, completion: @escaping (Array<Contact>, Error?)->Void) {
+    func makeContactsListSearchRequest(with queryString: String, completion: @escaping (Array<Contact>, Bool, Error?)->Void) {
         
         requestService.makeContactsListSearchRequest(with: queryString) { (response) in
             
             var retrievedContacts = Array<Contact>()
+            var hasExcessContacts = false
             
             if let httpError = response.result.error {
-                completion([],httpError)
+                completion([],hasExcessContacts,httpError)
             } else {
                 guard let statusCode = response.response?.statusCode else {
-                    completion(retrievedContacts,nil) // TODO: Create Error object to bubble up
+                    completion(retrievedContacts,hasExcessContacts,nil) // TODO: Create Error object to bubble up
                     return
                 }
                 
                 if statusCode == 200 {
                     let j = response.result.value as? Dictionary<String,Any>
+                    
+                    // Handle Search Results
                     if let resultsArry = j?["searchResults"] as? Array<Dictionary<String,Any>> {
                         for resultDict in resultsArry {
                             // Make Contacts
@@ -35,9 +38,12 @@ class ContactsSearchService {
                             retrievedContacts.append(contact)
                         }
                     }
+                    
+                    // Update hasExcessContacts
+                    hasExcessContacts = self.processReturnedResults(response: j!)
                 }
             }
-            completion(retrievedContacts, response.result.error)
+            completion(retrievedContacts, hasExcessContacts, response.result.error)
         }
     }
     
@@ -62,5 +68,23 @@ class ContactsSearchService {
                 }
             }
         }
+    }
+}
+
+fileprivate extension ContactsSearchService {
+    
+    func processReturnedResults(response: Dictionary<String,Any>) -> Bool {
+        guard
+            let returnedCount = response["returnedSearchResultsCount"] as? Int,
+            let totalCount = response["totalSearchResultsCount"] as? Int
+            else {
+                return false
+        }
+        
+        if returnedCount == totalCount {
+            return false
+        }
+        print("Displaying the first \(returnedCount) matching contacts. You may need to narrow your search.")
+        return true
     }
 }

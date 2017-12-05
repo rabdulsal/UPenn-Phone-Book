@@ -173,7 +173,7 @@ extension ContactsListViewController : LoginServiceDelegate {
 extension ContactsListViewController : UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         SVProgressHUD.show()
-        self.searchService.makeContactsListSearchRequest(with: searchBar.text!) { (retrievedContacts, error) in
+        self.searchService.makeContactsListSearchRequest(with: searchBar.text!) { (retrievedContacts, hasExcessContacts, error) in
             SVProgressHUD.dismiss()
             searchBar.resignFirstResponder()
             if let e = error {
@@ -185,6 +185,10 @@ extension ContactsListViewController : UISearchBarDelegate {
                 }
                 self.contactsList = retrievedContacts
                 self.contactsTableView.reloadData()
+                
+                if hasExcessContacts {
+                    // TODO: Show excess Contacts View
+                }
             }
         }
     }
