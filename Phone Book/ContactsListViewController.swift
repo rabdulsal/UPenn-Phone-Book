@@ -33,6 +33,7 @@ class ContactsListViewController : UIViewController {
     @IBOutlet weak var noContactsViewHeight: NSLayoutConstraint!
     @IBOutlet weak var noContactsLabel: NoDataInstructionsLabel!
     
+    @IBOutlet weak var searchBar: UISearchBar!
     var loginService: LoginService!
     var searchService = ContactsSearchService()
     var contactsList: Array<Contact>! {
@@ -55,9 +56,10 @@ class ContactsListViewController : UIViewController {
         self.contactsTableView.reloadData()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.searchController.isActive = false
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.searchBar.text = ""
+        self.searchBar.resignFirstResponder()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -89,14 +91,15 @@ class ContactsListViewController : UIViewController {
         // SearchController configs
         self.searchController = UISearchController(searchResultsController: nil)
         self.searchController.searchResultsUpdater = self
-        self.searchController.searchBar.delegate = self
+//        self.searchController.searchBar.delegate = self
         self.searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         
         // TableView configs
         self.contactsTableView.delegate = self
         self.contactsTableView.dataSource = self
-        self.contactsTableView.tableHeaderView = self.searchController.searchBar
+//        self.contactsTableView.tableHeaderView = self.searchController.searchBar
+        self.searchBar.delegate = self
         self.contactsTableView.tableFooterView = UIView()
         
         // Miscellaneous configs
@@ -117,6 +120,7 @@ class ContactsListViewController : UIViewController {
     func reloadView() {
         self.navigationController?.popToRootViewController(animated: false)
         self.searchController.isActive = false
+        self.searchBar.text = ""
         self.reloadTableView()
     }
     
@@ -199,7 +203,8 @@ extension ContactsListViewController : UISearchBarDelegate {
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        self.reloadTableView()
+//        self.reloadTableView()
+        searchBar.text = ""
     }
 }
 
