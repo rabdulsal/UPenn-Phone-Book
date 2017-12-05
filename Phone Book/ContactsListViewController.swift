@@ -41,7 +41,6 @@ class ContactsListViewController : UIViewController {
             self.toggleNoContactsView(show: self.contactsList.count == 0)
         }
     }
-    var searchController: UISearchController!
     let reuseIdentifier = "ContactCell"
     var favIndexPath: IndexPath?
     let helpText = "Using 'Tom Smith' as an example:\nIn the SearchBar, to search by first name then last name, type 'Tom Smith'\nTo search by last name then first name, type 'Smith, Tom.'\nYou can also search with partial spelling like 'T Smith' or 'Sm, T'."
@@ -58,8 +57,7 @@ class ContactsListViewController : UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.searchBar.text = ""
-        self.searchBar.resignFirstResponder()
+        self.reloadSearchBar()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -88,17 +86,9 @@ class ContactsListViewController : UIViewController {
         super.setup()
         self.contactsList = [Contact]()
         
-        // SearchController configs
-        self.searchController = UISearchController(searchResultsController: nil)
-        self.searchController.searchResultsUpdater = self
-//        self.searchController.searchBar.delegate = self
-        self.searchController.dimsBackgroundDuringPresentation = false
-        definesPresentationContext = true
-        
         // TableView configs
         self.contactsTableView.delegate = self
         self.contactsTableView.dataSource = self
-//        self.contactsTableView.tableHeaderView = self.searchController.searchBar
         self.searchBar.delegate = self
         self.contactsTableView.tableFooterView = UIView()
         
@@ -119,8 +109,7 @@ class ContactsListViewController : UIViewController {
     // Public
     func reloadView() {
         self.navigationController?.popToRootViewController(animated: false)
-        self.searchController.isActive = false
-        self.searchBar.text = ""
+        self.reloadSearchBar()
         self.reloadTableView()
     }
     
@@ -152,7 +141,6 @@ extension ContactsListViewController : UITableViewDelegate {
 
 extension ContactsListViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // TODO: 'searchInProgress logic for real-time filtering of 'Favorites'
         return self.contactsList.count
     }
     
@@ -180,7 +168,7 @@ extension ContactsListViewController : LoginServiceDelegate {
     }
 }
 
-// MARK: - UISearchControllerDelegate
+// MARK: - UISearchBarDelegate
 
 extension ContactsListViewController : UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -188,7 +176,6 @@ extension ContactsListViewController : UISearchBarDelegate {
         self.searchService.makeContactsListSearchRequest(with: searchBar.text!) { (retrievedContacts, error) in
             SVProgressHUD.dismiss()
             searchBar.resignFirstResponder()
-            self.searchController.isActive = false
             if let e = error {
                 SVProgressHUD.showError(withStatus: e.localizedDescription)
             } else {
@@ -203,16 +190,7 @@ extension ContactsListViewController : UISearchBarDelegate {
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        self.reloadTableView()
         searchBar.text = ""
-    }
-}
-
-// MARK: - UISearchResultsUpdating
-
-extension ContactsListViewController : UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        self.toggleNoContactsView(show: !self.searchController.isActive && self.contactsList.count == 0, delay: true)
     }
 }
 
@@ -290,5 +268,10 @@ private extension ContactsListViewController {
             self.noContactsViewHeight.constant = 0
             self.noContactsLabel.text = ""
         }
+    }
+    
+    func reloadSearchBar() {
+        self.searchBar.text = ""
+        self.searchBar.resignFirstResponder()
     }
 }
