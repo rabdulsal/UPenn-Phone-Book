@@ -66,22 +66,26 @@ fileprivate extension ContactService {
     }
     
     func textNumber(phoneNumber: String) {
-        let recipients = [phoneNumber]
-        if self.messagingService.canSendText {
-            let messageComposeVC = messagingService.configuredMessageComposeViewController(textMessageRecipients: recipients)
-            self.delegateViewController.present(messageComposeVC, animated: true, completion: nil)
-            return
+        DispatchQueue.main.async {
+            let recipients = [phoneNumber]
+            if self.messagingService.canSendText {
+                let messageComposeVC = self.messagingService.configuredMessageComposeViewController(textMessageRecipients: recipients)
+                self.delegateViewController.present(messageComposeVC, animated: true, completion: nil)
+                return
+            }
+            self.contactDelegate?.cannotTextError()
         }
-        self.contactDelegate?.cannotTextError()
     }
     
     func emailContact(emailAddress: String) {
-        let recipients = [emailAddress]
-        if self.emailService.canSendMail {
-            let emailComposeVC = emailService.configuredMailComposeViewController(mailRecipients: recipients)
-            self.delegateViewController.present(emailComposeVC, animated: true, completion: nil)
-            return
+        DispatchQueue.main.async {
+            let recipients = [emailAddress]
+            if self.emailService.canSendMail {
+                let emailComposeVC = self.emailService.configuredMailComposeViewController(mailRecipients: recipients)
+                self.delegateViewController.present(emailComposeVC, animated: true, completion: nil)
+                return
+            }
+            self.contactDelegate?.cannotEmailError()
         }
-        self.contactDelegate?.cannotEmailError()
     }
 }
