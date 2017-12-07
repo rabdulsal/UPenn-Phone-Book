@@ -185,6 +185,7 @@ extension ContactsListViewController : UISearchBarDelegate {
                 }
                 self.contactsList = retrievedContacts
                 self.contactsTableView.reloadData()
+                self.contactsTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: false)
             }
         }
     }
