@@ -43,6 +43,11 @@ class ContactsListViewController : UIViewController {
     }
     let reuseIdentifier = "ContactCell"
     var favIndexPath: IndexPath?
+    lazy var helpAlert : UIAlertController = {
+        let alertCtrl = UIAlertController(title: "Search Help", message: self.helpText, preferredStyle: .alert)
+        alertCtrl.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        return alertCtrl
+    }()
     let helpText = "Using 'Tom Smith' as an example:\nIn the SearchBar, to search by first name then last name, type 'Tom Smith'\nTo search by last name then first name, type 'Smith, Tom.'\nYou can also search with partial spelling like 'T Smith' or 'Sm, T'."
     
     override func viewDidLoad() {
@@ -101,9 +106,7 @@ class ContactsListViewController : UIViewController {
     
     // IBActions
     @IBAction func helpPressed(_ sender: Any) {
-        let alertCtrl = UIAlertController(title: "Search Help", message: self.helpText, preferredStyle: .alert)
-        alertCtrl.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(alertCtrl, animated: true, completion: nil)
+        self.present(self.helpAlert, animated: true, completion: nil)
     }
     
     // Public
