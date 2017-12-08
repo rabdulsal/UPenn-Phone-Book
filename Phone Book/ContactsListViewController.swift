@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import SVProgressHUD
 
+// MARK: - Protocols
 protocol FavoritesUpdatable : AddToFavoritesDelegate, RemoveFromFavoritesDelegate { }
 
 protocol AddToFavoritesDelegate {
@@ -43,6 +44,11 @@ class ContactsListViewController : UIViewController {
     }
     let reuseIdentifier = "ContactCell"
     var favIndexPath: IndexPath?
+    lazy var helpAlert : UIAlertController = {
+        let alertCtrl = UIAlertController(title: "Search Help", message: self.helpText, preferredStyle: .alert)
+        alertCtrl.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        return alertCtrl
+    }()
     let helpText = "Using 'Tom Smith' as an example:\nIn the SearchBar, to search by first name then last name, type 'Tom Smith'\nTo search by last name then first name, type 'Smith, Tom.'\nYou can also search with partial spelling like 'T Smith' or 'Sm, T'."
     
     override func viewDidLoad() {
@@ -57,7 +63,7 @@ class ContactsListViewController : UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.reloadSearchBar()
+        self.resetSearchBar()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -101,15 +107,13 @@ class ContactsListViewController : UIViewController {
     
     // IBActions
     @IBAction func helpPressed(_ sender: Any) {
-        let alertCtrl = UIAlertController(title: "Search Help", message: self.helpText, preferredStyle: .alert)
-        alertCtrl.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(alertCtrl, animated: true, completion: nil)
+        self.present(self.helpAlert, animated: true, completion: nil)
     }
     
     // Public
     func reloadView() {
         self.navigationController?.popToRootViewController(animated: false)
-        self.reloadSearchBar()
+        self.resetSearchBar()
         self.reloadTableView()
     }
     
@@ -185,10 +189,12 @@ extension ContactsListViewController : UISearchBarDelegate {
                 }
                 self.contactsList = retrievedContacts
                 self.contactsTableView.reloadData()
+                self.contactsTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: false)
                 
                 if hasExcessContacts {
-                    // TODO: Show excess Contacts View
+                    SVProgressHUD.showInfo(withStatus: "Displaying the first \(retrievedContacts.count) matching contacts. You may need to narrow your search.")
                 }
+                
             }
         }
     }
@@ -267,14 +273,14 @@ private extension ContactsListViewController {
                 self.noContactsView.isHidden = false
             }
             self.noContactsLabel.text = "Search for a Penn Medicine employee by last name or first name."
-        } else {
-            self.noContactsView.isHidden = true
-            self.noContactsViewHeight.constant = 0
-            self.noContactsLabel.text = ""
+            return
         }
+        self.noContactsView.isHidden = true
+        self.noContactsViewHeight.constant = 0
+        self.noContactsLabel.text = ""
     }
     
-    func reloadSearchBar() {
+    func resetSearchBar() {
         self.searchBar.text = ""
         self.searchBar.resignFirstResponder()
     }

@@ -14,7 +14,7 @@ class ContactsSearchService {
     
     func makeContactsListSearchRequest(with queryString: String, completion: @escaping (Array<Contact>, Bool, Error?)->Void) {
         
-        requestService.makeContactsListSearchRequest(with: queryString) { (response) in
+        self.requestService.makeContactsListSearchRequest(with: queryString) { (response) in
             
             var retrievedContacts = Array<Contact>()
             var hasExcessContacts = false
@@ -49,7 +49,7 @@ class ContactsSearchService {
     
     func makeContactSearchRequest(with profileID: String, completion: @escaping (Contact?, Error?)->Void) {
         
-        requestService.makeContactSearchRequest(with: profileID) { (response) in
+        self.requestService.makeContactSearchRequest(with: profileID) { (response) in
             
             if let httpError = response.result.error {
                 completion(nil,httpError)
@@ -71,7 +71,7 @@ class ContactsSearchService {
     }
 }
 
-fileprivate extension ContactsSearchService {
+private extension ContactsSearchService {
     
     func processReturnedResults(response: Dictionary<String,Any>) -> Bool {
         guard
@@ -84,7 +84,6 @@ fileprivate extension ContactsSearchService {
         if returnedCount == totalCount {
             return false
         }
-        print("Displaying the first \(returnedCount) matching contacts. You may need to narrow your search.")
         return true
     }
 }
