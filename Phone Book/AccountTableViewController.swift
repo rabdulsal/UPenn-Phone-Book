@@ -11,7 +11,7 @@ import UIKit
 
 class AccountTableViewController : UITableViewController {
     
-    enum Sections : Int {
+    private enum Sections : Int {
         case Settings
         
         static var count : Int {
@@ -25,11 +25,11 @@ class AccountTableViewController : UITableViewController {
         }
     }
     
-    enum SectionTitles : String {
+    private enum SectionTitles : String {
         case Settings = "Settings"
     }
     
-    enum Identifiers : String {
+    private enum Identifiers : String {
         case Timeout = "TimeoutCell"
         case AutoLogin = "AccountCell"
         case Logout = "LogoutCell"

@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import MapKit
 import SVProgressHUD
+import Contacts
+import AddressBook
 
 class ContactDetailsViewController : UIViewController {
     
@@ -26,11 +28,9 @@ class ContactDetailsViewController : UIViewController {
     @IBOutlet weak var textButton: UIButton!
     @IBOutlet weak var callPhoneButton: UIButton!
     @IBOutlet weak var mobileTextLabel: ActionLabel!
+    @IBOutlet weak var addContactsButton: UIButton!
     
-    // TODO: Eventually Remove and replace with ContactService
-//    let messagingService = MessagingService()
-//    let emailService = EmailService()
-    // ----------------------
+    let addressBookRef: ABAddressBook = ABAddressBookCreateWithOptions(nil, nil).takeRetainedValue()
     var contactService: ContactService!
     var favoritesDelegate: FavoritesUpdatable?
     var contact: Contact! {
@@ -89,6 +89,25 @@ class ContactDetailsViewController : UIViewController {
     @IBAction func pressedCallPhoneButton(_ sender: Any) {
         self.callPhone()
     }
+    
+    @IBAction func pressedAddToContacts(_ sender: UIButton) {
+        // If Contact is NOT in AddressBook
+        let authorizationStatus = ABAddressBookGetAuthorizationStatus()
+        switch authorizationStatus {
+        case .denied, .restricted:
+            // Display "Can't Add Contact Alert"
+            self.displayCantAddContactAlert()
+        case .authorized:
+            //2 Add to AddressBook
+            self.addToAddressBook(contact: self.contact)
+        case .notDetermined:
+            //3 Display alert for AddressBook access
+            self.promptForAddressBookRequestAccess()
+        }
+        
+        // Contact IS in AddressBook
+    }
+    
 }
 
 extension ContactDetailsViewController : UIGestureRecognizerDelegate { }
@@ -201,6 +220,76 @@ private extension ContactDetailsViewController {
     
     func toggleFavoritesButton() {
         self.favoriteToggleButton.title = self.contact.isFavorited ? "Unfavorite" : "Favorite"
+    }
+    
+    func promptForAddressBookRequestAccess() {
+        var err: Unmanaged<CFError>? = nil
+        
+        ABAddressBookRequestAccessWithCompletion(addressBookRef) {
+            (granted: Bool, error: CFError!) in
+            DispatchQueue.main.async {
+                if !granted {
+                    self.displayCantAddContactAlert()
+                } else {
+                    self.addToAddressBook(contact: self.contact)
+                }
+            }
+        }
+    }
+    
+    func openSettings() {
+        let url = URL(string: UIApplicationOpenSettingsURLString)
+        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+    }
+    
+    func displayCantAddContactAlert() {
+        // TODO: Turn into lazy var
+        let cantAddContactAlert = UIAlertController(
+            title: "Cannot Add Contact",
+            
+            message: "You must give the app permission to add the contact first.",
+            
+            preferredStyle: .alert)
+        cantAddContactAlert.addAction(UIAlertAction(
+            title: "Change Settings",
+            
+            style: .default,
+            
+            handler: { action in
+                self.openSettings()
+        }))
+        cantAddContactAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(cantAddContactAlert, animated: true, completion: nil)
+    }
+    
+    // TODO: Make method on Contact obj
+    func addToAddressBook(contact: Contact) {
+        let store = CNContactStore()
+        let contactRecord = CNMutableContact()
+        // Name
+        contactRecord.givenName = contact.firstName
+        contactRecord.familyName = contact.lastName
+        // Phone Numbers
+        contactRecord.phoneNumbers = [
+            // Main Phone
+            CNLabeledValue(label: CNLabelPhoneNumberMain, value: CNPhoneNumber(stringValue: contact.displayPrimaryTelephone)),
+            // Mobile Phone
+            CNLabeledValue(label: CNLabelPhoneNumberMobile, value: CNPhoneNumber(stringValue: contact.displayCellPhone))
+        ]
+        // Email - TODO: Fix error
+//        contactRecord.emailAddresses = [
+//            CNLabeledValue(label: CNLabelWork, value: contact.emailAddress)
+//        ]
+        // Work Address
+        let workAddress = CNMutablePostalAddress()
+        workAddress.street = contact.primaryAddressLine1
+        // TODO: Break up address components for city, state, zip
+        contactRecord.postalAddresses = [
+            CNLabeledValue(label: CNLabelWork, value: workAddress)
+        ]
+        let saveRequest = CNSaveRequest()
+        saveRequest.add(contactRecord, toContainerWithIdentifier: nil)
+        try! store.execute(saveRequest)
     }
 }
 
