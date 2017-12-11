@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A2052631FDAFAB30004CBDC /* AutoLogoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2052621FDAFAB30004CBDC /* AutoLogoutCell.swift */; };
 		3A2534EF1FD09E3F0015F9D9 /* ContactService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2534EE1FD09E3F0015F9D9 /* ContactService.swift */; };
 		3A26C1DF1F97CDAD005C88C9 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C1DE1F97CDAD005C88C9 /* ValidationService.swift */; };
 		3A26C1E11F97D372005C88C9 /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C1E01F97D372005C88C9 /* KeychainPasswordItem.swift */; };
@@ -69,6 +70,7 @@
 /* Begin PBXFileReference section */
 		1E816519D24726D1F49D3D6B /* Pods-Phone BookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phone BookTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Phone BookTests/Pods-Phone BookTests.debug.xcconfig"; sourceTree = "<group>"; };
 		261E2B60929BD1D5295DDDC6 /* Pods-Phone BookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phone BookTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Phone BookTests/Pods-Phone BookTests.release.xcconfig"; sourceTree = "<group>"; };
+		3A2052621FDAFAB30004CBDC /* AutoLogoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLogoutCell.swift; sourceTree = "<group>"; };
 		3A2534EE1FD09E3F0015F9D9 /* ContactService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactService.swift; sourceTree = "<group>"; };
 		3A26C1DE1F97CDAD005C88C9 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
 		3A26C1E01F97D372005C88C9 /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				3A2BDF961F993AE00018E13A /* LoginTextField.swift */,
 				3A317CDA1FA0C91F00786C95 /* FavoritesContactViewCell.swift */,
 				3ACFC7D61FBE2CB500D472FB /* AccountSettingsCell.swift */,
+				3A2052621FDAFAB30004CBDC /* AutoLogoutCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 				3A7FAE3F1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift in Sources */,
 				3A317CC91F9F98DD00786C95 /* FavoritesViewController.swift in Sources */,
 				3ACFC7D71FBE2CB500D472FB /* AccountSettingsCell.swift in Sources */,
+				3A2052631FDAFAB30004CBDC /* AutoLogoutCell.swift in Sources */,
 				4C5AE2161F918D2500E271FD /* ContactsListViewController.swift in Sources */,
 				3A317CD71F9FD32700786C95 /* FavoriteContact+CoredDataProperties.swift in Sources */,
 				3A7FAE3D1FA78F42009765F8 /* UILabel+UPenn.swift in Sources */,

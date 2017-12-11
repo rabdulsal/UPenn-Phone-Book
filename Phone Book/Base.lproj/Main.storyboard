@@ -843,8 +843,47 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimeoutCell" rowHeight="83" id="RJN-KC-nV7" customClass="AutoLogoutCell" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="83"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RJN-KC-nV7" id="sFK-Gz-gYk">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="82.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ndp-jO-2ff">
+                                            <rect key="frame" x="16" y="41" width="343" height="32.5"/>
+                                            <segments>
+                                                <segment title="2 mins"/>
+                                                <segment title="5 mins"/>
+                                                <segment title="10 mins"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="pressedTimeoutControl:" destination="RJN-KC-nV7" eventType="valueChanged" id="RhS-Ca-C21"/>
+                                            </connections>
+                                        </segmentedControl>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto-logout Timeout Length" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VNZ-rS-EAo" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                            <rect key="frame" x="16" y="10" width="216.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ndp-jO-2ff" firstAttribute="top" secondItem="VNZ-rS-EAo" secondAttribute="bottom" constant="10" id="AI9-8f-LxE"/>
+                                        <constraint firstItem="ndp-jO-2ff" firstAttribute="leading" secondItem="sFK-Gz-gYk" secondAttribute="leading" constant="16" id="B0r-Bl-wQW"/>
+                                        <constraint firstAttribute="trailing" secondItem="ndp-jO-2ff" secondAttribute="trailing" constant="16" id="I4q-HS-N2H"/>
+                                        <constraint firstItem="VNZ-rS-EAo" firstAttribute="leading" secondItem="sFK-Gz-gYk" secondAttribute="leading" constant="16" id="MDD-6C-bAM"/>
+                                        <constraint firstAttribute="bottom" secondItem="ndp-jO-2ff" secondAttribute="bottom" constant="10" id="WDI-C8-dGL"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VNZ-rS-EAo" secondAttribute="trailing" constant="20" symbolic="YES" id="kOW-qo-Ciw"/>
+                                        <constraint firstItem="VNZ-rS-EAo" firstAttribute="top" secondItem="sFK-Gz-gYk" secondAttribute="top" constant="10" id="pnz-Ft-SmX"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="timeoutControl" destination="ndp-jO-2ff" id="9cu-la-hkN"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountCell" id="hRZ-BG-vl4" customClass="AccountSettingsCell" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="111" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hRZ-BG-vl4" id="nCt-ad-u5g">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -867,7 +906,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogoutCell" id="77U-rs-SBm">
-                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="155" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="77U-rs-SBm" id="HKA-wF-0Xx">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -884,7 +923,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cXm-V4-bI9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1772" y="1057"/>
+            <point key="canvasLocation" x="1772" y="1055.6221889055473"/>
         </scene>
         <!--Account-->
         <scene sceneID="h8R-vj-j7j">

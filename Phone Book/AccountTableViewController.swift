@@ -19,6 +19,7 @@ class AccountTableViewController : UITableViewController {
         }
         
         enum Rows : Int {
+            case Timeout
             case AutoLogin
             case Logout
         }
@@ -29,6 +30,7 @@ class AccountTableViewController : UITableViewController {
     }
     
     enum Identifiers : String {
+        case Timeout = "TimeoutCell"
         case AutoLogin = "AccountCell"
         case Logout = "LogoutCell"
     }
@@ -46,12 +48,17 @@ class AccountTableViewController : UITableViewController {
         self.tableView.reloadData()
     }
     
+    override func setup() {
+        super.setup()
+        self.tableView.tableFooterView = UIView()
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let _section = Sections(rawValue: section) else { return 0 }
         
         switch _section {
         case .Settings:
-            return 2
+            return 3
         default:
             return 0
         }
@@ -65,10 +72,13 @@ class AccountTableViewController : UITableViewController {
         
         switch indexPath.row {
         case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Timeout.rawValue) as! AutoLogoutCell
+            return cell
+        case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.AutoLogin.rawValue) as! AccountSettingsCell
             cell.configure()
             return cell
-        case 1:
+        case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Logout.rawValue) as! UITableViewCell
             cell.textLabel?.text = "Logout"
             return cell
