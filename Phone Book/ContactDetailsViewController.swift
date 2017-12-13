@@ -10,8 +10,6 @@ import Foundation
 import UIKit
 import MapKit
 import SVProgressHUD
-import Contacts
-import AddressBook
 
 class ContactDetailsViewController : UIViewController {
     
@@ -30,8 +28,8 @@ class ContactDetailsViewController : UIViewController {
     @IBOutlet weak var mobileTextLabel: ActionLabel!
     @IBOutlet weak var addContactsButton: PrimaryCTAButton!
     
-    let addressBookRef: ABAddressBook = ABAddressBookCreateWithOptions(nil, nil).takeRetainedValue()
     var contactService: ContactService!
+    var addressBookService: AddressBookService!
     var favoritesDelegate: FavoritesUpdatable?
     var contact: Contact! {
         didSet {
@@ -51,17 +49,36 @@ class ContactDetailsViewController : UIViewController {
         return alertController
     }()
     
+    lazy var cantAddContactAlert : UIAlertController = {
+        let cantAddContactAlert = UIAlertController(
+            title: "Cannot Add Contact",
+            
+            message: "You must give the app permission to add the contact first.",
+            
+            preferredStyle: .alert)
+        cantAddContactAlert.addAction(UIAlertAction(
+            title: "Change Settings",
+            
+            style: .default,
+            
+            handler: { action in
+                self.openSettings()
+        }))
+        cantAddContactAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        return cantAddContactAlert
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.contactService = ContactService(viewController: self, contact: self.contact, delegate: self)
+        self.addressBookService = AddressBookService(delegate: self)
         self.decorateView(with: self.contact)
         self.setupTapGestureRecognizers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // TODO: Check if Contact is already in AddressBook to change contactsButton title to 'Add' vs. 'Edit'
-//        self.toggleAddToContactsTitle()
+        self.addressBookService.checkAddressBookAuthorizationStatus()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -97,23 +114,7 @@ class ContactDetailsViewController : UIViewController {
     }
     
     @IBAction func pressedAddToContacts(_ sender: UIButton) {
-        // TODO: Move to AddressBookService
-        
-        // If Contact is NOT in AddressBook
-        let authorizationStatus = ABAddressBookGetAuthorizationStatus()
-        switch authorizationStatus {
-        case .denied, .restricted:
-            // Display "Can't Add Contact Alert"
-            self.displayCantAddContactAlert()
-        case .authorized:
-            //2 Add to AddressBook
-            self.updateAddressBook(contact: self.contact)
-        case .notDetermined:
-            //3 Display alert for AddressBook access
-            self.promptForAddressBookRequestAccess()
-        }
-        
-        // Contact IS in AddressBook
+        self.addressBookService.updateAddressBook(contact: self.contact)
     }
     
 }
@@ -229,108 +230,48 @@ private extension ContactDetailsViewController {
     func toggleFavoritesButton() {
         self.favoriteToggleButton.title = self.contact.isFavorited ? "Unfavorite" : "Favorite"
     }
-    // TODO: Move to AddressBookService
-    func promptForAddressBookRequestAccess() {
-        var err: Unmanaged<CFError>? = nil
-        
-        ABAddressBookRequestAccessWithCompletion(addressBookRef) {
-            (granted: Bool, error: CFError!) in
-            DispatchQueue.main.async {
-                if !granted {
-                    self.displayCantAddContactAlert()
-                } else {
-                    self.updateAddressBook(contact: self.contact)
-                }
-            }
-        }
-    }
-    // TODO: Move to AddressBookService
+    
     func openSettings() {
         let url = URL(string: UIApplicationOpenSettingsURLString)
         UIApplication.shared.open(url!, options: [:], completionHandler: nil)
     }
-    // TODO: Move to AddressBookService
+    
     func displayCantAddContactAlert() {
-        // TODO: Turn into lazy var
-        let cantAddContactAlert = UIAlertController(
-            title: "Cannot Add Contact",
-            
-            message: "You must give the app permission to add the contact first.",
-            
-            preferredStyle: .alert)
-        cantAddContactAlert.addAction(UIAlertAction(
-            title: "Change Settings",
-            
-            style: .default,
-            
-            handler: { action in
-                self.openSettings()
-        }))
-        cantAddContactAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(cantAddContactAlert, animated: true, completion: nil)
     }
     
-    // TODO: Make method on Contact obj
-    func updateAddressBook(contact: Contact) {
-        if !self.contactExistsInAddressBook(contact: self.contact) {
-            let store = CNContactStore()
-            let contactRecord = CNMutableContact()
-            // Name
-            contactRecord.givenName = contact.firstName
-            contactRecord.middleName = contact.middleName
-            contactRecord.familyName = contact.lastName
-            // Phone Numbers
-            contactRecord.phoneNumbers = [
-                // Main Phone
-                CNLabeledValue(label: CNLabelPhoneNumberMain, value: CNPhoneNumber(stringValue: contact.displayPrimaryTelephone)),
-                // Mobile Phone
-                CNLabeledValue(label: CNLabelPhoneNumberMobile, value: CNPhoneNumber(stringValue: contact.displayCellPhone))
-            ]
-            // Email - TODO: Fix error
-    //        contactRecord.emailAddresses = [
-    //            CNLabeledValue(label: CNLabelWork, value: contact.emailAddress)
-    //        ]
-            // Work Address
-            let workAddress = CNMutablePostalAddress()
-            workAddress.street = contact.primaryAddressLine1
-            // TODO: Break up address components for city, state, zip
-            contactRecord.postalAddresses = [
-                CNLabeledValue(label: CNLabelWork, value: workAddress)
-            ]
-            let saveRequest = CNSaveRequest()
-            saveRequest.add(contactRecord, toContainerWithIdentifier: nil)
-            // TODO: Wrap in try-catch block and fire off delegate methods
-            try! store.execute(saveRequest)
-            self.toggleAddToContactsTitle()
-        } else {
-            SVProgressHUD.showError(withStatus: "\(self.contact.fullName) is already in your AddressBook.")
-        }
-    }
-    // TODO: Move to AddressBookService
-    func contactExistsInAddressBook(contact: Contact) -> Bool {
-        let store = CNContactStore()
-        let contacts = try! store.unifiedContacts(
-            matching: CNContact.predicateForContacts(matchingName: contact.lastName),
-            keysToFetch:[
-                CNContactGivenNameKey as CNKeyDescriptor,
-                CNContactFamilyNameKey as CNKeyDescriptor,
-                CNContactMiddleNameKey as CNKeyDescriptor
-            ]
-        )
-        for c in contacts {
-            if c.givenName == contact.firstName && c.middleName == contact.middleName && c.familyName == contact.lastName {
-                return true
-            }
-        }
-        return false
-    }
-    
     func toggleAddToContactsTitle() {
-        if self.contactExistsInAddressBook(contact: self.contact) {
+        if self.addressBookService.contactExistsInAddressBook(contact: self.contact) {
             self.addContactsButton.setTitle("Edit Existing Contact", for: .normal)
         } else {
             self.addContactsButton.setTitle("Add to Contacts", for: .normal)
         }
+    }
+}
+
+extension ContactDetailsViewController : AddressBookDelegate {
+    func authorizedAddressBookAccess() {
+        self.toggleAddToContactsTitle()
+    }
+    
+    func deniedAddressBookAccess() {
+        self.displayCantAddContactAlert()
+        DispatchQueue.main.async {
+            self.addContactsButton.isEnabled = false
+        }
+    }
+    
+    func failedToUpdateContactInAddressBook() {
+        SVProgressHUD.showError(withStatus: "Failed to update \(self.contact.fullName) in your AddressBook.")
+    }
+    
+    func contactAlreadyExistsInAddressBook() {
+        SVProgressHUD.showError(withStatus: "\(self.contact.fullName) is already in your AddressBook.")
+    }
+    
+    func successfullyUpdatedContactInAddressBook() {
+        SVProgressHUD.showSuccess(withStatus: "\(self.contact.fullName) successfully added to your AddressBook.")
+        self.toggleAddToContactsTitle()
     }
 }
 
