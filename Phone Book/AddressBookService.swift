@@ -29,17 +29,13 @@ class AddressBookService {
     }
     
     func checkAddressBookAuthorizationStatus() {
-        // If Contact is NOT in AddressBook
         let authorizationStatus = CNContactStore.authorizationStatus(for: .contacts)
         switch authorizationStatus {
         case .denied, .restricted:
-            // Display "Can't Add Contact Alert"
             self.addressBookDelegate?.deniedAddressBookAccess()
         case .authorized:
-            //2 Add to AddressBook
             self.addressBookDelegate?.authorizedAddressBookAccess()
         case .notDetermined:
-            //3 Display alert for AddressBook access
             self.contactStore.requestAccess(for: .contacts, completionHandler: { (access, error) in
                 if access {
                     self.addressBookDelegate?.authorizedAddressBookAccess()

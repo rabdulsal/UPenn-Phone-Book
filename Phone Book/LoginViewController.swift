@@ -15,11 +15,13 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: PrimaryCTAButton!
     @IBOutlet weak var autoLoginButton: PrimaryCTAButtonText! // TODO: Eventually change to Auto-fill
-    
+    @IBOutlet weak var touchIDButton: UIButton!
     @IBOutlet weak var titleLabel: BannerLabel!
+    
     var loginService: LoginService!
     var validationService: ValidationService!
     var passwordItems: [KeychainPasswordItem] = []
+    var touchIDSerivce: TouchIDAuthService!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +42,7 @@ class LoginViewController: UIViewController {
     override func setup() {
         super.setup()
         self.loginService = LoginService(loginDelegate: self)
+        self.touchIDSerivce = TouchIDAuthService(touchIDDelegate: self)
         
         // Set up textFields
         self.emailField.delegate = self
@@ -57,6 +60,7 @@ class LoginViewController: UIViewController {
         self.autoLoginButton.setImage(UIImage.init(named: "checked"), for: .selected)
         self.autoLoginButton.setImage(UIImage.init(named: "un_checked"), for: .normal)
         self.autoLoginButton.isSelected = self.loginService.shouldAutoFill
+        self.touchIDButton.isHidden = !touchIDSerivce.canEvaluatePolicy()
     }
     
     @IBAction func pressedClose(_ sender: Any) {
@@ -71,6 +75,10 @@ class LoginViewController: UIViewController {
         self.autoLoginButton.isSelected = !self.autoLoginButton.isSelected
         // TODO: Eventually change to Auto-fill & un-comment
         self.loginService.toggleShouldAutoFill(self.autoLoginButton.isSelected)
+    }
+    
+    @IBAction func pressedTouchIDButton(_ sender: UIButton) {
+        self.touchIDSerivce.authenticateUser()
     }
     
 }
@@ -103,6 +111,18 @@ extension LoginViewController : LoginServiceDelegate {
     
     func didFailToLoginUser(errorStr: String) {
         SVProgressHUD.showError(withStatus: errorStr)
+    }
+}
+
+// MARK: - TouchIDService Delegate
+
+extension LoginViewController : TouchIDDelegate {
+    func touchIDSuccessfullyAuthenticated() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func touchIDDidError(with message: String) {
+        SVProgressHUD.showError(withStatus: message)
     }
 }
 

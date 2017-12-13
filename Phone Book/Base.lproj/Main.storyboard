@@ -86,6 +86,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UAJ-u7-yfA">
+                                <rect key="frame" x="142.5" y="472" width="90" height="89"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="89" id="3Ao-4O-hLH"/>
+                                    <constraint firstAttribute="width" constant="90" id="IDs-xU-H3o"/>
+                                </constraints>
+                                <state key="normal" image="Touch-icon-lg"/>
+                                <connections>
+                                    <action selector="pressedTouchIDButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1Pn-dt-7J1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -101,11 +112,13 @@
                             <constraint firstItem="Iwr-TA-RYM" firstAttribute="leading" secondItem="sQq-kQ-jUA" secondAttribute="leading" id="gg7-Pg-ocv"/>
                             <constraint firstItem="Wv5-o8-1jZ" firstAttribute="leading" secondItem="Iwr-TA-RYM" secondAttribute="trailing" constant="8" id="hBQ-fE-TzG"/>
                             <constraint firstItem="lGi-uf-AaT" firstAttribute="leading" secondItem="sQq-kQ-jUA" secondAttribute="leading" id="hVo-a3-o71"/>
+                            <constraint firstItem="UAJ-u7-yfA" firstAttribute="top" secondItem="2si-2m-EwZ" secondAttribute="bottom" constant="30" id="luC-db-5wk"/>
                             <constraint firstItem="1ZH-Wl-szx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mb2-eg-Vgd"/>
                             <constraint firstAttribute="trailing" secondItem="2si-2m-EwZ" secondAttribute="trailing" constant="16" id="n4H-IN-bTN"/>
                             <constraint firstItem="2si-2m-EwZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="na2-tw-cIy"/>
                             <constraint firstItem="sQq-kQ-jUA" firstAttribute="trailing" secondItem="2si-2m-EwZ" secondAttribute="trailing" id="sfo-8h-6aq"/>
                             <constraint firstItem="2si-2m-EwZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ucE-s3-tcW"/>
+                            <constraint firstItem="UAJ-u7-yfA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wQA-Wo-ArP"/>
                             <constraint firstItem="2si-2m-EwZ" firstAttribute="top" secondItem="Iwr-TA-RYM" secondAttribute="bottom" constant="20" id="wkI-Y3-a1L"/>
                         </constraints>
                     </view>
@@ -116,6 +129,7 @@
                         <outlet property="loginButton" destination="2si-2m-EwZ" id="cgx-bq-Omd"/>
                         <outlet property="passwordField" destination="sQq-kQ-jUA" id="8qn-gd-c0h"/>
                         <outlet property="titleLabel" destination="cNl-CE-J3T" id="vle-3y-BzA"/>
+                        <outlet property="touchIDButton" destination="UAJ-u7-yfA" id="oRq-eF-Liy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -1033,6 +1047,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Touch-icon-lg" width="138" height="137"/>
         <image name="chat_bubbles" width="50" height="50"/>
         <image name="male" width="50" height="50"/>
         <image name="penn_medicine_transparent" width="222" height="35"/>
