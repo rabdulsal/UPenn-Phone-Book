@@ -27,12 +27,12 @@ class PrimaryCTAButton : UIButton {
     }
     
     func setEnabledStyle() {
-        titleLabel?.textColor = UIColor.white
+        setTitleColor(UIColor.white, for: .normal)
         backgroundColor = UIColor.upennMediumBlue
     }
     
     func setDisabledStyle() {
-        titleLabel?.textColor = UIColor.darkGray
+        setTitleColor(UIColor.darkGray, for: .disabled)
         backgroundColor = UIColor.lightGray
     }
 }

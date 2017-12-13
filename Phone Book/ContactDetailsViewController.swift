@@ -28,7 +28,7 @@ class ContactDetailsViewController : UIViewController {
     @IBOutlet weak var textButton: UIButton!
     @IBOutlet weak var callPhoneButton: UIButton!
     @IBOutlet weak var mobileTextLabel: ActionLabel!
-    @IBOutlet weak var addContactsButton: UIButton!
+    @IBOutlet weak var addContactsButton: PrimaryCTAButton!
     
     let addressBookRef: ABAddressBook = ABAddressBookCreateWithOptions(nil, nil).takeRetainedValue()
     var contactService: ContactService!
@@ -56,6 +56,12 @@ class ContactDetailsViewController : UIViewController {
         self.contactService = ContactService(viewController: self, contact: self.contact, delegate: self)
         self.decorateView(with: self.contact)
         self.setupTapGestureRecognizers()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // TODO: Check if Contact is already in AddressBook to change contactsButton title to 'Add' vs. 'Edit'
+//        self.toggleAddToContactsTitle()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -91,6 +97,8 @@ class ContactDetailsViewController : UIViewController {
     }
     
     @IBAction func pressedAddToContacts(_ sender: UIButton) {
+        // TODO: Move to AddressBookService
+        
         // If Contact is NOT in AddressBook
         let authorizationStatus = ABAddressBookGetAuthorizationStatus()
         switch authorizationStatus {
@@ -99,7 +107,7 @@ class ContactDetailsViewController : UIViewController {
             self.displayCantAddContactAlert()
         case .authorized:
             //2 Add to AddressBook
-            self.addToAddressBook(contact: self.contact)
+            self.updateAddressBook(contact: self.contact)
         case .notDetermined:
             //3 Display alert for AddressBook access
             self.promptForAddressBookRequestAccess()
@@ -221,7 +229,7 @@ private extension ContactDetailsViewController {
     func toggleFavoritesButton() {
         self.favoriteToggleButton.title = self.contact.isFavorited ? "Unfavorite" : "Favorite"
     }
-    
+    // TODO: Move to AddressBookService
     func promptForAddressBookRequestAccess() {
         var err: Unmanaged<CFError>? = nil
         
@@ -231,17 +239,17 @@ private extension ContactDetailsViewController {
                 if !granted {
                     self.displayCantAddContactAlert()
                 } else {
-                    self.addToAddressBook(contact: self.contact)
+                    self.updateAddressBook(contact: self.contact)
                 }
             }
         }
     }
-    
+    // TODO: Move to AddressBookService
     func openSettings() {
         let url = URL(string: UIApplicationOpenSettingsURLString)
         UIApplication.shared.open(url!, options: [:], completionHandler: nil)
     }
-    
+    // TODO: Move to AddressBookService
     func displayCantAddContactAlert() {
         // TODO: Turn into lazy var
         let cantAddContactAlert = UIAlertController(
@@ -263,33 +271,66 @@ private extension ContactDetailsViewController {
     }
     
     // TODO: Make method on Contact obj
-    func addToAddressBook(contact: Contact) {
+    func updateAddressBook(contact: Contact) {
+        if !self.contactExistsInAddressBook(contact: self.contact) {
+            let store = CNContactStore()
+            let contactRecord = CNMutableContact()
+            // Name
+            contactRecord.givenName = contact.firstName
+            contactRecord.middleName = contact.middleName
+            contactRecord.familyName = contact.lastName
+            // Phone Numbers
+            contactRecord.phoneNumbers = [
+                // Main Phone
+                CNLabeledValue(label: CNLabelPhoneNumberMain, value: CNPhoneNumber(stringValue: contact.displayPrimaryTelephone)),
+                // Mobile Phone
+                CNLabeledValue(label: CNLabelPhoneNumberMobile, value: CNPhoneNumber(stringValue: contact.displayCellPhone))
+            ]
+            // Email - TODO: Fix error
+    //        contactRecord.emailAddresses = [
+    //            CNLabeledValue(label: CNLabelWork, value: contact.emailAddress)
+    //        ]
+            // Work Address
+            let workAddress = CNMutablePostalAddress()
+            workAddress.street = contact.primaryAddressLine1
+            // TODO: Break up address components for city, state, zip
+            contactRecord.postalAddresses = [
+                CNLabeledValue(label: CNLabelWork, value: workAddress)
+            ]
+            let saveRequest = CNSaveRequest()
+            saveRequest.add(contactRecord, toContainerWithIdentifier: nil)
+            // TODO: Wrap in try-catch block and fire off delegate methods
+            try! store.execute(saveRequest)
+            self.toggleAddToContactsTitle()
+        } else {
+            SVProgressHUD.showError(withStatus: "\(self.contact.fullName) is already in your AddressBook.")
+        }
+    }
+    // TODO: Move to AddressBookService
+    func contactExistsInAddressBook(contact: Contact) -> Bool {
         let store = CNContactStore()
-        let contactRecord = CNMutableContact()
-        // Name
-        contactRecord.givenName = contact.firstName
-        contactRecord.familyName = contact.lastName
-        // Phone Numbers
-        contactRecord.phoneNumbers = [
-            // Main Phone
-            CNLabeledValue(label: CNLabelPhoneNumberMain, value: CNPhoneNumber(stringValue: contact.displayPrimaryTelephone)),
-            // Mobile Phone
-            CNLabeledValue(label: CNLabelPhoneNumberMobile, value: CNPhoneNumber(stringValue: contact.displayCellPhone))
-        ]
-        // Email - TODO: Fix error
-//        contactRecord.emailAddresses = [
-//            CNLabeledValue(label: CNLabelWork, value: contact.emailAddress)
-//        ]
-        // Work Address
-        let workAddress = CNMutablePostalAddress()
-        workAddress.street = contact.primaryAddressLine1
-        // TODO: Break up address components for city, state, zip
-        contactRecord.postalAddresses = [
-            CNLabeledValue(label: CNLabelWork, value: workAddress)
-        ]
-        let saveRequest = CNSaveRequest()
-        saveRequest.add(contactRecord, toContainerWithIdentifier: nil)
-        try! store.execute(saveRequest)
+        let contacts = try! store.unifiedContacts(
+            matching: CNContact.predicateForContacts(matchingName: contact.lastName),
+            keysToFetch:[
+                CNContactGivenNameKey as CNKeyDescriptor,
+                CNContactFamilyNameKey as CNKeyDescriptor,
+                CNContactMiddleNameKey as CNKeyDescriptor
+            ]
+        )
+        for c in contacts {
+            if c.givenName == contact.firstName && c.middleName == contact.middleName && c.familyName == contact.lastName {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func toggleAddToContactsTitle() {
+        if self.contactExistsInAddressBook(contact: self.contact) {
+            self.addContactsButton.setTitle("Edit Existing Contact", for: .normal)
+        } else {
+            self.addContactsButton.setTitle("Add to Contacts", for: .normal)
+        }
     }
 }
 

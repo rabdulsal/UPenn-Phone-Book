@@ -419,8 +419,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zh0-yR-b0D">
-                                <rect key="frame" x="16" y="467" width="343" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zh0-yR-b0D" customClass="PrimaryCTAButton" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                <rect key="frame" x="16" y="467" width="343" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="54r-lW-FIA"/>
+                                </constraints>
                                 <state key="normal" title="Add to Contacts"/>
                                 <connections>
                                     <action selector="pressedAddToContacts:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="PHz-A0-7uu"/>
