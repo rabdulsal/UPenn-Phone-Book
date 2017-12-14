@@ -957,7 +957,7 @@
         <scene sceneID="h8R-vj-j7j">
             <objects>
                 <navigationController id="IBu-0s-ZJS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Account" selectedImage="male" id="dhl-d1-BGe"/>
+                    <tabBarItem key="tabBarItem" title="Account" image="male" selectedImage="male" id="dhl-d1-BGe"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ESA-vs-PrH">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

@@ -37,10 +37,12 @@ class AddressBookService {
             self.addressBookDelegate?.authorizedAddressBookAccess()
         case .notDetermined:
             self.contactStore.requestAccess(for: .contacts, completionHandler: { (access, error) in
-                if access {
-                    self.addressBookDelegate?.authorizedAddressBookAccess()
-                } else {
-                    self.addressBookDelegate?.deniedAddressBookAccess()
+                DispatchQueue.main.async {
+                    if access {
+                        self.addressBookDelegate?.authorizedAddressBookAccess()
+                    } else {
+                        self.addressBookDelegate?.deniedAddressBookAccess()
+                    }
                 }
             })
         }

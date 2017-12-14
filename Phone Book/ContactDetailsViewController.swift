@@ -256,9 +256,7 @@ extension ContactDetailsViewController : AddressBookDelegate {
     
     func deniedAddressBookAccess() {
         self.displayCantAddContactAlert()
-        DispatchQueue.main.async {
-            self.addContactsButton.isEnabled = false
-        }
+        self.addContactsButton.isEnabled = false
     }
     
     func failedToUpdateContactInAddressBook() {
