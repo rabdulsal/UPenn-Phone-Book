@@ -64,7 +64,7 @@
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="pressedAutoLoginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x1l-rv-Zeq"/>
+                                    <action selector="pressedAutoFillButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tCk-wv-DLo"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="penn_medicine_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="1ZH-Wl-szx">
@@ -124,7 +124,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="gve-Ic-RII"/>
                     <connections>
-                        <outlet property="autoLoginButton" destination="Iwr-TA-RYM" id="EUe-ZI-myT"/>
+                        <outlet property="autoFillButton" destination="Iwr-TA-RYM" id="P0v-Cc-Tyc"/>
                         <outlet property="emailField" destination="lGi-uf-AaT" id="8eg-f3-Wq5"/>
                         <outlet property="loginButton" destination="2si-2m-EwZ" id="cgx-bq-Omd"/>
                         <outlet property="passwordField" destination="sQq-kQ-jUA" id="8qn-gd-c0h"/>

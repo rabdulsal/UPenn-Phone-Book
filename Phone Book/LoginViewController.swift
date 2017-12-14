@@ -14,7 +14,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: PrimaryCTAButton!
-    @IBOutlet weak var autoLoginButton: PrimaryCTAButtonText! // TODO: Eventually change to Auto-fill
+    @IBOutlet weak var autoFillButton: PrimaryCTAButtonText!
     @IBOutlet weak var touchIDButton: UIButton!
     @IBOutlet weak var titleLabel: BannerLabel!
     
@@ -56,10 +56,10 @@ class LoginViewController: UIViewController {
         self.validationService = ValidationService(textFields: [ self.emailField, self.passwordField ])
         
         // Set up Buttons
-        self.autoLoginButton.adjustsImageWhenHighlighted = false
-        self.autoLoginButton.setImage(UIImage.init(named: "checked"), for: .selected)
-        self.autoLoginButton.setImage(UIImage.init(named: "un_checked"), for: .normal)
-        self.autoLoginButton.isSelected = self.loginService.shouldAutoFill
+        self.autoFillButton.adjustsImageWhenHighlighted = false
+        self.autoFillButton.setImage(UIImage.init(named: "checked"), for: .selected)
+        self.autoFillButton.setImage(UIImage.init(named: "un_checked"), for: .normal)
+        self.autoFillButton.isSelected = self.loginService.shouldAutoFill
         self.touchIDButton.isHidden = !touchIDSerivce.canEvaluatePolicy()
     }
     
@@ -71,10 +71,9 @@ class LoginViewController: UIViewController {
         self.login()
     }
     
-    @IBAction func pressedAutoLoginButton(_ sender: UIButton) {
-        self.autoLoginButton.isSelected = !self.autoLoginButton.isSelected
-        // TODO: Eventually change to Auto-fill & un-comment
-        self.loginService.toggleShouldAutoFill(self.autoLoginButton.isSelected)
+    @IBAction func pressedAutoFillButton(_ sender: UIButton) {
+        self.autoFillButton.isSelected = !self.autoFillButton.isSelected
+        self.loginService.toggleShouldAutoFill(self.autoFillButton.isSelected)
     }
     
     @IBAction func pressedTouchIDButton(_ sender: UIButton) {
@@ -136,7 +135,6 @@ private extension LoginViewController {
     
     func login() {
         SVProgressHUD.show()
-        // TODO: Must disable button and textFields
         self.loginService.makeLoginRequest(email: self.emailField.text!, password: self.passwordField.text!)
     }
     

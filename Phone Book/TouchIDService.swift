@@ -37,7 +37,6 @@ class TouchIDAuthService {
            localizedReason: "Logging in with Touch ID") { (success, evaluateError) in
             if success {
                 DispatchQueue.main.async {
-                    // User authenticated successfully, take appropriate action
                     self.delegate?.touchIDSuccessfullyAuthenticated()
                 }
             } else {
