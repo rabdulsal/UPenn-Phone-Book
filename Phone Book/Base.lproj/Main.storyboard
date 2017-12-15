@@ -841,7 +841,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="callMobileButton" destination="rmj-LG-Pt6" id="AfS-cX-gqH"/>
+                                            <outlet property="callOfficeButton" destination="ZGK-FS-kLV" id="qMk-ot-fL7"/>
                                             <outlet property="nameLabel" destination="GD1-2f-ZXK" id="7Qc-V3-zSR"/>
+                                            <outlet property="sendEmailButton" destination="mNu-DA-88n" id="Pcg-ns-iun"/>
+                                            <outlet property="sendTextButton" destination="aWI-5S-NEG" id="A6G-eG-Bk2"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
