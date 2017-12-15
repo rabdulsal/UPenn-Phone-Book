@@ -168,28 +168,29 @@ class FavoritesService {
     static func makeFavoriteContact(with contact: Contact, groupTitle: String) -> FavoritesContact? {
         guard let appDelegate = self.appDelegate, let managedContext = self.managedContext else { return nil }
         let favContact = FavoritesContact(context: managedContext)
-        favContact.firstName            = contact.firstName
-        favContact.lastName             = contact.lastName
-        favContact.fullName             = contact.fullName
-        favContact.middleName           = contact.middleName
-        favContact.phonebookID          = Double(contact.phonebookID)
-        favContact.jobTitle             = contact.jobTitle
-        favContact.department           = contact.department
-        favContact.pagerNumber          = contact.pagerNumber
-        favContact.displayPagerNumber   = contact.displayPagerNumber
-        favContact.pagerEmail           = contact.pagerEmail
-        favContact.emailAddress         = contact.emailAddress
-        favContact.primaryAddressLine1  = contact.primaryAddressLine1
-        favContact.primaryAddressLine2  = contact.primaryAddressLine2
-        favContact.primaryTelephone     = contact.primaryTelephone
-        favContact.primaryFax           = contact.primaryFax
-        favContact.displayPrimaryFax    = contact.displayPrimaryFax
-        favContact.cellphone            = contact.cellphone
-        favContact.displayCellPhone     = contact.displayCellPhone
-        favContact.cellEmail            = contact.cellEmail
-        favContact.isDisabled           = Double(contact.isDisabled)
-        favContact.groupName            = groupTitle
-        favContact.groupPosition        = self.generateFavoritesGroupPosition(groupTitle: groupTitle)
+        favContact.firstName                = contact.firstName
+        favContact.lastName                 = contact.lastName
+        favContact.fullName                 = contact.fullName
+        favContact.middleName               = contact.middleName
+        favContact.phonebookID              = Double(contact.phonebookID)
+        favContact.jobTitle                 = contact.jobTitle
+        favContact.department               = contact.department
+        favContact.pagerNumber              = contact.pagerNumber
+        favContact.displayPagerNumber       = contact.displayPagerNumber
+        favContact.pagerEmail               = contact.pagerEmail
+        favContact.emailAddress             = contact.emailAddress
+        favContact.primaryAddressLine1      = contact.primaryAddressLine1
+        favContact.primaryAddressLine2      = contact.primaryAddressLine2
+        favContact.displayPrimaryTelephone  = contact.displayPrimaryTelephone
+        favContact.primaryTelephone         = contact.primaryTelephone
+        favContact.primaryFax               = contact.primaryFax
+        favContact.displayPrimaryFax        = contact.displayPrimaryFax
+        favContact.cellphone                = contact.cellphone
+        favContact.displayCellPhone         = contact.displayCellPhone
+        favContact.cellEmail                = contact.cellEmail
+        favContact.isDisabled               = Double(contact.isDisabled)
+        favContact.groupName                = groupTitle
+        favContact.groupPosition            = self.generateFavoritesGroupPosition(groupTitle: groupTitle)
         appDelegate.saveContext()
         return favContact
     }
