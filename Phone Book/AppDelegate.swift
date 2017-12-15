@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        UINavigationBar.appearance().barTintColor = UIColor.upennDarkBlue
+        UINavigationBar.appearance().barTintColor = UIColor.upennDeepBlue
         UINavigationBar.appearance().tintColor = UIColor.white
         UILabel.appearance().font = UIFont.init(name: "Helvetica Neue", size: 15.0)
         SVProgressHUD.setDefaultStyle(.custom)

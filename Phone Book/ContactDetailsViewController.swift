@@ -27,6 +27,7 @@ class ContactDetailsViewController : UIViewController {
     @IBOutlet weak var callPhoneButton: UIButton!
     @IBOutlet weak var mobileTextLabel: ActionLabel!
     @IBOutlet weak var addContactsButton: PrimaryCTAButton!
+    @IBOutlet weak var emailButton: UIButton!
     
     var contactService: ContactService!
     var addressBookService: AddressBookService!
@@ -111,6 +112,10 @@ class ContactDetailsViewController : UIViewController {
     
     @IBAction func pressedCallPhoneButton(_ sender: Any) {
         self.callPhone()
+    }
+    
+    @IBAction func pressedEmailButton(_ sender: Any) {
+        self.sendEmail()
     }
     
     @IBAction func pressedAddToContacts(_ sender: UIButton) {

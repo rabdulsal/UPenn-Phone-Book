@@ -91,3 +91,10 @@ class BannerLabel : UPennLabel {
         self.setFontHeight(size: 25.0)
     }
 }
+
+class BannerLabelWhite : BannerLabel {
+    override func setBaseStyles() {
+        super.setBaseStyles()
+        self.textColor = UIColor.white
+    }
+}

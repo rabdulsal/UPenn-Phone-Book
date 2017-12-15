@@ -52,7 +52,9 @@ class TouchIDAuthService {
                 default:
                     message = "Touch ID may not be configured"
                 }
-                self.delegate?.touchIDDidError(with: message)
+                DispatchQueue.main.async {
+                    self.delegate?.touchIDDidError(with: message)
+                }
             }
         }
     }

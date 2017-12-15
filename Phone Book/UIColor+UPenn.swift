@@ -15,12 +15,12 @@ extension UIColor {
         return UIColor(displayP3Red: 25.0/255.0, green: 40.0/255.0, blue: 87.0/255.0, alpha: 1.0)
     }
     
-    static var upennDarkBlue: UIColor {
-        return UIColor(displayP3Red: 0.0/255.0, green: 44.0/255.0, blue: 115.0/255.0, alpha: 1.0)
+    static var upennDarkBlue: UIColor { // #04498A
+        return UIColor(displayP3Red: 4.0/255.0, green: 73.0/255.0, blue: 138.0/255.0, alpha: 1.0)
     }
     
-    static var upennMediumBlue: UIColor {
-        return UIColor(displayP3Red: 0.0/255.0, green: 127.0/255.0, blue: 238.0/255.0, alpha: 1.0)
+    static var upennMediumBlue: UIColor { // #4EABE6
+        return UIColor(displayP3Red: 78.0/255.0, green: 171.0/255.0, blue: 230.0/255.0, alpha: 1.0)
     }
     
     static var upennLightGray: UIColor {
