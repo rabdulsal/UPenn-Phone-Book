@@ -246,10 +246,13 @@ private extension ContactDetailsViewController {
     }
     
     func toggleAddToContactsTitle() {
+        // TODO: Remove enable/disable toggle & change title to "Edit Existing Contact" if exists in AddressBook
         if self.addressBookService.contactExistsInAddressBook(contact: self.contact) {
-            self.addContactsButton.setTitle("Edit Existing Contact", for: .normal)
+            self.addContactsButton.setTitle("Already in AddressBook", for: .normal)
+            self.addContactsButton.isEnabled = false
         } else {
-            self.addContactsButton.setTitle("Add to Contacts", for: .normal)
+            self.addContactsButton.setTitle("Add to AddressBook", for: .normal)
+            self.addContactsButton.isEnabled = true
         }
     }
 }

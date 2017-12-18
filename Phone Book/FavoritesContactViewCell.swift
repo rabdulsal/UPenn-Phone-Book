@@ -31,6 +31,7 @@ class FavoritesContactViewCell : UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
+        self.accessoryType = .disclosureIndicator
     }
     
     func configure(with favContact: FavoritesContact, and delegate: FavoritesContactDelegate) {
