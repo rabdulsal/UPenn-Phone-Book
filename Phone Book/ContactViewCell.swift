@@ -53,13 +53,7 @@ class ContactViewCell : UITableViewCell {
     }
     
     func toggleFavoritesButton(isFavorited: Bool) {
-        if isFavorited {
-            self.favoritesButton.setTitle("Unfavorite", for: .normal)
-            self.favoritesButton.setTitleColor(UIColor.upennCTAGreen, for: .normal)
-        } else {
-            self.favoritesButton.setTitle("Favorite", for: .normal)
-            self.favoritesButton.setTitleColor(UIColor.upennMediumBlue, for: .normal)
-        }
+        self.favoritesButton.isSelected = isFavorited
     }
 }
 
