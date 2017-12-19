@@ -945,14 +945,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dVn-SQ-AjF">
-                                            <rect key="frame" x="316" y="6" width="51" height="31"/>
+                                            <rect key="frame" x="310" y="6" width="51" height="31"/>
                                             <connections>
                                                 <action selector="toggledAutoLoginSwitch:" destination="hRZ-BG-vl4" eventType="valueChanged" id="K9v-Pp-9Yu"/>
                                             </connections>
                                         </switch>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="dVn-SQ-AjF" secondAttribute="trailing" constant="10" id="CoQ-PB-A0C"/>
+                                        <constraint firstAttribute="trailing" secondItem="dVn-SQ-AjF" secondAttribute="trailing" constant="16" id="CoQ-PB-A0C"/>
                                         <constraint firstItem="dVn-SQ-AjF" firstAttribute="centerY" secondItem="nCt-ad-u5g" secondAttribute="centerY" id="Ksg-jz-IZ5"/>
                                     </constraints>
                                 </tableViewCellContentView>

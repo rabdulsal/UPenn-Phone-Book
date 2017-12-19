@@ -233,7 +233,14 @@ private extension ContactDetailsViewController {
     }
     
     func toggleFavoritesButton() {
-        self.favoriteToggleButton.title = self.contact.isFavorited ? "Unfavorite" : "Favorite"
+        // TODO: Remove button title logic
+        if self.contact.isFavorited {
+            self.favoriteToggleButton.image = UIImage(named: "fav_navbar")
+            self.favoriteToggleButton.title = ""
+        } else {
+            self.favoriteToggleButton.image = UIImage(named: "")
+            self.favoriteToggleButton.title = "Favorite"
+        }
     }
     
     func openSettings() {
