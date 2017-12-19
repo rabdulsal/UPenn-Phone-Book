@@ -449,7 +449,8 @@
                                     <constraint firstAttribute="height" constant="40" id="XeN-0o-SvZ"/>
                                     <constraint firstAttribute="width" secondItem="2h8-GY-ygC" secondAttribute="height" multiplier="1:1" id="yOx-WW-Ctw"/>
                                 </constraints>
-                                <state key="normal" title="Text" image="chat_bubbles"/>
+                                <state key="normal" title="Text" image="email"/>
+                                <state key="disabled" image="email_disabled"/>
                                 <connections>
                                     <action selector="pressedEmailButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="5pY-Au-QcG"/>
                                     <action selector="pressedTextButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="p4A-W0-aSV"/>
@@ -752,6 +753,7 @@
                                                         <constraint firstAttribute="height" constant="40" id="vs7-iQ-rNA"/>
                                                     </constraints>
                                                     <state key="normal" title="Text" image="chat_bubbles"/>
+                                                    <state key="disabled" image="chat_bubbles_disabled"/>
                                                     <connections>
                                                         <action selector="pressedTextButton:" destination="ICB-aP-E7D" eventType="touchUpInside" id="5vF-nM-Mzf"/>
                                                         <action selector="pressedTextButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="EQV-VM-oeY"/>
@@ -763,6 +765,7 @@
                                                         <constraint firstAttribute="height" constant="35" id="SDg-7A-JO7"/>
                                                     </constraints>
                                                     <state key="normal" title="Call" image="phone"/>
+                                                    <state key="disabled" image="phone_disabled"/>
                                                     <connections>
                                                         <action selector="pressedCallCellButton:" destination="ICB-aP-E7D" eventType="touchUpInside" id="BCf-i6-0sA"/>
                                                         <action selector="pressedCallPhoneButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="oKF-Qj-eFd"/>
@@ -774,6 +777,7 @@
                                                         <constraint firstAttribute="height" constant="35" id="BtU-6h-SRO"/>
                                                     </constraints>
                                                     <state key="normal" title="Call" image="phone"/>
+                                                    <state key="disabled" image="phone_disabled"/>
                                                     <connections>
                                                         <action selector="pressedCallPhoneButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="Zwu-xD-lAV"/>
                                                         <action selector="pressedCallPhoneButton:" destination="ICB-aP-E7D" eventType="touchUpInside" id="rgL-og-STs"/>
@@ -809,7 +813,8 @@
                                                         <constraint firstAttribute="height" constant="40" id="iwO-4P-3U6"/>
                                                         <constraint firstAttribute="width" secondItem="mNu-DA-88n" secondAttribute="height" multiplier="1:1" id="sto-fP-vO4"/>
                                                     </constraints>
-                                                    <state key="normal" title="Text" image="chat_bubbles"/>
+                                                    <state key="normal" title="Text" image="email"/>
+                                                    <state key="disabled" image="email_disabled"/>
                                                     <connections>
                                                         <action selector="pressedEmailButton:" destination="ICB-aP-E7D" eventType="touchUpInside" id="Dvm-Tr-um4"/>
                                                         <action selector="pressedTextButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="Shi-sb-NsA"/>
@@ -1070,9 +1075,13 @@
         <image name="Touch-icon-lg" width="138" height="137"/>
         <image name="account" width="25" height="25"/>
         <image name="chat_bubbles" width="50" height="50"/>
+        <image name="chat_bubbles_disabled" width="50" height="50"/>
+        <image name="email" width="50" height="50"/>
+        <image name="email_disabled" width="50" height="50"/>
         <image name="fav_tabbar" width="25" height="25"/>
         <image name="penn_medicine_transparent" width="222" height="35"/>
         <image name="phone" width="50" height="50"/>
+        <image name="phone_disabled" width="50" height="50"/>
         <image name="un_checked" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>

@@ -62,29 +62,28 @@ class FavoritesContactViewCell : UITableViewCell {
 
 extension FavoritesContactViewCell {
     func decorateView() {
-        // TODO: Once Disabled button is added, update isHidden to isEnabled
         if let officePhone = self.favoriteContact.displayPrimaryTelephone {
-            self.callOfficeButton.isHidden = officePhone.isEmpty
+            self.callOfficeButton.isEnabled = !officePhone.isEmpty
         } else {
-            self.callOfficeButton.isHidden = true
+            self.callOfficeButton.isEnabled = false
         }
         
         if let mobilePhone = self.favoriteContact.displayCellPhone {
-            self.callMobileButton.isHidden = mobilePhone.isEmpty
+            self.callMobileButton.isEnabled = !mobilePhone.isEmpty
         } else {
-            self.callMobileButton.isHidden = true
+            self.callMobileButton.isEnabled = false
         }
         
         if let textNumber = self.favoriteContact.displayCellPhone {
-            self.sendTextButton.isHidden = textNumber.isEmpty
+            self.sendTextButton.isEnabled = !textNumber.isEmpty
         } else {
-            self.sendTextButton.isHidden = true
+            self.sendTextButton.isEnabled = false
         }
         
         if let emailAddress = self.favoriteContact.emailAddress {
-            self.sendEmailButton.isHidden = emailAddress.isEmpty
+            self.sendEmailButton.isEnabled = !emailAddress.isEmpty
         } else {
-            self.sendEmailButton.isHidden = true
+            self.sendEmailButton.isEnabled = false
         }
     }
 }
