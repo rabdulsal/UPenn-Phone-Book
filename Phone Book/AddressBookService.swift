@@ -14,9 +14,9 @@ import UIKit
 protocol AddressBookDelegate {
     func authorizedAddressBookAccess()
     func deniedAddressBookAccess()
-    func successfullyUpdatedContactInAddressBook()
-    func failedToUpdateContactInAddressBook()
-    func contactAlreadyExistsInAddressBook() // TODO: Will eventually remove once updating functionality
+    func failedToUpdateContactInAddressBook(message: String)
+    func successfullyAddedNewContactToAddressBook()
+    func successfullyUpdatedExistingContactInAddressBook()
 }
 
 class AddressBookService {
@@ -49,37 +49,13 @@ class AddressBookService {
     }
     
     func updateAddressBook(contact: Contact) {
+        let contactRecord = self.makeAddressBookContact(with: contact)
         if !self.contactExistsInAddressBook(contact: contact) {
-            let contactRecord = CNMutableContact()
-            // Name
-            contactRecord.givenName = contact.firstName
-            contactRecord.middleName = contact.middleName
-            contactRecord.familyName = contact.lastName
-            // Phone Numbers
-            contactRecord.phoneNumbers = [
-                // Main Phone
-                CNLabeledValue(label: CNLabelPhoneNumberMain, value: CNPhoneNumber(stringValue: contact.displayPrimaryTelephone)),
-                // Mobile Phone
-                CNLabeledValue(label: CNLabelPhoneNumberMobile, value: CNPhoneNumber(stringValue: contact.displayCellPhone))
-            ]
-            // Email - TODO: Fix error
-            //        contactRecord.emailAddresses = [
-            //            CNLabeledValue(label: CNLabelWork, value: contact.emailAddress)
-            //        ]
-            // Work Address
-            let workAddress = CNMutablePostalAddress()
-            workAddress.street = contact.primaryAddressLine1
-            // TODO: Break up address components for city, state, zip
-            contactRecord.postalAddresses = [
-                CNLabeledValue(label: CNLabelWork, value: workAddress)
-            ]
-            let saveRequest = CNSaveRequest()
-            saveRequest.add(contactRecord, toContainerWithIdentifier: nil)
-            // TODO: Wrap in try-catch block and fire off delegate methods
-            try! contactStore.execute(saveRequest)
-            self.addressBookDelegate?.successfullyUpdatedContactInAddressBook()
+            self.addNewContactToAddressBook(contactRecord: contactRecord)
+            self.addressBookDelegate?.successfullyAddedNewContactToAddressBook()
         } else {
-            self.addressBookDelegate?.contactAlreadyExistsInAddressBook()
+            self.updateExistingAddressBookContact(contactRecord: contactRecord)
+            self.addressBookDelegate?.successfullyUpdatedExistingContactInAddressBook()
         }
     }
     
@@ -99,5 +75,48 @@ class AddressBookService {
             }
         }
         return false
+    }
+    
+    func makeAddressBookContact(with contact: Contact) -> CNMutableContact {
+        let contactRecord = CNMutableContact()
+        // Name
+        contactRecord.givenName = contact.firstName
+        contactRecord.middleName = contact.middleName
+        contactRecord.familyName = contact.lastName
+        // Phone Numbers
+        contactRecord.phoneNumbers = [
+            // Main Phone
+            CNLabeledValue(label: CNLabelPhoneNumberMain, value: CNPhoneNumber(stringValue: contact.displayPrimaryTelephone)),
+            // Mobile Phone
+            CNLabeledValue(label: CNLabelPhoneNumberMobile, value: CNPhoneNumber(stringValue: contact.displayCellPhone))
+        ]
+        // Email
+        contactRecord.emailAddresses.append(CNLabeledValue(label: CNLabelWork, value: contact.emailAddress as NSString))
+        // Work Address
+        let workAddress = CNMutablePostalAddress()
+        workAddress.street = contact.primaryAddressLine1
+        // TODO: Break up address components for city, state, zip
+        contactRecord.postalAddresses.append(CNLabeledValue(label: CNLabelWork, value: workAddress))
+        return contactRecord
+    }
+    
+    func addNewContactToAddressBook(contactRecord: CNMutableContact) {
+        let saveRequest = CNSaveRequest()
+        saveRequest.add(contactRecord, toContainerWithIdentifier: nil)
+        do {
+            try contactStore.execute(saveRequest)
+        } catch {
+            self.addressBookDelegate?.failedToUpdateContactInAddressBook(message: error.localizedDescription)
+        }
+    }
+    
+    func updateExistingAddressBookContact(contactRecord: CNMutableContact) {
+        let saveRequest = CNSaveRequest()
+        saveRequest.update(contactRecord)
+        do {
+            try self.contactStore.execute(saveRequest)
+        } catch {
+             self.addressBookDelegate?.failedToUpdateContactInAddressBook(message: error.localizedDescription)
+        }
     }
 }

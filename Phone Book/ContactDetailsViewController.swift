@@ -246,13 +246,10 @@ private extension ContactDetailsViewController {
     }
     
     func toggleAddToContactsTitle() {
-        // TODO: Remove enable/disable toggle & change title to "Edit Existing Contact" if exists in AddressBook
         if self.addressBookService.contactExistsInAddressBook(contact: self.contact) {
-            self.addContactsButton.setTitle("Already in AddressBook", for: .normal)
-            self.addContactsButton.isEnabled = false
+            self.addContactsButton.setTitle("Edit Existing Contact", for: .normal)
         } else {
             self.addContactsButton.setTitle("Add to AddressBook", for: .normal)
-            self.addContactsButton.isEnabled = true
         }
     }
 }
@@ -267,15 +264,15 @@ extension ContactDetailsViewController : AddressBookDelegate {
         self.addContactsButton.isEnabled = false
     }
     
-    func failedToUpdateContactInAddressBook() {
-        SVProgressHUD.showError(withStatus: "Failed to update \(self.contact.fullName) in your AddressBook.")
+    func failedToUpdateContactInAddressBook(message: String) {
+        SVProgressHUD.showError(withStatus: "Failed to update \(self.contact.fullName) in your AddressBook. \(message)")
     }
     
-    func contactAlreadyExistsInAddressBook() {
-        SVProgressHUD.showError(withStatus: "\(self.contact.fullName) is already in your AddressBook.")
+    func successfullyUpdatedExistingContactInAddressBook() {
+        SVProgressHUD.showSuccess(withStatus: "\(self.contact.fullName) successfully updated in your AddressBook.")
     }
     
-    func successfullyUpdatedContactInAddressBook() {
+    func successfullyAddedNewContactToAddressBook() {
         SVProgressHUD.showSuccess(withStatus: "\(self.contact.fullName) successfully added to your AddressBook.")
         self.toggleAddToContactsTitle()
     }
