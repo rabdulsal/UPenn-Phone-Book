@@ -977,7 +977,7 @@
         <scene sceneID="h8R-vj-j7j">
             <objects>
                 <navigationController id="IBu-0s-ZJS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Account" image="male" selectedImage="male" id="dhl-d1-BGe"/>
+                    <tabBarItem key="tabBarItem" title="Account" image="account" selectedImage="account" id="dhl-d1-BGe"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ESA-vs-PrH">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1032,7 +1032,7 @@
         <scene sceneID="zg8-xo-JPZ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PaL-e2-RJK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favorites" image="star" selectedImage="star" id="3yd-sU-P7U"/>
+                    <tabBarItem key="tabBarItem" title="Favorites" image="fav_tabbar" selectedImage="fav_tabbar" id="3yd-sU-P7U"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AYb-f1-ihA">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -1068,11 +1068,11 @@
     </scenes>
     <resources>
         <image name="Touch-icon-lg" width="138" height="137"/>
+        <image name="account" width="25" height="25"/>
         <image name="chat_bubbles" width="50" height="50"/>
-        <image name="male" width="50" height="50"/>
+        <image name="fav_tabbar" width="25" height="25"/>
         <image name="penn_medicine_transparent" width="222" height="35"/>
         <image name="phone" width="50" height="50"/>
-        <image name="star" width="50" height="50"/>
         <image name="un_checked" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
