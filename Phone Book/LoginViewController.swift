@@ -120,8 +120,9 @@ extension LoginViewController : TouchIDDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func touchIDDidError(with message: String) {
-        SVProgressHUD.showError(withStatus: message)
+    func touchIDDidError(with message: String?) {
+        guard let m = message else { return }
+        SVProgressHUD.showError(withStatus: m)
     }
 }
 
