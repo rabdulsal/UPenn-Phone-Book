@@ -20,8 +20,8 @@ class AccountTableViewController : UITableViewController {
         
         enum Rows : Int {
             case Timeout
-            case AutoLogin
             case Logout
+            case AutoLogin
         }
     }
     
