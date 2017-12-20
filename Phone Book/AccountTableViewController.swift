@@ -58,7 +58,7 @@ class AccountTableViewController : UITableViewController {
         
         switch _section {
         case .Settings:
-            return 3
+            return 2
         default:
             return 0
         }
@@ -74,18 +74,17 @@ class AccountTableViewController : UITableViewController {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Timeout.rawValue) as! AutoLogoutCell
             return cell
+//        case 1:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.AutoLogin.rawValue) as! AccountSettingsCell
+//            cell.configure()
+//            return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.AutoLogin.rawValue) as! AccountSettingsCell
-            cell.configure()
-            return cell
-        case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Logout.rawValue) as! UITableViewCell
             cell.textLabel?.text = "Logout"
             return cell
         default:
             return UITableViewCell()
         }
-        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
