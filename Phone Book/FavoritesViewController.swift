@@ -38,6 +38,7 @@ class FavoritesViewController : UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         self.setup()
     }
     
@@ -70,6 +71,14 @@ class FavoritesViewController : UIViewController {
         self.favoritesTableView.tableFooterView = UIView()
         self.noFavoritesView.backgroundColor = UIColor.upennLightGray
         FavoritesService.loadFavoritesData()
+    }
+    
+    override func reloadView() {
+        super.reloadView()
+        self.favoritesTableView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
+            self.favoritesTableView.setContentOffset(.zero, animated: false)
+        })
     }
     
     // MARK: IBActions

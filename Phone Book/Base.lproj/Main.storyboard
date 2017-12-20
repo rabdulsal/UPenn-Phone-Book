@@ -299,7 +299,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="238" placeholderIntrinsicHeight="21" text="address1" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXA-hJ-k3S" customClass="ActionLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                <rect key="frame" x="121" y="195" width="238" height="21"/>
+                                <rect key="frame" x="121" y="195" width="180" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -458,6 +458,16 @@
                                     <action selector="pressedTextButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="p4A-W0-aSV"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5iG-MZ-oNW" customClass="PrimaryCTAButtonText" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                <rect key="frame" x="313" y="190" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="XRD-UG-Ivs"/>
+                                </constraints>
+                                <state key="normal" title="Copy"/>
+                                <connections>
+                                    <action selector="pressedCopyAddressButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="h9l-jz-4N6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -467,6 +477,7 @@
                             <constraint firstItem="7u2-Jn-AmK" firstAttribute="leading" secondItem="DXA-hJ-k3S" secondAttribute="leading" id="0vt-xt-7ok"/>
                             <constraint firstItem="0T7-Np-wUv" firstAttribute="top" secondItem="JYT-Uf-vlK" secondAttribute="bottom" constant="16" id="1O9-xm-VHD"/>
                             <constraint firstItem="eYc-q2-sIZ" firstAttribute="firstBaseline" secondItem="rfw-ng-GBe" secondAttribute="firstBaseline" id="1ku-pI-q0k"/>
+                            <constraint firstItem="5iG-MZ-oNW" firstAttribute="leading" secondItem="DXA-hJ-k3S" secondAttribute="trailing" constant="12" id="2um-Aq-ElE"/>
                             <constraint firstItem="eYc-q2-sIZ" firstAttribute="centerY" secondItem="rfw-ng-GBe" secondAttribute="centerY" id="3bM-vP-aLf"/>
                             <constraint firstItem="dR5-7U-XqO" firstAttribute="leading" secondItem="FNL-VB-ELm" secondAttribute="leading" id="4VV-TH-D7t"/>
                             <constraint firstItem="eYc-q2-sIZ" firstAttribute="bottom" secondItem="rfw-ng-GBe" secondAttribute="bottom" id="4ba-Am-qKX"/>
@@ -481,6 +492,7 @@
                             <constraint firstItem="yWx-Fe-raG" firstAttribute="centerY" secondItem="FNL-VB-ELm" secondAttribute="centerY" id="Cnd-4l-Z9v"/>
                             <constraint firstItem="yWx-Fe-raG" firstAttribute="leading" secondItem="YB1-v6-TOC" secondAttribute="leading" id="E4K-ve-RAQ"/>
                             <constraint firstItem="hCc-xi-9eb" firstAttribute="leading" secondItem="DXA-hJ-k3S" secondAttribute="leading" id="EU9-Or-MhJ"/>
+                            <constraint firstItem="5iG-MZ-oNW" firstAttribute="centerY" secondItem="DXA-hJ-k3S" secondAttribute="centerY" id="Ee0-N0-eKr"/>
                             <constraint firstItem="rfw-ng-GBe" firstAttribute="leading" secondItem="0T7-Np-wUv" secondAttribute="leading" id="Ema-zX-nFQ"/>
                             <constraint firstItem="2h8-GY-ygC" firstAttribute="top" secondItem="DJr-o8-JI9" secondAttribute="bottom" constant="8" id="EtC-xE-J3G"/>
                             <constraint firstItem="LbE-Nv-zhe" firstAttribute="centerY" secondItem="iLm-6w-hUN" secondAttribute="centerY" id="F4i-Hc-z48"/>
@@ -518,10 +530,10 @@
                             <constraint firstItem="cPa-yH-L97" firstAttribute="leading" secondItem="dR5-7U-XqO" secondAttribute="leading" id="VC2-DS-hv2"/>
                             <constraint firstItem="cPa-yH-L97" firstAttribute="leading" secondItem="FNL-VB-ELm" secondAttribute="leading" id="VgQ-Ql-Xdw"/>
                             <constraint firstAttribute="trailing" secondItem="zh0-yR-b0D" secondAttribute="trailing" constant="16" id="Vk3-P4-gz8"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="DXA-hJ-k3S" secondAttribute="trailing" constant="16" id="XK2-hy-vBd"/>
                             <constraint firstItem="eYc-q2-sIZ" firstAttribute="leading" secondItem="yWx-Fe-raG" secondAttribute="leading" id="Zzh-gj-Ta8"/>
                             <constraint firstItem="eYc-q2-sIZ" firstAttribute="baseline" secondItem="rfw-ng-GBe" secondAttribute="baseline" id="a0v-2g-w1w"/>
                             <constraint firstItem="YB1-v6-TOC" firstAttribute="leading" secondItem="hCc-xi-9eb" secondAttribute="leading" id="bRm-Y8-Py8"/>
+                            <constraint firstAttribute="trailing" secondItem="5iG-MZ-oNW" secondAttribute="trailing" constant="16" id="cmA-vp-P5a"/>
                             <constraint firstItem="LbE-Nv-zhe" firstAttribute="firstBaseline" secondItem="iLm-6w-hUN" secondAttribute="firstBaseline" id="duA-Ot-boW"/>
                             <constraint firstItem="7u2-Jn-AmK" firstAttribute="baseline" secondItem="JYT-Uf-vlK" secondAttribute="baseline" id="eCa-jj-IwU"/>
                             <constraint firstItem="LbE-Nv-zhe" firstAttribute="leading" secondItem="DXA-hJ-k3S" secondAttribute="leading" id="eWS-7W-p9O"/>
@@ -578,6 +590,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addContactsButton" destination="zh0-yR-b0D" id="LCx-PS-2sv"/>
+                        <outlet property="addressCopyButton" destination="5iG-MZ-oNW" id="QQe-e4-0xA"/>
                         <outlet property="addressLabel1" destination="DXA-hJ-k3S" id="3BX-c6-0Kg"/>
                         <outlet property="addressLabel2" destination="hCc-xi-9eb" id="EQ5-TX-O7K"/>
                         <outlet property="callCellButton" destination="OoV-me-aaj" id="uDp-7c-JJ7"/>

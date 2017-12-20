@@ -111,8 +111,8 @@ class ContactsListViewController : UIViewController {
     }
     
     // Public
-    func reloadView() {
-        self.navigationController?.popToRootViewController(animated: false)
+    override func reloadView() {
+        super.reloadView()
         self.resetSearchBar()
         self.reloadTableView()
     }

@@ -28,6 +28,7 @@ class ContactDetailsViewController : UIViewController {
     @IBOutlet weak var mobileTextLabel: ActionLabel!
     @IBOutlet weak var addContactsButton: PrimaryCTAButton!
     @IBOutlet weak var emailButton: UIButton!
+    @IBOutlet weak var addressCopyButton: PrimaryCTAButtonText!
     
     var contactService: ContactService!
     var addressBookService: AddressBookService!
@@ -121,6 +122,13 @@ class ContactDetailsViewController : UIViewController {
     @IBAction func pressedAddToContacts(_ sender: UIButton) {
         self.addressBookService.updateAddressBook(contact: self.contact)
     }
+    
+    @IBAction func pressedCopyAddressButton(_ sender: PrimaryCTAButtonText) {
+        let address = "\(self.contact.primaryAddressLine1) \(self.contact.primaryAddressLine2)"
+        UIPasteboard.general.string = address
+        SVProgressHUD.showSuccess(withStatus: "Address copied to clipboard.")
+    }
+    
     
 }
 

@@ -116,7 +116,7 @@ class AddressBookService {
         do {
             try self.contactStore.execute(saveRequest)
         } catch {
-             self.addressBookDelegate?.failedToUpdateContactInAddressBook(message: error.localizedDescription)
+            self.addressBookDelegate?.failedToUpdateContactInAddressBook(message: error.localizedDescription)
         }
     }
 }

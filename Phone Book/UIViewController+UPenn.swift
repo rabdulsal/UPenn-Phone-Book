@@ -15,4 +15,8 @@ extension UIViewController {
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
     }
+    
+    func reloadView() {
+        self.navigationController?.popToRootViewController(animated: false)
+    }
 }

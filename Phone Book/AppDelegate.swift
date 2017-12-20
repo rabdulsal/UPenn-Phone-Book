@@ -119,6 +119,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    // Callback for when the timeout was fired.
+    func applicationDidTimout(notification: NSNotification) {
+        // Check if a viewController is presented, if not, show Auto-logout alert
+        guard let navVC = self.tabBarController?.presentedViewController as? UINavigationController else {
+            self.showLogoutAlert()
+            return
+        }
+        
+        // Check if the LoginViewController is presented, if not, show Auto-logout alert
+        guard let _ = navVC.childViewControllers.first as? LoginViewController else {
+            // Dismiss whatever presentedVC is showing, then display LogoutAlert
+            navVC.dismiss(animated: true, completion: {
+                self.showLogoutAlert()
+            })
+            return
+        }
+    }
+    
     func logout() {
         /*
          * 1. Go To Search Screen
@@ -139,29 +157,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate : UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         
-        // Clear out view if ContactsListViewController
-        if let contactsVC = viewController.childViewControllers.first as? ContactsListViewController {
+        // Reload individual TabVCs when TabBar pressed
+        
+        if let contactsVC = viewController.childViewControllers.first as? ContactsListViewController, let _ = contactsVC.view {
             contactsVC.reloadView()
-        }
-    }
-    
-    // Callback for when the timeout was fired.
-    func applicationDidTimout(notification: NSNotification) {
-        // Check if a viewController is presented, if not, show Auto-logout alert
-        guard let navVC = self.tabBarController?.presentedViewController as? UINavigationController else {
-            self.showLogoutAlert()
             return
         }
         
-        // Check if the LoginViewController is presented, if not, show Auto-logout alert
-        guard let _ = navVC.childViewControllers.first as? LoginViewController else {
-            // Dismiss whatever presentedVC is showing, then display LogoutAlert
-            navVC.dismiss(animated: true, completion: {
-                self.showLogoutAlert()
-            })
+        if let favsVC = viewController.childViewControllers.first as? FavoritesViewController, let _ = favsVC.view {
+            favsVC.reloadView()
             return
         }
     }
+}
+
+private extension AppDelegate {
     
     func showLogoutAlert() {
         self.tabBarController?.present(self.logoutAlertController, animated: true, completion: nil)
