@@ -20,8 +20,8 @@ class AccountTableViewController : UITableViewController {
         
         enum Rows : Int {
             case Timeout
-            case AutoLogin
             case Logout
+            case AutoLogin
         }
     }
     
@@ -31,8 +31,8 @@ class AccountTableViewController : UITableViewController {
     
     private enum Identifiers : String {
         case Timeout = "TimeoutCell"
-        case AutoLogin = "AccountCell"
         case Logout = "LogoutCell"
+        case AutoLogin = "AccountCell"
     }
     
     var appDelegate : AppDelegate? {
@@ -70,20 +70,25 @@ class AccountTableViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch indexPath.row {
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Timeout.rawValue) as! AutoLogoutCell
-            return cell
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.AutoLogin.rawValue) as! AccountSettingsCell
-            cell.configure()
-            return cell
-        case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Logout.rawValue) as! UITableViewCell
-            cell.textLabel?.text = "Logout"
-            return cell
-        default:
-            return UITableViewCell()
+        guard let section = Sections(rawValue: indexPath.section), let row = Sections.Rows(rawValue: indexPath.row) else { return UITableViewCell() }
+        
+        switch section {
+        case .Settings:
+            switch row {
+            case .Timeout:
+                let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Timeout.rawValue) as! AutoLogoutCell
+                return cell
+            case .AutoLogin:
+                let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.AutoLogin.rawValue) as! AccountSettingsCell
+                cell.configure()
+                return cell
+            case .Logout:
+                let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Logout.rawValue) as! UITableViewCell
+                cell.textLabel?.text = "Logout"
+                return cell
+            default:
+                return UITableViewCell()
+            }
         }
         
     }

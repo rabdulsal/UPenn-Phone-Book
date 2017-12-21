@@ -130,9 +130,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Check if the LoginViewController is presented, if not, show Auto-logout alert
         guard let _ = navVC.childViewControllers.first as? LoginViewController else {
             // Dismiss whatever presentedVC is showing, then display LogoutAlert
-            navVC.dismiss(animated: true, completion: {
-                self.showLogoutAlert()
-            })
+            let viewController = navVC.viewControllers.first
+            if let presentingVC = viewController?.presentingViewController {
+                presentingVC.dismiss(animated: true, completion: {
+                    self.showLogoutAlert()
+                })
+            }
             return
         }
     }
