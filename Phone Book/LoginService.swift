@@ -16,7 +16,7 @@ protocol LoginServiceDelegate {
 
 class LoginService {
     
-    var isLoggedIn = false
+    private (set) var isLoggedIn = false
     var requestService = NetworkRequestService()
     var loginDelegate: LoginServiceDelegate
     var shouldAutoLogin : Bool { return AuthenticationService.shouldAutoLogin }
@@ -84,5 +84,9 @@ class LoginService {
     
     func toggleShouldAutoFill(_ autoFill: Bool) {
         AuthenticationService.toggleShouldAutoFill(autoFill)
+    }
+    
+    func logout() {
+        self.isLoggedIn = false
     }
 }

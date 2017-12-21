@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var authToken: String?
     var users = Array<Contact>()
+    var loginService: LoginService?
     var tabBarController : UITabBarController? {
         return self.window?.rootViewController as? UITabBarController
     }
@@ -119,6 +120,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    // MARK: - LoginService
+    
+    func setLoginDelegate(loginDelegate: LoginServiceDelegate) {
+        self.loginService = LoginService(loginDelegate: loginDelegate)
+    }
+    
+    func makeLoginRequest(email: String, password: String) {
+        self.loginService?.makeLoginRequest(email: email, password: password)
+    }
+    
+    func authenticationAutoFillCheck() {
+        self.loginService?.authenticationAutoFillCheck()
+    }
+    
+    func toggleShouldAutoFill(_ autoFill: Bool) {
+        self.loginService?.toggleShouldAutoFill(autoFill)
+    }
+    
+    // MARK: - Timeout Notification
     // Callback for when the timeout was fired.
     func applicationDidTimout(notification: NSNotification) {
         // Check if a viewController is presented, if not, show Auto-logout alert
@@ -147,6 +167,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          * 3. Launch LoginView
          */
         TimerUIApplication.invalidateActiveTimer()
+        self.loginService?.logout()
         self.tabBarController?.selectedIndex = 0
         if let navVC = self.tabBarController?.selectedViewController as? UINavigationController, let contactsVC = navVC.childViewControllers.first as? ContactsListViewController {
             contactsVC.reloadView()
