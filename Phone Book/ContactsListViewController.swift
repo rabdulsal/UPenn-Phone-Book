@@ -58,7 +58,7 @@ class ContactsListViewController : UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.contactsTableView.reloadData()
+        self.contactsTableView.reloadData() // TODO: Change to checkAuthentication once loggedOutView created
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -240,10 +240,17 @@ private extension ContactsListViewController {
     
     func checkAuthenticationForPresentation() {
         // TODO: Update checking to use AppDelegate
-        if self.loginService.shouldAutoLogin {
-            self.loginService.attemptSilentLogin()
+//        if self.loginService.shouldAutoLogin {
+//            self.loginService.attemptSilentLogin()
+//        } else {
+//            self.showLoginView()
+//        }
+        // If User not logged-in, show logged-out view
+        if self.loginService.isLoggedIn {
+            self.contactsTableView.reloadData()
         } else {
-            self.showLoginView()
+//            self.showLoginView()
+            self.showLoggedOutView()
         }
     }
     
@@ -283,5 +290,9 @@ private extension ContactsListViewController {
     func resetSearchBar() {
         self.searchBar.text = ""
         self.searchBar.resignFirstResponder()
+    }
+    
+    func showLoggedOutView() {
+        self.searchBar.isHidden = true
     }
 }
