@@ -18,10 +18,12 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var touchIDButton: UIButton!
     @IBOutlet weak var titleLabel: BannerLabel!
     
-    var loginService: LoginService!
     var validationService: ValidationService!
     var passwordItems: [KeychainPasswordItem] = []
     var touchIDSerivce: TouchIDAuthService!
+    var appDelegate : AppDelegate? {
+        return UIApplication.shared.delegate as? AppDelegate
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +32,7 @@ class LoginViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.loginService.authenticationAutoFillCheck()
+        self.appDelegate?.authenticationAutoFillCheck()
         verifyFields()
     }
     
@@ -41,7 +43,7 @@ class LoginViewController: UIViewController {
     
     override func setup() {
         super.setup()
-        self.loginService = LoginService(loginDelegate: self)
+        self.appDelegate?.setLoginDelegate(loginDelegate: self)
         self.touchIDSerivce = TouchIDAuthService(touchIDDelegate: self)
         
         // Set up textFields
@@ -59,8 +61,12 @@ class LoginViewController: UIViewController {
         self.autoFillButton.adjustsImageWhenHighlighted = false
         self.autoFillButton.setImage(UIImage.init(named: "checked"), for: .selected)
         self.autoFillButton.setImage(UIImage.init(named: "un_checked"), for: .normal)
-        self.autoFillButton.isSelected = self.loginService.shouldAutoFill
         self.touchIDButton.isHidden = !touchIDSerivce.canEvaluatePolicy()
+        if let delegate = self.appDelegate {
+            self.autoFillButton.isSelected = delegate.shouldAutoFill
+        } else {
+            self.autoFillButton.isSelected = false
+        }
     }
     
     @IBAction func pressedClose(_ sender: Any) {
@@ -73,7 +79,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func pressedAutoFillButton(_ sender: UIButton) {
         self.autoFillButton.isSelected = !self.autoFillButton.isSelected
-        self.loginService.toggleShouldAutoFill(self.autoFillButton.isSelected)
+        self.appDelegate?.toggleShouldAutoFill(self.autoFillButton.isSelected)
     }
     
     @IBAction func pressedTouchIDButton(_ sender: UIButton) {
@@ -135,7 +141,7 @@ private extension LoginViewController {
     
     func login() {
         SVProgressHUD.show()
-        self.loginService.makeLoginRequest(email: self.emailField.text!, password: self.passwordField.text!)
+        self.appDelegate?.makeLoginRequest(email: self.emailField.text!, password: self.passwordField.text!)
     }
     
     @objc func textFieldDidChange(_ sender: Any) {

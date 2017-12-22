@@ -19,6 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var authToken: String?
     var users = Array<Contact>()
     var loginService: LoginService?
+    var shouldAutoFill: Bool {
+        guard let autoFill = self.loginService?.shouldAutoFill else { return false }
+        return autoFill
+    }
     var tabBarController : UITabBarController? {
         return self.window?.rootViewController as? UITabBarController
     }
