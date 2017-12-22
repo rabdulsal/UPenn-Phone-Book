@@ -1020,7 +1020,7 @@
         <!--Navigation Controller-->
         <scene sceneID="sXG-us-ReQ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DFE-iM-jyR" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LoginNav" automaticallyAdjustsScrollViewInsets="NO" id="DFE-iM-jyR" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jIf-DD-ccO">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

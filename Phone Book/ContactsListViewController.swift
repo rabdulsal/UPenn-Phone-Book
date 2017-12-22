@@ -35,7 +35,9 @@ class ContactsListViewController : UIViewController {
     @IBOutlet weak var noContactsLabel: NoDataInstructionsLabel!
     
     @IBOutlet weak var searchBar: UISearchBar!
-    var loginService: LoginService!
+    var appDelegate: AppDelegate? {
+        return UIApplication.shared.delegate as? AppDelegate
+    }
     var searchService = ContactsSearchService()
     var contactsList: Array<Contact>! {
         didSet {
@@ -99,7 +101,7 @@ class ContactsListViewController : UIViewController {
         self.contactsTableView.tableFooterView = UIView()
         
         // Miscellaneous configs
-        self.loginService = LoginService(loginDelegate: self)
+        self.appDelegate?.setLoginDelegate(loginDelegate: self)
         self.noContactsLabel.setFontHeight(size: 20.0)
         self.noContactsView.backgroundColor = UIColor.upennLightGray
         self.checkAuthenticationForPresentation()
@@ -246,11 +248,12 @@ private extension ContactsListViewController {
 //            self.showLoginView()
 //        }
         // If User not logged-in, show logged-out view
-        if self.loginService.isLoggedIn {
+        if let loggedIn = self.appDelegate?.isLoggedIn, loggedIn {
             self.contactsTableView.reloadData()
         } else {
 //            self.showLoginView()
-            self.showLoggedOutView()
+//            self.showLoggedOutView()
+            self.appDelegate?.presentLoginViewController()
         }
     }
     

@@ -19,9 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var authToken: String?
     var users = Array<Contact>()
     var loginService: LoginService?
+    var loginDelegateVC: UIViewController?
     var shouldAutoFill: Bool {
         guard let autoFill = self.loginService?.shouldAutoFill else { return false }
         return autoFill
+    }
+    var isLoggedIn: Bool {
+        guard let isLoggedIn = self.loginService?.isLoggedIn else { return false }
+        return isLoggedIn
     }
     var tabBarController : UITabBarController? {
         return self.window?.rootViewController as? UITabBarController
@@ -36,6 +41,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         alertController.addAction(logoutAction)
         return alertController
     }()
+    
+    var loginNavController: UINavigationController {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginNav") as! UINavigationController
+        return loginVC
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -128,6 +139,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setLoginDelegate(loginDelegate: LoginServiceDelegate) {
         self.loginService = LoginService(loginDelegate: loginDelegate)
+        self.loginDelegateVC = loginDelegate as? UIViewController
+    }
+    
+    func presentLoginViewController() {
+        self.loginDelegateVC?.present(self.loginNavController, animated: true, completion: nil)
     }
     
     func makeLoginRequest(email: String, password: String) {
@@ -174,8 +190,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.loginService?.logout()
         self.tabBarController?.selectedIndex = 0
         if let navVC = self.tabBarController?.selectedViewController as? UINavigationController, let contactsVC = navVC.childViewControllers.first as? ContactsListViewController {
+            self.setLoginDelegate(loginDelegate: contactsVC)
+            self.presentLoginViewController()
             contactsVC.reloadView()
-            contactsVC.showLoginView()
+            
         }
     }
 }
@@ -204,5 +222,7 @@ private extension AppDelegate {
     func showLogoutAlert() {
         self.tabBarController?.present(self.logoutAlertController, animated: true, completion: nil)
     }
+    
+    
 }
 
