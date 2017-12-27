@@ -20,6 +20,7 @@ class AccountTableViewController : UITableViewController {
         
         enum Rows : Int {
             case Timeout
+            case TouchID
             case Logout
             case AutoLogin
         }
@@ -31,6 +32,7 @@ class AccountTableViewController : UITableViewController {
     
     private enum Identifiers : String {
         case Timeout = "TimeoutCell"
+        case TouchID = "TouchIDCell"
         case Logout = "LogoutCell"
         case AutoLogin = "AccountCell"
     }
@@ -38,6 +40,8 @@ class AccountTableViewController : UITableViewController {
     var appDelegate : AppDelegate? {
         return UIApplication.shared.delegate as? AppDelegate
     }
+    
+    var touchIDService = TouchIDAuthService()
     
     override func viewDidLoad() {
         self.setup()
@@ -58,7 +62,7 @@ class AccountTableViewController : UITableViewController {
         
         switch _section {
         case .Settings:
-            return 3
+            return 4
         default:
             return 0
         }
@@ -77,6 +81,10 @@ class AccountTableViewController : UITableViewController {
             switch row {
             case .Timeout:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Timeout.rawValue) as! AutoLogoutCell
+                return cell
+            case .TouchID:
+                let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.TouchID.rawValue) as! TouchIDEnableCell
+                cell.configure(with: self, touchIDAvailable: self.touchIDService.touchIDAvailable, touchIDEnabled: self.touchIDService.touchIDEnabled)
                 return cell
             case .AutoLogin:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.AutoLogin.rawValue) as! AccountSettingsCell
@@ -114,6 +122,12 @@ class AccountTableViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
+    }
+}
+
+extension AccountTableViewController : TouchIDToggleDelegate {
+    func toggledTouchID(_ enabled: Bool) {
+        self.touchIDService.toggleTouchID(enabled)
     }
 }
 

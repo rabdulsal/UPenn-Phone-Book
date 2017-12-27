@@ -957,8 +957,40 @@
                                     <outlet property="timeoutControl" destination="ndp-jO-2ff" id="9cu-la-hkN"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountCell" id="hRZ-BG-vl4" customClass="AccountSettingsCell" customModule="UPHS_Phonebook" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TouchIDCell" id="UZw-hE-peH" customClass="TouchIDEnableCell" customModule="UPHS_Phonebook" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="111" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UZw-hE-peH" id="rI6-JP-r5c">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wsU-f4-c3V">
+                                            <rect key="frame" x="308" y="6" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="toggledTouchID:" destination="UZw-hE-peH" eventType="valueChanged" id="LUo-wy-dnh"/>
+                                            </connections>
+                                        </switch>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Touch-ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKX-vL-xN0" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                            <rect key="frame" x="16" y="11" width="284" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="fKX-vL-xN0" firstAttribute="leading" secondItem="rI6-JP-r5c" secondAttribute="leading" constant="16" id="Oih-n1-bMc"/>
+                                        <constraint firstItem="fKX-vL-xN0" firstAttribute="centerY" secondItem="rI6-JP-r5c" secondAttribute="centerY" id="cWK-ce-2WH"/>
+                                        <constraint firstItem="wsU-f4-c3V" firstAttribute="leading" secondItem="fKX-vL-xN0" secondAttribute="trailing" constant="8" id="ccS-h5-XSD"/>
+                                        <constraint firstAttribute="trailing" secondItem="wsU-f4-c3V" secondAttribute="trailing" constant="18" id="pgo-Z5-tjD"/>
+                                        <constraint firstItem="wsU-f4-c3V" firstAttribute="centerY" secondItem="rI6-JP-r5c" secondAttribute="centerY" id="wWz-8I-qpJ"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="touchIDSwitch" destination="wsU-f4-c3V" id="2lg-ZQ-K8z"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountCell" id="hRZ-BG-vl4" customClass="AccountSettingsCell" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="155" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hRZ-BG-vl4" id="nCt-ad-u5g">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -981,7 +1013,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogoutCell" id="77U-rs-SBm">
-                                <rect key="frame" x="0.0" y="155" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="199" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="77U-rs-SBm" id="HKA-wF-0Xx">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>

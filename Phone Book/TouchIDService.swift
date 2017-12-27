@@ -15,20 +15,41 @@ protocol TouchIDDelegate {
 }
 
 class TouchIDAuthService {
-    
-    let context = LAContext()
+    private let touchIDEnabledKey = "touchIDEnabled"
+    private let context = LAContext()
     var delegate: TouchIDDelegate?
     
-    init(touchIDDelegate: TouchIDDelegate) {
+    init(touchIDDelegate: TouchIDDelegate?=nil) {
         self.delegate = touchIDDelegate
     }
     
-    func canEvaluatePolicy() -> Bool {
+    /**
+     Bool indicating user has opted-in to use TouchID for Login
+    */
+    var touchIDEnabled : Bool {
+        guard let enabled = UserDefaults.standard.value(forKey: self.touchIDEnabledKey) as? Bool else { return false }
+        return enabled
+    }
+    
+    /**
+     Bool indicating the current device has TouchID capabilities
+    */
+    var touchIDAvailable: Bool {
         return self.context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
     }
     
+    func toggleTouchID(_ enabled: Bool) {
+        UserDefaults.standard.set(enabled, forKey: self.touchIDEnabledKey)
+    }
+    
+    func attemptTouchIDAuthentication() {
+        if self.touchIDEnabled {
+            self.authenticateUser()
+        }
+    }
+    
     func authenticateUser() {
-        guard canEvaluatePolicy() else {
+        guard self.touchIDAvailable else {
             self.delegate?.touchIDDidError(with: "Touch ID is not available on this device.")
             return
         }

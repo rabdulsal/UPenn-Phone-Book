@@ -34,6 +34,7 @@ class LoginViewController: UIViewController {
         super.viewDidAppear(animated)
         self.appDelegate?.authenticationAutoFillCheck()
         verifyFields()
+        self.touchIDSerivce.attemptTouchIDAuthentication()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -61,7 +62,8 @@ class LoginViewController: UIViewController {
         self.autoFillButton.adjustsImageWhenHighlighted = false
         self.autoFillButton.setImage(UIImage.init(named: "checked"), for: .selected)
         self.autoFillButton.setImage(UIImage.init(named: "un_checked"), for: .normal)
-        self.touchIDButton.isHidden = !touchIDSerivce.canEvaluatePolicy()
+//        self.touchIDButton.isHidden = !touchIDSerivce.canEvaluatePolicy()
+        self.touchIDButton.isHidden = true
         if let delegate = self.appDelegate {
             self.autoFillButton.isSelected = delegate.shouldAutoFill
         } else {
@@ -107,7 +109,9 @@ extension LoginViewController : LoginServiceDelegate {
     
     func didSuccessfullyLoginUser() {
         SVProgressHUD.dismiss()
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true) {
+            // TODO: Check if 1st login, if so, show 'Use TouchID prompt'
+        }
     }
     
     func didReturnAutoFillCredentials(username: String, password: String) {
