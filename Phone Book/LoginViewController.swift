@@ -15,15 +15,30 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: PrimaryCTAButton!
     @IBOutlet weak var autoFillButton: PrimaryCTAButtonText!
-    @IBOutlet weak var touchIDButton: UIButton!
     @IBOutlet weak var titleLabel: BannerLabel!
     
     var validationService: ValidationService!
     var passwordItems: [KeychainPasswordItem] = []
-    var touchIDSerivce: TouchIDAuthService!
+    var touchIDService: TouchIDAuthService!
     var appDelegate : AppDelegate? {
         return UIApplication.shared.delegate as? AppDelegate
     }
+    
+    lazy var touchIDAlertController : UIAlertController = {
+        let alertController = UIAlertController(title: "Use TouchID for login in the future?", message: "TouchID makes Login more convenient. These Settings can be updated in the Account section.", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            alert -> Void in
+            self.dismiss(animated: true, completion: nil)
+        })
+        let useTouchIDAction = UIAlertAction(title: "Use TouchID", style: .default, handler: {
+            alert -> Void in
+            self.touchIDService.toggleTouchID(true)
+            self.dismiss(animated: true, completion: nil)
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(useTouchIDAction)
+        return alertController
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +49,7 @@ class LoginViewController: UIViewController {
         super.viewDidAppear(animated)
         self.appDelegate?.authenticationAutoFillCheck()
         verifyFields()
-        self.touchIDSerivce.attemptTouchIDAuthentication()
+        self.touchIDService.attemptTouchIDAuthentication()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -45,7 +60,7 @@ class LoginViewController: UIViewController {
     override func setup() {
         super.setup()
         self.appDelegate?.setLoginDelegate(loginDelegate: self)
-        self.touchIDSerivce = TouchIDAuthService(touchIDDelegate: self)
+        self.touchIDService = TouchIDAuthService(touchIDDelegate: self)
         
         // Set up textFields
         self.emailField.delegate = self
@@ -62,8 +77,6 @@ class LoginViewController: UIViewController {
         self.autoFillButton.adjustsImageWhenHighlighted = false
         self.autoFillButton.setImage(UIImage.init(named: "checked"), for: .selected)
         self.autoFillButton.setImage(UIImage.init(named: "un_checked"), for: .normal)
-//        self.touchIDButton.isHidden = !touchIDSerivce.canEvaluatePolicy()
-        self.touchIDButton.isHidden = true
         if let delegate = self.appDelegate {
             self.autoFillButton.isSelected = delegate.shouldAutoFill
         } else {
@@ -83,11 +96,6 @@ class LoginViewController: UIViewController {
         self.autoFillButton.isSelected = !self.autoFillButton.isSelected
         self.appDelegate?.toggleShouldAutoFill(self.autoFillButton.isSelected)
     }
-    
-    @IBAction func pressedTouchIDButton(_ sender: UIButton) {
-        self.touchIDSerivce.authenticateUser()
-    }
-    
 }
 
 // MARK: - UITextFieldDelegate
@@ -109,9 +117,13 @@ extension LoginViewController : LoginServiceDelegate {
     
     func didSuccessfullyLoginUser() {
         SVProgressHUD.dismiss()
-        self.dismiss(animated: true) {
-            // TODO: Check if 1st login, if so, show 'Use TouchID prompt'
-        }
+        self.appDelegate?.checkFirstLogin(completion: { (isFirstLogin) in
+            if isFirstLogin {
+                self.present(self.touchIDAlertController, animated: true, completion: nil)
+            } else {
+                self.dismiss(animated: true, completion: nil)
+            }
+        })
     }
     
     func didReturnAutoFillCredentials(username: String, password: String) {
@@ -162,4 +174,3 @@ private extension LoginViewController {
         }
     }
 }
-

@@ -11,10 +11,11 @@ import Foundation
 class AuthenticationService {
     
     private(set) static var authToken: String?
-    private static let hasLoginKey = "hasLoginKey"
-    private static let autoLoginKey = "shouldAutoLogin"
-    private static let autoFillKey = "shouldAutoFill"
-    private static let usernameKey = "username"
+    private static let hasLoginKey   = "hasLoginKey"
+    private static let autoLoginKey  = "shouldAutoLogin"
+    private static let autoFillKey   = "shouldAutoFill"
+    private static let usernameKey   = "username"
+    private static let loginCountKey = "loginCountKey"
     static var isAuthenticated = false // TODO: Look to change this for better encapsulation
     static var shouldAutoLogin : Bool {
         guard let autoLogin = UserDefaults.standard.value(forKey: self.autoLoginKey) as? Bool else { return false }
@@ -87,5 +88,14 @@ class AuthenticationService {
     
     static func toggleShouldAutoFill(_ autoFill: Bool) {
         UserDefaults.standard.set(autoFill, forKey: self.autoFillKey)
+    }
+    
+    static func checkFirstLogin(completion:((_ isFirstLogin: Bool)->Void)) {
+        guard var _ = UserDefaults.standard.value(forKey: self.loginCountKey) as? Bool else {
+            UserDefaults.standard.set(true, forKey: self.loginCountKey)
+            completion(true)
+            return
+        }
+        completion(false)
     }
 }

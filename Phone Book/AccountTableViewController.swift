@@ -23,6 +23,10 @@ class AccountTableViewController : UITableViewController {
             case TouchID
             case Logout
             case AutoLogin
+            
+            static var count : Int {
+                return AutoLogin.rawValue+1
+            }
         }
     }
     
@@ -62,9 +66,7 @@ class AccountTableViewController : UITableViewController {
         
         switch _section {
         case .Settings:
-            return 4
-        default:
-            return 0
+            return Sections.Rows.count
         }
     }
     
@@ -94,8 +96,6 @@ class AccountTableViewController : UITableViewController {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Logout.rawValue) as! UITableViewCell
                 cell.textLabel?.text = "Logout"
                 return cell
-            default:
-                return UITableViewCell()
             }
         }
         
@@ -112,7 +112,6 @@ class AccountTableViewController : UITableViewController {
                 appDelegate.logout()
             default: return
             }
-//        default: return Un-comment if more Sections added
         }
     }
     

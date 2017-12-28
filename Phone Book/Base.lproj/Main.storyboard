@@ -86,17 +86,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UAJ-u7-yfA">
-                                <rect key="frame" x="142.5" y="452" width="90" height="89"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="89" id="3Ao-4O-hLH"/>
-                                    <constraint firstAttribute="width" constant="90" id="IDs-xU-H3o"/>
-                                </constraints>
-                                <state key="normal" image="touchID"/>
-                                <connections>
-                                    <action selector="pressedTouchIDButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1Pn-dt-7J1"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -112,13 +101,11 @@
                             <constraint firstItem="Iwr-TA-RYM" firstAttribute="leading" secondItem="sQq-kQ-jUA" secondAttribute="leading" id="gg7-Pg-ocv"/>
                             <constraint firstItem="Wv5-o8-1jZ" firstAttribute="leading" secondItem="Iwr-TA-RYM" secondAttribute="trailing" constant="8" id="hBQ-fE-TzG"/>
                             <constraint firstItem="lGi-uf-AaT" firstAttribute="leading" secondItem="sQq-kQ-jUA" secondAttribute="leading" id="hVo-a3-o71"/>
-                            <constraint firstItem="UAJ-u7-yfA" firstAttribute="top" secondItem="2si-2m-EwZ" secondAttribute="bottom" constant="10" id="luC-db-5wk"/>
                             <constraint firstItem="1ZH-Wl-szx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mb2-eg-Vgd"/>
                             <constraint firstAttribute="trailing" secondItem="2si-2m-EwZ" secondAttribute="trailing" constant="16" id="n4H-IN-bTN"/>
                             <constraint firstItem="2si-2m-EwZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="na2-tw-cIy"/>
                             <constraint firstItem="sQq-kQ-jUA" firstAttribute="trailing" secondItem="2si-2m-EwZ" secondAttribute="trailing" id="sfo-8h-6aq"/>
                             <constraint firstItem="2si-2m-EwZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ucE-s3-tcW"/>
-                            <constraint firstItem="UAJ-u7-yfA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wQA-Wo-ArP"/>
                             <constraint firstItem="2si-2m-EwZ" firstAttribute="top" secondItem="Iwr-TA-RYM" secondAttribute="bottom" constant="20" id="wkI-Y3-a1L"/>
                         </constraints>
                     </view>
@@ -136,7 +123,6 @@
                         <outlet property="loginButton" destination="2si-2m-EwZ" id="cgx-bq-Omd"/>
                         <outlet property="passwordField" destination="sQq-kQ-jUA" id="8qn-gd-c0h"/>
                         <outlet property="titleLabel" destination="cNl-CE-J3T" id="vle-3y-BzA"/>
-                        <outlet property="touchIDButton" destination="UAJ-u7-yfA" id="oRq-eF-Liy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -971,18 +957,27 @@
                                             </connections>
                                         </switch>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Touch-ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKX-vL-xN0" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="11" width="284" height="21"/>
+                                            <rect key="frame" x="59" y="11" width="241" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="touchID" translatesAutoresizingMaskIntoConstraints="NO" id="u2B-4C-fhq">
+                                            <rect key="frame" x="16" y="5" width="35" height="35"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="35" id="Ng6-YG-kKn"/>
+                                                <constraint firstAttribute="width" secondItem="u2B-4C-fhq" secondAttribute="height" multiplier="1:1" id="uJQ-sc-Rpx"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="fKX-vL-xN0" firstAttribute="leading" secondItem="rI6-JP-r5c" secondAttribute="leading" constant="16" id="Oih-n1-bMc"/>
+                                        <constraint firstItem="fKX-vL-xN0" firstAttribute="leading" secondItem="u2B-4C-fhq" secondAttribute="trailing" constant="8" id="bCj-lm-Jnd"/>
                                         <constraint firstItem="fKX-vL-xN0" firstAttribute="centerY" secondItem="rI6-JP-r5c" secondAttribute="centerY" id="cWK-ce-2WH"/>
                                         <constraint firstItem="wsU-f4-c3V" firstAttribute="leading" secondItem="fKX-vL-xN0" secondAttribute="trailing" constant="8" id="ccS-h5-XSD"/>
                                         <constraint firstAttribute="trailing" secondItem="wsU-f4-c3V" secondAttribute="trailing" constant="18" id="pgo-Z5-tjD"/>
+                                        <constraint firstItem="u2B-4C-fhq" firstAttribute="centerY" secondItem="rI6-JP-r5c" secondAttribute="centerY" id="rQN-yA-11o"/>
                                         <constraint firstItem="wsU-f4-c3V" firstAttribute="centerY" secondItem="rI6-JP-r5c" secondAttribute="centerY" id="wWz-8I-qpJ"/>
+                                        <constraint firstItem="u2B-4C-fhq" firstAttribute="leading" secondItem="rI6-JP-r5c" secondAttribute="leading" constant="16" id="zfp-Yt-efG"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

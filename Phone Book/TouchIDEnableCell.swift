@@ -30,10 +30,10 @@ class TouchIDEnableCell : UITableViewCell {
     }
     
     func configure(with delegate: TouchIDToggleDelegate, touchIDAvailable: Bool, touchIDEnabled: Bool ) {
-        self.touchIDDelegate = delegate
-        self.touchIDSwitch.isEnabled = touchIDAvailable
-        self.touchIDSwitch.setOn(touchIDEnabled && touchIDAvailable, animated: false)
-        self.touchIDSwitch.isSelected = touchIDEnabled && touchIDAvailable
-        
+        let touchIDAvailableEnabled   = touchIDAvailable && touchIDEnabled
+        self.touchIDDelegate          = delegate
+        self.touchIDSwitch.isEnabled  = touchIDAvailable
+        self.touchIDSwitch.isSelected = touchIDAvailableEnabled
+        self.touchIDSwitch.setOn(touchIDAvailableEnabled, animated: false)
     }
 }

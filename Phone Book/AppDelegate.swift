@@ -158,6 +158,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.loginService?.toggleShouldAutoFill(autoFill)
     }
     
+    func checkFirstLogin(completion:((_ isFirstLogin: Bool)->Void)) {
+        self.loginService?.checkFirstLogin(completion: completion)
+    }
+    
     // MARK: - Timeout Notification
     // Callback for when the timeout was fired.
     func applicationDidTimout(notification: NSNotification) {
@@ -222,7 +226,4 @@ private extension AppDelegate {
     func showLogoutAlert() {
         self.tabBarController?.present(self.logoutAlertController, animated: true, completion: nil)
     }
-    
-    
 }
-
