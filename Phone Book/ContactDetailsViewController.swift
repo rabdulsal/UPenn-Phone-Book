@@ -173,6 +173,7 @@ private extension ContactDetailsViewController {
         self.callCellButton.isHidden    = contact.displayCellPhone.isEmpty
         self.textButton.isHidden        = contact.displayCellPhone.isEmpty
         self.callPhoneButton.isHidden   = contact.displayPrimaryTelephone.isEmpty
+        
     }
     
     func setupTapGestureRecognizers() {

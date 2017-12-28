@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: PrimaryCTAButton!
     @IBOutlet weak var autoFillButton: PrimaryCTAButtonText!
     @IBOutlet weak var titleLabel: BannerLabel!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     
     var validationService: ValidationService!
     var passwordItems: [KeychainPasswordItem] = []
@@ -25,15 +26,18 @@ class LoginViewController: UIViewController {
     }
     
     lazy var touchIDAlertController : UIAlertController = {
-        let alertController = UIAlertController(title: "Use TouchID for login in the future?", message: "TouchID makes Login more convenient. These Settings can be updated in the Account section.", preferredStyle: .alert)
+        let alertController = UIAlertController(
+            title: "Use TouchID for login in the future?",
+            message: "TouchID makes Login more convenient. These Settings can be updated in the Account section.",
+            preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             alert -> Void in
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss()
         })
         let useTouchIDAction = UIAlertAction(title: "Use TouchID", style: .default, handler: {
             alert -> Void in
             self.touchIDService.toggleTouchID(true)
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss()
         })
         alertController.addAction(cancelAction)
         alertController.addAction(useTouchIDAction)
@@ -82,10 +86,15 @@ class LoginViewController: UIViewController {
         } else {
             self.autoFillButton.isSelected = false
         }
+        
+        // TODO: Remove once login link added to ContactsList
+        self.cancelButton.isEnabled = false
+        self.cancelButton.tintColor = UIColor.upennDeepBlue
+        // **************
     }
     
     @IBAction func pressedClose(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss()
     }
     
     @IBAction func pressedLogin(_ sender: Any) {
@@ -117,13 +126,18 @@ extension LoginViewController : LoginServiceDelegate {
     
     func didSuccessfullyLoginUser() {
         SVProgressHUD.dismiss()
-        self.appDelegate?.checkFirstLogin(completion: { (isFirstLogin) in
-            if isFirstLogin {
-                self.present(self.touchIDAlertController, animated: true, completion: nil)
-            } else {
-                self.dismiss(animated: true, completion: nil)
-            }
-        })
+        if self.touchIDService.touchIDAvailable {
+            self.appDelegate?.checkFirstLogin(completion: { (isFirstLogin) in
+                if isFirstLogin {
+                    self.present(self.touchIDAlertController, animated: true, completion: nil)
+                } else {
+                    self.dismiss()
+                }
+            })
+        } else {
+            self.dismiss()
+        }
+        
     }
     
     func didReturnAutoFillCredentials(username: String, password: String) {
@@ -139,11 +153,13 @@ extension LoginViewController : LoginServiceDelegate {
 
 extension LoginViewController : TouchIDDelegate {
     func touchIDSuccessfullyAuthenticated() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss()
     }
     
-    func touchIDDidError(with message: String) {
-        SVProgressHUD.showError(withStatus: message)
+    func touchIDDidError(with message: String?) {
+        if let m = message {
+            SVProgressHUD.showError(withStatus: m)
+        }
     }
 }
 

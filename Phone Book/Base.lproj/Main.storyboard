@@ -119,6 +119,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="autoFillButton" destination="Iwr-TA-RYM" id="P0v-Cc-Tyc"/>
+                        <outlet property="cancelButton" destination="0QA-bU-PzZ" id="8Hn-4A-i0I"/>
                         <outlet property="emailField" destination="lGi-uf-AaT" id="8eg-f3-Wq5"/>
                         <outlet property="loginButton" destination="2si-2m-EwZ" id="cgx-bq-Omd"/>
                         <outlet property="passwordField" destination="sQq-kQ-jUA" id="8qn-gd-c0h"/>

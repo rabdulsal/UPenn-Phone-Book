@@ -72,7 +72,7 @@ class FavoritesGroupsListViewController : UIViewController {
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss()
     }
 }
 
@@ -112,7 +112,7 @@ extension FavoritesGroupsListViewController : UITableViewDataSource {
 private extension FavoritesGroupsListViewController {
     func dismissWithSuccess(groupTitle: String) {
         SVProgressHUD.showSuccess(withStatus: "New Contact Successfully Added to \"\(groupTitle)\".")
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss()
         self.addFavoritesDelegate?.successfullyAddedContactToFavorites()
     }
     

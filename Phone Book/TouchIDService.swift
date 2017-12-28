@@ -11,7 +11,7 @@ import LocalAuthentication
 
 protocol TouchIDDelegate {
     func touchIDSuccessfullyAuthenticated()
-    func touchIDDidError(with message: String)
+    func touchIDDidError(with message: String?)
 }
 
 class TouchIDAuthService {
@@ -61,15 +61,12 @@ class TouchIDAuthService {
                     self.delegate?.touchIDSuccessfullyAuthenticated()
                 }
             } else {
-                let message: String
+                var message: String?=nil
                 
                 switch evaluateError {
                 case LAError.authenticationFailed?:
                     message = "There was a problem verifying your identity."
-                case LAError.userCancel?:
-                    message = "You pressed cancel."
-                case LAError.userFallback?:
-                    message = "You pressed password."
+                case LAError.userCancel?, LAError.userFallback?: break
                 default:
                     message = "Touch ID may not be configured"
                 }
