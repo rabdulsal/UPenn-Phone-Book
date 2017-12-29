@@ -149,6 +149,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.loginService?.makeLoginRequest(email: email, password: password)
     }
     
+    func attemptSilentLogin() {
+        self.loginService?.attemptSilentLogin()
+    }
+    
     func authenticationAutoFillCheck() {
         self.loginService?.authenticationAutoFillCheck()
     }

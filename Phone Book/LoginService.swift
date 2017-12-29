@@ -45,7 +45,10 @@ class LoginService {
                    self.loginDelegate.didFailToLoginUser(errorStr: self.genericLoginError)
                     return
                 }
-                AuthenticationService.storeAuthenticationCredentials(token: token, email: email, password: password)
+                AuthenticationService.storeAuthenticationCredentials(
+                    token: token,
+                    email: email,
+                    password: password)
                 self.isLoggedIn = true
                 self.loginDelegate.didSuccessfullyLoginUser()
                 return

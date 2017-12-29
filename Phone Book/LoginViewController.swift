@@ -37,6 +37,7 @@ class LoginViewController: UIViewController {
         let useTouchIDAction = UIAlertAction(title: "Use TouchID", style: .default, handler: {
             alert -> Void in
             self.touchIDService.toggleTouchID(true)
+            self.toggleLoginAutoFill()
             self.dismiss()
         })
         alertController.addAction(cancelAction)
@@ -53,7 +54,7 @@ class LoginViewController: UIViewController {
         super.viewDidAppear(animated)
         self.appDelegate?.authenticationAutoFillCheck()
         verifyFields()
-        self.touchIDService.attemptTouchIDAuthentication()
+        self.attemptTouchIDPresentation()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -102,8 +103,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func pressedAutoFillButton(_ sender: UIButton) {
-        self.autoFillButton.isSelected = !self.autoFillButton.isSelected
-        self.appDelegate?.toggleShouldAutoFill(self.autoFillButton.isSelected)
+        self.toggleLoginAutoFill()
     }
 }
 
@@ -153,7 +153,8 @@ extension LoginViewController : LoginServiceDelegate {
 
 extension LoginViewController : TouchIDDelegate {
     func touchIDSuccessfullyAuthenticated() {
-        self.dismiss()
+        SVProgressHUD.show()
+        self.appDelegate?.attemptSilentLogin()
     }
     
     func touchIDDidError(with message: String?) {
@@ -176,6 +177,12 @@ private extension LoginViewController {
         self.appDelegate?.makeLoginRequest(email: self.emailField.text!, password: self.passwordField.text!)
     }
     
+    func toggleLoginAutoFill() {
+        self.autoFillButton.isSelected = !self.autoFillButton.isSelected
+        // TODO: Logic for if !autoFillButton.isSelected && self.touchIDService.touchIDEnabled -> show "Turning off 'Remember Me' will disable TouchID alert
+        self.appDelegate?.toggleShouldAutoFill(self.autoFillButton.isSelected)
+    }
+    
     @objc func textFieldDidChange(_ sender: Any) {
         verifyFields()
     }
@@ -187,6 +194,12 @@ private extension LoginViewController {
         } else {
             textfield.resignFirstResponder()
             self.login()
+        }
+    }
+    
+    func attemptTouchIDPresentation() {
+        if let shouldAutoFill = self.appDelegate?.shouldAutoFill, shouldAutoFill {
+            self.touchIDService.attemptTouchIDAuthentication()
         }
     }
 }
