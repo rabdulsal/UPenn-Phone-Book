@@ -30,7 +30,7 @@ class LoginViewController: UIViewController {
             title: "Use TouchID for login in the future?",
             message: "TouchID makes Login more convenient. These Settings can be updated in the Account section.",
             preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+        let cancelAction = UIAlertAction(title: "No Thanks", style: .cancel, handler: {
             alert -> Void in
             self.dismiss()
         })
@@ -49,6 +49,22 @@ class LoginViewController: UIViewController {
         return alertController
     }()
     
+    lazy var rememberMeAlertController : UIAlertController = {
+        let alertController = UIAlertController(
+            title: "Turning off 'Remember Me' will disable TouchID.",
+            message: "",
+            preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let disableRememberMe = UIAlertAction(title: "OK", style: .default, handler: {
+            alert -> Void in
+            self.touchIDService.toggleTouchID(false)
+            self.toggleRememberMe()
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(disableRememberMe)
+        return alertController
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setup()
@@ -56,9 +72,7 @@ class LoginViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.appDelegate?.authenticationAutoFillCheck()
-        verifyFields()
-        self.attemptTouchIDPresentation()
+        self.viewDidAppear()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -86,11 +100,6 @@ class LoginViewController: UIViewController {
         self.autoFillButton.adjustsImageWhenHighlighted = false
         self.autoFillButton.setImage(UIImage.init(named: "checked"), for: .selected)
         self.autoFillButton.setImage(UIImage.init(named: "un_checked"), for: .normal)
-        if let delegate = self.appDelegate {
-            self.autoFillButton.isSelected = delegate.shouldAutoFill
-        } else {
-            self.autoFillButton.isSelected = false
-        }
     }
     
     @IBAction func pressedClose(_ sender: Any) {
@@ -175,19 +184,37 @@ private extension LoginViewController {
         self.loginButton.isEnabled = validationService.loginFieldsAreValid
     }
     
+    func viewDidAppear() {
+        self.appDelegate?.authenticationAutoFillCheck()
+        verifyFields()
+        self.attemptTouchIDPresentation()
+        if let delegate = self.appDelegate {
+            self.autoFillButton.isSelected = delegate.shouldAutoFill
+        } else {
+            self.autoFillButton.isSelected = false
+        }
+    }
+    
     func login() {
         SVProgressHUD.show()
         self.appDelegate?.makeLoginRequest(email: self.emailField.text!, password: self.passwordField.text!)
     }
     
     func toggleLoginAutoFill() {
-        self.autoFillButton.isSelected = !self.autoFillButton.isSelected
-        // TODO: Logic for if !autoFillButton.isSelected && self.touchIDService.touchIDEnabled -> show "Turning off 'Remember Me' will disable TouchID alert, must RETURN from function or wrap bottom in ELSE
-        self.appDelegate?.toggleShouldAutoFill(self.autoFillButton.isSelected)
+        if autoFillButton.isSelected && self.touchIDService.touchIDEnabled {
+            self.present(self.rememberMeAlertController, animated: true, completion: nil)
+            return
+        }
+        self.toggleRememberMe()
     }
     
     @objc func textFieldDidChange(_ sender: Any) {
         verifyFields()
+    }
+    
+    func toggleRememberMe() {
+        self.autoFillButton.isSelected = !self.autoFillButton.isSelected
+        self.appDelegate?.toggleShouldAutoFill(self.autoFillButton.isSelected)
     }
     
     func advanceTextfields(textfield: UITextField) {

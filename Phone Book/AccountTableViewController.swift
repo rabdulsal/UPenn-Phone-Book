@@ -95,10 +95,10 @@ class AccountTableViewController : UITableViewController {
             case .Logout:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Logout.rawValue) as! UITableViewCell
                 cell.textLabel?.text = "Logout"
+                cell.textLabel?.textColor = UIColor.upennWarningRed
                 return cell
             }
         }
-        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -127,6 +127,10 @@ class AccountTableViewController : UITableViewController {
 extension AccountTableViewController : TouchIDToggleDelegate {
     func toggledTouchID(_ enabled: Bool) {
         self.touchIDService.toggleTouchID(enabled)
+        // If touchID is enabled, toggle 'Remember Me' on in LoginVC
+        if enabled {
+            self.appDelegate?.toggleShouldAutoFill(enabled)
+        }
     }
 }
 
