@@ -36,6 +36,10 @@ class LoginViewController: UIViewController {
         })
         let useTouchIDAction = UIAlertAction(title: "Use TouchID", style: .default, handler: {
             alert -> Void in
+            /*
+             * 1. Toggle TouchID 'on'
+             * 2. Toggle 'Remember Me' for caching login credentials
+            */
             self.touchIDService.toggleTouchID(true)
             self.toggleLoginAutoFill()
             self.dismiss()
@@ -87,11 +91,6 @@ class LoginViewController: UIViewController {
         } else {
             self.autoFillButton.isSelected = false
         }
-        
-        // TODO: Remove once login link added to ContactsList
-//        self.cancelButton.isEnabled = false
-//        self.cancelButton.tintColor = UIColor.upennDeepBlue
-        // **************
     }
     
     @IBAction func pressedClose(_ sender: Any) {
@@ -126,18 +125,22 @@ extension LoginViewController : LoginServiceDelegate {
     
     func didSuccessfullyLoginUser() {
         SVProgressHUD.dismiss()
-        if self.touchIDService.touchIDAvailable {
-            self.appDelegate?.checkFirstLogin(completion: { (isFirstLogin) in
-                if isFirstLogin {
-                    self.present(self.touchIDAlertController, animated: true, completion: nil)
-                } else {
-                    self.dismiss()
-                }
-            })
-        } else {
-            self.dismiss()
-        }
         
+        /*
+         * 1. Trigger Logout timer
+         * 2. Check for 1st Launch & conditionally launch TouchID opt-in
+        */
+        self.appDelegate?.resetLogoutTimer()
+        self.appDelegate?.checkFirstLogin(completion: { (isFirstLogin) in
+            if isFirstLogin {
+                self.appDelegate?.setFirstLogin()
+                if self.touchIDService.touchIDAvailable {
+                    self.present(self.touchIDAlertController, animated: true, completion: nil)
+                    return
+                }
+            }
+            self.dismiss()
+        })
     }
     
     func didReturnAutoFillCredentials(username: String, password: String) {

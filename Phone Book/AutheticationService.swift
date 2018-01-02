@@ -92,10 +92,13 @@ class AuthenticationService {
     
     static func checkFirstLogin(completion:((_ isFirstLogin: Bool)->Void)) {
         guard var _ = UserDefaults.standard.value(forKey: self.loginCountKey) as? Bool else {
-            UserDefaults.standard.set(true, forKey: self.loginCountKey)
             completion(true)
             return
         }
         completion(false)
+    }
+    
+    static func setFirstLogin() {
+        UserDefaults.standard.set(true, forKey: self.loginCountKey)
     }
 }

@@ -93,6 +93,10 @@ class LoginService {
         AuthenticationService.checkFirstLogin(completion: completion)
     }
     
+    func setFirstLogin() {
+        AuthenticationService.setFirstLogin()
+    }
+    
     func logout() {
         self.isLoggedIn = false
     }

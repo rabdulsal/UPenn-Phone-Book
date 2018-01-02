@@ -62,9 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Register for Timeout Notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidTimout(notification:)), name: NSNotification.Name.init(TimerUIApplication.ApplicationDidTimeoutNotification), object: nil)
         
-        // Trigger Auto-logout Timer
-        TimerUIApplication.resetIdleTimer()
-        
         return true
     }
 
@@ -165,6 +162,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.loginService?.checkFirstLogin(completion: completion)
     }
     
+    func setFirstLogin() {
+        self.loginService?.setFirstLogin()
+    }
+    
     // MARK: - Timeout Notification
     // Callback for when the timeout was fired.
     func applicationDidTimout(notification: NSNotification) {
@@ -187,11 +188,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func resetLogoutTimer() {
+        TimerUIApplication.resetIdleTimer()
+    }
+    
+    // MARK: - Logout
+    
     func logout() {
         /*
-         * 1. Go To Search Screen
-         * 2. Reload Contact view
-         * 3. Launch LoginView
+         * 1. Turn off logout timer
+         * 2. Select ContactsList Tab
+         * 3. Reload view
+         * 4. Launch LoginView
          */
         TimerUIApplication.invalidateActiveTimer()
         self.loginService?.logout()
@@ -220,6 +228,14 @@ extension AppDelegate : UITabBarControllerDelegate {
         if let favsVC = viewController.childViewControllers.first as? FavoritesViewController, let _ = favsVC.view {
             favsVC.reloadView()
             return
+        }
+        
+        // If clicking Accounts Tab, check if logged-out, if so, present login
+        
+        if let accountsVC = viewController.childViewControllers.first as? AccountTableViewController, let _ = accountsVC.view {
+            if !self.isLoggedIn {
+                self.logout()
+            }
         }
     }
 }

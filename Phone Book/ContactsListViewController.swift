@@ -130,6 +130,9 @@ class ContactsListViewController : UIViewController {
         self.noContactsLabel.setFontHeight(size: 20.0)
         self.noContactsView.backgroundColor = UIColor.upennLightGray
         self.setupLoggedOutLabel()
+        
+        // Since this is the Launch VC, always logout the User on 1st load
+        self.appDelegate?.logout()
     }
     
     // IBActions
