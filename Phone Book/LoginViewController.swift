@@ -89,8 +89,8 @@ class LoginViewController: UIViewController {
         }
         
         // TODO: Remove once login link added to ContactsList
-        self.cancelButton.isEnabled = false
-        self.cancelButton.tintColor = UIColor.upennDeepBlue
+//        self.cancelButton.isEnabled = false
+//        self.cancelButton.tintColor = UIColor.upennDeepBlue
         // **************
     }
     
@@ -179,7 +179,7 @@ private extension LoginViewController {
     
     func toggleLoginAutoFill() {
         self.autoFillButton.isSelected = !self.autoFillButton.isSelected
-        // TODO: Logic for if !autoFillButton.isSelected && self.touchIDService.touchIDEnabled -> show "Turning off 'Remember Me' will disable TouchID alert
+        // TODO: Logic for if !autoFillButton.isSelected && self.touchIDService.touchIDEnabled -> show "Turning off 'Remember Me' will disable TouchID alert, must RETURN from function or wrap bottom in ELSE
         self.appDelegate?.toggleShouldAutoFill(self.autoFillButton.isSelected)
     }
     

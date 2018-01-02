@@ -33,8 +33,11 @@ class ContactsListViewController : UIViewController {
     @IBOutlet weak var noContactsView: UIView!
     @IBOutlet weak var noContactsViewHeight: NSLayoutConstraint!
     @IBOutlet weak var noContactsLabel: NoDataInstructionsLabel!
-    
+    @IBOutlet weak var helpButton: UIBarButtonItem!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var loggedOutView: UIView!
+    @IBOutlet weak var loggedOutLabel: UITextView!
+    
     var appDelegate: AppDelegate? {
         return UIApplication.shared.delegate as? AppDelegate
     }
@@ -52,6 +55,27 @@ class ContactsListViewController : UIViewController {
         return alertCtrl
     }()
     let helpText = "Using 'Tom Smith' as an example:\nIn the SearchBar, to search by first name then last name, type 'Tom Smith'\nTo search by last name then first name, type 'Smith, Tom.'\nYou can also search with partial spelling like 'T Smith' or 'Sm, T'."
+    lazy var loggedOutAttributedString : NSAttributedString = {
+        let text = NSMutableAttributedString(string: "To search UPenn staff, please ")
+        text.addAttribute(NSFontAttributeName, value: UIFont.init(name: "Helvetica Neue", size: 18)!, range: NSMakeRange(0, text.length))
+        
+        let selectablePart = NSMutableAttributedString(string: "login.")
+        selectablePart.addAttribute(NSFontAttributeName, value: UIFont.init(name: "Helvetica Neue", size: 18)!, range: NSMakeRange(0, selectablePart.length))
+        // Add an underline to indicate this portion of text is selectable (optional)
+        selectablePart.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSMakeRange(0,selectablePart.length))
+        selectablePart.addAttribute(NSUnderlineColorAttributeName, value: UIColor.upennMediumBlue, range: NSMakeRange(0, selectablePart.length))
+        // Add an NSLinkAttributeName with a value of an url or anything else
+        selectablePart.addAttribute(NSLinkAttributeName, value: "signin", range: NSMakeRange(0,selectablePart.length))
+        
+        // Combine the non-selectable string with the selectable string
+        text.append(selectablePart)
+        
+        // Center the text (optional)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        text.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, text.length))
+        return text
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +85,7 @@ class ContactsListViewController : UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.contactsTableView.reloadData() // TODO: Change to checkAuthentication once loggedOutView created
+        self.checkAuthenticationForPresentation()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -104,7 +129,7 @@ class ContactsListViewController : UIViewController {
         self.appDelegate?.setLoginDelegate(loginDelegate: self)
         self.noContactsLabel.setFontHeight(size: 20.0)
         self.noContactsView.backgroundColor = UIColor.upennLightGray
-        self.checkAuthenticationForPresentation()
+        self.setupLoggedOutLabel()
     }
     
     // IBActions
@@ -241,19 +266,12 @@ extension ContactsListViewController : FavoritesUpdatable {
 private extension ContactsListViewController {
     
     func checkAuthenticationForPresentation() {
-        // TODO: Update checking to use AppDelegate
-//        if self.loginService.shouldAutoLogin {
-//            self.loginService.attemptSilentLogin()
-//        } else {
-//            self.showLoginView()
-//        }
-        // If User not logged-in, show logged-out view
+        // TODO: Check for 1st Login & show LoginVC
         if let loggedIn = self.appDelegate?.isLoggedIn, loggedIn {
+            self.toggleLoggedOutView(!loggedIn)
             self.contactsTableView.reloadData()
         } else {
-//            self.showLoginView()
-//            self.showLoggedOutView()
-            self.appDelegate?.presentLoginViewController()
+            self.toggleLoggedOutView(true)
         }
     }
     
@@ -295,7 +313,36 @@ private extension ContactsListViewController {
         self.searchBar.resignFirstResponder()
     }
     
-    func showLoggedOutView() {
-        self.searchBar.isHidden = true
+    func toggleLoggedOutView(_ shouldShow: Bool) {
+        self.loggedOutView.isHidden = !shouldShow
+        self.loggedOutLabel.isHidden = !shouldShow
+        if shouldShow {
+            self.helpButton.isEnabled = false
+            self.helpButton.tintColor = UIColor.upennDarkBlue
+        } else {
+            self.helpButton.isEnabled = true
+            self.helpButton.tintColor = UIColor.white
+        }
+    }
+    
+    func setupLoggedOutLabel() {
+        // To set the link text color (optional)
+        self.loggedOutLabel.linkTextAttributes = [NSForegroundColorAttributeName:UIColor.upennMediumBlue, NSFontAttributeName: UIFont.init(name: "Helvetica Neue", size: 18)!]
+        // Set the text view to contain the attributed text
+        self.loggedOutLabel.attributedText = self.loggedOutAttributedString
+        // Disable editing, but enable selectable so that the link can be selected
+        self.loggedOutLabel.isEditable = false
+        self.loggedOutLabel.isSelectable = true
+        // Set the delegate in order to use textView(_:shouldInteractWithURL:inRange)
+        self.loggedOutLabel.delegate = self
+    }
+    
+}
+
+extension ContactsListViewController : UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        self.appDelegate?.setLoginDelegate(loginDelegate: self)
+        self.appDelegate?.presentLoginViewController()
+        return false
     }
 }
