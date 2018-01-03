@@ -245,10 +245,8 @@ private extension ContactDetailsViewController {
         // TODO: Remove button title logic
         if self.contact.isFavorited {
             self.favoriteToggleButton.image = UIImage(named: "fav_navbar")
-            self.favoriteToggleButton.title = ""
         } else {
-            self.favoriteToggleButton.image = UIImage(named: "")
-            self.favoriteToggleButton.title = "Favorite"
+            self.favoriteToggleButton.image = UIImage(named: "fav_navbar_unselected")
         }
     }
     
