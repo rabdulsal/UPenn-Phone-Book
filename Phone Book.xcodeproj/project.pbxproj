@@ -320,6 +320,7 @@
 				84FFD8B51F8EC36300B28184 /* Resources */,
 				A424B122AA5F382B2DD68738 /* [CP] Embed Pods Frameworks */,
 				162066745919D0B39C1885D8 /* [CP] Copy Pods Resources */,
+				3A5DCD451FFD5C1700EF470B /* Archive Build & Version Incrementation */,
 			);
 			buildRules = (
 			);
@@ -532,6 +533,20 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		3A5DCD451FFD5C1700EF470B /* Archive Build & Version Incrementation */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Archive Build & Version Incrementation";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "# Increment build number each time project is archived\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n\n# Print Build Num\n# /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n\n# This splits a two-decimal version string, such as \"0.45.123\", allowing us to increment the third position.\nVERSIONNUM=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nNEWSUBVERSION=`echo $VERSIONNUM | awk -F \".\" '{print $3}'`\nNEWSUBVERSION=$(($NEWSUBVERSION + 1))\nNEWVERSIONSTRING=`echo $VERSIONNUM | awk -F \".\" '{print $1 \".\" $2 \".'$NEWSUBVERSION'\" }'`\n\n# Print Version Num\n# /usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $NEWVERSIONSTRING\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
 		};
 		69814689E1F19B1CEF9ADC94 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
