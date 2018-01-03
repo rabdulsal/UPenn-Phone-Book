@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="I3b-nD-Ick">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="I3b-nD-Ick">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -86,17 +86,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UAJ-u7-yfA">
-                                <rect key="frame" x="142.5" y="452" width="90" height="89"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="89" id="3Ao-4O-hLH"/>
-                                    <constraint firstAttribute="width" constant="90" id="IDs-xU-H3o"/>
-                                </constraints>
-                                <state key="normal" image="touchID"/>
-                                <connections>
-                                    <action selector="pressedTouchIDButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1Pn-dt-7J1"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -112,24 +101,29 @@
                             <constraint firstItem="Iwr-TA-RYM" firstAttribute="leading" secondItem="sQq-kQ-jUA" secondAttribute="leading" id="gg7-Pg-ocv"/>
                             <constraint firstItem="Wv5-o8-1jZ" firstAttribute="leading" secondItem="Iwr-TA-RYM" secondAttribute="trailing" constant="8" id="hBQ-fE-TzG"/>
                             <constraint firstItem="lGi-uf-AaT" firstAttribute="leading" secondItem="sQq-kQ-jUA" secondAttribute="leading" id="hVo-a3-o71"/>
-                            <constraint firstItem="UAJ-u7-yfA" firstAttribute="top" secondItem="2si-2m-EwZ" secondAttribute="bottom" constant="10" id="luC-db-5wk"/>
                             <constraint firstItem="1ZH-Wl-szx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mb2-eg-Vgd"/>
                             <constraint firstAttribute="trailing" secondItem="2si-2m-EwZ" secondAttribute="trailing" constant="16" id="n4H-IN-bTN"/>
                             <constraint firstItem="2si-2m-EwZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="na2-tw-cIy"/>
                             <constraint firstItem="sQq-kQ-jUA" firstAttribute="trailing" secondItem="2si-2m-EwZ" secondAttribute="trailing" id="sfo-8h-6aq"/>
                             <constraint firstItem="2si-2m-EwZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ucE-s3-tcW"/>
-                            <constraint firstItem="UAJ-u7-yfA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wQA-Wo-ArP"/>
                             <constraint firstItem="2si-2m-EwZ" firstAttribute="top" secondItem="Iwr-TA-RYM" secondAttribute="bottom" constant="20" id="wkI-Y3-a1L"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Login" id="gve-Ic-RII"/>
+                    <navigationItem key="navigationItem" title="Login" id="gve-Ic-RII">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0QA-bU-PzZ">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="pressedClose:" destination="BYZ-38-t0r" id="0pJ-I0-pfL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="autoFillButton" destination="Iwr-TA-RYM" id="P0v-Cc-Tyc"/>
+                        <outlet property="cancelButton" destination="0QA-bU-PzZ" id="8Hn-4A-i0I"/>
                         <outlet property="emailField" destination="lGi-uf-AaT" id="8eg-f3-Wq5"/>
                         <outlet property="loginButton" destination="2si-2m-EwZ" id="cgx-bq-Omd"/>
                         <outlet property="passwordField" destination="sQq-kQ-jUA" id="8qn-gd-c0h"/>
                         <outlet property="titleLabel" destination="cNl-CE-J3T" id="vle-3y-BzA"/>
-                        <outlet property="touchIDButton" destination="UAJ-u7-yfA" id="oRq-eF-Liy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -237,18 +231,43 @@
                                 <rect key="frame" x="0.0" y="164" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DJg-pf-SMq" userLabel="Loggedout View">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="You are logged out. To search Contacts, please login." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OJB-9u-fjd">
+                                        <rect key="frame" x="8" y="259" width="359" height="36"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="lTL-kB-VUu"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="OJB-9u-fjd" secondAttribute="trailing" constant="8" id="31J-Yg-cX0"/>
+                                    <constraint firstItem="OJB-9u-fjd" firstAttribute="centerX" secondItem="DJg-pf-SMq" secondAttribute="centerX" id="WXM-FP-toG"/>
+                                    <constraint firstItem="OJB-9u-fjd" firstAttribute="centerY" secondItem="DJg-pf-SMq" secondAttribute="centerY" id="tQZ-Kk-Bih"/>
+                                    <constraint firstItem="OJB-9u-fjd" firstAttribute="leading" secondItem="DJg-pf-SMq" secondAttribute="leading" constant="8" id="uQO-AW-JKo"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ESW-KU-eEA" firstAttribute="leading" secondItem="Mgr-xW-Lce" secondAttribute="leading" id="0IB-WA-PtI"/>
                             <constraint firstAttribute="trailing" secondItem="j8m-pA-Emy" secondAttribute="trailing" id="5g3-HB-lNL"/>
                             <constraint firstItem="Xws-US-l3v" firstAttribute="leading" secondItem="Mgr-xW-Lce" secondAttribute="leading" id="6Fy-dv-BBU"/>
+                            <constraint firstItem="DJg-pf-SMq" firstAttribute="top" secondItem="ru7-ov-aLa" secondAttribute="bottom" id="6Oi-9A-AOb"/>
                             <constraint firstItem="ESW-KU-eEA" firstAttribute="top" secondItem="Xws-US-l3v" secondAttribute="bottom" id="7UN-nb-259"/>
                             <constraint firstItem="j8m-pA-Emy" firstAttribute="top" secondItem="ru7-ov-aLa" secondAttribute="bottom" id="BFm-23-n1M"/>
                             <constraint firstItem="opH-Jb-nCV" firstAttribute="top" secondItem="ESW-KU-eEA" secondAttribute="bottom" id="EKo-VF-cbq"/>
                             <constraint firstItem="Xws-US-l3v" firstAttribute="top" secondItem="j8m-pA-Emy" secondAttribute="bottom" id="XMf-wI-gbF"/>
+                            <constraint firstAttribute="trailing" secondItem="DJg-pf-SMq" secondAttribute="trailing" id="YGq-BS-KW6"/>
                             <constraint firstItem="j8m-pA-Emy" firstAttribute="leading" secondItem="Mgr-xW-Lce" secondAttribute="leading" id="YTZ-et-Z9A"/>
+                            <constraint firstItem="DJg-pf-SMq" firstAttribute="leading" secondItem="Mgr-xW-Lce" secondAttribute="leading" id="i9s-21-VM1"/>
                             <constraint firstAttribute="trailing" secondItem="ESW-KU-eEA" secondAttribute="trailing" id="kiT-6d-PgM"/>
+                            <constraint firstItem="opH-Jb-nCV" firstAttribute="top" secondItem="DJg-pf-SMq" secondAttribute="bottom" id="vQm-9k-lJx"/>
                             <constraint firstAttribute="trailing" secondItem="Xws-US-l3v" secondAttribute="trailing" id="wEf-G3-A5L"/>
                         </constraints>
                     </view>
@@ -261,6 +280,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="contactsTableView" destination="ESW-KU-eEA" id="bBK-cl-gtE"/>
+                        <outlet property="helpButton" destination="6Ub-N2-uvi" id="EVt-lH-UkL"/>
+                        <outlet property="loggedOutLabel" destination="OJB-9u-fjd" id="O5y-I7-Ixt"/>
+                        <outlet property="loggedOutView" destination="DJg-pf-SMq" id="pJ6-TA-Rqk"/>
                         <outlet property="noContactsLabel" destination="ZWX-Mz-LiV" id="8MU-PU-jQh"/>
                         <outlet property="noContactsView" destination="j8m-pA-Emy" id="Vr6-4Q-n27"/>
                         <outlet property="noContactsViewHeight" destination="IeN-rd-o45" id="Fg5-D0-khX"/>
@@ -950,8 +972,49 @@
                                     <outlet property="timeoutControl" destination="ndp-jO-2ff" id="9cu-la-hkN"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountCell" id="hRZ-BG-vl4" customClass="AccountSettingsCell" customModule="UPHS_Phonebook" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TouchIDCell" id="UZw-hE-peH" customClass="TouchIDEnableCell" customModule="UPHS_Phonebook" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="111" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UZw-hE-peH" id="rI6-JP-r5c">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wsU-f4-c3V">
+                                            <rect key="frame" x="308" y="6" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="toggledTouchID:" destination="UZw-hE-peH" eventType="valueChanged" id="LUo-wy-dnh"/>
+                                            </connections>
+                                        </switch>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Touch-ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKX-vL-xN0" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                            <rect key="frame" x="59" y="11" width="241" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="touchID" translatesAutoresizingMaskIntoConstraints="NO" id="u2B-4C-fhq">
+                                            <rect key="frame" x="16" y="5" width="35" height="35"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="35" id="Ng6-YG-kKn"/>
+                                                <constraint firstAttribute="width" secondItem="u2B-4C-fhq" secondAttribute="height" multiplier="1:1" id="uJQ-sc-Rpx"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="fKX-vL-xN0" firstAttribute="leading" secondItem="u2B-4C-fhq" secondAttribute="trailing" constant="8" id="bCj-lm-Jnd"/>
+                                        <constraint firstItem="fKX-vL-xN0" firstAttribute="centerY" secondItem="rI6-JP-r5c" secondAttribute="centerY" id="cWK-ce-2WH"/>
+                                        <constraint firstItem="wsU-f4-c3V" firstAttribute="leading" secondItem="fKX-vL-xN0" secondAttribute="trailing" constant="8" id="ccS-h5-XSD"/>
+                                        <constraint firstAttribute="trailing" secondItem="wsU-f4-c3V" secondAttribute="trailing" constant="18" id="pgo-Z5-tjD"/>
+                                        <constraint firstItem="u2B-4C-fhq" firstAttribute="centerY" secondItem="rI6-JP-r5c" secondAttribute="centerY" id="rQN-yA-11o"/>
+                                        <constraint firstItem="wsU-f4-c3V" firstAttribute="centerY" secondItem="rI6-JP-r5c" secondAttribute="centerY" id="wWz-8I-qpJ"/>
+                                        <constraint firstItem="u2B-4C-fhq" firstAttribute="leading" secondItem="rI6-JP-r5c" secondAttribute="leading" constant="16" id="zfp-Yt-efG"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="touchIDSwitch" destination="wsU-f4-c3V" id="2lg-ZQ-K8z"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountCell" id="hRZ-BG-vl4" customClass="AccountSettingsCell" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="155" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hRZ-BG-vl4" id="nCt-ad-u5g">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -974,7 +1037,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogoutCell" id="77U-rs-SBm">
-                                <rect key="frame" x="0.0" y="155" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="199" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="77U-rs-SBm" id="HKA-wF-0Xx">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -1013,7 +1076,7 @@
         <!--Navigation Controller-->
         <scene sceneID="sXG-us-ReQ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DFE-iM-jyR" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LoginNav" automaticallyAdjustsScrollViewInsets="NO" id="DFE-iM-jyR" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jIf-DD-ccO">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -1101,7 +1164,7 @@
         <image name="un_checked" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AgV-Js-0Xu"/>
+        <segue reference="dh5-u8-fgQ"/>
         <segue reference="TR7-zq-jKS"/>
     </inferredMetricsTieBreakers>
 </document>

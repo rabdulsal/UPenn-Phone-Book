@@ -23,6 +23,6 @@ class MessagingService : NSObject, MFMessageComposeViewControllerDelegate {
     }
     
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        controller.dismiss(animated: true, completion: nil)
+        controller.dismiss()
     }
 }

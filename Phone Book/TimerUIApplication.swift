@@ -64,9 +64,15 @@ class TimerUIApplication : UIApplication {
     
     // Reset the timer because there was user interaction.
     static func resetIdleTimer() {
-        self.invalidateActiveTimer()
         
-        self.idleTimer = Timer.scheduledTimer(timeInterval: self.timeoutInSeconds, target: self, selector: #selector(self.idleTimerExceeded), userInfo: nil, repeats: false)
+        // Only trigger timer logout-timer if User is logged-in
+        
+        if let delegate = UIApplication.shared.delegate as? AppDelegate,
+            delegate.isLoggedIn {
+            self.invalidateActiveTimer()
+            
+            self.idleTimer = Timer.scheduledTimer(timeInterval: self.timeoutInSeconds, target: self, selector: #selector(self.idleTimerExceeded), userInfo: nil, repeats: false)
+        }
     }
     
     static func invalidateActiveTimer() {

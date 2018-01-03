@@ -16,15 +16,15 @@ protocol LoginServiceDelegate {
 
 class LoginService {
     
-    var isLoggedIn = false
+    private (set) var isLoggedIn = false
     var requestService = NetworkRequestService()
     var loginDelegate: LoginServiceDelegate
     var shouldAutoLogin : Bool { return AuthenticationService.shouldAutoLogin }
     var shouldAutoFill : Bool { return AuthenticationService.shouldAutoFill }
-    let genericLoginError = "Sorry an error occurred while attempting Login. Please try again."
-    let statusCodeError = "Something went wrong getting a Status Code for your Login Request. Please try again."
-    let autoLoginError = "Something went wrong attempting Auto-Login - could not retrieve Username & Password. Please try again."
-    let usernamePasswordError = "You have entered an incorrect Username or Password. Please try again."
+    private let genericLoginError = "Sorry an error occurred while attempting Login. Please try again."
+    private let statusCodeError = "Something went wrong getting a Status Code for your Login Request. Please try again."
+    private let autoLoginError = "Something went wrong attempting Auto-Login - could not retrieve Username & Password. Please try again."
+    private let usernamePasswordError = "You have entered an incorrect Username or Password. Please try again."
     
     init(loginDelegate: LoginServiceDelegate) {
         self.loginDelegate = loginDelegate
@@ -45,7 +45,10 @@ class LoginService {
                    self.loginDelegate.didFailToLoginUser(errorStr: self.genericLoginError)
                     return
                 }
-                AuthenticationService.storeAuthenticationCredentials(token: token, email: email, password: password)
+                AuthenticationService.storeAuthenticationCredentials(
+                    token: token,
+                    email: email,
+                    password: password)
                 self.isLoggedIn = true
                 self.loginDelegate.didSuccessfullyLoginUser()
                 return
@@ -84,5 +87,17 @@ class LoginService {
     
     func toggleShouldAutoFill(_ autoFill: Bool) {
         AuthenticationService.toggleShouldAutoFill(autoFill)
+    }
+    
+    func checkFirstLogin(completion:((_ isFirstLogin: Bool)->Void)) {
+        AuthenticationService.checkFirstLogin(completion: completion)
+    }
+    
+    func setFirstLogin() {
+        AuthenticationService.setFirstLogin()
+    }
+    
+    func logout() {
+        self.isLoggedIn = false
     }
 }

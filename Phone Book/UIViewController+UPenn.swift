@@ -19,4 +19,8 @@ extension UIViewController {
     func reloadView() {
         self.navigationController?.popToRootViewController(animated: false)
     }
+    
+    func dismiss() {
+        self.dismiss(animated: true, completion: nil)
+    }
 }

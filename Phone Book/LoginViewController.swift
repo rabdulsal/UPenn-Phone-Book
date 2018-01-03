@@ -15,13 +15,55 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: PrimaryCTAButton!
     @IBOutlet weak var autoFillButton: PrimaryCTAButtonText!
-    @IBOutlet weak var touchIDButton: UIButton!
     @IBOutlet weak var titleLabel: BannerLabel!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     
-    var loginService: LoginService!
     var validationService: ValidationService!
     var passwordItems: [KeychainPasswordItem] = []
-    var touchIDSerivce: TouchIDAuthService!
+    var touchIDService: TouchIDAuthService!
+    var appDelegate : AppDelegate? {
+        return UIApplication.shared.delegate as? AppDelegate
+    }
+    
+    lazy var touchIDAlertController : UIAlertController = {
+        let alertController = UIAlertController(
+            title: "Use TouchID for login in the future?",
+            message: "TouchID makes Login more convenient. These Settings can be updated in the Account section.",
+            preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "No Thanks", style: .cancel, handler: {
+            alert -> Void in
+            self.dismiss()
+        })
+        let useTouchIDAction = UIAlertAction(title: "Use TouchID", style: .default, handler: {
+            alert -> Void in
+            /*
+             * 1. Toggle TouchID 'on'
+             * 2. Toggle 'Remember Me' for caching login credentials
+            */
+            self.touchIDService.toggleTouchID(true)
+            self.toggleLoginAutoFill()
+            self.dismiss()
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(useTouchIDAction)
+        return alertController
+    }()
+    
+    lazy var rememberMeAlertController : UIAlertController = {
+        let alertController = UIAlertController(
+            title: "Turning off 'Remember Me' will disable TouchID.",
+            message: "",
+            preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let disableRememberMe = UIAlertAction(title: "OK", style: .default, handler: {
+            alert -> Void in
+            self.touchIDService.toggleTouchID(false)
+            self.toggleRememberMe()
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(disableRememberMe)
+        return alertController
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +72,7 @@ class LoginViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.loginService.authenticationAutoFillCheck()
-        verifyFields()
+        self.viewDidAppear()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -41,8 +82,8 @@ class LoginViewController: UIViewController {
     
     override func setup() {
         super.setup()
-        self.loginService = LoginService(loginDelegate: self)
-        self.touchIDSerivce = TouchIDAuthService(touchIDDelegate: self)
+        self.appDelegate?.setLoginDelegate(loginDelegate: self)
+        self.touchIDService = TouchIDAuthService(touchIDDelegate: self)
         
         // Set up textFields
         self.emailField.delegate = self
@@ -59,12 +100,10 @@ class LoginViewController: UIViewController {
         self.autoFillButton.adjustsImageWhenHighlighted = false
         self.autoFillButton.setImage(UIImage.init(named: "checked"), for: .selected)
         self.autoFillButton.setImage(UIImage.init(named: "un_checked"), for: .normal)
-        self.autoFillButton.isSelected = self.loginService.shouldAutoFill
-        self.touchIDButton.isHidden = !touchIDSerivce.canEvaluatePolicy()
     }
     
     @IBAction func pressedClose(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss()
     }
     
     @IBAction func pressedLogin(_ sender: Any) {
@@ -72,14 +111,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func pressedAutoFillButton(_ sender: UIButton) {
-        self.autoFillButton.isSelected = !self.autoFillButton.isSelected
-        self.loginService.toggleShouldAutoFill(self.autoFillButton.isSelected)
+        self.toggleLoginAutoFill()
     }
-    
-    @IBAction func pressedTouchIDButton(_ sender: UIButton) {
-        self.touchIDSerivce.authenticateUser()
-    }
-    
 }
 
 // MARK: - UITextFieldDelegate
@@ -101,7 +134,22 @@ extension LoginViewController : LoginServiceDelegate {
     
     func didSuccessfullyLoginUser() {
         SVProgressHUD.dismiss()
-        self.dismiss(animated: true, completion: nil)
+        
+        /*
+         * 1. Trigger Logout timer
+         * 2. Check for 1st Launch & conditionally launch TouchID opt-in
+        */
+        self.appDelegate?.resetLogoutTimer()
+        self.appDelegate?.checkFirstLogin(completion: { (isFirstLogin) in
+            if isFirstLogin {
+                self.appDelegate?.setFirstLogin()
+                if self.touchIDService.touchIDAvailable {
+                    self.present(self.touchIDAlertController, animated: true, completion: nil)
+                    return
+                }
+            }
+            self.dismiss()
+        })
     }
     
     func didReturnAutoFillCredentials(username: String, password: String) {
@@ -117,7 +165,8 @@ extension LoginViewController : LoginServiceDelegate {
 
 extension LoginViewController : TouchIDDelegate {
     func touchIDSuccessfullyAuthenticated() {
-        self.dismiss(animated: true, completion: nil)
+        SVProgressHUD.show()
+        self.appDelegate?.attemptSilentLogin()
     }
     
     func touchIDDidError(with message: String?) {
@@ -134,13 +183,37 @@ private extension LoginViewController {
         self.loginButton.isEnabled = validationService.loginFieldsAreValid
     }
     
+    func viewDidAppear() {
+        self.appDelegate?.authenticationAutoFillCheck()
+        verifyFields()
+        self.attemptTouchIDPresentation()
+        if let delegate = self.appDelegate {
+            self.autoFillButton.isSelected = delegate.shouldAutoFill
+        } else {
+            self.autoFillButton.isSelected = false
+        }
+    }
+    
     func login() {
         SVProgressHUD.show()
-        self.loginService.makeLoginRequest(email: self.emailField.text!, password: self.passwordField.text!)
+        self.appDelegate?.makeLoginRequest(email: self.emailField.text!, password: self.passwordField.text!)
+    }
+    
+    func toggleLoginAutoFill() {
+        if autoFillButton.isSelected && self.touchIDService.touchIDEnabled {
+            self.present(self.rememberMeAlertController, animated: true, completion: nil)
+            return
+        }
+        self.toggleRememberMe()
     }
     
     @objc func textFieldDidChange(_ sender: Any) {
         verifyFields()
+    }
+    
+    func toggleRememberMe() {
+        self.autoFillButton.isSelected = !self.autoFillButton.isSelected
+        self.appDelegate?.toggleShouldAutoFill(self.autoFillButton.isSelected)
     }
     
     func advanceTextfields(textfield: UITextField) {
@@ -152,5 +225,10 @@ private extension LoginViewController {
             self.login()
         }
     }
+    
+    func attemptTouchIDPresentation() {
+        if let shouldAutoFill = self.appDelegate?.shouldAutoFill, shouldAutoFill {
+            self.touchIDService.attemptTouchIDAuthentication()
+        }
+    }
 }
-

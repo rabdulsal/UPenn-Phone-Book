@@ -20,8 +20,12 @@ class AccountTableViewController : UITableViewController {
         
         enum Rows : Int {
             case Timeout
+            case TouchID
             case Logout
-            case AutoLogin
+            
+            static var count : Int {
+                return Logout.rawValue+1
+            }
         }
     }
     
@@ -31,13 +35,15 @@ class AccountTableViewController : UITableViewController {
     
     private enum Identifiers : String {
         case Timeout = "TimeoutCell"
-        case AutoLogin = "AccountCell"
+        case TouchID = "TouchIDCell"
         case Logout = "LogoutCell"
     }
     
     var appDelegate : AppDelegate? {
         return UIApplication.shared.delegate as? AppDelegate
     }
+    
+    var touchIDService = TouchIDAuthService()
     
     override func viewDidLoad() {
         self.setup()
@@ -58,9 +64,7 @@ class AccountTableViewController : UITableViewController {
         
         switch _section {
         case .Settings:
-            return 2
-        default:
-            return 0
+            return Sections.Rows.count
         }
     }
     
@@ -70,20 +74,24 @@ class AccountTableViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch indexPath.row {
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Timeout.rawValue) as! AutoLogoutCell
-            return cell
-//        case 1:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.AutoLogin.rawValue) as! AccountSettingsCell
-//            cell.configure()
-//            return cell
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Logout.rawValue) as! UITableViewCell
-            cell.textLabel?.text = "Logout"
-            return cell
-        default:
-            return UITableViewCell()
+        guard let section = Sections(rawValue: indexPath.section), let row = Sections.Rows(rawValue: indexPath.row) else { return UITableViewCell() }
+        
+        switch section {
+        case .Settings:
+            switch row {
+            case .Timeout:
+                let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Timeout.rawValue) as! AutoLogoutCell
+                return cell
+            case .TouchID:
+                let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.TouchID.rawValue) as! TouchIDEnableCell
+                cell.configure(with: self, touchIDAvailable: self.touchIDService.touchIDAvailable, touchIDEnabled: self.touchIDService.touchIDEnabled)
+                return cell
+            case .Logout:
+                let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Logout.rawValue) as! UITableViewCell
+                cell.textLabel?.text = "Logout"
+                cell.textLabel?.textColor = UIColor.upennWarningRed
+                return cell
+            }
         }
     }
     
@@ -98,7 +106,6 @@ class AccountTableViewController : UITableViewController {
                 appDelegate.logout()
             default: return
             }
-//        default: return Un-comment if more Sections added
         }
     }
     
@@ -110,3 +117,14 @@ class AccountTableViewController : UITableViewController {
         return 50
     }
 }
+
+extension AccountTableViewController : TouchIDToggleDelegate {
+    func toggledTouchID(_ enabled: Bool) {
+        self.touchIDService.toggleTouchID(enabled)
+        // If touchID is enabled, toggle 'Remember Me' on in LoginVC
+        if enabled {
+            self.appDelegate?.toggleShouldAutoFill(enabled)
+        }
+    }
+}
+

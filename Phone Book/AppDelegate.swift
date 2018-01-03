@@ -13,11 +13,20 @@ import SVProgressHUD
 
 //@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     
     var window: UIWindow?
     var authToken: String?
     var users = Array<Contact>()
+    var loginService: LoginService?
+    var loginDelegateVC: UIViewController?
+    var shouldAutoFill: Bool {
+        guard let autoFill = self.loginService?.shouldAutoFill else { return false }
+        return autoFill
+    }
+    var isLoggedIn: Bool {
+        guard let isLoggedIn = self.loginService?.isLoggedIn else { return false }
+        return isLoggedIn
+    }
     var tabBarController : UITabBarController? {
         return self.window?.rootViewController as? UITabBarController
     }
@@ -31,6 +40,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         alertController.addAction(logoutAction)
         return alertController
     }()
+    
+    var loginNavController: UINavigationController {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginNav") as! UINavigationController
+        return loginVC
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -46,9 +61,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Register for Timeout Notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidTimout(notification:)), name: NSNotification.Name.init(TimerUIApplication.ApplicationDidTimeoutNotification), object: nil)
-        
-        // Trigger Auto-logout Timer
-        TimerUIApplication.resetIdleTimer()
         
         return true
     }
@@ -119,6 +131,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    // MARK: - LoginService
+    
+    func setLoginDelegate(loginDelegate: LoginServiceDelegate) {
+        self.loginService = LoginService(loginDelegate: loginDelegate)
+        self.loginDelegateVC = loginDelegate as? UIViewController
+    }
+    
+    func presentLoginViewController() {
+        self.loginDelegateVC?.present(self.loginNavController, animated: true, completion: nil)
+    }
+    
+    func makeLoginRequest(email: String, password: String) {
+        self.loginService?.makeLoginRequest(email: email, password: password)
+    }
+    
+    func attemptSilentLogin() {
+        self.loginService?.attemptSilentLogin()
+    }
+    
+    func authenticationAutoFillCheck() {
+        self.loginService?.authenticationAutoFillCheck()
+    }
+    
+    func toggleShouldAutoFill(_ autoFill: Bool) {
+        self.loginService?.toggleShouldAutoFill(autoFill)
+    }
+    
+    func checkFirstLogin(completion:((_ isFirstLogin: Bool)->Void)) {
+        self.loginService?.checkFirstLogin(completion: completion)
+    }
+    
+    func setFirstLogin() {
+        self.loginService?.setFirstLogin()
+    }
+    
+    // MARK: - Timeout Notification
     // Callback for when the timeout was fired.
     func applicationDidTimout(notification: NSNotification) {
         // Check if a viewController is presented, if not, show Auto-logout alert
@@ -130,24 +178,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Check if the LoginViewController is presented, if not, show Auto-logout alert
         guard let _ = navVC.childViewControllers.first as? LoginViewController else {
             // Dismiss whatever presentedVC is showing, then display LogoutAlert
-            navVC.dismiss(animated: true, completion: {
-                self.showLogoutAlert()
-            })
+            let viewController = navVC.viewControllers.first
+            if let presentingVC = viewController?.presentingViewController {
+                presentingVC.dismiss(animated: true, completion: {
+                    self.showLogoutAlert()
+                })
+            }
             return
         }
     }
     
+    func resetLogoutTimer() {
+        TimerUIApplication.resetIdleTimer()
+    }
+    
+    // MARK: - Logout
+    
     func logout() {
         /*
-         * 1. Go To Search Screen
-         * 2. Reload Contact view
-         * 3. Launch LoginView
+         * 1. Turn off logout timer
+         * 2. Select ContactsList Tab
+         * 3. Reload view
+         * 4. Launch LoginView
          */
         TimerUIApplication.invalidateActiveTimer()
+        self.loginService?.logout()
         self.tabBarController?.selectedIndex = 0
         if let navVC = self.tabBarController?.selectedViewController as? UINavigationController, let contactsVC = navVC.childViewControllers.first as? ContactsListViewController {
+            self.setLoginDelegate(loginDelegate: contactsVC)
+            self.presentLoginViewController()
             contactsVC.reloadView()
-            contactsVC.showLoginView()
+            
         }
     }
 }
@@ -168,6 +229,14 @@ extension AppDelegate : UITabBarControllerDelegate {
             favsVC.reloadView()
             return
         }
+        
+        // If clicking Accounts Tab, check if logged-out, if so, present login
+        
+        if let accountsVC = viewController.childViewControllers.first as? AccountTableViewController, let _ = accountsVC.view {
+            if !self.isLoggedIn {
+                self.logout()
+            }
+        }
     }
 }
 
@@ -177,4 +246,3 @@ private extension AppDelegate {
         self.tabBarController?.present(self.logoutAlertController, animated: true, completion: nil)
     }
 }
-
