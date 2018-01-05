@@ -40,7 +40,10 @@ class ContactDetailsViewController : UIViewController {
     }
     
     lazy var mapsAlertController : UIAlertController = {
-        let alertController = UIAlertController(title: "Directions in Apple Maps", message: "You are leaving the Phonebook App to view directions in the Apple Maps App. From Maps, press the 'UPHS Phonebook' button in the upper-left corner to return here.", preferredStyle: .alert)
+        let alertController = UIAlertController(
+            title: "Directions in Apple Maps",
+            message: "You are leaving the Phonebook App to view directions in the Apple Maps App. From Maps, press the 'UPHS Phonebook' button in the upper-left corner to return here.",
+            preferredStyle: .alert)
         let goToMapsAction = UIAlertAction(title: "Go", style: .cancel, handler: {
             alert -> Void in
             self.showInMaps()
@@ -53,10 +56,8 @@ class ContactDetailsViewController : UIViewController {
     
     lazy var cantAddContactAlert : UIAlertController = {
         let cantAddContactAlert = UIAlertController(
-            title: "Cannot Add Contact",
-            
-            message: "You must give the app permission to add the contact first.",
-            
+            title: "",
+            message: "In the future, to add UPHS Phonebook contacts to your iPhone contacts, go to Settings and grant UPHS Phonebook access to 'Contacts'.",
             preferredStyle: .alert)
         cantAddContactAlert.addAction(UIAlertAction(
             title: "Change Settings",
@@ -273,8 +274,8 @@ extension ContactDetailsViewController : AddressBookDelegate {
         self.toggleAddToContactsTitle()
     }
     
-    func deniedAddressBookAccess() {
-        self.displayCantAddContactAlert()
+    func deniedAddressBookAccess(showMessage: Bool) {
+        if showMessage { self.displayCantAddContactAlert() }
         self.addContactsButton.isEnabled = false
     }
     

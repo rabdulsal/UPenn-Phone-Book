@@ -13,7 +13,7 @@ import UIKit
 
 protocol AddressBookDelegate {
     func authorizedAddressBookAccess()
-    func deniedAddressBookAccess()
+    func deniedAddressBookAccess(showMessage: Bool)
     func failedToUpdateContactInAddressBook(message: String)
     func successfullyAddedNewContactToAddressBook()
     func successfullyUpdatedExistingContactInAddressBook()
@@ -21,8 +21,13 @@ protocol AddressBookDelegate {
 
 class AddressBookService {
     
+    let deniedCountKey = "deniedCountKey"
     let contactStore = CNContactStore()
     var addressBookDelegate: AddressBookDelegate?
+    var previouslyDeniedAddressAccess : Bool {
+        guard let denied = UserDefaults.standard.value(forKey: self.deniedCountKey) as? Bool else { return false }
+        return denied
+    }
     
     init(delegate: AddressBookDelegate) {
         self.addressBookDelegate = delegate
@@ -32,7 +37,7 @@ class AddressBookService {
         let authorizationStatus = CNContactStore.authorizationStatus(for: .contacts)
         switch authorizationStatus {
         case .denied, .restricted:
-            self.addressBookDelegate?.deniedAddressBookAccess()
+            self.triggerDeniedAddressbookAccess()
         case .authorized:
             self.addressBookDelegate?.authorizedAddressBookAccess()
         case .notDetermined:
@@ -41,7 +46,7 @@ class AddressBookService {
                     if access {
                         self.addressBookDelegate?.authorizedAddressBookAccess()
                     } else {
-                        self.addressBookDelegate?.deniedAddressBookAccess()
+                        self.triggerDeniedAddressbookAccess()
                     }
                 }
             })
@@ -117,6 +122,15 @@ class AddressBookService {
             try self.contactStore.execute(saveRequest)
         } catch {
             self.addressBookDelegate?.failedToUpdateContactInAddressBook(message: error.localizedDescription)
+        }
+    }
+    
+    func triggerDeniedAddressbookAccess() {
+        if !previouslyDeniedAddressAccess {
+            UserDefaults.standard.set(true, forKey: self.deniedCountKey)
+            self.addressBookDelegate?.deniedAddressBookAccess(showMessage: true)
+        } else {
+            self.addressBookDelegate?.deniedAddressBookAccess(showMessage: false)
         }
     }
 }
