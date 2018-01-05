@@ -34,7 +34,11 @@ class ContactsListViewController : UIViewController {
     @IBOutlet weak var noContactsViewHeight: NSLayoutConstraint!
     @IBOutlet weak var noContactsLabel: NoDataInstructionsLabel!
     @IBOutlet weak var helpButton: UIBarButtonItem!
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchBar: UISearchBar! {
+        didSet {
+            self.searchBar.addCancelButton()
+        }
+    }
     @IBOutlet weak var loggedOutView: UIView!
     @IBOutlet weak var loggedOutLabel: UITextView!
     
@@ -57,10 +61,10 @@ class ContactsListViewController : UIViewController {
     let helpText = "Using 'Tom Smith' as an example:\nIn the SearchBar, to search by first name then last name, type 'Tom Smith'\nTo search by last name then first name, type 'Smith, Tom.'\nYou can also search with partial spelling like 'T Smith' or 'Sm, T'."
     lazy var loggedOutAttributedString : NSAttributedString = {
         let text = NSMutableAttributedString(string: "To search UPenn staff, please ")
-        text.addAttribute(NSFontAttributeName, value: UIFont.init(name: "Helvetica Neue", size: 18)!, range: NSMakeRange(0, text.length))
+        text.addAttribute(NSFontAttributeName, value: UIFont.helvetica(size: 18), range: NSMakeRange(0, text.length))
         
         let selectablePart = NSMutableAttributedString(string: "login.")
-        selectablePart.addAttribute(NSFontAttributeName, value: UIFont.init(name: "Helvetica Neue", size: 18)!, range: NSMakeRange(0, selectablePart.length))
+        selectablePart.addAttribute(NSFontAttributeName, value: UIFont.helvetica(size: 18), range: NSMakeRange(0, selectablePart.length))
         // Add an underline to indicate this portion of text is selectable (optional)
         selectablePart.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSMakeRange(0,selectablePart.length))
         selectablePart.addAttribute(NSUnderlineColorAttributeName, value: UIColor.upennMediumBlue, range: NSMakeRange(0, selectablePart.length))
@@ -269,7 +273,6 @@ extension ContactsListViewController : FavoritesUpdatable {
 private extension ContactsListViewController {
     
     func checkAuthenticationForPresentation() {
-        // TODO: Check for 1st Login & show LoginVC
         if let loggedIn = self.appDelegate?.isLoggedIn, loggedIn {
             self.toggleLoggedOutView(!loggedIn)
             self.contactsTableView.reloadData()
@@ -329,14 +332,10 @@ private extension ContactsListViewController {
     }
     
     func setupLoggedOutLabel() {
-        // To set the link text color (optional)
-        self.loggedOutLabel.linkTextAttributes = [NSForegroundColorAttributeName:UIColor.upennMediumBlue, NSFontAttributeName: UIFont.init(name: "Helvetica Neue", size: 18)!]
-        // Set the text view to contain the attributed text
+        self.loggedOutLabel.linkTextAttributes = [NSForegroundColorAttributeName:UIColor.upennMediumBlue, NSFontAttributeName: UIFont.helvetica(size: 18)]
         self.loggedOutLabel.attributedText = self.loggedOutAttributedString
-        // Disable editing, but enable selectable so that the link can be selected
         self.loggedOutLabel.isEditable = false
         self.loggedOutLabel.isSelectable = true
-        // Set the delegate in order to use textView(_:shouldInteractWithURL:inRange)
         self.loggedOutLabel.delegate = self
     }
     

@@ -70,6 +70,14 @@ class ContactDetailsViewController : UIViewController {
         return cantAddContactAlert
     }()
     
+    lazy var selectedFav : UIImage? = {
+        return UIImage(named: "fav_navbar")
+    }()
+    
+    lazy var unselectedFav : UIImage? = {
+        return UIImage(named: "fav_navbar_unselected")
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.contactService = ContactService(viewController: self, contact: self.contact, delegate: self)
@@ -128,8 +136,6 @@ class ContactDetailsViewController : UIViewController {
         UIPasteboard.general.string = address
         SVProgressHUD.showSuccess(withStatus: "Address copied to clipboard.")
     }
-    
-    
 }
 
 extension ContactDetailsViewController : UIGestureRecognizerDelegate { }
@@ -173,7 +179,6 @@ private extension ContactDetailsViewController {
         self.callCellButton.isHidden    = contact.displayCellPhone.isEmpty
         self.textButton.isHidden        = contact.displayCellPhone.isEmpty
         self.callPhoneButton.isHidden   = contact.displayPrimaryTelephone.isEmpty
-        
     }
     
     func setupTapGestureRecognizers() {
@@ -242,12 +247,7 @@ private extension ContactDetailsViewController {
     }
     
     func toggleFavoritesButton() {
-        // TODO: Remove button title logic
-        if self.contact.isFavorited {
-            self.favoriteToggleButton.image = UIImage(named: "fav_navbar")
-        } else {
-            self.favoriteToggleButton.image = UIImage(named: "fav_navbar_unselected")
-        }
+        self.favoriteToggleButton.image = self.contact.isFavorited ? self.selectedFav : self.unselectedFav
     }
     
     func openSettings() {

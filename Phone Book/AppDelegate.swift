@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UINavigationBar.appearance().barTintColor = UIColor.upennDeepBlue
         UINavigationBar.appearance().tintColor = UIColor.white
-        UILabel.appearance().font = UIFont.init(name: "Helvetica Neue", size: 15.0)
+        UILabel.appearance().font = UIFont.helvetica(size: 15.0)
         SVProgressHUD.setDefaultStyle(.custom)
         SVProgressHUD.setForegroundColor(UIColor.upennMediumBlue)
         SVProgressHUD.setDefaultMaskType(.black)

@@ -22,7 +22,7 @@ class UPennLabel : UILabel {
     }
     
     func setFontHeight(size: CGFloat) {
-        self.font = UIFont.init(name: "Helvetica Neue", size: size)
+        self.font = UIFont.helvetica(size: size)
     }
 }
 
