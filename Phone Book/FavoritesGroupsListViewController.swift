@@ -107,6 +107,22 @@ extension FavoritesGroupsListViewController : UITableViewDataSource {
         cell.textLabel?.text = groupTitle
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if self.favoritesGroups?.count != 0 {
+            // Create View
+            let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
+            view.backgroundColor = UIColor.upennMediumBlue
+            // Create Label
+            let titleLabel = UPennLabel(frame: CGRect(x: 16, y: 0, width: 200, height: 30))
+            titleLabel.textColor = UIColor.white
+            titleLabel.text = "Your Favorites Groups"
+            view.addSubview(titleLabel)
+            return view
+        }
+        return UIView()
+    }
 }
 
 private extension FavoritesGroupsListViewController {
