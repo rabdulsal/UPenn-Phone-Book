@@ -12,6 +12,13 @@ import CoreData
 import SVProgressHUD
 
 //@UIApplicationMain
+
+enum TabSection : Int {
+    case Search
+    case Favorites
+    case Account
+}
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
@@ -131,6 +138,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    // MARK: - Sections
+    
+    func goToSection(_ section: TabSection) {
+        switch section {
+        case .Search:
+            break
+        case .Favorites:
+            self.tabBarController?.selectedIndex = 1
+            if
+                let navVC = self.tabBarController?.selectedViewController as? UINavigationController,
+                let favoritesVC = navVC.childViewControllers.first as? FavoritesViewController,
+                let _ = favoritesVC.view {
+                favoritesVC.reloadView()
+            }
+        case .Account:
+            break
+        }
+    }
+    
     // MARK: - LoginService
     
     func setLoginDelegate(loginDelegate: LoginServiceDelegate) {
@@ -221,7 +247,11 @@ extension AppDelegate : UITabBarControllerDelegate {
         // Reload individual TabVCs when TabBar pressed
         
         if let contactsVC = viewController.childViewControllers.first as? ContactsListViewController, let _ = contactsVC.view {
-            contactsVC.reloadView()
+            if !self.isLoggedIn {
+                self.logout()
+            } else {
+                contactsVC.reloadView()
+            }
             return
         }
         

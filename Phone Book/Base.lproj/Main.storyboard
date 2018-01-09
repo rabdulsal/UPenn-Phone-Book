@@ -86,6 +86,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hlK-x7-Xjl" customClass="OutlineCTAButton" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                <rect key="frame" x="16" y="462" width="343" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="aJv-4n-onk"/>
+                                </constraints>
+                                <state key="normal" title="Go To Favorites"/>
+                                <connections>
+                                    <action selector="pressedGoToFavorites:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0iq-5A-R3G"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -93,9 +103,11 @@
                             <constraint firstItem="Wv5-o8-1jZ" firstAttribute="centerY" secondItem="Iwr-TA-RYM" secondAttribute="centerY" id="AtU-Ma-8UW"/>
                             <constraint firstItem="1ZH-Wl-szx" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="DTU-B4-IAN"/>
                             <constraint firstItem="sQq-kQ-jUA" firstAttribute="leading" secondItem="2si-2m-EwZ" secondAttribute="leading" id="ER4-XM-HyY"/>
+                            <constraint firstItem="hlK-x7-Xjl" firstAttribute="top" secondItem="2si-2m-EwZ" secondAttribute="bottom" constant="20" id="Ngt-NT-fqC"/>
                             <constraint firstItem="sQq-kQ-jUA" firstAttribute="top" secondItem="lGi-uf-AaT" secondAttribute="bottom" constant="16" id="OLO-OY-snn"/>
                             <constraint firstItem="cNl-CE-J3T" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QxN-sZ-0Gk"/>
                             <constraint firstItem="Iwr-TA-RYM" firstAttribute="top" secondItem="sQq-kQ-jUA" secondAttribute="bottom" constant="20" id="Rc0-yD-FjA"/>
+                            <constraint firstItem="hlK-x7-Xjl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="VdQ-iy-F0R"/>
                             <constraint firstItem="cNl-CE-J3T" firstAttribute="top" secondItem="1ZH-Wl-szx" secondAttribute="bottom" constant="20" id="Wp9-V2-cPH"/>
                             <constraint firstItem="lGi-uf-AaT" firstAttribute="top" secondItem="cNl-CE-J3T" secondAttribute="bottom" constant="30" id="eb8-qX-z47"/>
                             <constraint firstItem="Iwr-TA-RYM" firstAttribute="leading" secondItem="sQq-kQ-jUA" secondAttribute="leading" id="gg7-Pg-ocv"/>
@@ -107,6 +119,7 @@
                             <constraint firstItem="sQq-kQ-jUA" firstAttribute="trailing" secondItem="2si-2m-EwZ" secondAttribute="trailing" id="sfo-8h-6aq"/>
                             <constraint firstItem="2si-2m-EwZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ucE-s3-tcW"/>
                             <constraint firstItem="2si-2m-EwZ" firstAttribute="top" secondItem="Iwr-TA-RYM" secondAttribute="bottom" constant="20" id="wkI-Y3-a1L"/>
+                            <constraint firstAttribute="trailing" secondItem="hlK-x7-Xjl" secondAttribute="trailing" constant="16" id="xCL-MA-QDF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="gve-Ic-RII">
@@ -121,8 +134,10 @@
                         <outlet property="autoFillButton" destination="Iwr-TA-RYM" id="P0v-Cc-Tyc"/>
                         <outlet property="cancelButton" destination="0QA-bU-PzZ" id="8Hn-4A-i0I"/>
                         <outlet property="emailField" destination="lGi-uf-AaT" id="8eg-f3-Wq5"/>
+                        <outlet property="goToFavsButton" destination="hlK-x7-Xjl" id="9WV-cM-SHp"/>
                         <outlet property="loginButton" destination="2si-2m-EwZ" id="cgx-bq-Omd"/>
                         <outlet property="passwordField" destination="sQq-kQ-jUA" id="8qn-gd-c0h"/>
+                        <outlet property="rememberMeLabel" destination="Wv5-o8-1jZ" id="45p-F9-xYx"/>
                         <outlet property="titleLabel" destination="cNl-CE-J3T" id="vle-3y-BzA"/>
                     </connections>
                 </viewController>
