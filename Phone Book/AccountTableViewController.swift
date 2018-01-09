@@ -93,9 +93,8 @@ class AccountTableViewController : UITableViewController {
                 cell.configure()
                 return cell
             case .Logout:
-                let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Logout.rawValue) as! UITableViewCell
-                cell.textLabel?.text = "Logout"
-                cell.textLabel?.textColor = UIColor.upennWarningRed
+                let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Logout.rawValue) as! LogoutCell
+                cell.configure()
                 return cell
             }
         }
