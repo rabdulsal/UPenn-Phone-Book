@@ -18,7 +18,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var titleLabel: BannerLabel!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var rememberMeLabel: ContactDepartmentLabel!
-    @IBOutlet weak var goToFavsButton: PrimaryCTAButtonText!
+    @IBOutlet weak var goToFavsButton: OutlineCTAButton!
     
     var validationService: ValidationService!
     var passwordItems: [KeychainPasswordItem] = []
@@ -96,11 +96,13 @@ class LoginViewController: UIViewController {
         self.emailField.delegate = self
         self.emailField.placeholder = "username"
         self.emailField.autocorrectionType = .no
+        self.emailField.addCancelButton()
         self.passwordField.autocorrectionType = .no
         self.passwordField.placeholder = "password"
         self.passwordField.delegate = self
         self.passwordField.returnKeyType = .done
         self.passwordField.isSecureTextEntry = true
+        self.passwordField.addCancelButton()
         self.validationService = ValidationService(textFields: [ self.emailField, self.passwordField ])
         
         // Set up Buttons
@@ -118,7 +120,6 @@ class LoginViewController: UIViewController {
         
         // Load Favorites
         FavoritesService.loadFavoritesData()
-        self.goToFavsButton.titleLabel?.setFontHeight(size: 17)
     }
     
     @IBAction func pressedClose(_ sender: Any) {

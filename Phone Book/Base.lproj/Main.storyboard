@@ -122,17 +122,9 @@
                             <constraint firstAttribute="trailing" secondItem="hlK-x7-Xjl" secondAttribute="trailing" constant="16" id="xCL-MA-QDF"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Login" id="gve-Ic-RII">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0QA-bU-PzZ">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="pressedClose:" destination="BYZ-38-t0r" id="0pJ-I0-pfL"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Login" id="gve-Ic-RII"/>
                     <connections>
                         <outlet property="autoFillButton" destination="Iwr-TA-RYM" id="P0v-Cc-Tyc"/>
-                        <outlet property="cancelButton" destination="0QA-bU-PzZ" id="8Hn-4A-i0I"/>
                         <outlet property="emailField" destination="lGi-uf-AaT" id="8eg-f3-Wq5"/>
                         <outlet property="goToFavsButton" destination="hlK-x7-Xjl" id="9WV-cM-SHp"/>
                         <outlet property="loginButton" destination="2si-2m-EwZ" id="cgx-bq-Omd"/>

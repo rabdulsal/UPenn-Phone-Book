@@ -31,6 +31,7 @@
 		3A70DBCC1FE17548006556D6 /* AddressBookService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70DBCB1FE17548006556D6 /* AddressBookService.swift */; };
 		3A7FAE3D1FA78F42009765F8 /* UILabel+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FAE3C1FA78F42009765F8 /* UILabel+UPenn.swift */; };
 		3A7FAE3F1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FAE3E1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift */; };
+		3A8D0F812006699B008E004A /* UISearchBar+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D0F802006699B008E004A /* UISearchBar+UPenn.swift */; };
 		3ACFC7D71FBE2CB500D472FB /* AccountSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFC7D61FBE2CB500D472FB /* AccountSettingsCell.swift */; };
 		3ACFC7D91FC367FC00D472FB /* TimerUIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFC7D81FC367FC00D472FB /* TimerUIApplication.swift */; };
 		3ACFC7DB1FC3692B00D472FB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFC7DA1FC3692B00D472FB /* main.swift */; };
@@ -100,6 +101,7 @@
 		3A70DBCB1FE17548006556D6 /* AddressBookService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookService.swift; sourceTree = "<group>"; };
 		3A7FAE3C1FA78F42009765F8 /* UILabel+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+UPenn.swift"; sourceTree = "<group>"; };
 		3A7FAE3E1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesGroupsListViewController.swift; sourceTree = "<group>"; };
+		3A8D0F802006699B008E004A /* UISearchBar+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+UPenn.swift"; sourceTree = "<group>"; };
 		3ACFC7D61FBE2CB500D472FB /* AccountSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsCell.swift; sourceTree = "<group>"; };
 		3ACFC7D81FC367FC00D472FB /* TimerUIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerUIApplication.swift; sourceTree = "<group>"; };
 		3ACFC7DA1FC3692B00D472FB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				3A7FAE3C1FA78F42009765F8 /* UILabel+UPenn.swift */,
 				3A1F2B521FFFCFBF00520625 /* UITextField+UPenn.swift */,
 				3A1F2B541FFFD06500520625 /* UIFont+UPenn.swift */,
+				3A8D0F802006699B008E004A /* UISearchBar+UPenn.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				841B89B21F910FB500CFB3C1 /* FavoritesService.swift in Sources */,
 				3A2BDF971F993AE00018E13A /* LoginTextField.swift in Sources */,
 				3ACFC7D91FC367FC00D472FB /* TimerUIApplication.swift in Sources */,
+				3A8D0F812006699B008E004A /* UISearchBar+UPenn.swift in Sources */,
 				4C5AE2181F918D4200E271FD /* ContactDetailsViewController.swift in Sources */,
 				3A2534EF1FD09E3F0015F9D9 /* ContactService.swift in Sources */,
 				3ACFC7DB1FC3692B00D472FB /* main.swift in Sources */,

@@ -1,15 +1,15 @@
 //
-//  UITextField+UPenn.swift
+//  UISearchBar+UPenn.swift
 //  Phone Book
 //
-//  Created by Rashad Abdul-Salam on 1/5/18.
+//  Created by Rashad Abdul-Salam on 1/10/18.
 //  Copyright © 2018 UPenn. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-extension UITextField {
+extension UISearchBar {
     
     func addCancelButton() {
         let keyBoardToolbar = UIToolbar()
