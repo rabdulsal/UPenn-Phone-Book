@@ -40,7 +40,10 @@ class ContactDetailsViewController : UIViewController {
     }
     
     lazy var mapsAlertController : UIAlertController = {
-        let alertController = UIAlertController(title: "Directions in Apple Maps", message: "You are leaving the Phonebook App to view directions in the Apple Maps App. From Maps, press the 'UPHS Phonebook' button in the upper-left corner to return here.", preferredStyle: .alert)
+        let alertController = UIAlertController(
+            title: "Directions in Apple Maps",
+            message: "You are leaving the Phonebook App to view directions in the Apple Maps App. From Maps, press the 'UPHS Phonebook' button in the upper-left corner to return here.",
+            preferredStyle: .alert)
         let goToMapsAction = UIAlertAction(title: "Go", style: .cancel, handler: {
             alert -> Void in
             self.showInMaps()
@@ -53,10 +56,8 @@ class ContactDetailsViewController : UIViewController {
     
     lazy var cantAddContactAlert : UIAlertController = {
         let cantAddContactAlert = UIAlertController(
-            title: "Cannot Add Contact",
-            
-            message: "You must give the app permission to add the contact first.",
-            
+            title: "",
+            message: "In the future, to add UPHS Phonebook contacts to your iPhone contacts, go to Settings and grant UPHS Phonebook access to 'Contacts'.",
             preferredStyle: .alert)
         cantAddContactAlert.addAction(UIAlertAction(
             title: "Change Settings",
@@ -68,6 +69,14 @@ class ContactDetailsViewController : UIViewController {
         }))
         cantAddContactAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         return cantAddContactAlert
+    }()
+    
+    lazy var selectedFav : UIImage? = {
+        return UIImage(named: "fav_navbar")
+    }()
+    
+    lazy var unselectedFav : UIImage? = {
+        return UIImage(named: "fav_navbar_unselected")
     }()
     
     override func viewDidLoad() {
@@ -128,8 +137,6 @@ class ContactDetailsViewController : UIViewController {
         UIPasteboard.general.string = address
         SVProgressHUD.showSuccess(withStatus: "Address copied to clipboard.")
     }
-    
-    
 }
 
 extension ContactDetailsViewController : UIGestureRecognizerDelegate { }
@@ -173,7 +180,6 @@ private extension ContactDetailsViewController {
         self.callCellButton.isHidden    = contact.displayCellPhone.isEmpty
         self.textButton.isHidden        = contact.displayCellPhone.isEmpty
         self.callPhoneButton.isHidden   = contact.displayPrimaryTelephone.isEmpty
-        
     }
     
     func setupTapGestureRecognizers() {
@@ -242,14 +248,7 @@ private extension ContactDetailsViewController {
     }
     
     func toggleFavoritesButton() {
-        // TODO: Remove button title logic once star-icons in place
-        if self.contact.isFavorited {
-//            self.favoriteToggleButton.image = UIImage(named: "fav_navbar")
-            self.favoriteToggleButton.title = "Unfavorite"
-        } else {
-//            self.favoriteToggleButton.image = UIImage(named: "")
-            self.favoriteToggleButton.title = "Favorite"
-        }
+        self.favoriteToggleButton.image = self.contact.isFavorited ? self.selectedFav : self.unselectedFav
     }
     
     func openSettings() {
@@ -275,8 +274,8 @@ extension ContactDetailsViewController : AddressBookDelegate {
         self.toggleAddToContactsTitle()
     }
     
-    func deniedAddressBookAccess() {
-        self.displayCantAddContactAlert()
+    func deniedAddressBookAccess(showMessage: Bool) {
+        if showMessage { self.displayCantAddContactAlert() }
         self.addContactsButton.isEnabled = false
     }
     

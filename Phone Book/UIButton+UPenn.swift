@@ -66,3 +66,18 @@ class ContactIconButton : UIButton {
         super.awakeFromNib()
     }
 }
+
+class OutlineCTAButton : UIButton {
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.setBaseStyles()
+    }
+    
+    func setBaseStyles() {
+        setTitleColor(UIColor.upennMediumBlue, for: .normal)
+        backgroundColor = UIColor.white
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.upennMediumBlue.cgColor
+    }
+}

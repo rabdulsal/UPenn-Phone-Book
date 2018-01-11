@@ -12,6 +12,13 @@ import CoreData
 import SVProgressHUD
 
 //@UIApplicationMain
+
+enum TabSection : Int {
+    case Search
+    case Favorites
+    case Account
+}
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
@@ -51,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UINavigationBar.appearance().barTintColor = UIColor.upennDeepBlue
         UINavigationBar.appearance().tintColor = UIColor.white
-        UILabel.appearance().font = UIFont.init(name: "Helvetica Neue", size: 15.0)
+        UILabel.appearance().font = UIFont.helvetica(size: 15.0)
         SVProgressHUD.setDefaultStyle(.custom)
         SVProgressHUD.setForegroundColor(UIColor.upennMediumBlue)
         SVProgressHUD.setDefaultMaskType(.black)
@@ -128,6 +135,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
+        }
+    }
+    
+    // MARK: - Sections
+    
+    func goToSection(_ section: TabSection) {
+        switch section {
+        case .Search:
+            break
+        case .Favorites:
+            self.tabBarController?.selectedIndex = 1
+            if
+                let navVC = self.tabBarController?.selectedViewController as? UINavigationController,
+                let favoritesVC = navVC.childViewControllers.first as? FavoritesViewController,
+                let _ = favoritesVC.view {
+                favoritesVC.reloadView()
+            }
+        case .Account:
+            break
         }
     }
     
@@ -221,7 +247,11 @@ extension AppDelegate : UITabBarControllerDelegate {
         // Reload individual TabVCs when TabBar pressed
         
         if let contactsVC = viewController.childViewControllers.first as? ContactsListViewController, let _ = contactsVC.view {
-            contactsVC.reloadView()
+            if !self.isLoggedIn {
+                self.logout()
+            } else {
+                contactsVC.reloadView()
+            }
             return
         }
         

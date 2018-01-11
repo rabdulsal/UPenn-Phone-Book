@@ -20,8 +20,8 @@ class AutoLogoutCell : UITableViewCell {
         self.timeoutControl.tintColor = UIColor.upennMediumBlue
         
         // Set font attributes to avoid segment label truncation
-        let font = UIFont.init(name: "Helvetica Neue", size: 15.0)
-        let attributes : [AnyHashable : Any] = [NSFontAttributeName:font!]
+        let font = UIFont.helvetica(size: 15.0)
+        let attributes : [AnyHashable : Any] = [NSFontAttributeName:font]
         self.timeoutControl.setTitleTextAttributes(attributes, for: .normal)
         self.timeoutControl.setTitleTextAttributes(attributes, for: .selected)
         

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A1F2B531FFFCFBF00520625 /* UITextField+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1F2B521FFFCFBF00520625 /* UITextField+UPenn.swift */; };
+		3A1F2B551FFFD06500520625 /* UIFont+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1F2B541FFFD06500520625 /* UIFont+UPenn.swift */; };
 		3A2052631FDAFAB30004CBDC /* AutoLogoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2052621FDAFAB30004CBDC /* AutoLogoutCell.swift */; };
 		3A2534EF1FD09E3F0015F9D9 /* ContactService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2534EE1FD09E3F0015F9D9 /* ContactService.swift */; };
 		3A26C1DF1F97CDAD005C88C9 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C1DE1F97CDAD005C88C9 /* ValidationService.swift */; };
@@ -29,9 +31,11 @@
 		3A70DBCC1FE17548006556D6 /* AddressBookService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70DBCB1FE17548006556D6 /* AddressBookService.swift */; };
 		3A7FAE3D1FA78F42009765F8 /* UILabel+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FAE3C1FA78F42009765F8 /* UILabel+UPenn.swift */; };
 		3A7FAE3F1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FAE3E1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift */; };
+		3A8D0F812006699B008E004A /* UISearchBar+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D0F802006699B008E004A /* UISearchBar+UPenn.swift */; };
 		3ACFC7D71FBE2CB500D472FB /* AccountSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFC7D61FBE2CB500D472FB /* AccountSettingsCell.swift */; };
 		3ACFC7D91FC367FC00D472FB /* TimerUIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFC7D81FC367FC00D472FB /* TimerUIApplication.swift */; };
 		3ACFC7DB1FC3692B00D472FB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFC7DA1FC3692B00D472FB /* main.swift */; };
+		3AED35AD20052A4D00C8BB88 /* LogoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED35AC20052A4D00C8BB88 /* LogoutCell.swift */; };
 		4C5AE2161F918D2500E271FD /* ContactsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2151F918D2400E271FD /* ContactsListViewController.swift */; };
 		4C5AE2181F918D4200E271FD /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2171F918D4200E271FD /* ContactDetailsViewController.swift */; };
 		4C5AE21A1F91CE7C00E271FD /* ContactViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AE2191F91CE7C00E271FD /* ContactViewCell.swift */; };
@@ -73,6 +77,8 @@
 /* Begin PBXFileReference section */
 		1E816519D24726D1F49D3D6B /* Pods-Phone BookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phone BookTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Phone BookTests/Pods-Phone BookTests.debug.xcconfig"; sourceTree = "<group>"; };
 		261E2B60929BD1D5295DDDC6 /* Pods-Phone BookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phone BookTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Phone BookTests/Pods-Phone BookTests.release.xcconfig"; sourceTree = "<group>"; };
+		3A1F2B521FFFCFBF00520625 /* UITextField+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+UPenn.swift"; sourceTree = "<group>"; };
+		3A1F2B541FFFD06500520625 /* UIFont+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+UPenn.swift"; sourceTree = "<group>"; };
 		3A2052621FDAFAB30004CBDC /* AutoLogoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLogoutCell.swift; sourceTree = "<group>"; };
 		3A2534EE1FD09E3F0015F9D9 /* ContactService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactService.swift; sourceTree = "<group>"; };
 		3A26C1DE1F97CDAD005C88C9 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
@@ -95,9 +101,11 @@
 		3A70DBCB1FE17548006556D6 /* AddressBookService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookService.swift; sourceTree = "<group>"; };
 		3A7FAE3C1FA78F42009765F8 /* UILabel+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+UPenn.swift"; sourceTree = "<group>"; };
 		3A7FAE3E1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesGroupsListViewController.swift; sourceTree = "<group>"; };
+		3A8D0F802006699B008E004A /* UISearchBar+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+UPenn.swift"; sourceTree = "<group>"; };
 		3ACFC7D61FBE2CB500D472FB /* AccountSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsCell.swift; sourceTree = "<group>"; };
 		3ACFC7D81FC367FC00D472FB /* TimerUIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerUIApplication.swift; sourceTree = "<group>"; };
 		3ACFC7DA1FC3692B00D472FB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		3AED35AC20052A4D00C8BB88 /* LogoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutCell.swift; sourceTree = "<group>"; };
 		494755E5935655C3132B0EAB /* Pods_Phone_BookTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Phone_BookTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C5AE2151F918D2400E271FD /* ContactsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListViewController.swift; sourceTree = "<group>"; };
 		4C5AE2171F918D4200E271FD /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
@@ -173,12 +181,15 @@
 		3A2BDF911F991CE90018E13A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				3ACFC7DA1FC3692B00D472FB /* main.swift */,
+				3ACFC7D81FC367FC00D472FB /* TimerUIApplication.swift */,
 				3A2BDF921F991E0A0018E13A /* UIColor+UPenn.swift */,
 				3A2BDF941F9920A60018E13A /* UIButton+UPenn.swift */,
 				3A317CCA1F9F9FFD00786C95 /* UIViewController+UPenn.swift */,
 				3A7FAE3C1FA78F42009765F8 /* UILabel+UPenn.swift */,
-				3ACFC7D81FC367FC00D472FB /* TimerUIApplication.swift */,
-				3ACFC7DA1FC3692B00D472FB /* main.swift */,
+				3A1F2B521FFFCFBF00520625 /* UITextField+UPenn.swift */,
+				3A1F2B541FFFD06500520625 /* UIFont+UPenn.swift */,
+				3A8D0F802006699B008E004A /* UISearchBar+UPenn.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -205,6 +216,7 @@
 				3ACFC7D61FBE2CB500D472FB /* AccountSettingsCell.swift */,
 				3A2052621FDAFAB30004CBDC /* AutoLogoutCell.swift */,
 				3A5DCD431FF4237400EF470B /* TouchIDEnableCell.swift */,
+				3AED35AC20052A4D00C8BB88 /* LogoutCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -320,6 +332,7 @@
 				84FFD8B51F8EC36300B28184 /* Resources */,
 				A424B122AA5F382B2DD68738 /* [CP] Embed Pods Frameworks */,
 				162066745919D0B39C1885D8 /* [CP] Copy Pods Resources */,
+				3A5DCD451FFD5C1700EF470B /* Archive Build & Version Incrementation */,
 			);
 			buildRules = (
 			);
@@ -533,6 +546,20 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3A5DCD451FFD5C1700EF470B /* Archive Build & Version Incrementation */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Archive Build & Version Incrementation";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "# Increment build number each time project is archived\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n\n# Print Build Num\n# /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n\n# This splits a two-decimal version string, such as \"0.45.123\", allowing us to increment the third position.\nVERSIONNUM=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nNEWSUBVERSION=`echo $VERSIONNUM | awk -F \".\" '{print $3}'`\nNEWSUBVERSION=$(($NEWSUBVERSION + 1))\nNEWVERSIONSTRING=`echo $VERSIONNUM | awk -F \".\" '{print $1 \".\" $2 \".'$NEWSUBVERSION'\" }'`\n\n# Print Version Num\n# /usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $NEWVERSIONSTRING\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
 		69814689E1F19B1CEF9ADC94 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -622,10 +649,12 @@
 				3A2BDF931F991E0A0018E13A /* UIColor+UPenn.swift in Sources */,
 				4C5AE21C1F944C8500E271FD /* AutheticationService.swift in Sources */,
 				3A26C1DF1F97CDAD005C88C9 /* ValidationService.swift in Sources */,
+				3AED35AD20052A4D00C8BB88 /* LogoutCell.swift in Sources */,
 				84FFD8BD1F8EC36300B28184 /* LoginViewController.swift in Sources */,
 				841B89B21F910FB500CFB3C1 /* FavoritesService.swift in Sources */,
 				3A2BDF971F993AE00018E13A /* LoginTextField.swift in Sources */,
 				3ACFC7D91FC367FC00D472FB /* TimerUIApplication.swift in Sources */,
+				3A8D0F812006699B008E004A /* UISearchBar+UPenn.swift in Sources */,
 				4C5AE2181F918D4200E271FD /* ContactDetailsViewController.swift in Sources */,
 				3A2534EF1FD09E3F0015F9D9 /* ContactService.swift in Sources */,
 				3ACFC7DB1FC3692B00D472FB /* main.swift in Sources */,
@@ -645,6 +674,8 @@
 				3A2BDF951F9920A60018E13A /* UIButton+UPenn.swift in Sources */,
 				4C5AE2201F945B9400E271FD /* LoginService.swift in Sources */,
 				3A317CDD1FA2676800786C95 /* EmailService.swift in Sources */,
+				3A1F2B531FFFCFBF00520625 /* UITextField+UPenn.swift in Sources */,
+				3A1F2B551FFFD06500520625 /* UIFont+UPenn.swift in Sources */,
 				4C5AE21E1F944CC200E271FD /* NetworkRequestService.swift in Sources */,
 				4C5AE21A1F91CE7C00E271FD /* ContactViewCell.swift in Sources */,
 				3A317CD91F9FD35F00786C95 /* FavoriteContact+CoreDataClass.swift in Sources */,

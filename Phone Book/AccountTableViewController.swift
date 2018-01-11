@@ -39,6 +39,9 @@ class AccountTableViewController : UITableViewController {
         case Logout = "LogoutCell"
     }
     
+    private let SCREEN_PADDING : CGFloat = 16.0
+    private let SCREEN_SIZE = UIScreen.main.bounds
+    
     var appDelegate : AppDelegate? {
         return UIApplication.shared.delegate as? AppDelegate
     }
@@ -56,7 +59,6 @@ class AccountTableViewController : UITableViewController {
     
     override func setup() {
         super.setup()
-        self.tableView.tableFooterView = UIView()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -87,9 +89,8 @@ class AccountTableViewController : UITableViewController {
                 cell.configure(with: self, touchIDAvailable: self.touchIDService.touchIDAvailable, touchIDEnabled: self.touchIDService.touchIDEnabled)
                 return cell
             case .Logout:
-                let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Logout.rawValue) as! UITableViewCell
-                cell.textLabel?.text = "Logout"
-                cell.textLabel?.textColor = UIColor.upennWarningRed
+                let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Logout.rawValue) as! LogoutCell
+                cell.configure()
                 return cell
             }
         }
@@ -115,6 +116,26 @@ class AccountTableViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        // Create View
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_SIZE.width, height: 30))
+        view.backgroundColor = UIColor.upennLightGray
+        // Create Label
+        let versionStr = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+
+        let titleLabel = UPennLabel(frame: CGRect(x: SCREEN_PADDING, y: 20, width: SCREEN_SIZE.width - (SCREEN_PADDING*2), height: 20))
+        titleLabel.textColor = UIColor.upennBlack
+        titleLabel.textAlignment = .right
+        titleLabel.setFontHeight(size: 10)
+        titleLabel.text = "UPHS Phonebook Version \(versionStr)"
+        view.addSubview(titleLabel)
+        return view
     }
 }
 

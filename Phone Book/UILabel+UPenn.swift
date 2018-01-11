@@ -9,6 +9,13 @@
 import Foundation
 import UIKit
 
+extension UILabel {
+    
+    func setFontHeight(size: CGFloat) {
+        self.font = UIFont.helvetica(size: size)
+    }
+}
+
 class UPennLabel : UILabel {
     
     override func awakeFromNib() {
@@ -19,10 +26,6 @@ class UPennLabel : UILabel {
     func setBaseStyles() {
         self.textColor = UIColor.upennBlack
         self.setFontHeight(size: 15.0)
-    }
-    
-    func setFontHeight(size: CGFloat) {
-        self.font = UIFont.init(name: "Helvetica Neue", size: size)
     }
 }
 

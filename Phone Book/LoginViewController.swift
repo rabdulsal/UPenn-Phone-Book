@@ -17,6 +17,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var autoFillButton: PrimaryCTAButtonText!
     @IBOutlet weak var titleLabel: BannerLabel!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var rememberMeLabel: ContactDepartmentLabel!
+    @IBOutlet weak var goToFavsButton: OutlineCTAButton!
     
     var validationService: ValidationService!
     var passwordItems: [KeychainPasswordItem] = []
@@ -69,6 +71,11 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         self.setup()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.goToFavsButton.isHidden = FavoritesService.favoritesGroupsCount < 1
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -89,17 +96,30 @@ class LoginViewController: UIViewController {
         self.emailField.delegate = self
         self.emailField.placeholder = "username"
         self.emailField.autocorrectionType = .no
+        self.emailField.addCancelButton()
         self.passwordField.autocorrectionType = .no
         self.passwordField.placeholder = "password"
         self.passwordField.delegate = self
         self.passwordField.returnKeyType = .done
         self.passwordField.isSecureTextEntry = true
+        self.passwordField.addCancelButton()
         self.validationService = ValidationService(textFields: [ self.emailField, self.passwordField ])
         
         // Set up Buttons
         self.autoFillButton.adjustsImageWhenHighlighted = false
         self.autoFillButton.setImage(UIImage.init(named: "checked"), for: .selected)
         self.autoFillButton.setImage(UIImage.init(named: "un_checked"), for: .normal)
+        
+        // Set up Touch Gesture
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.toggleRememberMe))
+        tap.delegate = self
+        tap.numberOfTapsRequired = 1
+        self.rememberMeLabel.isUserInteractionEnabled = true
+        self.rememberMeLabel.addGestureRecognizer(tap)
+        self.rememberMeLabel.textColor = UIColor.upennDarkBlue
+        
+        // Load Favorites
+        FavoritesService.loadFavoritesData()
     }
     
     @IBAction func pressedClose(_ sender: Any) {
@@ -113,6 +133,12 @@ class LoginViewController: UIViewController {
     @IBAction func pressedAutoFillButton(_ sender: UIButton) {
         self.toggleLoginAutoFill()
     }
+    
+    @IBAction func pressedGoToFavorites(_ sender: Any) {
+        self.dismiss()
+        self.appDelegate?.goToSection(.Favorites)
+    }
+    
 }
 
 // MARK: - UITextFieldDelegate
@@ -211,7 +237,7 @@ private extension LoginViewController {
         verifyFields()
     }
     
-    func toggleRememberMe() {
+    @objc func toggleRememberMe() {
         self.autoFillButton.isSelected = !self.autoFillButton.isSelected
         self.appDelegate?.toggleShouldAutoFill(self.autoFillButton.isSelected)
     }
@@ -232,3 +258,5 @@ private extension LoginViewController {
         }
     }
 }
+
+extension LoginViewController : UIGestureRecognizerDelegate { }

@@ -86,6 +86,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hlK-x7-Xjl" customClass="OutlineCTAButton" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                <rect key="frame" x="16" y="462" width="343" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="aJv-4n-onk"/>
+                                </constraints>
+                                <state key="normal" title="Go To Favorites"/>
+                                <connections>
+                                    <action selector="pressedGoToFavorites:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0iq-5A-R3G"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -93,9 +103,11 @@
                             <constraint firstItem="Wv5-o8-1jZ" firstAttribute="centerY" secondItem="Iwr-TA-RYM" secondAttribute="centerY" id="AtU-Ma-8UW"/>
                             <constraint firstItem="1ZH-Wl-szx" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="DTU-B4-IAN"/>
                             <constraint firstItem="sQq-kQ-jUA" firstAttribute="leading" secondItem="2si-2m-EwZ" secondAttribute="leading" id="ER4-XM-HyY"/>
+                            <constraint firstItem="hlK-x7-Xjl" firstAttribute="top" secondItem="2si-2m-EwZ" secondAttribute="bottom" constant="20" id="Ngt-NT-fqC"/>
                             <constraint firstItem="sQq-kQ-jUA" firstAttribute="top" secondItem="lGi-uf-AaT" secondAttribute="bottom" constant="16" id="OLO-OY-snn"/>
                             <constraint firstItem="cNl-CE-J3T" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QxN-sZ-0Gk"/>
                             <constraint firstItem="Iwr-TA-RYM" firstAttribute="top" secondItem="sQq-kQ-jUA" secondAttribute="bottom" constant="20" id="Rc0-yD-FjA"/>
+                            <constraint firstItem="hlK-x7-Xjl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="VdQ-iy-F0R"/>
                             <constraint firstItem="cNl-CE-J3T" firstAttribute="top" secondItem="1ZH-Wl-szx" secondAttribute="bottom" constant="20" id="Wp9-V2-cPH"/>
                             <constraint firstItem="lGi-uf-AaT" firstAttribute="top" secondItem="cNl-CE-J3T" secondAttribute="bottom" constant="30" id="eb8-qX-z47"/>
                             <constraint firstItem="Iwr-TA-RYM" firstAttribute="leading" secondItem="sQq-kQ-jUA" secondAttribute="leading" id="gg7-Pg-ocv"/>
@@ -107,22 +119,17 @@
                             <constraint firstItem="sQq-kQ-jUA" firstAttribute="trailing" secondItem="2si-2m-EwZ" secondAttribute="trailing" id="sfo-8h-6aq"/>
                             <constraint firstItem="2si-2m-EwZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ucE-s3-tcW"/>
                             <constraint firstItem="2si-2m-EwZ" firstAttribute="top" secondItem="Iwr-TA-RYM" secondAttribute="bottom" constant="20" id="wkI-Y3-a1L"/>
+                            <constraint firstAttribute="trailing" secondItem="hlK-x7-Xjl" secondAttribute="trailing" constant="16" id="xCL-MA-QDF"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Login" id="gve-Ic-RII">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0QA-bU-PzZ">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="pressedClose:" destination="BYZ-38-t0r" id="0pJ-I0-pfL"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Login" id="gve-Ic-RII"/>
                     <connections>
                         <outlet property="autoFillButton" destination="Iwr-TA-RYM" id="P0v-Cc-Tyc"/>
-                        <outlet property="cancelButton" destination="0QA-bU-PzZ" id="8Hn-4A-i0I"/>
                         <outlet property="emailField" destination="lGi-uf-AaT" id="8eg-f3-Wq5"/>
+                        <outlet property="goToFavsButton" destination="hlK-x7-Xjl" id="9WV-cM-SHp"/>
                         <outlet property="loginButton" destination="2si-2m-EwZ" id="cgx-bq-Omd"/>
                         <outlet property="passwordField" destination="sQq-kQ-jUA" id="8qn-gd-c0h"/>
+                        <outlet property="rememberMeLabel" destination="Wv5-o8-1jZ" id="45p-F9-xYx"/>
                         <outlet property="titleLabel" destination="cNl-CE-J3T" id="vle-3y-BzA"/>
                     </connections>
                 </viewController>
@@ -604,7 +611,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Contact" id="sUP-9Y-qOD">
-                        <barButtonItem key="rightBarButtonItem" title="Favorite" id="LKE-lD-LoD">
+                        <barButtonItem key="rightBarButtonItem" image="fav_navbar_unselected" id="LKE-lD-LoD">
                             <connections>
                                 <action selector="addFavoritesPressed:" destination="Ma3-x1-OmR" id="ipv-Jm-05Q"/>
                             </connections>
@@ -632,7 +639,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9oC-Ff-Iu2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2509.5999999999999" y="384.55772113943033"/>
+            <point key="canvasLocation" x="2510" y="364"/>
         </scene>
         <!--Favorites Groups-->
         <scene sceneID="dvJ-1i-n8t">
@@ -922,7 +929,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z1L-LT-lNX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1645.5999999999999" y="385.45727136431788"/>
+            <point key="canvasLocation" x="1646" y="364"/>
         </scene>
         <!--Account-->
         <scene sceneID="1zZ-CS-TLE">
@@ -986,7 +993,7 @@
                                             </connections>
                                         </switch>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Touch-ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKX-vL-xN0" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                            <rect key="frame" x="59" y="11" width="241" height="21"/>
+                                            <rect key="frame" x="63" y="11" width="237" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1000,7 +1007,7 @@
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="fKX-vL-xN0" firstAttribute="leading" secondItem="u2B-4C-fhq" secondAttribute="trailing" constant="8" id="bCj-lm-Jnd"/>
+                                        <constraint firstItem="fKX-vL-xN0" firstAttribute="leading" secondItem="u2B-4C-fhq" secondAttribute="trailing" constant="12" id="bCj-lm-Jnd"/>
                                         <constraint firstItem="fKX-vL-xN0" firstAttribute="centerY" secondItem="rI6-JP-r5c" secondAttribute="centerY" id="cWK-ce-2WH"/>
                                         <constraint firstItem="wsU-f4-c3V" firstAttribute="leading" secondItem="fKX-vL-xN0" secondAttribute="trailing" constant="8" id="ccS-h5-XSD"/>
                                         <constraint firstAttribute="trailing" secondItem="wsU-f4-c3V" secondAttribute="trailing" constant="18" id="pgo-Z5-tjD"/>
@@ -1036,13 +1043,37 @@
                                     <outlet property="autoLoginSwitch" destination="dVn-SQ-AjF" id="dwB-cM-y0h"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogoutCell" id="77U-rs-SBm">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogoutCell" id="77U-rs-SBm" customClass="LogoutCell" customModule="UPHS_Phonebook" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="199" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="77U-rs-SBm" id="HKA-wF-0Xx">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ybb-pZ-enf" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                            <rect key="frame" x="63" y="12" width="53.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logout" translatesAutoresizingMaskIntoConstraints="NO" id="sSv-5T-37z">
+                                            <rect key="frame" x="16" y="6.5" width="31" height="31"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="sSv-5T-37z" secondAttribute="height" multiplier="1:1" id="9Nr-FK-YDV"/>
+                                                <constraint firstAttribute="height" constant="31" id="KQP-RM-IM6"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ybb-pZ-enf" firstAttribute="centerY" secondItem="sSv-5T-37z" secondAttribute="centerY" id="Dm0-S4-rfj"/>
+                                        <constraint firstItem="sSv-5T-37z" firstAttribute="leading" secondItem="HKA-wF-0Xx" secondAttribute="leading" constant="16" id="PQB-qr-OUc"/>
+                                        <constraint firstItem="ybb-pZ-enf" firstAttribute="leading" secondItem="sSv-5T-37z" secondAttribute="trailing" constant="16" id="jsd-L9-Idu"/>
+                                        <constraint firstItem="sSv-5T-37z" firstAttribute="centerY" secondItem="HKA-wF-0Xx" secondAttribute="centerY" id="rVI-qL-3E7"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="logoutLabel" destination="ybb-pZ-enf" id="4pd-6R-EVl"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1054,7 +1085,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cXm-V4-bI9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1772" y="1055.6221889055473"/>
+            <point key="canvasLocation" x="1646" y="1057"/>
         </scene>
         <!--Account-->
         <scene sceneID="h8R-vj-j7j">
@@ -1156,7 +1187,9 @@
         <image name="email" width="50" height="50"/>
         <image name="email_disabled" width="50" height="50"/>
         <image name="fav_inapp" width="50" height="50"/>
+        <image name="fav_navbar_unselected" width="25" height="25"/>
         <image name="fav_tabbar" width="25" height="25"/>
+        <image name="logout" width="25" height="25"/>
         <image name="penn_medicine_transparent" width="222" height="35"/>
         <image name="phone" width="50" height="50"/>
         <image name="phone_disabled" width="50" height="50"/>
@@ -1164,7 +1197,7 @@
         <image name="un_checked" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dh5-u8-fgQ"/>
-        <segue reference="TR7-zq-jKS"/>
+        <segue reference="AgV-Js-0Xu"/>
+        <segue reference="LMO-z9-AcH"/>
     </inferredMetricsTieBreakers>
 </document>
