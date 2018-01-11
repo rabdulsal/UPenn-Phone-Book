@@ -124,6 +124,10 @@ class AccountTableViewController : UITableViewController {
         return 50
     }
     
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         // Create View
         let view = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_SIZE.width, height: 30))
@@ -131,7 +135,7 @@ class AccountTableViewController : UITableViewController {
         // Create Label
         let versionStr = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 
-        let titleLabel = UPennLabel(frame: CGRect(x: SCREEN_PADDING, y: 10, width: SCREEN_SIZE.width - (SCREEN_PADDING*2), height: 20))
+        let titleLabel = UPennLabel(frame: CGRect(x: SCREEN_PADDING, y: 20, width: SCREEN_SIZE.width - (SCREEN_PADDING*2), height: 20))
         titleLabel.textColor = UIColor.upennBlack
         titleLabel.textAlignment = .right
         titleLabel.setFontHeight(size: 10)
