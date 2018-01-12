@@ -40,10 +40,11 @@ class LoginViewController: UIViewController {
             alert -> Void in
             /*
              * 1. Toggle TouchID 'on'
-             * 2. Toggle 'Remember Me' for caching login credentials
+             * 2. Force turn 'Remember Me' on for caching login credentials
             */
             self.touchIDService.toggleTouchID(true)
-            self.toggleLoginAutoFill()
+            self.autoFillButton.isSelected = true
+            self.appDelegate?.toggleShouldAutoFill(true)
             self.dismiss()
         })
         alertController.addAction(cancelAction)
@@ -111,7 +112,7 @@ class LoginViewController: UIViewController {
         self.autoFillButton.setImage(UIImage.init(named: "un_checked"), for: .normal)
         
         // Set up Touch Gesture
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.toggleRememberMe))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.toggleLoginAutoFill))
         tap.delegate = self
         tap.numberOfTapsRequired = 1
         self.rememberMeLabel.isUserInteractionEnabled = true
@@ -226,7 +227,7 @@ private extension LoginViewController {
         self.appDelegate?.makeLoginRequest(email: self.emailField.text!, password: self.passwordField.text!)
     }
     
-    func toggleLoginAutoFill() {
+    @objc func toggleLoginAutoFill() {
         if autoFillButton.isSelected && self.touchIDService.touchIDEnabled {
             self.present(self.rememberMeAlertController, animated: true, completion: nil)
             return
@@ -238,7 +239,7 @@ private extension LoginViewController {
         verifyFields()
     }
     
-    @objc func toggleRememberMe() {
+    func toggleRememberMe() {
         self.autoFillButton.isSelected = !self.autoFillButton.isSelected
         self.appDelegate?.toggleShouldAutoFill(self.autoFillButton.isSelected)
     }
