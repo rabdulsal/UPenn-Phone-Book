@@ -149,28 +149,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j8m-pA-Emy">
-                                <rect key="frame" x="0.0" y="64" width="375" height="100"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWX-Mz-LiV" customClass="NoDataInstructionsLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="-0.5" width="343" height="100"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Xws-US-l3v">
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
                                 <constraints>
-                                    <constraint firstItem="ZWX-Mz-LiV" firstAttribute="leading" secondItem="j8m-pA-Emy" secondAttribute="leading" constant="16" id="Azo-3H-I07"/>
-                                    <constraint firstAttribute="height" constant="100" id="IeN-rd-o45"/>
-                                    <constraint firstAttribute="trailing" secondItem="ZWX-Mz-LiV" secondAttribute="trailing" constant="16" id="PCJ-pH-gd0"/>
-                                    <constraint firstItem="ZWX-Mz-LiV" firstAttribute="centerX" secondItem="j8m-pA-Emy" secondAttribute="centerX" id="SM0-ky-wdF"/>
-                                    <constraint firstItem="ZWX-Mz-LiV" firstAttribute="height" secondItem="j8m-pA-Emy" secondAttribute="height" id="VO2-zW-nqs"/>
-                                    <constraint firstItem="ZWX-Mz-LiV" firstAttribute="centerY" secondItem="j8m-pA-Emy" secondAttribute="centerY" id="rS5-o2-NMK"/>
+                                    <constraint firstAttribute="height" constant="56" id="KUN-NA-240"/>
                                 </constraints>
-                            </view>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ESW-KU-eEA">
-                                <rect key="frame" x="0.0" y="220" width="375" height="398"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="498"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactCell" rowHeight="97" id="BUP-iv-Bxm" customClass="ContactViewCell" customModule="UPHS_Phonebook" customModuleProvider="target">
@@ -234,10 +221,25 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Xws-US-l3v">
-                                <rect key="frame" x="0.0" y="164" width="375" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j8m-pA-Emy">
+                                <rect key="frame" x="0.0" y="120" width="375" height="498"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWX-Mz-LiV" customClass="NoDataInstructionsLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="-50" width="343" height="498"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="ZWX-Mz-LiV" firstAttribute="leading" secondItem="j8m-pA-Emy" secondAttribute="leading" constant="16" id="Azo-3H-I07"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZWX-Mz-LiV" secondAttribute="trailing" constant="16" id="PCJ-pH-gd0"/>
+                                    <constraint firstItem="ZWX-Mz-LiV" firstAttribute="centerX" secondItem="j8m-pA-Emy" secondAttribute="centerX" id="SM0-ky-wdF"/>
+                                    <constraint firstItem="ZWX-Mz-LiV" firstAttribute="height" secondItem="j8m-pA-Emy" secondAttribute="height" id="VO2-zW-nqs"/>
+                                    <constraint firstItem="ZWX-Mz-LiV" firstAttribute="centerY" secondItem="j8m-pA-Emy" secondAttribute="centerY" constant="-50" id="rS5-o2-NMK"/>
+                                </constraints>
+                            </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DJg-pf-SMq" userLabel="Loggedout View">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <subviews>
@@ -267,15 +269,16 @@
                             <constraint firstItem="Xws-US-l3v" firstAttribute="leading" secondItem="Mgr-xW-Lce" secondAttribute="leading" id="6Fy-dv-BBU"/>
                             <constraint firstItem="DJg-pf-SMq" firstAttribute="top" secondItem="ru7-ov-aLa" secondAttribute="bottom" id="6Oi-9A-AOb"/>
                             <constraint firstItem="ESW-KU-eEA" firstAttribute="top" secondItem="Xws-US-l3v" secondAttribute="bottom" id="7UN-nb-259"/>
-                            <constraint firstItem="j8m-pA-Emy" firstAttribute="top" secondItem="ru7-ov-aLa" secondAttribute="bottom" id="BFm-23-n1M"/>
-                            <constraint firstItem="opH-Jb-nCV" firstAttribute="top" secondItem="ESW-KU-eEA" secondAttribute="bottom" id="EKo-VF-cbq"/>
-                            <constraint firstItem="Xws-US-l3v" firstAttribute="top" secondItem="j8m-pA-Emy" secondAttribute="bottom" id="XMf-wI-gbF"/>
+                            <constraint firstItem="opH-Jb-nCV" firstAttribute="top" secondItem="j8m-pA-Emy" secondAttribute="bottom" id="Adm-PJ-4hS"/>
+                            <constraint firstItem="Xws-US-l3v" firstAttribute="top" secondItem="ru7-ov-aLa" secondAttribute="bottom" id="Po0-1l-0h3"/>
                             <constraint firstAttribute="trailing" secondItem="DJg-pf-SMq" secondAttribute="trailing" id="YGq-BS-KW6"/>
                             <constraint firstItem="j8m-pA-Emy" firstAttribute="leading" secondItem="Mgr-xW-Lce" secondAttribute="leading" id="YTZ-et-Z9A"/>
+                            <constraint firstItem="j8m-pA-Emy" firstAttribute="top" secondItem="Xws-US-l3v" secondAttribute="bottom" id="eWQ-ss-SOu"/>
                             <constraint firstItem="DJg-pf-SMq" firstAttribute="leading" secondItem="Mgr-xW-Lce" secondAttribute="leading" id="i9s-21-VM1"/>
                             <constraint firstAttribute="trailing" secondItem="ESW-KU-eEA" secondAttribute="trailing" id="kiT-6d-PgM"/>
                             <constraint firstItem="opH-Jb-nCV" firstAttribute="top" secondItem="DJg-pf-SMq" secondAttribute="bottom" id="vQm-9k-lJx"/>
                             <constraint firstAttribute="trailing" secondItem="Xws-US-l3v" secondAttribute="trailing" id="wEf-G3-A5L"/>
+                            <constraint firstItem="opH-Jb-nCV" firstAttribute="top" secondItem="ESW-KU-eEA" secondAttribute="bottom" id="ybz-Ly-RRh"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Contacts" id="Z79-TG-q8L">
@@ -292,7 +295,6 @@
                         <outlet property="loggedOutView" destination="DJg-pf-SMq" id="pJ6-TA-Rqk"/>
                         <outlet property="noContactsLabel" destination="ZWX-Mz-LiV" id="8MU-PU-jQh"/>
                         <outlet property="noContactsView" destination="j8m-pA-Emy" id="Vr6-4Q-n27"/>
-                        <outlet property="noContactsViewHeight" destination="IeN-rd-o45" id="Fg5-D0-khX"/>
                         <outlet property="searchBar" destination="Xws-US-l3v" id="TxL-N0-Dqb"/>
                         <segue destination="DFE-iM-jyR" kind="presentation" identifier="LoginSegue" id="EvE-Ab-Hit"/>
                         <segue destination="Ma3-x1-OmR" kind="show" identifier="ContactDetailsSegue" id="TR7-zq-jKS"/>
@@ -1197,7 +1199,7 @@
         <image name="un_checked" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AgV-Js-0Xu"/>
-        <segue reference="LMO-z9-AcH"/>
+        <segue reference="dh5-u8-fgQ"/>
+        <segue reference="TR7-zq-jKS"/>
     </inferredMetricsTieBreakers>
 </document>

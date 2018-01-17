@@ -31,7 +31,6 @@ class ContactsListViewController : UIViewController {
     
     @IBOutlet weak var contactsTableView: UITableView!
     @IBOutlet weak var noContactsView: UIView!
-    @IBOutlet weak var noContactsViewHeight: NSLayoutConstraint!
     @IBOutlet weak var noContactsLabel: NoDataInstructionsLabel!
     @IBOutlet weak var helpButton: UIBarButtonItem!
     @IBOutlet weak var searchBar: UISearchBar! {
@@ -271,6 +270,15 @@ extension ContactsListViewController : FavoritesUpdatable {
 
 // MARK: - Private
 private extension ContactsListViewController {
+    var SCREEN_HEIGHT: CGFloat {
+        return UIScreen.main.bounds.height
+    }
+    var SEARCHBAR_HEIGHT: CGFloat {
+        return self.searchBar.bounds.height
+    }
+    var SEARCHBAR_PADDING: CGFloat {
+        return 64
+    }
     
     func checkAuthenticationForPresentation() {
         if let loggedIn = self.appDelegate?.isLoggedIn, loggedIn {
@@ -298,7 +306,7 @@ private extension ContactsListViewController {
     
     func toggleNoContactsView(show: Bool, delay: Bool=false) {
         if show {
-            self.noContactsViewHeight.constant = 100
+            
             if delay {
                 Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (timer) in
                     self.noContactsView.isHidden = false
@@ -310,7 +318,6 @@ private extension ContactsListViewController {
             return
         }
         self.noContactsView.isHidden = true
-        self.noContactsViewHeight.constant = 0
         self.noContactsLabel.text = ""
     }
     
