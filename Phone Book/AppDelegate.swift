@@ -56,9 +56,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        // Set UPenn Deep Blue NavigationBar & white navbar text
         UINavigationBar.appearance().barTintColor = UIColor.upennDeepBlue
         UINavigationBar.appearance().tintColor = UIColor.white
+        // Set White Status Bar
+        UIApplication.shared.statusBarStyle = .lightContent
+        // Set global font style to Helvetica
         UILabel.appearance().font = UIFont.helvetica(size: 15.0)
+        // Set global SVProgress styles
         SVProgressHUD.setDefaultStyle(.custom)
         SVProgressHUD.setForegroundColor(UIColor.upennMediumBlue)
         SVProgressHUD.setDefaultMaskType(.black)

@@ -17,7 +17,7 @@ extension UITextField {
         keyBoardToolbar.backgroundColor = UIColor.upennLightGray
         
         let flexibleSpaceBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancelBarButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(UISearchBar.cancel))
+        let cancelBarButton = UIBarButtonItem(title: "X", style: .plain, target: self, action: #selector(UISearchBar.cancel))
         let cancelButtonAttrs: [String: Any] = [
             NSFontAttributeName : UIFont.helvetica(size: 18),
             NSForegroundColorAttributeName: UIColor.upennWarningRed
