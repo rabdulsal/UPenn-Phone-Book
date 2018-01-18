@@ -87,7 +87,7 @@ class ContactsListViewController : UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.contactsTableView.reloadData() // TODO: Change to checkAuthentication once loggedOutView created
+        self.contactsTableView.reloadData()
         self.checkAuthenticationForPresentation()
     }
     
@@ -227,7 +227,6 @@ extension ContactsListViewController : UISearchBarDelegate {
                 if hasExcessContacts {
                     SVProgressHUD.showInfo(withStatus: "Displaying the first \(retrievedContacts.count) matching contacts. You may need to narrow your search.")
                 }
-                
             }
         }
     }
@@ -270,15 +269,6 @@ extension ContactsListViewController : FavoritesUpdatable {
 
 // MARK: - Private
 private extension ContactsListViewController {
-    var SCREEN_HEIGHT: CGFloat {
-        return UIScreen.main.bounds.height
-    }
-    var SEARCHBAR_HEIGHT: CGFloat {
-        return self.searchBar.bounds.height
-    }
-    var SEARCHBAR_PADDING: CGFloat {
-        return 64
-    }
     
     func checkAuthenticationForPresentation() {
         if let loggedIn = self.appDelegate?.isLoggedIn, loggedIn {
@@ -304,21 +294,14 @@ private extension ContactsListViewController {
         self.contactsTableView.setContentOffset(CGPoint.init(x: 0.0, y: 0.0), animated: true)
     }
     
-    func toggleNoContactsView(show: Bool, delay: Bool=false) {
+    func toggleNoContactsView(show: Bool) {
         if show {
-            
-            if delay {
-                Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (timer) in
-                    self.noContactsView.isHidden = false
-                })
-            } else {
-                self.noContactsView.isHidden = false
-            }
+            self.noContactsView.isHidden = false
             self.noContactsLabel.text = "Search for a Penn Medicine employee by last name or first name."
-            return
+        } else {
+            self.noContactsView.isHidden = true
+            self.noContactsLabel.text = ""
         }
-        self.noContactsView.isHidden = true
-        self.noContactsLabel.text = ""
     }
     
     func resetSearchBar() {
