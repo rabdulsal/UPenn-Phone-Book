@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="FavoritesGroupTitleView" customModule="UPHS_Phonebook" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2nQ-TD-ldb" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                    <rect key="frame" x="16" y="10.5" width="97" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vU1-PM-v37">
+                    <rect key="frame" x="121" y="10.5" width="38" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="(Edit)"/>
+                    <connections>
+                        <action selector="pressedEditButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="BIh-Nc-kkg"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Dk-7d-hWk">
+                    <rect key="frame" x="301" y="10.5" width="58" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="Email All"/>
+                    <connections>
+                        <action selector="pressedEmailButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="NuA-66-rE5"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arj-WZ-AJ1">
+                    <rect key="frame" x="243" y="10.5" width="50" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="Text All"/>
+                    <connections>
+                        <action selector="pressedTextButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="NZ3-Ad-Vqu"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="2nQ-TD-ldb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="7qs-Vz-aA1"/>
+                <constraint firstItem="vU1-PM-v37" firstAttribute="bottom" secondItem="2nQ-TD-ldb" secondAttribute="bottom" id="BqI-r1-iDo"/>
+                <constraint firstItem="2nQ-TD-ldb" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="O1l-P0-V62"/>
+                <constraint firstItem="vU1-PM-v37" firstAttribute="top" secondItem="2nQ-TD-ldb" secondAttribute="top" id="STH-oM-CM4"/>
+                <constraint firstItem="vU1-PM-v37" firstAttribute="leading" secondItem="2nQ-TD-ldb" secondAttribute="trailing" constant="8" id="TUX-0Z-gqL"/>
+                <constraint firstItem="5Dk-7d-hWk" firstAttribute="bottom" secondItem="arj-WZ-AJ1" secondAttribute="bottom" id="ZqQ-oR-Xfy"/>
+                <constraint firstItem="5Dk-7d-hWk" firstAttribute="top" secondItem="arj-WZ-AJ1" secondAttribute="top" id="a0f-tu-JvW"/>
+                <constraint firstItem="arj-WZ-AJ1" firstAttribute="top" secondItem="vU1-PM-v37" secondAttribute="top" id="bZA-Qb-rXI"/>
+                <constraint firstItem="5Dk-7d-hWk" firstAttribute="leading" secondItem="arj-WZ-AJ1" secondAttribute="trailing" constant="8" id="pGG-qU-RPr"/>
+                <constraint firstItem="arj-WZ-AJ1" firstAttribute="bottom" secondItem="vU1-PM-v37" secondAttribute="bottom" id="rP3-IC-2VD"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="5Dk-7d-hWk" secondAttribute="trailing" constant="16" id="x0R-SD-s7i"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="editButton" destination="vU1-PM-v37" id="YvE-Vi-LSB"/>
+                <outlet property="emailButton" destination="5Dk-7d-hWk" id="8P9-hO-H6T"/>
+                <outlet property="groupTitle" destination="2nQ-TD-ldb" id="esI-Yq-rwv"/>
+                <outlet property="textButton" destination="arj-WZ-AJ1" id="dI8-fb-KZV"/>
+            </connections>
+            <point key="canvasLocation" x="34.5" y="55"/>
+        </view>
+    </objects>
+</document>

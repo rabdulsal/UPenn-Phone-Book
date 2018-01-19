@@ -36,6 +36,8 @@ class FavoritesViewController : UIViewController {
         self.toggleNoFavoritesView(show: groupsCount == 0)
         return groupsCount
     }
+    let favoritesTitleNibKey = "FavoritesGroupTitleView"
+    let favoritesTitleIdentifier = "FavoritesHeader"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +70,7 @@ class FavoritesViewController : UIViewController {
         super.setup()
         self.favoritesTableView.delegate = self
         self.favoritesTableView.dataSource = self
+        self.favoritesTableView.register(UINib(nibName: self.favoritesTitleNibKey, bundle: nil), forHeaderFooterViewReuseIdentifier: self.favoritesTitleIdentifier)
         self.favoritesTableView.tableFooterView = UIView()
         self.noFavoritesView.backgroundColor = UIColor.upennLightGray
         FavoritesService.loadFavoritesData()
@@ -124,23 +127,18 @@ extension FavoritesViewController : UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return FavoritesService.getFavoritesGroupTitle(for: section)
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.favGroupsCount
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        // Create View
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
-        view.backgroundColor = UIColor.upennMediumBlue
-        // Create Label
-        let titleLabel = UPennLabel(frame: CGRect(x: 16, y: 0, width: 200, height: 30))
-        titleLabel.textColor = UIColor.white
-        titleLabel.text = FavoritesService.getFavoritesGroupTitle(for: section)
-        view.addSubview(titleLabel)
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.favoritesTitleIdentifier) as! FavoritesGroupTitleView
+        let title = FavoritesService.getFavoritesGroupTitle(for: section)
+        view.configure(with: self, groupTitle: title!, and: section)
         return view
     }
     
@@ -169,6 +167,20 @@ extension FavoritesViewController : FavoritesContactDelegate {
     func pressedEmailButton(for contact: FavoritesContact) {
         self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact), delegate: self)
         self.contactService.sendEmail()
+    }
+}
+
+extension FavoritesViewController : FavoritesGroupTitleDelegate {
+    func pressedTextGroup(groupIndex: Int) {
+        print("Pressed Text Group:",groupIndex)
+    }
+    
+    func pressedEmailGroup(groupIndex: Int) {
+        print("Pressed Email Group:",groupIndex)
+    }
+    
+    func pressedEditGroupTitle(groupIndex: Int) {
+        print("Pressed Edit Group:",groupIndex)
     }
 }
 
