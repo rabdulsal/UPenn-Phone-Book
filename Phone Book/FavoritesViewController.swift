@@ -15,6 +15,7 @@ class FavoritesViewController : UIViewController {
     enum Identifiers : String {
         case details = "ContactDetailsSegue"
         case cellIdentifier = "FavoritesCell"
+        case groupContact = "ContactGroupSegue"
     }
     
     @IBOutlet weak var favoritesTableView: UITableView!
@@ -25,6 +26,7 @@ class FavoritesViewController : UIViewController {
     
     var contactService: ContactService!
     var searchService = ContactsSearchService()
+    var contactContext : ContactGroupContext = .groupText
     var favGroupsCount : Int {
         /* Dynamically compute favoritesGroupsCount to:
          * 1. Enable/disable Editing state
@@ -38,6 +40,8 @@ class FavoritesViewController : UIViewController {
     }
     let favoritesTitleNibKey = "FavoritesGroupTitleView"
     let favoritesTitleIdentifier = "FavoritesHeader"
+    let contactGroupTitleKey = "ContactGroupTitleKey"
+    let contactGroupMembersKey = "ContactGroupMembersKey"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +66,13 @@ class FavoritesViewController : UIViewController {
             guard let contact = sender as? Contact else { return }
             let vc = segue.destination as! ContactDetailsViewController
             vc.contact = contact
+        case .groupContact:
+            guard let favGroups = sender as? FavoritesGroup else { return }
+            let navVC = segue.destination as! UINavigationController
+            navVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+            let groupContactsVC = navVC.viewControllers.first as! ContactGroupViewController
+            groupContactsVC.contactContext = self.contactContext
+            groupContactsVC.favoritesGroups = favGroups
         default: break
         }
     }
@@ -117,7 +128,7 @@ extension FavoritesViewController : UITableViewDelegate {
 extension FavoritesViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return FavoritesService.getFavoritesGroup(for: section)?.count ?? 0
+        return FavoritesService.getFavoritesContacts(for: section)?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -172,15 +183,20 @@ extension FavoritesViewController : FavoritesContactDelegate {
 
 extension FavoritesViewController : FavoritesGroupTitleDelegate {
     func pressedTextGroup(groupIndex: Int) {
-        print("Pressed Text Group:",groupIndex)
+        self.contactContext = .groupText
+        self.performContactGroupSegue(groupIndex: groupIndex)
     }
     
     func pressedEmailGroup(groupIndex: Int) {
-        print("Pressed Email Group:",groupIndex)
+        self.contactContext = .groupEmail
+        self.performContactGroupSegue(groupIndex: groupIndex)
     }
     
     func pressedEditGroupTitle(groupIndex: Int) {
         print("Pressed Edit Group:",groupIndex)
+        // Get GroupTitle
+        
+        
     }
 }
 
@@ -214,5 +230,10 @@ private extension FavoritesViewController {
             self.noFavoritesViewHeight.constant = 0
             self.noFavoritesLabel.text = ""
         }
+    }
+    
+    func performContactGroupSegue(groupIndex: Int) {
+        guard let favoritesGroup = FavoritesService.getFavoritesGroup(for: groupIndex) else { return }
+        self.performSegue(withIdentifier: Identifiers.groupContact.rawValue, sender: favoritesGroup)
     }
 }

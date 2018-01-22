@@ -29,6 +29,8 @@ class ContactService {
         self.contactDelegate = delegate
     }
     
+    // Contact Individuals
+    
     func callPhone() {
         if let phone = self.contact?.primaryTelephone, phone.isEmpty == false {
             self.callNumber(phoneNumber: phone)
@@ -43,14 +45,24 @@ class ContactService {
     
     func sendEmail() {
         if let email = self.contact?.emailAddress, email.isEmpty == false {
-            self.emailContact(emailAddress: email)
+            self.emailContact(emailAddress: [email])
         }
     }
     
     func sendText() {
         if let cell = self.contact?.cellphone, cell.isEmpty == false {
-            self.textNumber(phoneNumber: cell)
+            self.textNumber(phoneNumber: [cell])
         }
+    }
+    
+    // Contact Groups
+    
+    func textGroup(contacts: [Contact]) {
+        self.textNumber(phoneNumber: self.makeTextNumberList(from: contacts))
+    }
+    
+    func emailGroup(contacts: [Contact]) {
+        self.emailContact(emailAddress: self.makeEmailList(from: contacts))
     }
 }
 
@@ -65,9 +77,9 @@ fileprivate extension ContactService {
         self.contactDelegate?.cannotCallError()
     }
     
-    func textNumber(phoneNumber: String) {
+    func textNumber(phoneNumber: [String]) {
         DispatchQueue.main.async {
-            let recipients = [phoneNumber]
+            let recipients = phoneNumber
             if self.messagingService.canSendText {
                 let messageComposeVC = self.messagingService.configuredMessageComposeViewController(textMessageRecipients: recipients)
                 self.delegateViewController.present(messageComposeVC, animated: true, completion: nil)
@@ -77,9 +89,9 @@ fileprivate extension ContactService {
         }
     }
     
-    func emailContact(emailAddress: String) {
+    func emailContact(emailAddress: [String]) {
         DispatchQueue.main.async {
-            let recipients = [emailAddress]
+            let recipients = emailAddress
             if self.emailService.canSendMail {
                 let emailComposeVC = self.emailService.configuredMailComposeViewController(mailRecipients: recipients)
                 self.delegateViewController.present(emailComposeVC, animated: true, completion: nil)
@@ -87,5 +99,21 @@ fileprivate extension ContactService {
             }
             self.contactDelegate?.cannotEmailError()
         }
+    }
+    
+    func makeEmailList(from contacts: [Contact]) -> [String] {
+        var emailList = [String]()
+        for contact in contacts {
+            emailList.append(contact.emailAddress)
+        }
+        return emailList
+    }
+    
+    func makeTextNumberList(from contacts: [Contact]) -> [String] {
+        var textList = [String]()
+        for contact in contacts {
+            textList.append(contact.cellphone)
+        }
+        return textList
     }
 }

@@ -213,11 +213,23 @@ class FavoritesService {
     /**
      Convenience method to return Array of FavoritedContacts based on Section, when displaying in TableViews
      */
-    static func getFavoritesGroup(for section: Int) -> Array<FavoritesContact>? {
+    static func getFavoritesContacts(for section: Int) -> Array<FavoritesContact>? {
         if
             let groupTitle = self.favoritesSectionHash[section],
             let favsGroup = self.favoritesGroupHash[groupTitle] {
             return favsGroup.favoritedContacts
+        }
+        return nil
+    }
+    
+    /**
+     Convenience method to return FavoritesGroup based on Section, when displaying in TableViews
+     */
+    static func getFavoritesGroup(for section: Int) -> FavoritesGroup? {
+        if
+            let groupTitle = self.favoritesSectionHash[section],
+            let favsGroup = self.favoritesGroupHash[groupTitle] {
+            return favsGroup
         }
         return nil
     }
@@ -228,15 +240,15 @@ class FavoritesService {
     - parameter indexPath: IndexPath object providing section & row from which to fetch/return FavoriteContact
      */
     static func getFavoriteContact(with indexPath: IndexPath) -> FavoritesContact? {
-        guard let favContacts = self.getFavoritesGroup(for: indexPath.section) else { return nil }
+        guard let favContacts = self.getFavoritesContacts(for: indexPath.section) else { return nil }
         return favContacts[indexPath.row]
     }
     
     /**
      Convenience method to return Count for each FavoritesGroup when displaying in TableViews by Section
      */
-    static func getFavoritesGroupCount(for section: Int) -> Int {
-        guard let favContacts = self.getFavoritesGroup(for: section) else { return 0 }
+    static func getFavoritesContactsCount(for section: Int) -> Int {
+        guard let favContacts = self.getFavoritesContacts(for: section) else { return 0 }
         return favContacts.count
     }
     
@@ -259,8 +271,8 @@ class FavoritesService {
          Update favContact.groupName to be destination favGroup.title
          Save context
          */
-        var sourceGroup = self.getFavoritesGroup(for: source.section)
-        var destinationGroup = self.getFavoritesGroup(for: destination.section)
+        var sourceGroup = self.getFavoritesContacts(for: source.section)
+        var destinationGroup = self.getFavoritesContacts(for: destination.section)
         if sourceGroup! == destinationGroup! {
             destinationGroup?.remove(at: source.row)
         } else {

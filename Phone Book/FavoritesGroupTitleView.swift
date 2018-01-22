@@ -61,6 +61,7 @@ private extension FavoritesGroupTitleView {
     func xibSetup() {
         backgroundView = UIView(frame: bounds)
         backgroundView?.backgroundColor = UIColor.upennMediumBlue
+        self.editButton.setTitle("(Edit)", for: .normal)
         self.editButton.setTitleColor(UIColor.white, for: .normal)
         self.editButton.titleLabel?.setFontHeight(size: 13)
         self.emailButton.setTitleColor(UIColor.white, for: .normal)

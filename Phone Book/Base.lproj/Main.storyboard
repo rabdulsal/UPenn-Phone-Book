@@ -927,6 +927,7 @@
                         <outlet property="noFavoritesView" destination="cXi-3w-2Dl" id="GWd-Lw-dao"/>
                         <outlet property="noFavoritesViewHeight" destination="Pza-Id-eTf" id="FLT-qJ-zrW"/>
                         <segue destination="Ma3-x1-OmR" kind="show" identifier="ContactDetailsSegue" id="LMO-z9-AcH"/>
+                        <segue destination="HfF-o8-ySL" kind="presentation" identifier="ContactGroupSegue" id="uJu-ev-VuS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z1L-LT-lNX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1089,6 +1090,56 @@
             </objects>
             <point key="canvasLocation" x="1646" y="1057"/>
         </scene>
+        <!--Contact Group-->
+        <scene sceneID="I7V-YX-IsM">
+            <objects>
+                <viewController id="Ryo-L2-V3d" customClass="ContactGroupViewController" customModule="UPHS_Phonebook" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZoS-Fl-4ar"/>
+                        <viewControllerLayoutGuide type="bottom" id="9f7-hP-gPX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cnz-vp-xIT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dZJ-Th-YXC">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactGroupID" id="gfi-HE-AJj">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gfi-HE-AJj" id="dwO-jG-lFp">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="9f7-hP-gPX" firstAttribute="top" secondItem="dZJ-Th-YXC" secondAttribute="bottom" id="Nca-Pa-JY0"/>
+                            <constraint firstAttribute="trailing" secondItem="dZJ-Th-YXC" secondAttribute="trailing" id="Vyy-HS-T5v"/>
+                            <constraint firstItem="dZJ-Th-YXC" firstAttribute="top" secondItem="ZoS-Fl-4ar" secondAttribute="bottom" id="dkm-yY-l13"/>
+                            <constraint firstItem="dZJ-Th-YXC" firstAttribute="leading" secondItem="cnz-vp-xIT" secondAttribute="leading" id="j9W-U4-5xZ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Contact Group" id="N1x-rZ-ibW">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="9Pt-PP-nGZ">
+                            <connections>
+                                <action selector="pressedCancelButton:" destination="Ryo-L2-V3d" id="yn0-1J-Vni"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="groupTableView" destination="dZJ-Th-YXC" id="dQc-X9-DmJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TSv-Ug-odV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3269.5999999999999" y="1055.6221889055473"/>
+        </scene>
         <!--Account-->
         <scene sceneID="h8R-vj-j7j">
             <objects>
@@ -1181,6 +1232,24 @@
             </objects>
             <point key="canvasLocation" x="2510" y="-466"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gbp-Ze-jKQ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HfF-o8-ySL" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pzm-3M-zbj">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Ryo-L2-V3d" kind="relationship" relationship="rootViewController" id="2y2-Vl-g6q"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NVB-NZ-XBf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2510" y="1057"/>
+        </scene>
     </scenes>
     <resources>
         <image name="account" width="25" height="25"/>
@@ -1199,7 +1268,7 @@
         <image name="un_checked" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dh5-u8-fgQ"/>
+        <segue reference="AgV-Js-0Xu"/>
         <segue reference="LMO-z9-AcH"/>
     </inferredMetricsTieBreakers>
 </document>
