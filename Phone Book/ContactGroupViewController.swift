@@ -26,6 +26,10 @@ class ContactGroupViewController : UIViewController {
     var favoritesGroups: FavoritesGroup!
     var contactContext: ContactGroupContext = .groupText
     let identifier = "ContactGroupID"
+    var footerMessage : String {
+        let phrase = self.contactContext == .groupText ? "group-text" : "group-email"
+        return "Select the Contacts you want to \(phrase)."
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,11 +40,9 @@ class ContactGroupViewController : UIViewController {
         super.setup()
         
         // Configure TableView
-        self.groupTableView.isEditing = false
         self.groupTableView.allowsMultipleSelection = true
         self.groupTableView.delegate = self
         self.groupTableView.dataSource = self
-        self.groupTableView.tableFooterView = UIView()
         
         // NavBar Configs
         self.navigationItem.title = self.contactContext == .groupText ?
@@ -96,6 +98,24 @@ extension ContactGroupViewController : UITableViewDataSource {
         cell.selectionStyle = .none
         cell.textLabel?.text = contact.fullName
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        // Create View
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: ScreenGlobals.Width, height: 30))
+        view.backgroundColor = UIColor.upennLightGray
+        // Create Label
+        let titleLabel = UPennLabel(frame: CGRect(x: ScreenGlobals.Padding, y: 10, width: ScreenGlobals.Width - (ScreenGlobals.Padding*2), height: 20))
+        titleLabel.textColor = UIColor.upennBlack
+        titleLabel.textAlignment = .center
+        titleLabel.setFontHeight(size: 13)
+        titleLabel.text = self.footerMessage
+        view.addSubview(titleLabel)
+        return view
     }
 }
 

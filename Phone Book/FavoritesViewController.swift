@@ -149,7 +149,8 @@ extension FavoritesViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.favoritesTitleIdentifier) as! FavoritesGroupTitleView
         let title = FavoritesService.getFavoritesGroupTitle(for: section)
-        view.configure(with: self, groupTitle: title!, and: section)
+        let contactsCount = FavoritesService.getFavoritesContacts(for: section)?.count ?? 0
+        view.configure(with: self, groupTitle: title!, groupContactIsVisible: contactsCount > 1, and: section)
         return view
     }
     

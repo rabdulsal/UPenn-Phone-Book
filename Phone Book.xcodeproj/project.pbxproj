@@ -32,6 +32,7 @@
 		3A419F452016467500E91645 /* ContactGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A419F442016467400E91645 /* ContactGroupViewController.swift */; };
 		3A4C18781FE1AF0200486116 /* TouchIDService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4C18771FE1AF0200486116 /* TouchIDService.swift */; };
 		3A5DCD441FF4237400EF470B /* TouchIDEnableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5DCD431FF4237400EF470B /* TouchIDEnableCell.swift */; };
+		3A6891272017AD2B005C91EC /* ScreenGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6891262017AD2B005C91EC /* ScreenGlobals.swift */; };
 		3A70DBCC1FE17548006556D6 /* AddressBookService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70DBCB1FE17548006556D6 /* AddressBookService.swift */; };
 		3A7FAE3D1FA78F42009765F8 /* UILabel+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FAE3C1FA78F42009765F8 /* UILabel+UPenn.swift */; };
 		3A7FAE3F1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FAE3E1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift */; };
@@ -106,6 +107,7 @@
 		3A419F442016467400E91645 /* ContactGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactGroupViewController.swift; sourceTree = "<group>"; };
 		3A4C18771FE1AF0200486116 /* TouchIDService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchIDService.swift; sourceTree = "<group>"; };
 		3A5DCD431FF4237400EF470B /* TouchIDEnableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchIDEnableCell.swift; sourceTree = "<group>"; };
+		3A6891262017AD2B005C91EC /* ScreenGlobals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenGlobals.swift; sourceTree = "<group>"; };
 		3A70DBCB1FE17548006556D6 /* AddressBookService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookService.swift; sourceTree = "<group>"; };
 		3A7FAE3C1FA78F42009765F8 /* UILabel+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+UPenn.swift"; sourceTree = "<group>"; };
 		3A7FAE3E1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesGroupsListViewController.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 			children = (
 				3ACFC7DA1FC3692B00D472FB /* main.swift */,
 				3ACFC7D81FC367FC00D472FB /* TimerUIApplication.swift */,
+				3A6891262017AD2B005C91EC /* ScreenGlobals.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -705,6 +708,7 @@
 				3A317CD91F9FD35F00786C95 /* FavoriteContact+CoreDataClass.swift in Sources */,
 				3A26C1E31F97D3BD005C88C9 /* KeyChainConfiguration.swift in Sources */,
 				3A26C1E11F97D372005C88C9 /* KeychainPasswordItem.swift in Sources */,
+				3A6891272017AD2B005C91EC /* ScreenGlobals.swift in Sources */,
 				3A317CCB1F9F9FFD00786C95 /* UIViewController+UPenn.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
