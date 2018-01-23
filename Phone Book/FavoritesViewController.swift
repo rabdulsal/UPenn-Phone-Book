@@ -38,10 +38,10 @@ class FavoritesViewController : UIViewController {
         self.toggleNoFavoritesView(show: groupsCount == 0)
         return groupsCount
     }
-    let favoritesTitleNibKey = "FavoritesGroupTitleView"
+    let favoritesTitleNibKey     = "FavoritesGroupTitleView"
     let favoritesTitleIdentifier = "FavoritesHeader"
-    let contactGroupTitleKey = "ContactGroupTitleKey"
-    let contactGroupMembersKey = "ContactGroupMembersKey"
+    let contactGroupTitleKey     = "ContactGroupTitleKey"
+    let contactGroupMembersKey   = "ContactGroupMembersKey"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -201,16 +201,16 @@ extension FavoritesViewController : FavoritesGroupTitleDelegate {
 }
 
 extension FavoritesViewController : ContactServicable {
-    func cannotEmailError() {
-        SVProgressHUD.showError(withStatus: "Sorry, something went wrong. Cannot send email at this time.")
+    func cannotEmailError(message: String) {
+        SVProgressHUD.showError(withStatus: message)
     }
     
-    func cannotTextError() {
-        SVProgressHUD.showError(withStatus: "Sorry, something went wrong. Cannot send text at this time.")
+    func cannotTextError(message: String) {
+        SVProgressHUD.showError(withStatus: message)
     }
     
-    func cannotCallError() {
-        SVProgressHUD.showError(withStatus: "Sorry, something went wrong. Cannot make call at this time.")
+    func cannotCallError(message: String) {
+        SVProgressHUD.showError(withStatus: message)
     }
 }
 

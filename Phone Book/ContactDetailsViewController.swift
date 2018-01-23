@@ -294,15 +294,15 @@ extension ContactDetailsViewController : AddressBookDelegate {
 }
 
 extension ContactDetailsViewController : ContactServicable {
-    func cannotEmailError() {
-        SVProgressHUD.showError(withStatus: "Sorry, something went wrong. Cannot send email at this time.")
+    func cannotEmailError(message: String) {
+        SVProgressHUD.showError(withStatus: message)
     }
     
-    func cannotTextError() {
-        SVProgressHUD.showError(withStatus: "Sorry, something went wrong. Cannot send at this time.")
+    func cannotTextError(message: String) {
+        SVProgressHUD.showError(withStatus: message)
     }
     
-    func cannotCallError() {
-        SVProgressHUD.showError(withStatus: "Sorry, something went wrong. Cannot make call at this time.")
+    func cannotCallError(message: String) {
+        SVProgressHUD.showError(withStatus: message)
     }
 }

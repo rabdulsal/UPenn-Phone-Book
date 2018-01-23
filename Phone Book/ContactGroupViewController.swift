@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SVProgressHUD
 
 enum ContactGroupContext : String {
     case groupText = "text"
@@ -21,6 +22,7 @@ class ContactGroupViewController : UIViewController {
     fileprivate var groupContacts : [FavoritesContact] {
         return self.favoritesGroups.favoritedContacts
     }
+    var contactService: ContactService!
     var favoritesGroups: FavoritesGroup!
     var contactContext: ContactGroupContext = .groupText
     let identifier = "ContactGroupID"
@@ -34,6 +36,8 @@ class ContactGroupViewController : UIViewController {
         super.setup()
         
         // Configure TableView
+        self.groupTableView.isEditing = false
+        self.groupTableView.allowsMultipleSelection = true
         self.groupTableView.delegate = self
         self.groupTableView.dataSource = self
         self.groupTableView.tableFooterView = UIView()
@@ -42,7 +46,9 @@ class ContactGroupViewController : UIViewController {
         self.navigationItem.title = self.contactContext == .groupText ?
             "Text \(self.favoritesGroups.title)" :
             "Email \(self.favoritesGroups.title)"
-        self.navigationItem.rightBarButtonItem = editButtonItem
+        
+        // ContactService
+        self.contactService = ContactService(viewController: self, contacts: self.groupContacts, delegate: self)
     }
     
     // MARK: IBActions
@@ -54,6 +60,20 @@ class ContactGroupViewController : UIViewController {
 
 extension ContactGroupViewController : UITableViewDelegate {
     
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        let contact = self.groupContacts[indexPath.row]
+        cell?.accessoryType = .checkmark
+        self.contactService.addToContactGroup(contact)
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        let contact = self.groupContacts[indexPath.row]
+        cell?.accessoryType = .none
+        self.contactService.removeFromContactGroup(contact)
+    }
 }
 
 extension ContactGroupViewController : UITableViewDataSource {
@@ -66,9 +86,29 @@ extension ContactGroupViewController : UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: self.identifier) as! UITableViewCell
         let contact = self.groupContacts[indexPath.row]
+        if self.contactService.reconcileContactSelectionState(contact: contact) {
+            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            cell.accessoryType = .checkmark
+        } else {
+            tableView.deselectRow(at: indexPath, animated: false)
+            cell.accessoryType = .none
+        }
+        cell.selectionStyle = .none
         cell.textLabel?.text = contact.fullName
         return cell
     }
+}
+
+extension ContactGroupViewController : ContactServicable {
+    func cannotEmailError(message: String) {
+        SVProgressHUD.showError(withStatus: message)
+    }
     
+    func cannotTextError(message: String) {
+        SVProgressHUD.showError(withStatus: message)
+    }
     
+    func cannotCallError(message: String) {
+        SVProgressHUD.showError(withStatus: message)
+    }
 }

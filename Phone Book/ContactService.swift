@@ -10,22 +10,31 @@ import Foundation
 import UIKit
 
 protocol ContactServicable {
-    func cannotEmailError()
-    func cannotTextError()
-    func cannotCallError()
+    func cannotEmailError(message: String)
+    func cannotTextError(message: String)
+    func cannotCallError(message: String)
 }
 
 class ContactService {
-    
+    let cannotEmailError = "Sorry, something went wrong. Cannot send email at this time."
+    let cannotTextError = "Sorry, something went wrong. Cannot send at this time."
+    let cannotCallError = "Sorry, something went wrong. Cannot make call at this time."
     let messagingService = MessagingService()
     let emailService = EmailService()
     var delegateViewController: UIViewController
-    var contact: Contact!
+    var contact: Contact?
+    var favoriteContacts = [FavoritesContact]()
     var contactDelegate: ContactServicable?
     
     init(viewController: UIViewController, contact: Contact, delegate: ContactServicable) {
         self.delegateViewController = viewController
         self.contact = contact
+        self.contactDelegate = delegate
+    }
+    
+    init(viewController: UIViewController, contacts: [FavoritesContact], delegate: ContactServicable) {
+        self.delegateViewController = viewController
+        self.favoriteContacts = contacts
         self.contactDelegate = delegate
     }
     
@@ -57,12 +66,26 @@ class ContactService {
     
     // Contact Groups
     
-    func textGroup(contacts: [Contact]) {
-        self.textNumber(phoneNumber: self.makeTextNumberList(from: contacts))
+    func textGroup() {
+        self.textNumber(phoneNumber: self.makeTextNumberList(from: self.favoriteContacts))
     }
     
-    func emailGroup(contacts: [Contact]) {
-        self.emailContact(emailAddress: self.makeEmailList(from: contacts))
+    func emailGroup() {
+        self.emailContact(emailAddress: self.makeEmailList(from: self.favoriteContacts))
+    }
+    
+    // Group Contact Management
+    func reconcileContactSelectionState(contact: FavoritesContact) -> Bool {
+        return self.favoriteContacts.filter { $0.fullName == contact.fullName }.count != 0
+    }
+    
+    func addToContactGroup(_ contact: FavoritesContact) {
+        self.favoriteContacts.append(contact)
+    }
+    
+    func removeFromContactGroup(_ contact: FavoritesContact) {
+        guard let idx = self.favoriteContacts.index(of: contact) else { return }
+        self.favoriteContacts.remove(at: idx)
     }
 }
 
@@ -74,7 +97,7 @@ fileprivate extension ContactService {
                 return
             }
         }
-        self.contactDelegate?.cannotCallError()
+        self.contactDelegate?.cannotCallError(message: self.cannotCallError)
     }
     
     func textNumber(phoneNumber: [String]) {
@@ -85,7 +108,7 @@ fileprivate extension ContactService {
                 self.delegateViewController.present(messageComposeVC, animated: true, completion: nil)
                 return
             }
-            self.contactDelegate?.cannotTextError()
+            self.contactDelegate?.cannotTextError(message: self.cannotTextError)
         }
     }
     
@@ -97,22 +120,26 @@ fileprivate extension ContactService {
                 self.delegateViewController.present(emailComposeVC, animated: true, completion: nil)
                 return
             }
-            self.contactDelegate?.cannotEmailError()
+            self.contactDelegate?.cannotEmailError(message: self.cannotEmailError)
         }
     }
     
-    func makeEmailList(from contacts: [Contact]) -> [String] {
+    func makeEmailList(from contacts: [FavoritesContact]) -> [String] {
         var emailList = [String]()
         for contact in contacts {
-            emailList.append(contact.emailAddress)
+            if let email = contact.emailAddress {
+                emailList.append(email)
+            }
         }
         return emailList
     }
     
-    func makeTextNumberList(from contacts: [Contact]) -> [String] {
+    func makeTextNumberList(from contacts: [FavoritesContact]) -> [String] {
         var textList = [String]()
         for contact in contacts {
-            textList.append(contact.cellphone)
+            if let cell = contact.cellphone {
+                textList.append(cell)
+            }
         }
         return textList
     }
