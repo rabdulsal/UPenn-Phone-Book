@@ -29,7 +29,7 @@ class FavoritesGroupsListViewController : UIViewController {
     
     lazy var favoritesAlertController : UIAlertController = {
         let alertController = UIAlertController(title: "New Favorites Group", message: "Create a name for you new Favorite group", preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "Create", style: .default, handler: {
+        self.createFavoritesAction = UIAlertAction(title: "Create", style: .default, handler: {
             alert -> Void in
             let textField = alertController.textFields?.first
             if let title = textField?.text, title.isEmpty == false  {
@@ -40,18 +40,18 @@ class FavoritesGroupsListViewController : UIViewController {
                         self.dismissWithSuccess(groupTitle: title)
                     }
                 })
-            } else {
-                SVProgressHUD.showError(withStatus: "Must provide a Group Name")
             }
         })
+        self.createFavoritesAction.isEnabled = false
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
             (action : UIAlertAction!) -> Void in
         })
         alertController.addTextField { (textField : UITextField!) -> Void in
             textField.placeholder = "Type group name"
+            textField.addTarget(self, action: #selector(self.createFavoritesTextFieldDidChange(_:)), for: .editingChanged)
         }
         alertController.addAction(cancelAction)
-        alertController.addAction(saveAction)
+        alertController.addAction(self.createFavoritesAction)
         return alertController
     }()
     
@@ -136,5 +136,11 @@ private extension FavoritesGroupsListViewController {
     
     func updateFavoritesViewInstructions(hasFavorites: Bool) {
         self.noGroupsLabel.text = hasFavorites ? "You have no favorites groups. Create one now by pressing the '+' button." : "Add this person to one of your favorites groups below or select the '+' to create a new group."
+    }
+    
+    @objc func createFavoritesTextFieldDidChange(_ textField: UITextField) {
+        if let text = textField.text, !text.isEmpty {
+            self.createFavoritesAction.isEnabled = true
+        }
     }
 }

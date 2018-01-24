@@ -1131,8 +1131,14 @@
                                 <action selector="pressedCancelButton:" destination="Ryo-L2-V3d" id="yn0-1J-Vni"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="26D-Tb-0DP">
+                            <connections>
+                                <action selector="pressedDontButton:" destination="Ryo-L2-V3d" id="R2o-xF-Isr"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="doneButton" destination="26D-Tb-0DP" id="Wut-Ve-4QR"/>
                         <outlet property="groupTableView" destination="dZJ-Th-YXC" id="dQc-X9-DmJ"/>
                     </connections>
                 </viewController>

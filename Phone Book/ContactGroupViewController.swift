@@ -18,6 +18,7 @@ enum ContactGroupContext : String {
 class ContactGroupViewController : UIViewController {
     
     @IBOutlet weak var groupTableView: UITableView!
+    @IBOutlet weak var doneButton: UIBarButtonItem!
     
     fileprivate var groupContacts : [FavoritesContact] {
         return self.favoritesGroups.favoritedContacts
@@ -58,6 +59,12 @@ class ContactGroupViewController : UIViewController {
     @IBAction func pressedCancelButton(_ sender: Any) {
         self.dismiss()
     }
+    
+    @IBAction func pressedDontButton(_ sender: Any) {
+        self.contactContext == .groupText ? self.contactService.textGroup() :
+            self.contactService.emailGroup()
+    }
+    
 }
 
 extension ContactGroupViewController : UITableViewDelegate {
@@ -67,14 +74,18 @@ extension ContactGroupViewController : UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)
         let contact = self.groupContacts[indexPath.row]
         cell?.accessoryType = .checkmark
-        self.contactService.addToContactGroup(contact)
+        self.contactService.addToContactGroup(contact) { (hasContacts) in
+            self.toggleDoneButton(isEnabled: hasContacts)
+        }
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         let contact = self.groupContacts[indexPath.row]
         cell?.accessoryType = .none
-        self.contactService.removeFromContactGroup(contact)
+        self.contactService.removeFromContactGroup(contact) { (hasContacts) in
+            self.toggleDoneButton(isEnabled: hasContacts)
+        }
     }
 }
 
@@ -130,5 +141,11 @@ extension ContactGroupViewController : ContactServicable {
     
     func cannotCallError(message: String) {
         SVProgressHUD.showError(withStatus: message)
+    }
+}
+
+fileprivate extension ContactGroupViewController {
+    func toggleDoneButton(isEnabled: Bool) {
+        self.doneButton.isEnabled = isEnabled
     }
 }

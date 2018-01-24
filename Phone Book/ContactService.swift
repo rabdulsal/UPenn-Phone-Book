@@ -17,7 +17,7 @@ protocol ContactServicable {
 
 class ContactService {
     let cannotEmailError = "Sorry, something went wrong. Cannot send email at this time."
-    let cannotTextError = "Sorry, something went wrong. Cannot send at this time."
+    let cannotTextError = "Sorry, something went wrong. Cannot send text at this time."
     let cannotCallError = "Sorry, something went wrong. Cannot make call at this time."
     let messagingService = MessagingService()
     let emailService = EmailService()
@@ -79,13 +79,15 @@ class ContactService {
         return self.favoriteContacts.filter { $0.fullName == contact.fullName }.count != 0
     }
     
-    func addToContactGroup(_ contact: FavoritesContact) {
+    func addToContactGroup(_ contact: FavoritesContact, completion:(_ hasFavorites: Bool)->Void) {
         self.favoriteContacts.append(contact)
+        completion(self.favoriteContacts.count>0)
     }
     
-    func removeFromContactGroup(_ contact: FavoritesContact) {
+    func removeFromContactGroup(_ contact: FavoritesContact, completion:(_ hasFavorites: Bool)->Void) {
         guard let idx = self.favoriteContacts.index(of: contact) else { return }
         self.favoriteContacts.remove(at: idx)
+        completion(self.favoriteContacts.count>0)
     }
 }
 
