@@ -25,6 +25,7 @@ class FavoritesGroupsListViewController : UIViewController {
         return allFavorites
     }
     var addFavoritesDelegate: AddToFavoritesDelegate?
+    var createFavoritesAction: UIAlertAction!
     
     lazy var favoritesAlertController : UIAlertController = {
         let alertController = UIAlertController(title: "New Favorites Group", message: "Create a name for you new Favorite group", preferredStyle: .alert)
@@ -65,6 +66,7 @@ class FavoritesGroupsListViewController : UIViewController {
         self.groupsTableView.tableFooterView = UIView()
         self.noGroupsView.backgroundColor = UIColor.upennLightGray
         self.noGroupsViewHeight.constant = 100
+        
     }
     
     @IBAction func newFavoritesGroupButtonPressed(_ sender: Any) {

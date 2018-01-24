@@ -211,6 +211,26 @@ class FavoritesService {
     }
     
     /**
+     Convenience method to update FavoritesGroup title
+     - parameters:
+        - oldTitle: Old FavoritesGroup title to be changed
+        - newTitle: New FavoritesGroup title to be updated
+     */
+    static func updateFavoritesGroupTitle(from oldTitle: String, to newTitle: String) {
+        // Get Favorites Group using oldTitle & copy
+        guard
+            let favorites = favoritesGroupHash[oldTitle]?.favoritedContacts,
+            let appDelegate = self.appDelegate else { return }
+        // Loop through all favContacts, update the groupNames & save
+        for favContact in favorites {
+            favContact.groupName = newTitle
+        }
+        appDelegate.saveContext()
+        // Reload FavoritesData
+        self.loadFavoritesData()
+    }
+    
+    /**
      Convenience method to return Array of FavoritedContacts based on Section, when displaying in TableViews
      */
     static func getFavoritesContacts(for section: Int) -> Array<FavoritesContact>? {
@@ -261,8 +281,8 @@ class FavoritesService {
      */
     static func moveContact(from source: IndexPath, to destination: IndexPath) {
         guard
-            let favContact = FavoritesService.getFavoriteContact(with: source),
-            let appDelegate = FavoritesService.appDelegate else { return }
+            let favContact = self.getFavoriteContact(with: source),
+            let appDelegate = self.appDelegate else { return }
         /*
          Get source Group using indexPath.section
          Remove favContact from that Group using indexPath.row

@@ -12,7 +12,7 @@ import SVProgressHUD
 
 class FavoritesViewController : UIViewController {
     
-    enum Identifiers : String {
+    fileprivate enum Identifiers : String {
         case details = "ContactDetailsSegue"
         case cellIdentifier = "FavoritesCell"
         case groupContact = "ContactGroupSegue"
@@ -24,10 +24,11 @@ class FavoritesViewController : UIViewController {
     @IBOutlet weak var noFavoritesViewHeight: NSLayoutConstraint!
     @IBOutlet weak var noFavoritesLabel: NoDataInstructionsLabel!
     
-    var contactService: ContactService!
-    var searchService = ContactsSearchService()
-    var contactContext : ContactGroupContext = .groupText
-    var favGroupsCount : Int {
+    fileprivate var contactService: ContactService!
+    fileprivate var searchService = ContactsSearchService()
+    fileprivate var contactContext : ContactGroupContext = .groupText
+    fileprivate var selectedGroupTitle = ""
+    fileprivate var favGroupsCount : Int {
         /* Dynamically compute favoritesGroupsCount to:
          * 1. Enable/disable Editing state
          * 2. Toggle NoFavoritesView
@@ -38,10 +39,37 @@ class FavoritesViewController : UIViewController {
         self.toggleNoFavoritesView(show: groupsCount == 0)
         return groupsCount
     }
-    let favoritesTitleNibKey     = "FavoritesGroupTitleView"
-    let favoritesTitleIdentifier = "FavoritesHeader"
-    let contactGroupTitleKey     = "ContactGroupTitleKey"
-    let contactGroupMembersKey   = "ContactGroupMembersKey"
+    fileprivate let favoritesTitleNibKey     = "FavoritesGroupTitleView"
+    fileprivate let favoritesTitleIdentifier = "FavoritesHeader"
+    fileprivate let contactGroupTitleKey     = "ContactGroupTitleKey"
+    fileprivate let contactGroupMembersKey   = "ContactGroupMembersKey"
+    fileprivate var updateFavoritesAction: UIAlertAction!
+    fileprivate var editFavoritesGroupAlert : UIAlertController {
+        let alertController = UIAlertController(
+            title: "Rename Favorites Group '\(self.selectedGroupTitle)'",
+            message: "Type a new name for '\(self.selectedGroupTitle)' Group.",
+            preferredStyle: .alert
+        )
+        self.updateFavoritesAction = UIAlertAction(title: "Save", style: .default, handler: {
+            alert -> Void in
+            let textField = alertController.textFields?.first
+            if let title = textField?.text, title.isEmpty == false  {
+                FavoritesService.updateFavoritesGroupTitle(from: self.selectedGroupTitle, to: title)
+                self.favoritesTableView.reloadData()
+            }
+        })
+        self.updateFavoritesAction.isEnabled = false
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+            (action : UIAlertAction!) -> Void in
+        })
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Type new group name"
+            textField.addTarget(self, action: #selector(self.updateFavoritesTextFieldDidChange(_:)), for: .editingChanged)
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(self.updateFavoritesAction)
+        return alertController
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -160,6 +188,8 @@ extension FavoritesViewController : UITableViewDataSource {
     }
 }
 
+// MARK: - FavoritesContactDelegate
+
 extension FavoritesViewController : FavoritesContactDelegate {
     func pressedCallPhoneButton(for contact: FavoritesContact) {
         self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact), delegate: self)
@@ -182,6 +212,8 @@ extension FavoritesViewController : FavoritesContactDelegate {
     }
 }
 
+// MARK: - FavoritesGroupTitleDelegate
+
 extension FavoritesViewController : FavoritesGroupTitleDelegate {
     func pressedTextGroup(groupIndex: Int) {
         self.contactContext = .groupText
@@ -194,12 +226,13 @@ extension FavoritesViewController : FavoritesGroupTitleDelegate {
     }
     
     func pressedEditGroupTitle(groupIndex: Int) {
-        print("Pressed Edit Group:",groupIndex)
-        // Get GroupTitle
-        
-        
+        guard let favoritesGroup = FavoritesService.getFavoritesGroup(for: groupIndex) else { return }
+        self.selectedGroupTitle = favoritesGroup.title
+        self.present(self.editFavoritesGroupAlert, animated: true, completion: nil)
     }
 }
+
+// MARK: - ContactServicable
 
 extension FavoritesViewController : ContactServicable {
     func cannotEmailError(message: String) {
@@ -214,6 +247,8 @@ extension FavoritesViewController : ContactServicable {
         SVProgressHUD.showError(withStatus: message)
     }
 }
+
+// MARK: - Private
 
 private extension FavoritesViewController {
     func toggleEditing(_ isEditing: Bool) {
@@ -236,5 +271,11 @@ private extension FavoritesViewController {
     func performContactGroupSegue(groupIndex: Int) {
         guard let favoritesGroup = FavoritesService.getFavoritesGroup(for: groupIndex) else { return }
         self.performSegue(withIdentifier: Identifiers.groupContact.rawValue, sender: favoritesGroup)
+    }
+    
+    @objc func updateFavoritesTextFieldDidChange(_ textField: UITextField) {
+        if let text = textField.text, !text.isEmpty {
+            self.updateFavoritesAction.isEnabled = true
+        }
     }
 }
