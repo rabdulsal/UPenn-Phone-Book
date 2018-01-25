@@ -28,6 +28,14 @@ extension UITextField {
         inputAccessoryView = keyBoardToolbar
     }
     
+    func toggleAlertAction(action: UIAlertAction) {
+        if let text = self.text, text.isBlankSpaceTrimmed {
+            action.isEnabled = true
+        } else {
+            action.isEnabled = false
+        }
+    }
+    
     func removeDoneButton() {
         inputAccessoryView = nil
     }

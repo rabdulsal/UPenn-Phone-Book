@@ -54,8 +54,13 @@ class FavoritesViewController : UIViewController {
             alert -> Void in
             let textField = alertController.textFields?.first
             if let title = textField?.text, title.isEmpty == false  {
-                FavoritesService.updateFavoritesGroupTitle(from: self.selectedGroupTitle, to: title)
-                self.favoritesTableView.reloadData()
+                FavoritesService.updateFavoritesGroupTitle(from: self.selectedGroupTitle, to: title.trim, completion: { (errorString) in
+                    if let e = errorString {
+                        SVProgressHUD.showError(withStatus: e)
+                    } else {
+                        self.favoritesTableView.reloadData()
+                    }
+                })
             }
         })
         self.updateFavoritesAction.isEnabled = false
@@ -274,8 +279,6 @@ private extension FavoritesViewController {
     }
     
     @objc func updateFavoritesTextFieldDidChange(_ textField: UITextField) {
-        if let text = textField.text, !text.isEmpty {
-            self.updateFavoritesAction.isEnabled = true
-        }
+        textField.toggleAlertAction(action: self.updateFavoritesAction)
     }
 }

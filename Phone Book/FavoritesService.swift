@@ -22,7 +22,7 @@ typealias AddContactHandler = (_ contact: FavoritesContact?, _ errorString: Stri
  - parameters:
  - success: Bool returning a failed/successful execution
  */
-typealias SuccessHandler = (_ errorString: String?)->Void
+typealias ErrorStringHandler = (_ errorString: String?)->Void
 
 class FavoritesGroup {
     var title: String
@@ -60,8 +60,8 @@ class FavoritesService {
         - groupTitle: String representing the title of the New Favorites Group.
         - completion: Invoked upon successful/failed attempt to add to Favorites cache.
     */
-    static func addNewFavorite(_ contact: Contact, groupTitle: String, completion: @escaping (SuccessHandler)) {
-        
+    static func addNewFavorite(_ contact: Contact, groupTitle: String, completion: @escaping (ErrorStringHandler)) {
+        // If groupTitle already exists, add to existing FavoritesGroup; make new FavoritesGroup if not
         guard let _ = self.favoritesGroupHash[groupTitle] else {
             self.addToFavorites(contact, groupTitle: groupTitle) { (favContact, errorStr) in
                 self.updateFavoriteSuccessHandler(favContact, errorStr, completion: completion)
@@ -100,17 +100,10 @@ class FavoritesService {
         - groupTitle: String representing the title of the existing Favorites Group.
         - completion: Invoked upon successful/failed attempt to add to Favorites cache.
      */
-    static func addFavoriteContactToExistingGroup(contact: Contact, groupTitle: String, completion: @escaping (SuccessHandler)) {
+    static func addFavoriteContactToExistingGroup(contact: Contact, groupTitle: String, completion: @escaping (ErrorStringHandler)) {
         self.addToFavorites(contact, groupTitle: groupTitle) { (favContact, errorString) in
             self.updateFavoriteSuccessHandler(favContact, errorString, completion: completion)
         }
-    }
-    
-    static func updateFavoriteSuccessHandler(_ contact: FavoritesContact?, _ errorString: String?, completion: @escaping (SuccessHandler)) {
-        if let error = errorString {
-            completion(error)
-        }
-        completion(nil)
     }
     
     /**
@@ -120,7 +113,7 @@ class FavoritesService {
         - contact: Contact object to be removed from the Favorites cache.
         - completion: Invoked upon successful/failed attempt to remove from Favorites cache.
      */
-    static func removeFromFavorites(contact: Contact, completion: (SuccessHandler)) {
+    static func removeFromFavorites(contact: Contact, completion: (ErrorStringHandler)) {
         guard let appDelegate = self.appDelegate, let managedContext = self.managedContext else { return }
         if let favContact = self.getFavoriteContact(contact) {
             managedContext.delete(favContact)
@@ -138,7 +131,7 @@ class FavoritesService {
         - favoriteContact: FavoriteContact object to be removed from the Favorites cache.
         - completion: Invoked upon successful/failed attempt to remove from Favorites cache.
      */
-    static func removeFromFavorites(favoriteContact: FavoritesContact, completion: (SuccessHandler)) {
+    static func removeFromFavorites(favoriteContact: FavoritesContact, completion: (ErrorStringHandler)) {
         guard let appDelegate = self.appDelegate, let managedContext = self.managedContext else {
             completion(UpdateError)
             return
@@ -224,18 +217,24 @@ class FavoritesService {
         - oldTitle: Old FavoritesGroup title to be changed
         - newTitle: New FavoritesGroup title to be updated
      */
-    static func updateFavoritesGroupTitle(from oldTitle: String, to newTitle: String) {
-        // Get Favorites Group using oldTitle & copy
-        guard
-            let favorites = favoritesGroupHash[oldTitle]?.favoritedContacts,
-            let appDelegate = self.appDelegate else { return }
-        // Loop through all favContacts, update the groupNames & save
-        for favContact in favorites {
-            favContact.groupName = newTitle
+    static func updateFavoritesGroupTitle(from oldTitle: String, to newTitle: String, completion: @escaping (ErrorStringHandler)) {
+        // If newTitle already exists for another group, return error
+        guard let _ = favoritesGroupHash[newTitle] else {
+            // Get Favorites Group using oldTitle & copy
+            guard
+                let favorites = favoritesGroupHash[oldTitle]?.favoritedContacts,
+                let appDelegate = self.appDelegate else { return }
+            // Loop through all favContacts, update the groupNames & save
+            for favContact in favorites {
+                favContact.groupName = newTitle
+            }
+            appDelegate.saveContext()
+            // Reload FavoritesData
+            self.loadFavoritesData()
+            completion(nil)
+            return
         }
-        appDelegate.saveContext()
-        // Reload FavoritesData
-        self.loadFavoritesData()
+        completion("Please use a unique title for updating your Favorites Group.")
     }
     
     /**
@@ -372,6 +371,20 @@ private extension FavoritesService {
         guard
             let favorites = favoritesGroupHash[groupTitle]?.favoritedContacts else { return 0.0 }
         return Double(favorites.count)
+    }
+    /**
+     Method takes a FavoritesContact parameter and returns a SucceHandler closure
+     
+     - parameters:
+     - favoriteContact: Optional FavoriteContact added to the Favorites cache.
+     - errorString: Optional error string returned if failed to add FavoritesContact
+     - completion: Invoked upon successful/failed attempt to remove from Favorites cache.
+    */
+    static func updateFavoriteSuccessHandler(_ contact: FavoritesContact?, _ errorString: String?, completion: @escaping (ErrorStringHandler)) {
+        if let error = errorString {
+            completion(error)
+        }
+        completion(nil)
     }
     
     /**

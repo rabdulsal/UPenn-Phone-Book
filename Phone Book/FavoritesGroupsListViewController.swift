@@ -27,7 +27,7 @@ class FavoritesGroupsListViewController : UIViewController {
     var addFavoritesDelegate: AddToFavoritesDelegate?
     var createFavoritesAction: UIAlertAction!
     
-    lazy var favoritesAlertController : UIAlertController = {
+    var favoritesAlertController : UIAlertController {
         let alertController = UIAlertController(title: "New Favorites Group", message: "Create a name for your new Favorite group", preferredStyle: .alert)
         self.createFavoritesAction = UIAlertAction(title: "Create", style: .default, handler: {
             alert -> Void in
@@ -54,7 +54,7 @@ class FavoritesGroupsListViewController : UIViewController {
         alertController.addAction(cancelAction)
         alertController.addAction(self.createFavoritesAction)
         return alertController
-    }()
+    }
     
     override func viewDidLoad() {
         self.setup()
@@ -142,10 +142,6 @@ private extension FavoritesGroupsListViewController {
     }
     
     @objc func createFavoritesTextFieldDidChange(_ textField: UITextField) {
-        if let text = textField.text, !text.isEmpty {
-            self.createFavoritesAction.isEnabled = true
-        } else {
-            self.createFavoritesAction.isEnabled = false
-        }
+        textField.toggleAlertAction(action: self.createFavoritesAction)
     }
 }
