@@ -28,12 +28,12 @@ class FavoritesGroupsListViewController : UIViewController {
     var createFavoritesAction: UIAlertAction!
     
     lazy var favoritesAlertController : UIAlertController = {
-        let alertController = UIAlertController(title: "New Favorites Group", message: "Create a name for you new Favorite group", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "New Favorites Group", message: "Create a name for your new Favorite group", preferredStyle: .alert)
         self.createFavoritesAction = UIAlertAction(title: "Create", style: .default, handler: {
             alert -> Void in
             let textField = alertController.textFields?.first
             if let title = textField?.text, title.isEmpty == false  {
-                FavoritesService.addNewFavorite(self.contact, groupTitle: title, completion: { (favContact, errorString) in
+                FavoritesService.addNewFavorite(self.contact, groupTitle: title, completion: { (errorString) in
                     if let e = errorString {
                         SVProgressHUD.showError(withStatus: e)
                     } else {
@@ -42,12 +42,13 @@ class FavoritesGroupsListViewController : UIViewController {
                 })
             }
         })
-        self.createFavoritesAction.isEnabled = false
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
             (action : UIAlertAction!) -> Void in
         })
         alertController.addTextField { (textField : UITextField!) -> Void in
             textField.placeholder = "Type group name"
+            // Pre-populated Group Name
+            textField.text = "My Favorites"
             textField.addTarget(self, action: #selector(self.createFavoritesTextFieldDidChange(_:)), for: .editingChanged)
         }
         alertController.addAction(cancelAction)
@@ -85,8 +86,10 @@ extension FavoritesGroupsListViewController : UITableViewDelegate {
             SVProgressHUD.showError(withStatus: "Sorry, something went wrong.")
             return
         }
-        FavoritesService.addFavoriteContactToExistingGroup(contact: self.contact, groupTitle: title) { (success) in
-            if success {
+        FavoritesService.addFavoriteContactToExistingGroup(contact: self.contact, groupTitle: title) { (errorString) in
+            if let error = errorString {
+                SVProgressHUD.showError(withStatus: error)
+            } else {
                 self.dismissWithSuccess(groupTitle: title)
             }
         }
@@ -141,6 +144,8 @@ private extension FavoritesGroupsListViewController {
     @objc func createFavoritesTextFieldDidChange(_ textField: UITextField) {
         if let text = textField.text, !text.isEmpty {
             self.createFavoritesAction.isEnabled = true
+        } else {
+            self.createFavoritesAction.isEnabled = false
         }
     }
 }

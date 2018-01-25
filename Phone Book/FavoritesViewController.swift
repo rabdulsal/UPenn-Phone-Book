@@ -141,11 +141,11 @@ extension FavoritesViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         guard let favContact = FavoritesService.getFavoriteContact(with: indexPath) else { return }
         if editingStyle == .delete {
-            FavoritesService.removeFromFavorites(favoriteContact: favContact, completion: { (success) in
-                if success {
-                    self.favoritesTableView.reloadData()
+            FavoritesService.removeFromFavorites(favoriteContact: favContact, completion: { (errorString) in
+                if let e = errorString {
+                    SVProgressHUD.showError(withStatus: e)
                 } else {
-                    SVProgressHUD.showError(withStatus: "Sorry, there was an error updating this record.")
+                    self.favoritesTableView.reloadData()
                 }
             })
         }
