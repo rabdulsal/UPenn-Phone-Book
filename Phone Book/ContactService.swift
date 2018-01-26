@@ -129,7 +129,7 @@ fileprivate extension ContactService {
     func makeEmailList(from contacts: [FavoritesContact]) -> [String] {
         var emailList = [String]()
         for contact in contacts {
-            if let email = contact.emailAddress {
+            if let email = contact.emailAddress, !email.isEmpty {
                 emailList.append(email)
             }
         }
@@ -139,7 +139,7 @@ fileprivate extension ContactService {
     func makeTextNumberList(from contacts: [FavoritesContact]) -> [String] {
         var textList = [String]()
         for contact in contacts {
-            if let cell = contact.cellphone {
+            if let cell = contact.cellphone, !cell.isEmpty {
                 textList.append(cell)
             }
         }

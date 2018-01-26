@@ -44,7 +44,8 @@ class FavoritesGroupTitleView : UITableViewHeaderFooterView {
     
     func configure(with delegate: FavoritesGroupTitleDelegate,
                    groupTitle: String,
-                   groupContactIsVisible: Bool,
+                   groupTextIsVisible: Bool,
+                   groupEmailIsVisivle: Bool,
                    and sectionIndex: Int) {
         // Set delegate
         self.favortiesGroupDelegate = delegate
@@ -54,8 +55,8 @@ class FavoritesGroupTitleView : UITableViewHeaderFooterView {
         self.groupTitle.textColor = UIColor.white
         self.groupTitle.text = groupTitle
         self.groupTitle.setFontHeight(size: 18)
-        self.emailButton.isHidden = !groupContactIsVisible
-        self.textButton.isHidden = !groupContactIsVisible
+        self.emailButton.isHidden = !groupEmailIsVisivle
+        self.textButton.isHidden = !groupTextIsVisible
     }
     
 }

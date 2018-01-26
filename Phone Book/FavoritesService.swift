@@ -28,9 +28,11 @@ class FavoritesGroup {
     var title: String
     var favoritedContacts = Array<FavoritesContact>()
     
-    init(with favorite: FavoritesContact) {
-        self.title = favorite.groupName!
-        self.favoritedContacts.append(favorite)
+    init(with favorites: [FavoritesContact]) {
+        self.title = favorites.first!.groupName!
+        for favorite in favorites {
+            self.favoritedContacts.append(favorite)
+        }
     }
 }
 
@@ -271,6 +273,28 @@ class FavoritesService {
         return favContacts[indexPath.row]
     }
     
+    static func getTextableFavorites(for section: Int) -> Array<FavoritesContact>? {
+        guard let favorites = self.getFavoritesContacts(for: section) else { return nil }
+        var textableFavs = [FavoritesContact]()
+        for contact in favorites {
+            if let cell = contact.cellphone, !cell.isEmpty {
+                textableFavs.append(contact)
+            }
+        }
+        return textableFavs
+    }
+    
+    static func getEmailableFavorites(for section: Int) -> Array<FavoritesContact>? {
+        guard let favorites = self.getFavoritesContacts(for: section) else { return nil }
+        var emailableFavs = [FavoritesContact]()
+        for contact in favorites {
+            if let email = contact.emailAddress, !email.isEmpty {
+                emailableFavs.append(contact)
+            }
+        }
+        return emailableFavs
+    }
+    
     /**
      Convenience method to return Count for each FavoritesGroup when displaying in TableViews by Section
      */
@@ -411,7 +435,7 @@ private extension FavoritesService {
                 }
             }
         } else {
-            let favGroup = FavoritesGroup(with: favContact)
+            let favGroup = FavoritesGroup(with: [favContact])
             favoritesGroupHash[favContact.groupName!] = favGroup
             self.favoritesSectionHash[self.favoritesGroupHash.count-1] = favContact.groupName!
         }

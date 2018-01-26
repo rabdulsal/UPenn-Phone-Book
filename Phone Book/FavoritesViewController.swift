@@ -182,8 +182,9 @@ extension FavoritesViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.favoritesTitleIdentifier) as! FavoritesGroupTitleView
         let title = FavoritesService.getFavoritesGroupTitle(for: section)
-        let contactsCount = FavoritesService.getFavoritesContacts(for: section)?.count ?? 0
-        view.configure(with: self, groupTitle: title!, groupContactIsVisible: contactsCount > 1, and: section)
+        let textableCount = FavoritesService.getTextableFavorites(for: section)?.count ?? 0
+        let emailableCount = FavoritesService.getEmailableFavorites(for: section)?.count ?? 0
+        view.configure(with: self, groupTitle: title!, groupTextIsVisible: textableCount > 1, groupEmailIsVisivle: emailableCount > 1, and: section)
         return view
     }
     
@@ -274,8 +275,20 @@ private extension FavoritesViewController {
     }
     
     func performContactGroupSegue(groupIndex: Int) {
-        guard let favoritesGroup = FavoritesService.getFavoritesGroup(for: groupIndex) else { return }
-        self.performSegue(withIdentifier: Identifiers.groupContact.rawValue, sender: favoritesGroup)
+        /*
+         * Must ensure that segued FavoritesGroup only include Contacts with text numbers and email addresses
+         * 1. Create contactable FavoritesGroup based on contactContext
+         * 2. Perform segue with contactable FavoritesGroup
+         */
+        if self.contactContext == .groupText {
+            guard let textableFavs = FavoritesService.getTextableFavorites(for: groupIndex) else { return }
+            let textGroup = FavoritesGroup(with: textableFavs)
+            self.performSegue(withIdentifier: Identifiers.groupContact.rawValue, sender: textGroup)
+        } else {
+            guard let emailableFavs = FavoritesService.getEmailableFavorites(for: groupIndex) else { return }
+            let emailGroup = FavoritesGroup(with: emailableFavs)
+            self.performSegue(withIdentifier: Identifiers.groupContact.rawValue, sender: emailGroup)
+        }
     }
     
     @objc func updateFavoritesTextFieldDidChange(_ textField: UITextField) {
