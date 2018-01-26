@@ -11,6 +11,7 @@ import MessageUI
 
 class EmailService : NSObject, MFMailComposeViewControllerDelegate {
     
+    var delegate: EmailMessageDelegate?
     var canSendMail: Bool {
         return MFMailComposeViewController.canSendMail()
     }
@@ -23,6 +24,17 @@ class EmailService : NSObject, MFMailComposeViewControllerDelegate {
     }
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss()
+        switch result {
+        case .cancelled, .saved:
+            controller.dismiss()
+        case .sent:
+            controller.dismiss()
+            self.delegate?.messageSent()
+        case .failed:
+            controller.dismiss()
+            if let e = error {
+                self.delegate?.messageFailed(errorString: e.localizedDescription)
+            }
+        }
     }
 }

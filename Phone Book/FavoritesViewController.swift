@@ -198,22 +198,22 @@ extension FavoritesViewController : UITableViewDataSource {
 
 extension FavoritesViewController : FavoritesContactDelegate {
     func pressedCallPhoneButton(for contact: FavoritesContact) {
-        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact), delegate: self)
+        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact), emailMessageDelegate: self, contactDelegate: self)
         self.contactService.callPhone()
     }
     
     func pressedCallCellButton(for contact: FavoritesContact) {
-        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact), delegate: self)
+        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact), emailMessageDelegate: self, contactDelegate: self)
         self.contactService.callCell()
     }
     
     func pressedTextButton(for contact: FavoritesContact) {
-        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact), delegate: self)
+        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact), emailMessageDelegate: self, contactDelegate: self)
         self.contactService.sendText()
     }
     
     func pressedEmailButton(for contact: FavoritesContact) {
-        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact), delegate: self)
+        self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact), emailMessageDelegate: self, contactDelegate: self)
         self.contactService.sendEmail()
     }
 }
@@ -251,6 +251,18 @@ extension FavoritesViewController : ContactServicable {
     
     func cannotCallError(message: String) {
         SVProgressHUD.showError(withStatus: message)
+    }
+}
+
+// MARK: - EmailMessageDelegate
+
+extension FavoritesViewController : EmailMessageDelegate {
+    func messageSent() {
+        SVProgressHUD.showSuccess(withStatus: "Message Sent")
+    }
+    
+    func messageFailed(errorString: String) {
+        SVProgressHUD.showError(withStatus: errorString)
     }
 }
 

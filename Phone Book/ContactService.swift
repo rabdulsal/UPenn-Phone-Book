@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 
+protocol EmailMessageDelegate {
+    func messageSent()
+    func messageFailed(errorString: String)
+}
+
 protocol ContactServicable {
     func cannotEmailError(message: String)
     func cannotTextError(message: String)
@@ -25,17 +30,20 @@ class ContactService {
     var contact: Contact?
     var favoriteContacts = [FavoritesContact]()
     var contactDelegate: ContactServicable?
+    var emailMessageDelegate: EmailMessageDelegate?
     
-    init(viewController: UIViewController, contact: Contact, delegate: ContactServicable) {
+    init(viewController: UIViewController, contact: Contact, emailMessageDelegate: EmailMessageDelegate, contactDelegate: ContactServicable) {
         self.delegateViewController = viewController
         self.contact = contact
-        self.contactDelegate = delegate
+        self.contactDelegate = contactDelegate
+        self.emailMessageDelegate = emailMessageDelegate
     }
     
-    init(viewController: UIViewController, contacts: [FavoritesContact], delegate: ContactServicable) {
+    init(viewController: UIViewController, contacts: [FavoritesContact], emailMessageDelegate: EmailMessageDelegate, contactDelegate: ContactServicable) {
         self.delegateViewController = viewController
         self.favoriteContacts = contacts
-        self.contactDelegate = delegate
+        self.contactDelegate = contactDelegate
+        self.emailMessageDelegate = emailMessageDelegate
     }
     
     // Contact Individuals
@@ -91,6 +99,16 @@ class ContactService {
     }
 }
 
+extension ContactService : EmailMessageDelegate {
+    func messageSent() {
+        self.emailMessageDelegate?.messageSent()
+    }
+    
+    func messageFailed(errorString: String) {
+        self.emailMessageDelegate?.messageFailed(errorString: errorString)
+    }
+}
+
 fileprivate extension ContactService {
     func callNumber(phoneNumber: String) {
         if let url = URL(string: "telprompt:\(phoneNumber)") {
@@ -105,6 +123,7 @@ fileprivate extension ContactService {
     func textNumber(phoneNumber: [String]) {
         DispatchQueue.main.async {
             let recipients = phoneNumber
+            self.messagingService.delegate = self
             if self.messagingService.canSendText {
                 let messageComposeVC = self.messagingService.configuredMessageComposeViewController(textMessageRecipients: recipients)
                 self.delegateViewController.present(messageComposeVC, animated: true, completion: nil)
@@ -117,6 +136,7 @@ fileprivate extension ContactService {
     func emailContact(emailAddress: [String]) {
         DispatchQueue.main.async {
             let recipients = emailAddress
+            self.emailService.delegate = self
             if self.emailService.canSendMail {
                 let emailComposeVC = self.emailService.configuredMailComposeViewController(mailRecipients: recipients)
                 self.delegateViewController.present(emailComposeVC, animated: true, completion: nil)

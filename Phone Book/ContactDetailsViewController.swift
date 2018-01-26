@@ -81,7 +81,7 @@ class ContactDetailsViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.contactService = ContactService(viewController: self, contact: self.contact, delegate: self)
+        self.contactService = ContactService(viewController: self, contact: self.contact, emailMessageDelegate: self, contactDelegate: self)
         self.addressBookService = AddressBookService(delegate: self)
         self.decorateView(with: self.contact)
         self.setupTapGestureRecognizers()
@@ -304,5 +304,15 @@ extension ContactDetailsViewController : ContactServicable {
     
     func cannotCallError(message: String) {
         SVProgressHUD.showError(withStatus: message)
+    }
+}
+
+extension ContactDetailsViewController : EmailMessageDelegate {
+    func messageSent() {
+        SVProgressHUD.showSuccess(withStatus: "Message Sent")
+    }
+    
+    func messageFailed(errorString: String) {
+        SVProgressHUD.showError(withStatus: errorString)
     }
 }

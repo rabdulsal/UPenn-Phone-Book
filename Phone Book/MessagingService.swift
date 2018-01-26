@@ -11,6 +11,7 @@ import MessageUI
 
 class MessagingService : NSObject, MFMessageComposeViewControllerDelegate {
     
+    var delegate: EmailMessageDelegate?
     var canSendText: Bool {
         return MFMessageComposeViewController.canSendText()
     }
@@ -23,6 +24,16 @@ class MessagingService : NSObject, MFMessageComposeViewControllerDelegate {
     }
     
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        controller.dismiss()
+        
+        switch result {
+        case .cancelled:
+            controller.dismiss()
+        case .sent:
+            controller.dismiss()
+            self.delegate?.messageSent()
+        case .failed:
+            controller.dismiss()
+            self.delegate?.messageFailed(errorString: "Text message failed to send, please try again.")
+        }
     }
 }

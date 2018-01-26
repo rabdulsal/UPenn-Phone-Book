@@ -51,7 +51,7 @@ class ContactGroupViewController : UIViewController {
             "Email \(self.favoritesGroups.title)"
         
         // ContactService
-        self.contactService = ContactService(viewController: self, contacts: self.groupContacts, delegate: self)
+        self.contactService = ContactService(viewController: self, contacts: self.groupContacts, emailMessageDelegate: self, contactDelegate: self)
     }
     
     // MARK: IBActions
@@ -144,7 +144,18 @@ extension ContactGroupViewController : ContactServicable {
     }
 }
 
-fileprivate extension ContactGroupViewController {
+extension ContactGroupViewController : EmailMessageDelegate {
+    func messageSent() {
+        SVProgressHUD.showSuccess(withStatus: "Message Sent")
+        self.dismiss()
+    }
+    
+    func messageFailed(errorString: String) {
+        SVProgressHUD.showError(withStatus: errorString)
+    }
+}
+
+private extension ContactGroupViewController {
     func toggleDoneButton(isEnabled: Bool) {
         self.doneButton.isEnabled = isEnabled
     }
