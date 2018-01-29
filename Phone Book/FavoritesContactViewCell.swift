@@ -18,8 +18,10 @@ protocol FavoritesContactDelegate {
 class FavoritesContactViewCell : UITableViewCell {
     
     @IBOutlet weak var nameLabel: ContactNameLabel!
-    @IBOutlet weak var jobTitleLabel: UILabel!
-    @IBOutlet weak var departmentLabel: ContactDepartmentLabel!
+    @IBOutlet weak var officeView: ContactIconView!
+    @IBOutlet weak var emailView: ContactIconView!
+    @IBOutlet weak var mobileView: ContactIconView!
+    @IBOutlet weak var textView: ContactIconView!
     @IBOutlet weak var callOfficeButton: ContactIconButton!
     @IBOutlet weak var callMobileButton: ContactIconButton!
     @IBOutlet weak var sendTextButton: ContactIconButton!
@@ -38,6 +40,10 @@ class FavoritesContactViewCell : UITableViewCell {
         self.favoriteContact = favContact
         self.favoritesDelegate = delegate
         self.nameLabel.text = favContact.fullName
+        self.emailView.configure(with: self, iconType: ContactIconView.IconType.Email, favContact: self.favoriteContact)
+        self.officeView.configure(with: self, iconType: ContactIconView.IconType.Office, favContact: self.favoriteContact)
+        self.mobileView.configure(with: self, iconType: ContactIconView.IconType.Mobile, favContact: self.favoriteContact)
+        self.textView.configure(with: self, iconType: ContactIconView.IconType.Text, favContact: self.favoriteContact)
         self.decorateView()
     }
     
@@ -55,6 +61,12 @@ class FavoritesContactViewCell : UITableViewCell {
     
     @IBAction func pressedEmailButton(_ sender: Any) {
         self.favoritesDelegate?.pressedEmailButton(for: self.favoriteContact)
+    }
+}
+
+extension FavoritesContactViewCell : ContactIconViewDelegate {
+    func didPressContactButton(for contact: FavoritesContact, iconType: ContactIconView.IconType) {
+        print("Contact name: \(contact.firstName!) Type: \(iconType)")
     }
 }
 
