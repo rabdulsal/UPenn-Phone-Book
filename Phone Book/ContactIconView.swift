@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol ContactIconViewDelegate {
-    func didPressContactButton(for contact: FavoritesContact, iconType: ContactIconView.IconType)
+    func didPressContactButton(for iconType: ContactIconView.IconType)
 }
 
 class ContactIconView : NibView {
@@ -33,23 +33,13 @@ class ContactIconView : NibView {
     }
     
     @IBAction func pressedContactButton(_ sender: UIButton) {
-        self.delegate?.didPressContactButton(for: self.favoriteContact, iconType: self.iconType)
+        self.delegate?.didPressContactButton(for: self.iconType)
     }
     
     func configure(with delegate: ContactIconViewDelegate, iconType: IconType, favContact: FavoritesContact) {
         self.favoriteContact = favContact
         self.delegate = delegate
         self.configureIconType(type: iconType)
-    }
-    
-    func enable() {
-        self.contactButton.isHidden = false
-        self.contactTypeLabel.isHidden = false
-    }
-    
-    func disable() {
-        self.contactButton.isHidden = true
-        self.contactTypeLabel.isHidden = true
     }
 }
 
@@ -90,5 +80,15 @@ private extension ContactIconView {
                 self.disable()
             }
         }
+    }
+    
+    func enable() {
+        self.contactButton.isHidden = false
+        self.contactTypeLabel.isHidden = false
+    }
+    
+    func disable() {
+        self.contactButton.isHidden = true
+        self.contactTypeLabel.isHidden = true
     }
 }
