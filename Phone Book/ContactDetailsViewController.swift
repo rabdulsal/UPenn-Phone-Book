@@ -42,13 +42,13 @@ class ContactDetailsViewController : UIViewController {
     lazy var mapsAlertController : UIAlertController = {
         let alertController = UIAlertController(
             title: "Directions in Apple Maps",
-            message: "You are leaving the Phonebook App to view directions in the Apple Maps App. From Maps, press the 'UPHS Phonebook' button in the upper-left corner to return here.",
+            message: "You are leaving the Phonebook App to view directions in the Apple Maps App. From Maps, press the 'UPHS Phonebook' button in the upper-left corner to return here.".localize,
             preferredStyle: .alert)
-        let goToMapsAction = UIAlertAction(title: "Go", style: .cancel, handler: {
+        let goToMapsAction = UIAlertAction(title: "Go".localize, style: .cancel, handler: {
             alert -> Void in
             self.showInMaps()
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel".localize, style: .default, handler: nil)
         alertController.addAction(cancelAction)
         alertController.addAction(goToMapsAction)
         return alertController
@@ -57,7 +57,7 @@ class ContactDetailsViewController : UIViewController {
     lazy var cantAddContactAlert : UIAlertController = {
         let cantAddContactAlert = UIAlertController(
             title: "",
-            message: "In the future, to add UPHS Phonebook contacts to your iPhone contacts, go to Settings and grant UPHS Phonebook access to 'Contacts'.",
+            message: "In the future, to add UPHS Phonebook contacts to your iPhone contacts, go to Settings and grant UPHS Phonebook access to 'Contacts'.".localize,
             preferredStyle: .alert)
         cantAddContactAlert.addAction(UIAlertAction(
             title: "Change Settings",
@@ -67,7 +67,7 @@ class ContactDetailsViewController : UIViewController {
             handler: { action in
                 self.openSettings()
         }))
-        cantAddContactAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        cantAddContactAlert.addAction(UIAlertAction(title: "OK".localize, style: .cancel, handler: nil))
         return cantAddContactAlert
     }()
     
@@ -135,7 +135,7 @@ class ContactDetailsViewController : UIViewController {
     @IBAction func pressedCopyAddressButton(_ sender: PrimaryCTAButtonText) {
         let address = "\(self.contact.primaryAddressLine1) \(self.contact.primaryAddressLine2)"
         UIPasteboard.general.string = address
-        SVProgressHUD.showSuccess(withStatus: "Address copied to clipboard.")
+        SVProgressHUD.showSuccess(withStatus: "Address copied to clipboard.".localize)
     }
 }
 
@@ -262,9 +262,9 @@ private extension ContactDetailsViewController {
     
     func toggleAddToContactsTitle() {
         if self.addressBookService.contactExistsInAddressBook(contact: self.contact) {
-            self.addContactsButton.setTitle("Edit Existing Contact", for: .normal)
+            self.addContactsButton.setTitle("Edit Existing Contact".localize, for: .normal)
         } else {
-            self.addContactsButton.setTitle("Add to AddressBook", for: .normal)
+            self.addContactsButton.setTitle("Add to AddressBook".localize, for: .normal)
         }
     }
 }
@@ -280,39 +280,39 @@ extension ContactDetailsViewController : AddressBookDelegate {
     }
     
     func failedToUpdateContactInAddressBook(message: String) {
-        SVProgressHUD.showError(withStatus: "Failed to update \(self.contact.fullName) in your AddressBook. \(message)")
+        SVProgressHUD.showError(withStatus: "Failed to update \(self.contact.fullName) in your AddressBook. \(message)".localize)
     }
     
     func successfullyUpdatedExistingContactInAddressBook() {
-        SVProgressHUD.showSuccess(withStatus: "\(self.contact.fullName) successfully updated in your AddressBook.")
+        SVProgressHUD.showSuccess(withStatus: "\(self.contact.fullName) successfully updated in your AddressBook.".localize)
     }
     
     func successfullyAddedNewContactToAddressBook() {
-        SVProgressHUD.showSuccess(withStatus: "\(self.contact.fullName) successfully added to your AddressBook.")
+        SVProgressHUD.showSuccess(withStatus: "\(self.contact.fullName) successfully added to your AddressBook.".localize)
         self.toggleAddToContactsTitle()
     }
 }
 
 extension ContactDetailsViewController : ContactServicable {
     func cannotEmailError(message: String) {
-        SVProgressHUD.showError(withStatus: message)
+        SVProgressHUD.showError(withStatus: message.localize)
     }
     
     func cannotTextError(message: String) {
-        SVProgressHUD.showError(withStatus: message)
+        SVProgressHUD.showError(withStatus: message.localize)
     }
     
     func cannotCallError(message: String) {
-        SVProgressHUD.showError(withStatus: message)
+        SVProgressHUD.showError(withStatus: message.localize)
     }
 }
 
 extension ContactDetailsViewController : EmailMessageDelegate {
     func messageSent() {
-        SVProgressHUD.showSuccess(withStatus: "Message Sent")
+        SVProgressHUD.showSuccess(withStatus: "Message Sent".localize)
     }
     
     func messageFailed(errorString: String) {
-        SVProgressHUD.showError(withStatus: errorString)
+        SVProgressHUD.showError(withStatus: errorString.localize)
     }
 }

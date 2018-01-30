@@ -29,14 +29,14 @@ class LoginViewController: UIViewController {
     
     lazy var touchIDAlertController : UIAlertController = {
         let alertController = UIAlertController(
-            title: "Use TouchID for login in the future?",
-            message: "TouchID makes Login more convenient. These Settings can be updated in the Account section.",
+            title: "Use TouchID for login in the future?".localize,
+            message: "TouchID makes Login more convenient. These Settings can be updated in the Account section.".localize,
             preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "No Thanks", style: .cancel, handler: {
+        let cancelAction = UIAlertAction(title: "No Thanks".localize, style: .cancel, handler: {
             alert -> Void in
             self.dismiss()
         })
-        let useTouchIDAction = UIAlertAction(title: "Use TouchID", style: .default, handler: {
+        let useTouchIDAction = UIAlertAction(title: "Use TouchID".localize, style: .default, handler: {
             alert -> Void in
             /*
              * 1. Toggle TouchID 'on'
@@ -54,11 +54,11 @@ class LoginViewController: UIViewController {
     
     lazy var rememberMeAlertController : UIAlertController = {
         let alertController = UIAlertController(
-            title: "Turning off 'Remember Me' will disable TouchID.",
+            title: "Turning off 'Remember Me' will disable TouchID.".localize,
             message: "",
             preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let disableRememberMe = UIAlertAction(title: "OK", style: .default, handler: {
+        let cancelAction = UIAlertAction(title: "Cancel".localize, style: .cancel, handler: nil)
+        let disableRememberMe = UIAlertAction(title: "OK".localize, style: .default, handler: {
             alert -> Void in
             self.touchIDService.toggleTouchID(false)
             self.toggleRememberMe()
@@ -95,11 +95,11 @@ class LoginViewController: UIViewController {
         
         // Set up textFields
         self.emailField.delegate = self
-        self.emailField.placeholder = "username"
+        self.emailField.placeholder = "username".localize
         self.emailField.autocorrectionType = .no
         self.emailField.addCancelButton()
         self.passwordField.autocorrectionType = .no
-        self.passwordField.placeholder = "password"
+        self.passwordField.placeholder = "password".localize
         self.passwordField.delegate = self
         self.passwordField.returnKeyType = .done
         self.passwordField.isSecureTextEntry = true

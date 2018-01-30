@@ -28,8 +28,8 @@ class FavoritesGroupsListViewController : UIViewController {
     var createFavoritesAction: UIAlertAction!
     
     var favoritesAlertController : UIAlertController {
-        let alertController = UIAlertController(title: "New Favorites Group", message: "Create a name for your new Favorite group", preferredStyle: .alert)
-        self.createFavoritesAction = UIAlertAction(title: "Create", style: .default, handler: {
+        let alertController = UIAlertController(title: "New Favorites Group".localize, message: "Create a name for your new Favorite group".localize, preferredStyle: .alert)
+        self.createFavoritesAction = UIAlertAction(title: "Create".localize, style: .default, handler: {
             alert -> Void in
             let textField = alertController.textFields?.first
             if let title = textField?.text, title.isEmpty == false  {
@@ -42,13 +42,13 @@ class FavoritesGroupsListViewController : UIViewController {
                 })
             }
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+        let cancelAction = UIAlertAction(title: "Cancel".localize, style: .default, handler: {
             (action : UIAlertAction!) -> Void in
         })
         alertController.addTextField { (textField : UITextField!) -> Void in
-            textField.placeholder = "Type group name"
+            textField.placeholder = "Type group name".localize
             // Pre-populated Group Name
-            textField.text = "My Favorites"
+            textField.text = "My Favorites".localize
             textField.addTarget(self, action: #selector(self.createFavoritesTextFieldDidChange(_:)), for: .editingChanged)
         }
         alertController.addAction(cancelAction)
@@ -83,12 +83,12 @@ extension FavoritesGroupsListViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let title = self.favoritesGroups?[indexPath.row] else {
-            SVProgressHUD.showError(withStatus: "Sorry, something went wrong.")
+            SVProgressHUD.showError(withStatus: "Sorry, something went wrong.".localize)
             return
         }
         FavoritesService.addFavoriteContactToExistingGroup(contact: self.contact, groupTitle: title) { (errorString) in
             if let error = errorString {
-                SVProgressHUD.showError(withStatus: error)
+                SVProgressHUD.showError(withStatus: error.localize)
             } else {
                 self.dismissWithSuccess(groupTitle: title)
             }
@@ -109,7 +109,7 @@ extension FavoritesGroupsListViewController : UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier),
             let groupTitle = self.favoritesGroups?[indexPath.row]
             else { return UITableViewCell() }
-        cell.textLabel?.text = groupTitle
+        cell.textLabel?.text = groupTitle.localize
         return cell
     }
     
@@ -122,7 +122,7 @@ extension FavoritesGroupsListViewController : UITableViewDataSource {
             // Create Label
             let titleLabel = UPennLabel(frame: CGRect(x: 16, y: 0, width: 200, height: 30))
             titleLabel.textColor = UIColor.white
-            titleLabel.text = "Your Favorites Groups"
+            titleLabel.text = "Your Favorites Groups".localize
             view.addSubview(titleLabel)
             return view
         }
@@ -132,13 +132,13 @@ extension FavoritesGroupsListViewController : UITableViewDataSource {
 
 private extension FavoritesGroupsListViewController {
     func dismissWithSuccess(groupTitle: String) {
-        SVProgressHUD.showSuccess(withStatus: "New Contact Successfully Added to \"\(groupTitle)\".")
+        SVProgressHUD.showSuccess(withStatus: "New Contact Successfully Added to \"\(groupTitle)\".".localize)
         self.dismiss()
         self.addFavoritesDelegate?.successfullyAddedContactToFavorites()
     }
     
     func updateFavoritesViewInstructions(hasFavorites: Bool) {
-        self.noGroupsLabel.text = hasFavorites ? "You have no favorites groups. Create one now by pressing the '+' button." : "Add this person to one of your favorites groups below or select the '+' to create a new group."
+        self.noGroupsLabel.text = hasFavorites ? "You have no favorites groups. Create one now by pressing the '+' button.".localize : "Add this person to one of your favorites groups below or select the '+' to create a new group.".localize
     }
     
     @objc func createFavoritesTextFieldDidChange(_ textField: UITextField) {

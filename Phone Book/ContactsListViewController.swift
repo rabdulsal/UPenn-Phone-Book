@@ -57,18 +57,18 @@ class ContactsListViewController : UIViewController {
         alertCtrl.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         return alertCtrl
     }()
-    let helpText = "Using 'Tom Smith' as an example:\nIn the SearchBar, to search by first name then last name, type 'Tom Smith'\nTo search by last name then first name, type 'Smith, Tom.'\nYou can also search with partial spelling like 'T Smith' or 'Sm, T'."
+    let helpText = "Using 'Tom Smith' as an example:\nIn the SearchBar, to search by first name then last name, type 'Tom Smith'\nTo search by last name then first name, type 'Smith, Tom.'\nYou can also search with partial spelling like 'T Smith' or 'Sm, T'.".localize
     lazy var loggedOutAttributedString : NSAttributedString = {
-        let text = NSMutableAttributedString(string: "To search UPenn staff, please ")
+        let text = NSMutableAttributedString(string: "To search UPenn staff, please ".localize)
         text.addAttribute(NSFontAttributeName, value: UIFont.helvetica(size: 18), range: NSMakeRange(0, text.length))
         
-        let selectablePart = NSMutableAttributedString(string: "login.")
+        let selectablePart = NSMutableAttributedString(string: "login.".localize)
         selectablePart.addAttribute(NSFontAttributeName, value: UIFont.helvetica(size: 18), range: NSMakeRange(0, selectablePart.length))
         // Add an underline to indicate this portion of text is selectable (optional)
         selectablePart.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSMakeRange(0,selectablePart.length))
         selectablePart.addAttribute(NSUnderlineColorAttributeName, value: UIColor.upennMediumBlue, range: NSMakeRange(0, selectablePart.length))
         // Add an NSLinkAttributeName with a value of an url or anything else
-        selectablePart.addAttribute(NSLinkAttributeName, value: "signin", range: NSMakeRange(0,selectablePart.length))
+        selectablePart.addAttribute(NSLinkAttributeName, value: "signin".localize, range: NSMakeRange(0,selectablePart.length))
         
         // Combine the non-selectable string with the selectable string
         text.append(selectablePart)
@@ -195,7 +195,7 @@ extension ContactsListViewController : UITableViewDataSource {
 extension ContactsListViewController : LoginServiceDelegate {
     
     func didSuccessfullyLoginUser() {
-        SVProgressHUD.showSuccess(withStatus: "You are logged in!")
+        SVProgressHUD.showSuccess(withStatus: "You are logged in!".localize)
     }
     
     func didReturnAutoFillCredentials(username: String, password: String) { }
@@ -217,7 +217,7 @@ extension ContactsListViewController : UISearchBarDelegate {
                 SVProgressHUD.showError(withStatus: e.localizedDescription)
             } else {
                 if retrievedContacts.count == 0 {
-                    SVProgressHUD.showError(withStatus: "No results returned.")
+                    SVProgressHUD.showError(withStatus: "No results returned.".localize)
                     return
                 }
                 self.contactsList = retrievedContacts
@@ -225,7 +225,7 @@ extension ContactsListViewController : UISearchBarDelegate {
                 self.contactsTableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: false)
                 
                 if hasExcessContacts {
-                    SVProgressHUD.showInfo(withStatus: "Displaying the first \(retrievedContacts.count) matching contacts. You may need to narrow your search.")
+                    SVProgressHUD.showInfo(withStatus: "Displaying the first \(retrievedContacts.count) matching contacts. You may need to narrow your search.".localize)
                 }
             }
         }
@@ -297,7 +297,7 @@ private extension ContactsListViewController {
     func toggleNoContactsView(show: Bool) {
         if show {
             self.noContactsView.isHidden = false
-            self.noContactsLabel.text = "Search for a Penn Medicine employee by last name or first name."
+            self.noContactsLabel.text = "Search for a Penn Medicine employee by last name or first name.".localize
         } else {
             self.noContactsView.isHidden = true
             self.noContactsLabel.text = ""

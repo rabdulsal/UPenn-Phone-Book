@@ -44,7 +44,7 @@ class FavoritesContactViewCell : UITableViewCell {
 }
 
 extension FavoritesContactViewCell : ContactIconViewDelegate {
-    func didPressContactButton(for iconType: ContactIconView.IconType) {
+    func selectedContactType(_ iconType: ContactIconView.IconType) {
         switch iconType {
         case .Email:
             self.favoritesDelegate?.pressedEmailButton(for: self.favoriteContact)

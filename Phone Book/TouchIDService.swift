@@ -50,12 +50,12 @@ class TouchIDAuthService {
     
     func authenticateUser() {
         guard self.touchIDAvailable else {
-            self.delegate?.touchIDDidError(with: "Touch ID is not available on this device.")
+            self.delegate?.touchIDDidError(with: "Touch ID is not available on this device.".localize)
             return
         }
         
         self.context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
-           localizedReason: "Logging in with Touch ID") { (success, evaluateError) in
+           localizedReason: "Logging in with Touch ID".localize) { (success, evaluateError) in
             if success {
                 DispatchQueue.main.async {
                     self.delegate?.touchIDSuccessfullyAuthenticated()
@@ -65,10 +65,10 @@ class TouchIDAuthService {
                 
                 switch evaluateError {
                 case LAError.authenticationFailed?:
-                    message = "There was a problem verifying your identity."
+                    message = "There was a problem verifying your identity.".localize
                 case LAError.userCancel?, LAError.userFallback?: break
                 default:
-                    message = "Touch ID may not be configured"
+                    message = "Touch ID may not be configured".localize
                 }
                 DispatchQueue.main.async {
                     self.delegate?.touchIDDidError(with: message)

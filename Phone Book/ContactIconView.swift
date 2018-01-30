@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol ContactIconViewDelegate {
-    func didPressContactButton(for iconType: ContactIconView.IconType)
+    func selectedContactType(_ iconType: ContactIconView.IconType)
 }
 
 class ContactIconView : NibView {
@@ -33,10 +33,13 @@ class ContactIconView : NibView {
     }
     
     @IBAction func pressedContactButton(_ sender: UIButton) {
-        self.delegate?.didPressContactButton(for: self.iconType)
+        self.delegate?.selectedContactType(self.iconType)
     }
     
-    func configure(with delegate: ContactIconViewDelegate, iconType: IconType, favContact: FavoritesContact) {
+    func configure(
+        with delegate: ContactIconViewDelegate,
+        iconType: IconType,
+        favContact: FavoritesContact) {
         self.favoriteContact = favContact
         self.delegate = delegate
         self.configureIconType(type: iconType)

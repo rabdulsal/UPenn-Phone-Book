@@ -29,7 +29,7 @@ class ContactGroupViewController : UIViewController {
     let identifier = "ContactGroupID"
     var footerMessage : String {
         let phrase = self.contactContext == .groupText ? "group-text" : "group-email"
-        return "Select the Contacts you want to \(phrase)."
+        return "Select the Contacts you want to \(phrase).".localize
     }
     
     override func viewDidLoad() {
@@ -47,8 +47,8 @@ class ContactGroupViewController : UIViewController {
         
         // NavBar Configs
         self.navigationItem.title = self.contactContext == .groupText ?
-            "Text \(self.favoritesGroups.title)" :
-            "Email \(self.favoritesGroups.title)"
+            "Text \(self.favoritesGroups.title)".localize :
+            "Email \(self.favoritesGroups.title)".localize
         
         // ContactService
         self.contactService = ContactService(viewController: self, contacts: self.groupContacts, emailMessageDelegate: self, contactDelegate: self)
@@ -146,7 +146,7 @@ extension ContactGroupViewController : ContactServicable {
 
 extension ContactGroupViewController : EmailMessageDelegate {
     func messageSent() {
-        SVProgressHUD.showSuccess(withStatus: "Message Sent")
+        SVProgressHUD.showSuccess(withStatus: "Message Sent".localize)
         self.dismiss()
     }
     

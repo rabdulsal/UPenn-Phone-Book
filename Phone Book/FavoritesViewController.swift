@@ -46,8 +46,8 @@ class FavoritesViewController : UIViewController {
     fileprivate var updateFavoritesAction: UIAlertAction!
     fileprivate var editFavoritesGroupAlert : UIAlertController {
         let alertController = UIAlertController(
-            title: "Rename Favorites Group '\(self.selectedGroupTitle)'",
-            message: "Type a new name for '\(self.selectedGroupTitle)' Group.",
+            title: "Rename Favorites Group '\(self.selectedGroupTitle)'".localize,
+            message: "Type a new name for '\(self.selectedGroupTitle)' Group.".localize,
             preferredStyle: .alert
         )
         self.updateFavoritesAction = UIAlertAction(title: "Save", style: .default, handler: {
@@ -64,11 +64,11 @@ class FavoritesViewController : UIViewController {
             }
         })
         self.updateFavoritesAction.isEnabled = false
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+        let cancelAction = UIAlertAction(title: "Cancel".localize, style: .default, handler: {
             (action : UIAlertAction!) -> Void in
         })
         alertController.addTextField { (textField : UITextField!) -> Void in
-            textField.placeholder = "Type new group name"
+            textField.placeholder = "Type new group name".localize
             textField.addTarget(self, action: #selector(self.updateFavoritesTextFieldDidChange(_:)), for: .editingChanged)
         }
         alertController.addAction(cancelAction)
@@ -112,12 +112,19 @@ class FavoritesViewController : UIViewController {
     
     override func setup() {
         super.setup()
+        
+        // TableView Configs
         self.favoritesTableView.delegate = self
         self.favoritesTableView.dataSource = self
         self.favoritesTableView.register(UINib(nibName: self.favoritesTitleNibKey, bundle: nil), forHeaderFooterViewReuseIdentifier: self.favoritesTitleIdentifier)
         self.favoritesTableView.tableFooterView = UIView()
         self.noFavoritesView.backgroundColor = UIColor.upennLightGray
+        
+        // Favorites Data
         FavoritesService.loadFavoritesData()
+        
+        // Navigation
+        self.editBarButton.title = "Reorder".localize
     }
     
     override func reloadView() {
@@ -242,15 +249,15 @@ extension FavoritesViewController : FavoritesGroupTitleDelegate {
 
 extension FavoritesViewController : ContactServicable {
     func cannotEmailError(message: String) {
-        SVProgressHUD.showError(withStatus: message)
+        SVProgressHUD.showError(withStatus: message.localize)
     }
     
     func cannotTextError(message: String) {
-        SVProgressHUD.showError(withStatus: message)
+        SVProgressHUD.showError(withStatus: message.localize)
     }
     
     func cannotCallError(message: String) {
-        SVProgressHUD.showError(withStatus: message)
+        SVProgressHUD.showError(withStatus: message.localize)
     }
 }
 
@@ -258,11 +265,11 @@ extension FavoritesViewController : ContactServicable {
 
 extension FavoritesViewController : EmailMessageDelegate {
     func messageSent() {
-        SVProgressHUD.showSuccess(withStatus: "Message Sent")
+        SVProgressHUD.showSuccess(withStatus: "Message Sent".localize)
     }
     
     func messageFailed(errorString: String) {
-        SVProgressHUD.showError(withStatus: errorString)
+        SVProgressHUD.showError(withStatus: errorString.localize)
     }
 }
 
@@ -271,14 +278,14 @@ extension FavoritesViewController : EmailMessageDelegate {
 private extension FavoritesViewController {
     func toggleEditing(_ isEditing: Bool) {
         self.favoritesTableView.isEditing = isEditing
-        self.editBarButton.title = isEditing ? "Done" : "Reorder"
+        self.editBarButton.title = isEditing ? "Done".localize : "Reorder".localize
     }
     
     func toggleNoFavoritesView(show: Bool) {
         if show {
             self.noFavoritesView.isHidden = false
             self.noFavoritesViewHeight.constant = 100
-            self.noFavoritesLabel.text = "You have no Favorites. Find Contacts in the Search Tab and Favorite them to see here."
+            self.noFavoritesLabel.text = "You have no Favorites. Find Contacts in the Search Tab and Favorite them to see here.".localize
         } else {
             self.noFavoritesView.isHidden = true
             self.noFavoritesViewHeight.constant = 0
