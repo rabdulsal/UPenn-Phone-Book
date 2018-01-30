@@ -18,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2nQ-TD-ldb" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                    <rect key="frame" x="16" y="10.5" width="97" height="30"/>
+                    <rect key="frame" x="16" y="15.5" width="97" height="20"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="RBy-2g-tHH"/>
                     </constraints>
@@ -26,10 +26,13 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vU1-PM-v37">
-                    <rect key="frame" x="121" y="10.5" width="38" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" title="(Edit)"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vU1-PM-v37">
+                    <rect key="frame" x="121" y="15.5" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="ASS-TU-2Ec"/>
+                        <constraint firstAttribute="width" secondItem="vU1-PM-v37" secondAttribute="height" multiplier="1:1" id="eMS-7i-GF8"/>
+                    </constraints>
+                    <state key="normal" image="editing_icon"/>
                     <connections>
                         <action selector="pressedEditButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="BIh-Nc-kkg"/>
                     </connections>
@@ -39,7 +42,7 @@
                     <constraints>
                         <constraint firstAttribute="width" secondItem="5Dk-7d-hWk" secondAttribute="height" multiplier="1:1" id="mNe-cq-EuS"/>
                     </constraints>
-                    <state key="normal" image="email_disabled"/>
+                    <state key="normal" image="group_email_plus"/>
                     <connections>
                         <action selector="pressedEmailButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="NuA-66-rE5"/>
                     </connections>
@@ -50,7 +53,7 @@
                         <constraint firstAttribute="width" secondItem="arj-WZ-AJ1" secondAttribute="height" multiplier="1:1" id="qPh-vD-IBl"/>
                         <constraint firstAttribute="width" constant="30" id="wZI-Hr-gej"/>
                     </constraints>
-                    <state key="normal" image="chat_bubbles_disabled"/>
+                    <state key="normal" image="Group_Chat_Plus"/>
                     <connections>
                         <action selector="pressedTextButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="NZ3-Ad-Vqu"/>
                     </connections>
@@ -62,13 +65,12 @@
                 <constraint firstItem="vU1-PM-v37" firstAttribute="bottom" secondItem="2nQ-TD-ldb" secondAttribute="bottom" id="BqI-r1-iDo"/>
                 <constraint firstItem="arj-WZ-AJ1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vU1-PM-v37" secondAttribute="trailing" constant="5" id="DdI-nL-opw"/>
                 <constraint firstItem="2nQ-TD-ldb" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="O1l-P0-V62"/>
+                <constraint firstItem="arj-WZ-AJ1" firstAttribute="centerY" secondItem="vU1-PM-v37" secondAttribute="centerY" id="PQv-UY-9wL"/>
                 <constraint firstItem="vU1-PM-v37" firstAttribute="top" secondItem="2nQ-TD-ldb" secondAttribute="top" id="STH-oM-CM4"/>
                 <constraint firstItem="vU1-PM-v37" firstAttribute="leading" secondItem="2nQ-TD-ldb" secondAttribute="trailing" constant="8" id="TUX-0Z-gqL"/>
                 <constraint firstItem="5Dk-7d-hWk" firstAttribute="bottom" secondItem="arj-WZ-AJ1" secondAttribute="bottom" id="ZqQ-oR-Xfy"/>
                 <constraint firstItem="5Dk-7d-hWk" firstAttribute="top" secondItem="arj-WZ-AJ1" secondAttribute="top" id="a0f-tu-JvW"/>
-                <constraint firstItem="arj-WZ-AJ1" firstAttribute="top" secondItem="vU1-PM-v37" secondAttribute="top" id="bZA-Qb-rXI"/>
                 <constraint firstItem="5Dk-7d-hWk" firstAttribute="leading" secondItem="arj-WZ-AJ1" secondAttribute="trailing" constant="10" id="pGG-qU-RPr"/>
-                <constraint firstItem="arj-WZ-AJ1" firstAttribute="bottom" secondItem="vU1-PM-v37" secondAttribute="bottom" id="rP3-IC-2VD"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="5Dk-7d-hWk" secondAttribute="trailing" constant="16" id="x0R-SD-s7i"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -83,7 +85,8 @@
         </view>
     </objects>
     <resources>
-        <image name="chat_bubbles_disabled" width="50" height="50"/>
-        <image name="email_disabled" width="50" height="50"/>
+        <image name="Group_Chat_Plus" width="50" height="50"/>
+        <image name="editing_icon" width="50" height="50"/>
+        <image name="group_email_plus" width="50" height="50"/>
     </resources>
 </document>
