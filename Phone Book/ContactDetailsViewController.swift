@@ -168,15 +168,15 @@ private extension ContactDetailsViewController {
     }
     
     func decorateView(with contact: Contact) {
-        self.nameLabel.text             = contact.fullName
-        self.jobTitleLabel.text         = contact.jobTitle
-        self.departmentLabel.text       = contact.department
-        self.addressLabel1.text         = contact.primaryAddressLine1
-        self.addressLabel2.text         = contact.primaryAddressLine2
-        self.primaryPhoneLabel.text     = contact.displayPrimaryTelephone
-        self.cellPhoneLabel.text        = contact.displayCellPhone
-        self.mobileTextLabel.text       = contact.displayCellPhone
-        self.emailLabel.text            = contact.emailAddress
+        self.nameLabel.text             = contact.fullName.localize
+        self.jobTitleLabel.text         = contact.jobTitle.localize
+        self.departmentLabel.text       = contact.department.localize
+        self.addressLabel1.text         = contact.primaryAddressLine1.localize
+        self.addressLabel2.text         = contact.primaryAddressLine2.localize
+        self.primaryPhoneLabel.text     = contact.displayPrimaryTelephone.localize
+        self.cellPhoneLabel.text        = contact.displayCellPhone.localize
+        self.mobileTextLabel.text       = contact.displayCellPhone.localize
+        self.emailLabel.text            = contact.emailAddress.localize
         self.callCellButton.isHidden    = contact.displayCellPhone.isEmpty
         self.textButton.isHidden        = contact.displayCellPhone.isEmpty
         self.callPhoneButton.isHidden   = contact.displayPrimaryTelephone.isEmpty
