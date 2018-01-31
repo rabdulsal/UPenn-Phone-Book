@@ -192,6 +192,7 @@ class FavoritesService {
         favContact.displayCellPhone         = contact.displayCellPhone
         favContact.cellEmail                = contact.cellEmail
         favContact.isDisabled               = Double(contact.isDisabled)
+        favContact.groupSectionIndex        = self.generateFavoritesGroupSectionIndex(groupTitle: groupTitle)
         favContact.groupName                = groupTitle
         favContact.groupPosition            = self.generateFavoritesGroupPosition(groupTitle: groupTitle)
         appDelegate.saveContext()
@@ -243,12 +244,8 @@ class FavoritesService {
      Convenience method to return Array of FavoritedContacts based on Section, when displaying in TableViews
      */
     static func getFavoritesContacts(for section: Int) -> Array<FavoritesContact>? {
-        if
-            let groupTitle = self.favoritesSectionHash[section],
-            let favsGroup = self.favoritesGroupHash[groupTitle] {
-            return favsGroup.favoritedContacts
-        }
-        return nil
+        guard let favsGroup = self.getFavoritesGroup(for: section) else { return nil }
+        return favsGroup.favoritedContacts
     }
     
     /**
@@ -390,12 +387,29 @@ private extension FavoritesService {
     
     /**
      Create a FavoritesContact groupPosition for FavoritesGroup using a groupTitle
+     
+     - parameter groupTitle: Title of the FavoritesGroup to create
      */
     static func generateFavoritesGroupPosition(groupTitle: String) -> Double {
         guard
             let favorites = favoritesGroupHash[groupTitle]?.favoritedContacts else { return 0.0 }
         return Double(favorites.count)
     }
+    
+    /**
+     Create a FavoritesContact groupPositionSection for FavoritesGroup using a groupTitle
+     
+     - parameter groupTitle: Title of the FavoritesGroup used to derive a section index
+     */
+    static func generateFavoritesGroupSectionIndex(groupTitle: String) -> Double {
+        for (section, title) in self.favoritesSectionHash {
+            if title == groupTitle {
+                return Double(section)
+            }
+        }
+        return Double(self.favoritesSectionHash.count)
+    }
+    
     /**
      Method takes a FavoritesContact parameter and returns a SucceHandler closure
      
@@ -437,7 +451,8 @@ private extension FavoritesService {
         } else {
             let favGroup = FavoritesGroup(with: [favContact])
             favoritesGroupHash[favContact.groupName!] = favGroup
-            self.favoritesSectionHash[self.favoritesGroupHash.count-1] = favContact.groupName!
+            self.favoritesSectionHash[Int(favContact.groupSectionIndex)] = favContact.groupName!
+//            self.favoritesSectionHash[self.favoritesGroupHash.count-1] = favContact.groupName!
         }
     }
 }
