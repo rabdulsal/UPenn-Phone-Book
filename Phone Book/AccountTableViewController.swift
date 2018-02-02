@@ -22,9 +22,10 @@ class AccountTableViewController : UITableViewController {
             case Timeout
             case TouchID
             case Logout
+            case AutoLogin
             
             static var count : Int {
-                return Logout.rawValue+1
+                return AutoLogin.rawValue+1
             }
         }
     }
@@ -37,6 +38,7 @@ class AccountTableViewController : UITableViewController {
         case Timeout = "TimeoutCell"
         case TouchID = "TouchIDCell"
         case Logout = "LogoutCell"
+        case AutoLogin = "AccountCell"
     }
     
     var appDelegate : AppDelegate? {
@@ -84,6 +86,10 @@ class AccountTableViewController : UITableViewController {
             case .TouchID:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.TouchID.rawValue) as! TouchIDEnableCell
                 cell.configure(with: self, touchIDAvailable: self.touchIDService.touchIDAvailable, touchIDEnabled: self.touchIDService.touchIDEnabled)
+                return cell
+            case .AutoLogin:
+                let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.AutoLogin.rawValue) as! AccountSettingsCell
+                cell.configure()
                 return cell
             case .Logout:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Logout.rawValue) as! LogoutCell
@@ -145,3 +151,4 @@ extension AccountTableViewController : TouchIDToggleDelegate {
         }
     }
 }
+
