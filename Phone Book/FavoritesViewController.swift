@@ -188,10 +188,10 @@ extension FavoritesViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.favoritesTitleIdentifier) as! FavoritesGroupTitleView
-        let title = FavoritesService.getFavoritesGroupTitle(for: section)
+        guard let title = FavoritesService.getFavoritesGroupTitle(for: section) else { return UIView() }
         let textableCount = FavoritesService.getTextableFavorites(for: section)?.count ?? 0
         let emailableCount = FavoritesService.getEmailableFavorites(for: section)?.count ?? 0
-        view.configure(with: self, groupTitle: title!, groupTextIsVisible: textableCount > 1, groupEmailIsVisivle: emailableCount > 1, and: section)
+        view.configure(with: self, groupTitle: title, groupTextIsVisible: textableCount > 1, groupEmailIsVisivle: emailableCount > 1, and: section)
         return view
     }
     

@@ -43,15 +43,12 @@ class FavoritesService {
     }
     
     /**
-     Empty all hash tables and reload/bucket data from CoreData
+     Convenience method to reload all FavoritesContact data in CoreData
      */
     static func loadFavoritesData() {
         self.favoritesSectionHash.removeAll()
         self.favoritesGroupHash.removeAll()
-        let allFavorites = self.getAllFavorites()
-        for favorite in allFavorites {
-            self.bucketFavoritesContacts(with: favorite)
-        }
+        self.reconcileFavoritesSectionIndexOrder()
     }
     
     /**
@@ -270,6 +267,11 @@ class FavoritesService {
         return favContacts[indexPath.row]
     }
     
+    /**
+     Convenience method to return array of FavoritesContacts that have cellPhone number data
+     
+     - parameter section: Int representing tableView section to use for fetching specific FavoritesContact
+     */
     static func getTextableFavorites(for section: Int) -> Array<FavoritesContact>? {
         guard let favorites = self.getFavoritesContacts(for: section) else { return nil }
         var textableFavs = [FavoritesContact]()
@@ -281,6 +283,11 @@ class FavoritesService {
         return textableFavs
     }
     
+    /**
+     Convenience method to return array of FavoritesContacts that have emailAddress data
+     
+     - parameter section: Int representing tableView section to use for fetching specific FavoritesContact
+     */
     static func getEmailableFavorites(for section: Int) -> Array<FavoritesContact>? {
         guard let favorites = self.getFavoritesContacts(for: section) else { return nil }
         var emailableFavs = [FavoritesContact]()
@@ -328,7 +335,11 @@ class FavoritesService {
         }
         destinationGroup?.insert(favContact, at: destination.row)
         favContact.groupName = self.favoritesSectionHash[destination.section]
-        favContact.groupPosition = Double(destination.row)
+        favContact.groupSectionIndex = Double(destination.section)
+        /*
+         * Prevent contacts' groupPositions from falling out of sync:
+         * Loop through all the contacts in the destination favoriteContacts and manually set their groupPosition in order
+        */
         if let group = destinationGroup {
             for index in 0..<group.count {
                 let favContact = group[index]
@@ -426,6 +437,39 @@ private extension FavoritesService {
     }
     
     /**
+     Convenience method to ensure the incremental order of individual FavoritesContacts' groupSectionIndicies
+     */
+    static func reconcileFavoritesSectionIndexOrder() {
+        /*
+         1. Fetch all FavoritesContacts and sorts them ascending
+         2. Loop through each favoritesContact in order while keeping reference of section names & indicies to trigger updates
+         3. As section names change, update the running section name and incremement the running section index
+         4. Check the current FavoritesContact's groupSectionIndex against the running section index, and update the favorite's groupSectionIndex accordingly
+         5. Pass off the FavoritesContact to update the SectionHash and GroupHash
+        */
+        guard let appDelegate = self.appDelegate else { return }
+        let allFavorites = self.getAllFavorites().sorted { (fav1, fav2) -> Bool in
+            return fav1.groupSectionIndex < fav2.groupSectionIndex
+        }
+        var sectionIdxCache = -1
+        var sectionNameCache = ""
+        for idx in 0..<allFavorites.count {
+            let favorite = allFavorites[idx]
+            let currentSection = Int(favorite.groupSectionIndex)
+            let currentName = favorite.groupName!
+            if currentName != sectionNameCache {
+                sectionNameCache = currentName
+                sectionIdxCache+=1
+            }
+            if currentSection != sectionIdxCache {
+                favorite.groupSectionIndex = Double(sectionIdxCache)
+                appDelegate.saveContext()
+            }
+            self.bucketFavoritesContacts(with: favorite)
+        }
+    }
+    
+    /**
      Add favoriteContact into an existing FavoritesGroup, or create a new Group and add to that while updating favoritesGroupHash & favoritesSectionHash
      
      - parameters:
@@ -450,9 +494,8 @@ private extension FavoritesService {
             }
         } else {
             let favGroup = FavoritesGroup(with: [favContact])
-            favoritesGroupHash[favContact.groupName!] = favGroup
             self.favoritesSectionHash[Int(favContact.groupSectionIndex)] = favContact.groupName!
-//            self.favoritesSectionHash[self.favoritesGroupHash.count-1] = favContact.groupName!
+            self.favoritesGroupHash[favContact.groupName!] = favGroup
         }
     }
 }
