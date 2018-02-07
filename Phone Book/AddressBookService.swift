@@ -53,6 +53,8 @@ class AddressBookService {
         }
     }
     
+    // MARK: - Contact Updates
+    
     func updateAddressBook(contact: Contact) {
         let contactRecord = self.makeAddressBookContact(with: contact)
         if !self.contactExistsInAddressBook(contact: contact) {
@@ -105,9 +107,9 @@ class AddressBookService {
         return contactRecord
     }
     
-    func addNewContactToAddressBook(contactRecord: CNMutableContact) {
+    func addNewContactToAddressBook(contactRecord: CNMutableContact, identifier: String?=nil) {
         let saveRequest = CNSaveRequest()
-        saveRequest.add(contactRecord, toContainerWithIdentifier: nil)
+        saveRequest.add(contactRecord, toContainerWithIdentifier: identifier)
         do {
             try contactStore.execute(saveRequest)
         } catch {
@@ -131,6 +133,49 @@ class AddressBookService {
             self.addressBookDelegate?.deniedAddressBookAccess(showMessage: true)
         } else {
             self.addressBookDelegate?.deniedAddressBookAccess(showMessage: false)
+        }
+    }
+    
+    // MARK: - Group Updates
+    
+    func createGroup(groupName: String) -> CNMutableGroup {
+        let group = CNMutableGroup()
+        group.name = groupName
+        return group
+    }
+    
+    func groupExistsInAddressBook(groupName: String) -> Bool {
+        let store = CNContactStore()
+        let existingGroups = try! store.groups(matching: CNGroup.predicateForGroups(withIdentifiers: [groupName]))
+        return existingGroups.count > 0
+    }
+    
+    func addGroupToAddressBook(contacts: [Contact], groupName: String) {
+        let group = self.createGroup(groupName: groupName)
+        // If Group doesn't already exist in CNStore, create it
+        if !self.groupExistsInAddressBook(groupName: groupName) {
+            let newGroupSave = CNSaveRequest()
+            newGroupSave.add(group, toContainerWithIdentifier: groupName)
+            do {
+                try contactStore.execute(newGroupSave)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        /*
+         * 1. Loop through contacts to see if Contact Exists in AddressBook
+         * 2. If exists, update existing CNContact in AddressBook
+         * 3. If doesn't exist, add new CNContact in AddressBook
+         */
+        for contact in contacts {
+            let addressContact = self.makeAddressBookContact(with: contact)
+            let saveMember = CNSaveRequest()
+            saveMember.addMember(addressContact, to: group)
+            do {
+                try contactStore.execute(saveMember)
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
 }

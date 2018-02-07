@@ -54,7 +54,7 @@ class FavoritesGroupTitleView : UITableViewHeaderFooterView {
         // Set Group Title
         self.groupTitle.textColor = UIColor.white
         self.groupTitle.text = groupTitle
-        self.groupTitle.setFontHeight(size: 18)
+        self.groupTitle.setFontHeight(size: 20)
         self.emailButton.isHidden = !groupEmailIsVisivle
         self.textButton.isHidden = !groupTextIsVisible
     }

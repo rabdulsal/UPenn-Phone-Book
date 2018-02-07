@@ -50,7 +50,10 @@ class FavoritesViewController : UIViewController {
             message: "Type a new name for '\(self.selectedGroupTitle)' Group.".localize,
             preferredStyle: .alert
         )
-        self.updateFavoritesAction = UIAlertAction(title: "Save", style: .default, handler: {
+        self.updateFavoritesAction = UIAlertAction(
+            title: "Save".localize,
+            style: .default,
+            handler: {
             alert -> Void in
             let textField = alertController.textFields?.first
             if let title = textField?.text, title.isEmpty == false  {
@@ -183,7 +186,7 @@ extension FavoritesViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return 45
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
