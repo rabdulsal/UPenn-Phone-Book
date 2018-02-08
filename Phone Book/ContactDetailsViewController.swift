@@ -82,7 +82,7 @@ class ContactDetailsViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.contactService = ContactService(viewController: self, contact: self.contact, emailMessageDelegate: self, contactDelegate: self)
-        self.addressBookService = AddressBookService(delegate: self)
+        self.addressBookService = AddressBookService(delegate: self, contactDelegate: self)
         self.decorateView(with: self.contact)
         self.setupTapGestureRecognizers()
     }
@@ -269,7 +269,7 @@ private extension ContactDetailsViewController {
     }
 }
 
-extension ContactDetailsViewController : AddressBookDelegate {
+extension ContactDetailsViewController : AddressBookDelegate, AddContactAddressBookDelegate {
     func authorizedAddressBookAccess() {
         self.toggleAddToContactsTitle()
     }
@@ -285,6 +285,7 @@ extension ContactDetailsViewController : AddressBookDelegate {
     
     func successfullyUpdatedExistingContactInAddressBook() {
         SVProgressHUD.showSuccess(withStatus: "\(self.contact.fullName) successfully updated in your AddressBook.".localize)
+        self.toggleAddToContactsTitle()
     }
     
     func successfullyAddedNewContactToAddressBook() {

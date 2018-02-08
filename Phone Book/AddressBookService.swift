@@ -14,9 +14,17 @@ import UIKit
 protocol AddressBookDelegate {
     func authorizedAddressBookAccess()
     func deniedAddressBookAccess(showMessage: Bool)
+}
+
+protocol AddContactAddressBookDelegate {
     func failedToUpdateContactInAddressBook(message: String)
     func successfullyAddedNewContactToAddressBook()
     func successfullyUpdatedExistingContactInAddressBook()
+}
+
+protocol AddGroupAddressBookDelegate {
+    func successfullyAddedGroupToAddressBook(groupName: String)
+    func failedToAddGroupToAddressBook(message: String)
 }
 
 class AddressBookService {
@@ -24,13 +32,20 @@ class AddressBookService {
     let deniedCountKey = "deniedCountKey"
     let contactStore = CNContactStore()
     var addressBookDelegate: AddressBookDelegate?
+    var addContactDelegate: AddContactAddressBookDelegate?
+    var addGroupDelegate: AddGroupAddressBookDelegate?
     var previouslyDeniedAddressAccess : Bool {
         guard let denied = UserDefaults.standard.value(forKey: self.deniedCountKey) as? Bool else { return false }
         return denied
     }
     
-    init(delegate: AddressBookDelegate) {
+    init(
+        delegate: AddressBookDelegate?=nil,
+        contactDelegate: AddContactAddressBookDelegate?=nil,
+        groupDelegate: AddGroupAddressBookDelegate?=nil) {
         self.addressBookDelegate = delegate
+        self.addContactDelegate = contactDelegate
+        self.addGroupDelegate = groupDelegate
     }
     
     func checkAddressBookAuthorizationStatus() {
@@ -59,16 +74,13 @@ class AddressBookService {
         let contactRecord = self.makeAddressBookContact(with: contact)
         if !self.contactExistsInAddressBook(contact: contact) {
             self.addNewContactToAddressBook(contactRecord: contactRecord)
-            self.addressBookDelegate?.successfullyAddedNewContactToAddressBook()
         } else {
             self.updateExistingAddressBookContact(contactRecord: contactRecord)
-            self.addressBookDelegate?.successfullyUpdatedExistingContactInAddressBook()
         }
     }
     
     func contactExistsInAddressBook(contact: Contact) -> Bool {
-        let store = CNContactStore()
-        let contacts = try! store.unifiedContacts(
+        let contacts = try! contactStore.unifiedContacts(
             matching: CNContact.predicateForContacts(matchingName: contact.lastName),
             keysToFetch:[
                 CNContactGivenNameKey as CNKeyDescriptor,
@@ -112,8 +124,9 @@ class AddressBookService {
         saveRequest.add(contactRecord, toContainerWithIdentifier: identifier)
         do {
             try contactStore.execute(saveRequest)
+            self.addContactDelegate?.successfullyAddedNewContactToAddressBook()
         } catch {
-            self.addressBookDelegate?.failedToUpdateContactInAddressBook(message: error.localizedDescription)
+            self.addContactDelegate?.failedToUpdateContactInAddressBook(message: error.localizedDescription)
         }
     }
     
@@ -122,8 +135,9 @@ class AddressBookService {
         saveRequest.update(contactRecord)
         do {
             try self.contactStore.execute(saveRequest)
+            self.addContactDelegate?.successfullyUpdatedExistingContactInAddressBook()
         } catch {
-            self.addressBookDelegate?.failedToUpdateContactInAddressBook(message: error.localizedDescription)
+            self.addContactDelegate?.failedToUpdateContactInAddressBook(message: error.localizedDescription)
         }
     }
     
@@ -144,38 +158,48 @@ class AddressBookService {
         return group
     }
     
-    func groupExistsInAddressBook(groupName: String) -> Bool {
-        let store = CNContactStore()
-        let existingGroups = try! store.groups(matching: CNGroup.predicateForGroups(withIdentifiers: [groupName]))
-        return existingGroups.count > 0
-    }
-    
-    func addGroupToAddressBook(contacts: [Contact], groupName: String) {
-        let group = self.createGroup(groupName: groupName)
-        // If Group doesn't already exist in CNStore, create it
-        if !self.groupExistsInAddressBook(groupName: groupName) {
-            let newGroupSave = CNSaveRequest()
-            newGroupSave.add(group, toContainerWithIdentifier: groupName)
-            do {
-                try contactStore.execute(newGroupSave)
-            } catch {
-                print(error.localizedDescription)
+    func addGroupToAddressBook(contacts: Array<FavoritesContact>, groupName: String) {
+        /*
+         * 1. Fetch all CNGroups in CNStore
+         * 2. Loop through all groups to see if groupName exists
+         * 3. If Yes, add Contacts to respective Group
+         * 4. If No, create a new CNMutableGroup with groupName and add Contacts to new Group
+         */
+        let allGroups = try! contactStore.groups(matching: nil)
+        for group in allGroups {
+            if group.name == groupName {
+                // Group exists in ContactStore
+                self.add(contacts: contacts, to: group)
+                return
             }
         }
-        /*
-         * 1. Loop through contacts to see if Contact Exists in AddressBook
-         * 2. If exists, update existing CNContact in AddressBook
-         * 3. If doesn't exist, add new CNContact in AddressBook
-         */
+        // Group doesn't exist in ContactStore
+        let newGroup = self.createGroup(groupName: groupName)
+        let newGroupSave = CNSaveRequest()
+        newGroupSave.add(newGroup, toContainerWithIdentifier: nil)
+        do {
+            try contactStore.execute(newGroupSave)
+        } catch {
+            self.addGroupDelegate?.failedToAddGroupToAddressBook(message: error.localizedDescription)
+            return
+        }
+        self.add(contacts: contacts, to: newGroup)
+    }
+    
+    func add(contacts: Array<FavoritesContact>, to group: CNGroup) {
+        // Loop through each Contact add to passed-in group
         for contact in contacts {
-            let addressContact = self.makeAddressBookContact(with: contact)
+            let addressContact = self.makeAddressBookContact(with: Contact(favoriteContact: contact))
             let saveMember = CNSaveRequest()
             saveMember.addMember(addressContact, to: group)
+            saveMember.add(addressContact, toContainerWithIdentifier: nil)
             do {
                 try contactStore.execute(saveMember)
             } catch {
-                print(error.localizedDescription)
+                self.addGroupDelegate?.failedToAddGroupToAddressBook(message: error.localizedDescription)
+                return
             }
         }
+        self.addGroupDelegate?.successfullyAddedGroupToAddressBook(groupName: group.name)
     }
 }

@@ -26,6 +26,7 @@ class FavoritesViewController : UIViewController {
     
     fileprivate var contactService: ContactService!
     fileprivate var searchService = ContactsSearchService()
+    fileprivate var addressbookService: AddressBookService!
     fileprivate var contactContext : ContactGroupContext = .groupText
     fileprivate var selectedGroupTitle = ""
     fileprivate var favGroupsCount : Int {
@@ -125,6 +126,9 @@ class FavoritesViewController : UIViewController {
         
         // Favorites Data
         FavoritesService.loadFavoritesData()
+        
+        // AddressBook
+        self.addressbookService = AddressBookService(groupDelegate: self)
         
         // Navigation
         self.editBarButton.title = "Reorder".localize
@@ -237,14 +241,31 @@ extension FavoritesViewController : FavoritesGroupTitleDelegate {
     }
     
     func pressedEmailGroup(groupIndex: Int) {
-        self.contactContext = .groupEmail
-        self.performContactGroupSegue(groupIndex: groupIndex)
+//        self.contactContext = .groupEmail
+//        self.performContactGroupSegue(groupIndex: groupIndex)
+        // TODO: Test ActionSheet/AddGroup actions
+        guard
+            let contacts = FavoritesService.getFavoritesContacts(for: groupIndex),
+            let favsGroup = FavoritesService.getFavoritesGroup(for: groupIndex) else { return }
+        self.addressbookService.addGroupToAddressBook(contacts: contacts, groupName: favsGroup.title)
     }
     
     func pressedEditGroupTitle(groupIndex: Int) {
         guard let favoritesGroup = FavoritesService.getFavoritesGroup(for: groupIndex) else { return }
         self.selectedGroupTitle = favoritesGroup.title
         self.present(self.editFavoritesGroupAlert, animated: true, completion: nil)
+    }
+}
+
+// MARK: - AddGroupAddressBookDelegate
+
+extension FavoritesViewController : AddGroupAddressBookDelegate {
+    func successfullyAddedGroupToAddressBook(groupName: String) {
+        SVProgressHUD.showSuccess(withStatus: "Successfully added \(groupName) Group to AddressBook!".localize)
+    }
+    
+    func failedToAddGroupToAddressBook(message: String) {
+        SVProgressHUD.showError(withStatus: message.localize)
     }
 }
 
