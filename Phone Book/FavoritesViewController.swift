@@ -155,7 +155,7 @@ extension FavoritesViewController : UITableViewDataSource {
         guard let title = FavoritesService.getFavoritesGroupTitle(for: section) else { return UIView() }
         let textableCount = FavoritesService.getTextableFavorites(for: section)?.count ?? 0
         let emailableCount = FavoritesService.getEmailableFavorites(for: section)?.count ?? 0
-        view.configure(with: self, groupTitle: title, groupTextIsVisible: textableCount > 1, groupEmailIsVisivle: emailableCount > 1, and: section)
+        view.configure(with: self, groupTitle: title, groupTextIsVisible: textableCount > 1, groupEmailIsVisible: emailableCount > 1, and: section)
         return view
     }
     
@@ -193,16 +193,16 @@ extension FavoritesViewController : FavoritesContactDelegate {
 
 extension FavoritesViewController : FavoritesGroupTitleDelegate {
     func pressedTextGroup(groupIndex: Int) {
-        self.contactContext = .groupText
-        self.performContactGroupSegue(groupIndex: groupIndex)
-    }
-    
-    func pressedEmailGroup(groupIndex: Int) {
-//        self.contactContext = .groupEmail
+//        self.contactContext = .groupText
 //        self.performContactGroupSegue(groupIndex: groupIndex)
         // TODO: Test Launch Favorites ActionSheet
         self.selectedGroupIndex = groupIndex
         self.present(self.moreFavoritesActionsController, animated: true, completion: nil)
+    }
+    
+    func pressedEmailGroup(groupIndex: Int) {
+        self.contactContext = .groupEmail
+        self.performContactGroupSegue(groupIndex: groupIndex)
     }
     
     func pressedEditGroupTitle(groupIndex: Int) {
@@ -316,13 +316,22 @@ private extension FavoritesViewController {
     var moreFavoritesActionsController : UIAlertController {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet
         )
+        // Bools to conditionally determine display of Email or Text Actions
+        var hasTextableGroup : Bool {
+            guard let textableCount = FavoritesService.getTextableFavorites(for: self.selectedGroupIndex)?.count else { return false }
+            return textableCount > 1
+        }
+        var hasEmailableGroup : Bool {
+            guard let emailableCount = FavoritesService.getEmailableFavorites(for: self.selectedGroupIndex)?.count else { return false }
+            return emailableCount > 1
+        }
+        
         // Group Text Action
         let groupTextAction = UIAlertAction(
             title: "Text Group".localize,
             style: .default,
             handler: {
                 alert -> Void in
-                print("Text Group")
                 self.contactContext = .groupText
                 self.performContactGroupSegue(groupIndex: self.selectedGroupIndex)
         })
@@ -333,7 +342,6 @@ private extension FavoritesViewController {
             style: .default,
             handler: {
                 alert -> Void in
-                print("Email Group")
                 self.contactContext = .groupEmail
                 self.performContactGroupSegue(groupIndex: self.selectedGroupIndex)
         })
@@ -354,9 +362,9 @@ private extension FavoritesViewController {
         let cancelAction = UIAlertAction(title: "Cancel".localize, style: .cancel, handler: {
             (action : UIAlertAction!) -> Void in
         })
-        alertController.addAction(groupTextAction)
-        alertController.addAction(groupEmailAction)
-        alertController.addAction(groupAddressBookAction)
+        if hasTextableGroup { alertController.addAction(groupTextAction) }
+        if hasEmailableGroup { alertController.addAction(groupEmailAction) }
+        if self.addressbookService.hasGrantedAddressBookAccess { alertController.addAction(groupAddressBookAction) }
         alertController.addAction(cancelAction)
         return alertController
     }

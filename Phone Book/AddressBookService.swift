@@ -38,6 +38,15 @@ class AddressBookService {
         guard let denied = UserDefaults.standard.value(forKey: self.deniedCountKey) as? Bool else { return false }
         return denied
     }
+    var hasGrantedAddressBookAccess : Bool {
+        let authorizationStatus = CNContactStore.authorizationStatus(for: .contacts)
+        switch authorizationStatus {
+        case .denied, .restricted, .notDetermined:
+            return false
+        case .authorized:
+            return true
+        }
+    }
     
     init(
         delegate: AddressBookDelegate?=nil,
