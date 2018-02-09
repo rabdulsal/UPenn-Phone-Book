@@ -13,6 +13,7 @@ protocol FavoritesGroupTitleDelegate {
     func pressedTextGroup(groupIndex: Int)
     func pressedEmailGroup(groupIndex: Int)
     func pressedEditGroupTitle(groupIndex: Int)
+    func pressedMoreButton(groupIndex: Int)
 }
 
 class FavoritesGroupTitleView : UITableViewHeaderFooterView {

@@ -29,51 +29,13 @@ class FavoritesViewController : UIViewController {
     fileprivate var addressbookService: AddressBookService!
     fileprivate var contactContext : ContactGroupContext = .groupText
     fileprivate var selectedGroupTitle = ""
-    fileprivate var favGroupsCount : Int {
-        /* Dynamically compute favoritesGroupsCount to:
-         * 1. Enable/disable Editing state
-         * 2. Toggle NoFavoritesView
-        */
-        let groupsCount = FavoritesService.favoritesGroupsCount
-        self.editBarButton.isEnabled = groupsCount != 0
-        if !self.editBarButton.isEnabled { self.toggleEditing(false) }
-        self.toggleNoFavoritesView(show: groupsCount == 0)
-        return groupsCount
-    }
+    fileprivate var selectedGroupIndex = -1
     fileprivate let favoritesTitleNibKey     = "FavoritesGroupTitleView"
     fileprivate let favoritesTitleIdentifier = "FavoritesHeader"
     fileprivate let contactGroupTitleKey     = "ContactGroupTitleKey"
     fileprivate let contactGroupMembersKey   = "ContactGroupMembersKey"
     fileprivate var updateFavoritesAction: UIAlertAction!
-    fileprivate var editFavoritesGroupAlert : UIAlertController {
-        let alertController = UIAlertController(
-            title: "Rename Favorites Group '\(self.selectedGroupTitle)'".localize,
-            message: "Type a new name for '\(self.selectedGroupTitle)' Group.".localize,
-            preferredStyle: .alert
-        )
-        self.updateFavoritesAction = UIAlertAction(
-            title: "Save".localize,
-            style: .default,
-            handler: {
-            alert -> Void in
-            let textField = alertController.textFields?.first
-            if let title = textField?.text, title.isEmpty == false  {
-                let favs = FavoritesService.getFavoritesContacts(with: self.selectedGroupTitle)
-                self.updateGroupTitle(newTitle: title, for: favs)
-            }
-        })
-        self.updateFavoritesAction.isEnabled = false
-        let cancelAction = UIAlertAction(title: "Cancel".localize, style: .default, handler: {
-            (action : UIAlertAction!) -> Void in
-        })
-        alertController.addTextField { (textField : UITextField!) -> Void in
-            textField.placeholder = "Type new group name".localize
-            textField.addTarget(self, action: #selector(self.updateFavoritesTextFieldDidChange(_:)), for: .editingChanged)
-        }
-        alertController.addAction(cancelAction)
-        alertController.addAction(self.updateFavoritesAction)
-        return alertController
-    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -238,17 +200,21 @@ extension FavoritesViewController : FavoritesGroupTitleDelegate {
     func pressedEmailGroup(groupIndex: Int) {
 //        self.contactContext = .groupEmail
 //        self.performContactGroupSegue(groupIndex: groupIndex)
-        // TODO: Test ActionSheet/AddGroup actions
-        guard
-            let contacts = FavoritesService.getFavoritesContacts(for: groupIndex),
-            let favsGroup = FavoritesService.getFavoritesGroup(for: groupIndex) else { return }
-        self.addressbookService.addGroupToAddressBook(contacts: contacts, groupName: favsGroup.title)
+        // TODO: Test Launch Favorites ActionSheet
+        self.selectedGroupIndex = groupIndex
+        self.present(self.moreFavoritesActionsController, animated: true, completion: nil)
     }
     
     func pressedEditGroupTitle(groupIndex: Int) {
         guard let favoritesGroup = FavoritesService.getFavoritesGroup(for: groupIndex) else { return }
         self.selectedGroupTitle = favoritesGroup.title
         self.present(self.editFavoritesGroupAlert, animated: true, completion: nil)
+    }
+    
+    func pressedMoreButton(groupIndex: Int) {
+        // TODO: Launch Favorites ActionSheet
+        self.selectedGroupIndex = groupIndex
+        self.present(self.moreFavoritesActionsController, animated: true, completion: nil)
     }
 }
 
@@ -305,6 +271,96 @@ extension FavoritesViewController : EmailMessageDelegate {
 // MARK: - Private
 
 private extension FavoritesViewController {
+    var favGroupsCount : Int {
+        /* Dynamically compute favoritesGroupsCount to:
+         * 1. Enable/disable Editing state
+         * 2. Toggle NoFavoritesView
+         */
+        let groupsCount = FavoritesService.favoritesGroupsCount
+        self.editBarButton.isEnabled = groupsCount != 0
+        if !self.editBarButton.isEnabled { self.toggleEditing(false) }
+        self.toggleNoFavoritesView(show: groupsCount == 0)
+        return groupsCount
+    }
+    
+    var editFavoritesGroupAlert : UIAlertController {
+        let alertController = UIAlertController(
+            title: "Rename Favorites Group '\(self.selectedGroupTitle)'".localize,
+            message: "Type a new name for '\(self.selectedGroupTitle)' Group.".localize,
+            preferredStyle: .alert
+        )
+        self.updateFavoritesAction = UIAlertAction(
+            title: "Save".localize,
+            style: .default,
+            handler: {
+                alert -> Void in
+                let textField = alertController.textFields?.first
+                if let title = textField?.text, title.isEmpty == false  {
+                    let favs = FavoritesService.getFavoritesContacts(with: self.selectedGroupTitle)
+                    self.updateGroupTitle(newTitle: title, for: favs)
+                }
+        })
+        self.updateFavoritesAction.isEnabled = false
+        let cancelAction = UIAlertAction(title: "Cancel".localize, style: .default, handler: {
+            (action : UIAlertAction!) -> Void in
+        })
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Type new group name".localize
+            textField.addTarget(self, action: #selector(self.updateFavoritesTextFieldDidChange(_:)), for: .editingChanged)
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(self.updateFavoritesAction)
+        return alertController
+    }
+    
+    var moreFavoritesActionsController : UIAlertController {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet
+        )
+        // Group Text Action
+        let groupTextAction = UIAlertAction(
+            title: "Text Group".localize,
+            style: .default,
+            handler: {
+                alert -> Void in
+                print("Text Group")
+                self.contactContext = .groupText
+                self.performContactGroupSegue(groupIndex: self.selectedGroupIndex)
+        })
+        
+        // Group Email Action
+        let groupEmailAction = UIAlertAction(
+            title: "Email Group".localize,
+            style: .default,
+            handler: {
+                alert -> Void in
+                print("Email Group")
+                self.contactContext = .groupEmail
+                self.performContactGroupSegue(groupIndex: self.selectedGroupIndex)
+        })
+        
+        // Add All to AddressBook Action
+        let groupAddressBookAction = UIAlertAction(
+            title: "Add Group to AddressBook".localize,
+            style: .default,
+            handler: {
+                alert -> Void in
+                guard
+                    let contacts = FavoritesService.getFavoritesContacts(for: self.selectedGroupIndex),
+                    let favsGroup = FavoritesService.getFavoritesGroup(for: self.selectedGroupIndex) else { return }
+                self.addressbookService.addGroupToAddressBook(contacts: contacts, groupName: favsGroup.title)
+        })
+        
+        // Cancel Action
+        let cancelAction = UIAlertAction(title: "Cancel".localize, style: .cancel, handler: {
+            (action : UIAlertAction!) -> Void in
+        })
+        alertController.addAction(groupTextAction)
+        alertController.addAction(groupEmailAction)
+        alertController.addAction(groupAddressBookAction)
+        alertController.addAction(cancelAction)
+        return alertController
+    }
+    
     func toggleEditing(_ isEditing: Bool) {
         self.favoritesTableView.isEditing = isEditing
         self.editBarButton.title = isEditing ? "Done".localize : "Reorder".localize
