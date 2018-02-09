@@ -58,13 +58,8 @@ class FavoritesViewController : UIViewController {
             alert -> Void in
             let textField = alertController.textFields?.first
             if let title = textField?.text, title.isEmpty == false  {
-                FavoritesService.updateFavoritesGroupTitle(from: self.selectedGroupTitle, to: title.trim, completion: { (errorString) in
-                    if let e = errorString {
-                        SVProgressHUD.showError(withStatus: e)
-                    } else {
-                        self.favoritesTableView.reloadData()
-                    }
-                })
+                let favs = FavoritesService.getFavoritesContacts(with: self.selectedGroupTitle)
+                self.updateGroupTitle(newTitle: title, for: favs)
             }
         })
         self.updateFavoritesAction.isEnabled = false
@@ -260,7 +255,17 @@ extension FavoritesViewController : FavoritesGroupTitleDelegate {
 // MARK: - AddGroupAddressBookDelegate
 
 extension FavoritesViewController : AddGroupAddressBookDelegate {
-    func successfullyAddedGroupToAddressBook(groupName: String) {
+    func successfullyAddedGroupToAddressBook(groupName: String, isUpdatingGroup: Bool) {
+        if isUpdatingGroup {
+            FavoritesService.updateFavoritesGroupTitle(from: self.selectedGroupTitle, to: groupName.trim, completion: { (errorString) in
+                if let e = errorString {
+                    SVProgressHUD.showError(withStatus: e)
+                } else {
+                    self.favoritesTableView.reloadData()
+                }
+                return
+            })
+        }
         SVProgressHUD.showSuccess(withStatus: "Successfully added \(groupName) Group to AddressBook!".localize)
     }
     
@@ -336,5 +341,9 @@ private extension FavoritesViewController {
     
     @objc func updateFavoritesTextFieldDidChange(_ textField: UITextField) {
         textField.toggleAlertAction(action: self.updateFavoritesAction)
+    }
+    
+    func updateGroupTitle(newTitle: String, for contacts: Array<FavoritesContact>) {
+        self.addressbookService.updateGroupTitle(from: self.selectedGroupTitle, to: newTitle, for: contacts)
     }
 }

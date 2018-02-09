@@ -238,6 +238,19 @@ class FavoritesService {
     }
     
     /**
+     Convenience method to return Array of FavoritedContacts based on group title
+     
+     - parameter groupTitle: Title of group to return FavoritesContacts
+    */
+    static func getFavoritesContacts(with groupTitle: String) -> Array<FavoritesContact> {
+        // If newTitle already exists for another group, return error
+        guard let favsGroup = favoritesGroupHash[groupTitle] else {
+            return Array<FavoritesContact>()
+        }
+        return favsGroup.favoritedContacts
+    }
+    
+    /**
      Convenience method to return Array of FavoritedContacts based on Section, when displaying in TableViews
      */
     static func getFavoritesContacts(for section: Int) -> Array<FavoritesContact>? {
