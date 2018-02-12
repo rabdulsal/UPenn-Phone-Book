@@ -212,7 +212,6 @@ extension FavoritesViewController : FavoritesGroupTitleDelegate {
     }
     
     func pressedMoreButton(groupIndex: Int) {
-        // TODO: Launch Favorites ActionSheet
         self.selectedGroupIndex = groupIndex
         self.present(self.moreFavoritesActionsController, animated: true, completion: nil)
     }
@@ -223,14 +222,9 @@ extension FavoritesViewController : FavoritesGroupTitleDelegate {
 extension FavoritesViewController : AddGroupAddressBookDelegate {
     func successfullyAddedGroupToAddressBook(groupName: String, isUpdatingGroup: Bool) {
         if isUpdatingGroup {
-            FavoritesService.updateFavoritesGroupTitle(from: self.selectedGroupTitle, to: groupName.trim, completion: { (errorString) in
-                if let e = errorString {
-                    SVProgressHUD.showError(withStatus: e)
-                } else {
-                    self.favoritesTableView.reloadData()
-                }
-                return
-            })
+            self.updateGroupTitle(newTitle: groupName)
+            SVProgressHUD.showSuccess(withStatus: "Successfully updated '\(groupName)' Group in AddressBook!")
+            return
         }
         SVProgressHUD.showSuccess(withStatus: "Successfully added \(groupName) Group to AddressBook!".localize)
     }
@@ -408,6 +402,21 @@ private extension FavoritesViewController {
     }
     
     func updateGroupTitle(newTitle: String, for contacts: Array<FavoritesContact>) {
-        self.addressbookService.updateGroupTitle(from: self.selectedGroupTitle, to: newTitle, for: contacts)
+        if self.addressbookService.groupExistsInAddressBook(groupTitle: self.selectedGroupTitle) {
+            self.addressbookService.updateGroupTitle(from: self.selectedGroupTitle, to: newTitle, for: contacts)
+        } else {
+            self.updateGroupTitle(newTitle: newTitle)
+        }
+    }
+    
+    func updateGroupTitle(newTitle: String) {
+        FavoritesService.updateFavoritesGroupTitle(from: self.selectedGroupTitle, to: newTitle.trim, completion: { (errorString) in
+            if let e = errorString {
+                SVProgressHUD.showError(withStatus: e)
+            } else {
+                SVProgressHUD.showSuccess(withStatus: "Successfully updated '\(newTitle)' Group in AddressBook!")
+                self.favoritesTableView.reloadData()
+            }
+        })
     }
 }

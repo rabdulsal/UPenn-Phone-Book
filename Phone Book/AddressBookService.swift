@@ -112,6 +112,20 @@ class AddressBookService {
     // MARK: - Group Updates
     
     /**
+     Checks all CNGroups in CNContactStore and returns a Bool if match is found
+     - parameter groupTitle: String representing Group name to compare against
+    */
+    func groupExistsInAddressBook(groupTitle: String) -> Bool {
+        let allGroups = try! contactStore.groups(matching: nil)
+        for group in allGroups {
+            if group.name == groupTitle {
+                return true
+            }
+        }
+        return false
+    }
+    
+    /**
      Adds a Group to CNContactStore
      - parameters:
         - contacts: Array of FavoritesContacts to be added to Group
