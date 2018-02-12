@@ -84,7 +84,6 @@ class AddressBookService {
     
     /**
      Updates CNContactStore with Contact
-     
      - parameter contact: Contact object to add to CNContactStore
     */
     func updateAddressBook(contact: Contact) {
@@ -98,18 +97,10 @@ class AddressBookService {
     
     /**
      Returns Bool indicating whether Contact is already in CNContactStore
-     
      - parameter contact: Contact object check existence in CNContactStore
     */
     func contactExistsInAddressBook(contact: Contact) -> Bool {
-        let contacts = try! contactStore.unifiedContacts(
-            matching: CNContact.predicateForContacts(matchingName: contact.lastName),
-            keysToFetch:[
-                CNContactGivenNameKey as CNKeyDescriptor,
-                CNContactFamilyNameKey as CNKeyDescriptor,
-                CNContactMiddleNameKey as CNKeyDescriptor
-            ]
-        )
+        let contacts = self.fetchFromAddressBook(contact: contact)
         for c in contacts {
             if c.givenName == contact.firstName && c.middleName == contact.middleName && c.familyName == contact.lastName {
                 return true
@@ -122,7 +113,6 @@ class AddressBookService {
     
     /**
      Adds a Group to CNContactStore
-     
      - parameters:
         - contacts: Array of FavoritesContacts to be added to Group
         - groupName: Name of the Group to add the Contacts
@@ -148,7 +138,6 @@ class AddressBookService {
     
     /**
      Updates title of existing Group
-     
      - parameters:
         - oldTitle: Name of old Group
         - newTitle: New name of Group
@@ -179,7 +168,6 @@ class AddressBookService {
 private extension AddressBookService {
     /**
      Makes and returns a CNMutableContact
-     
      - parameter contact: Contact object used to decorate CNMutableContact properties
     */
     func makeAddressBookContact(with contact: Contact) -> CNMutableContact {
@@ -207,7 +195,6 @@ private extension AddressBookService {
     
     /**
      Adds new CNMutableContact to AddressBook
-     
      - parameters:
         - contactRecord: CNMutableContact to add to CNContactStore
         - identifier: Optional identifier to add to CNSaveRequest container
@@ -225,10 +212,9 @@ private extension AddressBookService {
     
     /**
      Adds new CNMutableContact to AddressBook
-     
      - parameters:
-     - contactRecord: CNMutableContact to add to CNContactStore
-     - identifier: Optional identifier to add to CNSaveRequest container
+        - contactRecord: CNMutableContact to add to CNContactStore
+        - identifier: Optional identifier to add to CNSaveRequest container
      */
     func updateExistingAddressBookContact(contactRecord: CNMutableContact) {
         let saveRequest = CNSaveRequest()
@@ -242,8 +228,22 @@ private extension AddressBookService {
     }
     
     /**
+     Fetches all CNContacts in CNContactStore matching specific Contact
+     - parameter contact: Contact to match against in the CNContactStore
+    */
+    func fetchFromAddressBook(contact: Contact) -> Array<CNContact> {
+        return try! contactStore.unifiedContacts(
+            matching: CNContact.predicateForContacts(matchingName: contact.lastName),
+            keysToFetch:[
+                CNContactGivenNameKey as CNKeyDescriptor,
+                CNContactFamilyNameKey as CNKeyDescriptor,
+                CNContactMiddleNameKey as CNKeyDescriptor
+            ]
+        )
+    }
+    
+    /**
      Create and return CNMutableGroup
-     
      - parameters:
         - groupName: Name of Group
     */
@@ -267,17 +267,28 @@ private extension AddressBookService {
     
     /**
      Adds Contacts to Group
-     
      - parameters:
         - contacts: Array of FavoritesContacts to add to Group
         - group: Group to add Contacts to
         - isUpdatingGroup: Bool indicating whether new Group creation is part of updating old Group process; defaults to false
     */
     func add(contacts: Array<FavoritesContact>, to group: CNGroup, isUpdatingGroup: Bool=false) {
-        // Loop through each Contact add to passed-in group
-        for contact in contacts {
-            let addressContact = self.makeAddressBookContact(with: Contact(favoriteContact: contact))
+        /*
+         * 1. Loop through each FavoritesContact in contacts
+         * 2. Create CNMutableContact object
+         * 3. Check if contact is already in CNContactStore, and remove all instances tha already exist
+         * 4. Add CNGroup to CNContactStore, along with array of CNMutableContacts
+        */
+        for favContact in contacts {
+            let contact = Contact(favoriteContact: favContact)
+            let addressContact = self.makeAddressBookContact(with: contact)
             let saveMember = CNSaveRequest()
+            if contactExistsInAddressBook(contact: contact) {
+                let addyContacts = self.fetchFromAddressBook(contact: contact)
+                for addyContact in addyContacts {
+                    saveMember.delete(addyContact.mutableCopy() as! CNMutableContact)
+                }
+            }
             saveMember.addMember(addressContact, to: group)
             saveMember.add(addressContact, toContainerWithIdentifier: nil)
             do {
@@ -292,7 +303,6 @@ private extension AddressBookService {
     
     /**
      Adds New Group and Contacts to AddressBook
-     
      - parameters:
         - contacts: Array of FavoritesContact to add to Group
         - groupName: Name to assign to new Group

@@ -204,7 +204,8 @@ class FavoritesService {
     }
     
     /**
-     Convenience method to FavoritesGroup Title from index
+     Convenience method to return FavoritesGroup Title from index
+     - parameter index: Int representing Section index from a tableView
      */
     static func getFavoritesGroupTitle(for index: Int) -> String? {
         return self.favoritesSectionHash[index]
@@ -252,6 +253,7 @@ class FavoritesService {
     
     /**
      Convenience method to return Array of FavoritedContacts based on Section, when displaying in TableViews
+     - parameter section: Int representing Section index from a tableView to return array of FavoritesContacts
      */
     static func getFavoritesContacts(for section: Int) -> Array<FavoritesContact>? {
         guard let favsGroup = self.getFavoritesGroup(for: section) else { return nil }
@@ -260,6 +262,7 @@ class FavoritesService {
     
     /**
      Convenience method to return FavoritesGroup based on Section, when displaying in TableViews
+     - parameter section: Int representing Section index from a tableView to return FavoritesGroup object
      */
     static func getFavoritesGroup(for section: Int) -> FavoritesGroup? {
         if
@@ -314,6 +317,7 @@ class FavoritesService {
     
     /**
      Convenience method to return Count for each FavoritesGroup when displaying in TableViews by Section
+     - parameter section: Int representing Section index from a tableView to return number of FavoritesContacts for a particular Section
      */
     static func getFavoritesContactsCount(for section: Int) -> Int {
         guard let favContacts = self.getFavoritesContacts(for: section) else { return 0 }
