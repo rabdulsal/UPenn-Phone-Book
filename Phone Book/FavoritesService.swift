@@ -19,8 +19,7 @@ import UIKit
 typealias AddContactHandler = (_ contact: FavoritesContact?, _ errorString: String?)->Void
 
 /**
- - parameters:
- - success: Bool returning a failed/successful execution
+ - parameter errorString: Optional error message
  */
 typealias ErrorStringHandler = (_ errorString: String?)->Void
 
@@ -57,7 +56,7 @@ class FavoritesService {
     - parameters:
         - contact: The contact object to be added the Favorites Group
         - groupTitle: String representing the title of the New Favorites Group.
-        - completion: Invoked upon successful/failed attempt to add to Favorites cache.
+        - completion: Optional error message
     */
     static func addNewFavorite(_ contact: Contact, groupTitle: String, completion: @escaping (ErrorStringHandler)) {
         // If groupTitle already exists, add to existing FavoritesGroup; make new FavoritesGroup if not
@@ -97,7 +96,7 @@ class FavoritesService {
     - parameters:
         - contact: Contact object to be added to the Favorites cache.
         - groupTitle: String representing the title of the existing Favorites Group.
-        - completion: Invoked upon successful/failed attempt to add to Favorites cache.
+        - completion: Optional error message
      */
     static func addFavoriteContactToExistingGroup(contact: Contact, groupTitle: String, completion: @escaping (ErrorStringHandler)) {
         self.addToFavorites(contact, groupTitle: groupTitle) { (favContact, errorString) in
@@ -216,6 +215,7 @@ class FavoritesService {
      - parameters:
         - oldTitle: Old FavoritesGroup title to be changed
         - newTitle: New FavoritesGroup title to be updated
+        - completion: Option error message
      */
     static func updateFavoritesGroupTitle(from oldTitle: String, to newTitle: String, completion: @escaping (ErrorStringHandler)) {
         // If newTitle already exists for another group, return error
