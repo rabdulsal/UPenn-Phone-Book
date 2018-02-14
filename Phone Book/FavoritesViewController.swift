@@ -223,7 +223,7 @@ extension FavoritesViewController : AddGroupAddressBookDelegate {
     func successfullyAddedGroupToAddressBook(groupName: String, isUpdatingGroup: Bool) {
         if isUpdatingGroup {
             self.updateGroupTitle(newTitle: groupName)
-            SVProgressHUD.showSuccess(withStatus: "Successfully updated '\(groupName)' Group in AddressBook!")
+            SVProgressHUD.showSuccess(withStatus: "Successfully updated '\(groupName)' Group!".localize)
             return
         }
         SVProgressHUD.showSuccess(withStatus: "Successfully added \(groupName) Group to AddressBook!".localize)
@@ -414,7 +414,7 @@ private extension FavoritesViewController {
             if let e = errorString {
                 SVProgressHUD.showError(withStatus: e)
             } else {
-                SVProgressHUD.showSuccess(withStatus: "Successfully updated '\(newTitle)' Group!")
+                SVProgressHUD.showSuccess(withStatus: "Successfully updated '\(newTitle)' Group!".localize)
                 self.favoritesTableView.reloadData()
             }
         })

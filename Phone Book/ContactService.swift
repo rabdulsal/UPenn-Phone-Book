@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MessageUI
 
 protocol EmailMessageDelegate {
     func messageSent()
@@ -31,6 +32,14 @@ class ContactService {
     var favoriteContacts = [FavoritesContact]()
     var contactDelegate: ContactServicable?
     var emailMessageDelegate: EmailMessageDelegate?
+    
+    // Text Warning vars
+    let textWarningKey = "textWarningKey"
+    var textingVC: MFMessageComposeViewController?
+    var textWarningFlag : Bool {
+        guard let flagged = UserDefaults.standard.value(forKey: textWarningKey) as? Bool else { return false }
+        return flagged
+    }
     
     init(viewController: UIViewController, contact: Contact, emailMessageDelegate: EmailMessageDelegate, contactDelegate: ContactServicable) {
         self.delegateViewController = viewController
@@ -110,6 +119,42 @@ extension ContactService : EmailMessageDelegate {
 }
 
 fileprivate extension ContactService {
+    var textWarningAlert : UIAlertController {
+        let message = "Text paging should NOT be used to communicate emergent or urgent clinical information as there is no guarantee that your page will be received. If you have urgent/emergent clinical information to communicate, please make verbal contact."
+        let alertController = UIAlertController(
+            title: nil,
+            message: message.localize,
+            preferredStyle: .alert
+        )
+        let okayAction = UIAlertAction(
+            title: "OK".localize,
+            style: .default,
+            handler: {
+                alert -> Void in
+                // Show MessagingVC
+                self.delegateViewController.present(self.textingVC!, animated: true, completion: nil)
+        })
+        // TODO: Uncomment to allow suppressing Text Warning in future
+//        let okayDontShowAction = UIAlertAction(
+//            title: "OK, don't show this again.".localize,
+//            style: .default,
+//            handler: {
+//                alert -> Void in
+//                /*
+//                 * 1. Update don't show bool
+//                 * 2. Show MessagingVC
+//                 */
+//                UserDefaults.standard.setValue(true, forKey: self.textWarningKey)
+//                self.delegateViewController.present(self.textingVC!, animated: true, completion: nil)
+//        })
+//        alertController.addAction(okayDontShowAction)
+        let cancelAction = UIAlertAction(title: "Cancel".localize, style: .cancel, handler: nil)
+        
+        alertController.addAction(okayAction)
+        alertController.addAction(cancelAction)
+        return alertController
+    }
+    
     func callNumber(phoneNumber: String) {
         if let url = URL(string: "telprompt:\(phoneNumber)") {
             if UIApplication.shared.canOpenURL(url) {
@@ -125,8 +170,13 @@ fileprivate extension ContactService {
             let recipients = phoneNumber
             self.messagingService.delegate = self
             if self.messagingService.canSendText {
-                let messageComposeVC = self.messagingService.configuredMessageComposeViewController(textMessageRecipients: recipients)
-                self.delegateViewController.present(messageComposeVC, animated: true, completion: nil)
+                self.textingVC = self.messagingService.configuredMessageComposeViewController(textMessageRecipients: recipients)
+                // Conditionally show Text Warning Alert
+                if !self.textWarningFlag {
+                    self.delegateViewController.present(self.textWarningAlert, animated: true, completion: nil)
+                } else {
+                    self.delegateViewController.present(self.textingVC!, animated: true, completion: nil)
+                }
                 return
             }
             self.contactDelegate?.cannotTextError(message: self.cannotTextError)
