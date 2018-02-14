@@ -154,6 +154,10 @@ class FavoritesService {
         return nil
     }
     
+    /**
+     Update the isFavorited status of a Contact
+     - parameter contact: Contact to have isFavorited status updated
+    */
     static func updateFavoritedStatus(_ contact: Contact) -> Bool {
         return self.allFavoritedContacts.filter { $0.phonebookID == Double(contact.phonebookID) }.first != nil
     }
@@ -436,7 +440,7 @@ private extension FavoritesService {
      - parameters:
      - favoriteContact: Optional FavoriteContact added to the Favorites cache.
      - errorString: Optional error string returned if failed to add FavoritesContact
-     - completion: Invoked upon successful/failed attempt to remove from Favorites cache.
+     - completion: Optional error message
     */
     static func updateFavoriteSuccessHandler(_ contact: FavoritesContact?, _ errorString: String?, completion: @escaping (ErrorStringHandler)) {
         if let error = errorString {

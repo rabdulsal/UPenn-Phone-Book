@@ -87,7 +87,8 @@ class AddressBookService {
      - parameter contact: Contact object to add to CNContactStore
     */
     func updateAddressBook(contact: Contact) {
-        let contactRecord = self.makeAddressBookContact(with: contact)
+        let contactRecords = self.fetchFromAddressBook(contact: contact)
+        let contactRecord = contactRecords.first?.mutableCopy() as! CNMutableContact
         if !self.contactExistsInAddressBook(contact: contact) {
             self.addNewContactToAddressBook(contactRecord: contactRecord)
         } else {
