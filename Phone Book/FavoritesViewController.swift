@@ -352,13 +352,33 @@ private extension FavoritesViewController {
                 self.addressbookService.addGroupToAddressBook(contacts: contacts, groupName: favsGroup.title)
         })
         
+        // Remove Group
+        let deleteGroupAction = UIAlertAction(
+            title: "Remove Group from Favorites",
+            style: .destructive) { (action) in
+                guard
+                    let contacts = FavoritesService.getFavoritesContacts(for: self.selectedGroupIndex),
+                    let favsGroup = FavoritesService.getFavoritesGroup(for: self.selectedGroupIndex) else { return }
+                FavoritesService.removeGroupFromFavorites(favoritesContacts: contacts, completion: { (errorMessage) in
+                    if let message = errorMessage {
+                        SVProgressHUD.showError(withStatus: message)
+                    } else {
+                        SVProgressHUD.showSuccess(withStatus: "Successfully removed \(favsGroup.title) Group from Favorites.".localize)
+                        self.favoritesTableView.reloadData()
+                    }
+                })
+        }
+        
         // Cancel Action
         let cancelAction = UIAlertAction(title: "Cancel".localize, style: .cancel, handler: {
             (action : UIAlertAction!) -> Void in
         })
+        
+        // Conditionally display separate
         if hasTextableGroup { alertController.addAction(groupTextAction) }
         if hasEmailableGroup { alertController.addAction(groupEmailAction) }
         if self.addressbookService.hasGrantedAddressBookAccess { alertController.addAction(groupAddressBookAction) }
+        if hasTextableGroup || hasEmailableGroup { alertController.addAction(deleteGroupAction) }
         alertController.addAction(cancelAction)
         return alertController
     }
