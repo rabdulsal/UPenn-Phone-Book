@@ -87,12 +87,10 @@ class AddressBookService {
      - parameter contact: Contact object to add to CNContactStore
     */
     func updateAddressBook(contact: Contact) {
-        let contactRecords = self.fetchFromAddressBook(contact: contact)
-        let contactRecord = contactRecords.first?.mutableCopy() as! CNMutableContact
         if !self.contactExistsInAddressBook(contact: contact) {
-            self.addNewContactToAddressBook(contactRecord: contactRecord)
+            self.addNewContactToAddressBook(contact: contact)
         } else {
-            self.updateExistingAddressBookContact(contactRecord: contactRecord)
+            self.updateExistingAddressBookContact(contact: contact)
         }
     }
     
@@ -101,7 +99,7 @@ class AddressBookService {
      - parameter contact: Contact object check existence in CNContactStore
     */
     func contactExistsInAddressBook(contact: Contact) -> Bool {
-        let contacts = self.fetchFromAddressBook(contact: contact)
+        guard let contacts = self.fetchFromAddressBook(contact: contact) else { return false }
         for c in contacts {
             if c.givenName == contact.firstName && c.middleName == contact.middleName && c.familyName == contact.lastName {
                 return true
@@ -214,8 +212,9 @@ private extension AddressBookService {
         - contactRecord: CNMutableContact to add to CNContactStore
         - identifier: Optional identifier to add to CNSaveRequest container
     */
-    func addNewContactToAddressBook(contactRecord: CNMutableContact, identifier: String?=nil) {
+    func addNewContactToAddressBook(contact: Contact, identifier: String?=nil) {
         let saveRequest = CNSaveRequest()
+        let contactRecord = self.makeAddressBookContact(with: contact)
         saveRequest.add(contactRecord, toContainerWithIdentifier: identifier)
         do {
             try contactStore.execute(saveRequest)
@@ -231,8 +230,14 @@ private extension AddressBookService {
         - contactRecord: CNMutableContact to add to CNContactStore
         - identifier: Optional identifier to add to CNSaveRequest container
      */
-    func updateExistingAddressBookContact(contactRecord: CNMutableContact) {
+    func updateExistingAddressBookContact(contact: Contact) {
         let saveRequest = CNSaveRequest()
+        guard let contactRecords = self.fetchFromAddressBook(contact: contact) else {
+            self.addContactDelegate?.failedToUpdateContactInAddressBook(message: "Sorry, something went wrong updating your AddressBook. Please try again later.")
+            return
+        }
+        let contactRecord = contactRecords.first?.mutableCopy() as! CNMutableContact
+        // TODO: Hydrate contactRecord info with Contact info
         saveRequest.update(contactRecord)
         do {
             try self.contactStore.execute(saveRequest)
@@ -246,15 +251,19 @@ private extension AddressBookService {
      Fetches all CNContacts in CNContactStore matching specific Contact
      - parameter contact: Contact to match against in the CNContactStore
     */
-    func fetchFromAddressBook(contact: Contact) -> Array<CNContact> {
-        return try! contactStore.unifiedContacts(
-            matching: CNContact.predicateForContacts(matchingName: contact.lastName),
-            keysToFetch:[
-                CNContactGivenNameKey as CNKeyDescriptor,
-                CNContactFamilyNameKey as CNKeyDescriptor,
-                CNContactMiddleNameKey as CNKeyDescriptor
-            ]
-        )
+    func fetchFromAddressBook(contact: Contact) -> Array<CNContact>? {
+        do {
+            return try contactStore.unifiedContacts(
+                matching: CNContact.predicateForContacts(matchingName: contact.lastName),
+                keysToFetch:[
+                    CNContactGivenNameKey as CNKeyDescriptor,
+                    CNContactFamilyNameKey as CNKeyDescriptor,
+                    CNContactMiddleNameKey as CNKeyDescriptor
+                ]
+            )
+        } catch {
+            return nil
+        }
     }
     
     /**
@@ -300,7 +309,7 @@ private extension AddressBookService {
             let saveMember = CNSaveRequest()
             if contactExistsInAddressBook(contact: contact) {
                 let addyContacts = self.fetchFromAddressBook(contact: contact)
-                for addyContact in addyContacts {
+                for addyContact in addyContacts! {
                     saveMember.delete(addyContact.mutableCopy() as! CNMutableContact)
                 }
             }
