@@ -42,9 +42,7 @@ class FavoritesGroupsListViewController : UIViewController {
                 })
             }
         })
-        let cancelAction = UIAlertAction(title: "Cancel".localize, style: .default, handler: {
-            (action : UIAlertAction!) -> Void in
-        })
+        let cancelAction = UIAlertAction(title: "Cancel".localize, style: .default, handler: nil)
         alertController.addTextField { (textField : UITextField!) -> Void in
             textField.placeholder = "Type group name".localize
             // Pre-populated Group Name
@@ -67,7 +65,6 @@ class FavoritesGroupsListViewController : UIViewController {
         self.groupsTableView.tableFooterView = UIView()
         self.noGroupsView.backgroundColor = UIColor.upennLightGray
         self.noGroupsViewHeight.constant = 100
-        
     }
     
     @IBAction func newFavoritesGroupButtonPressed(_ sender: Any) {

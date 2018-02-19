@@ -30,6 +30,7 @@ class ContactIconView : NibView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.setupGestureRecognizer()
     }
     
     @IBAction func pressedContactButton(_ sender: UIButton) {
@@ -94,4 +95,14 @@ private extension ContactIconView {
         self.contactButton.isHidden = true
         self.contactTypeLabel.isHidden = true
     }
+    
+    func setupGestureRecognizer() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.pressedContactButton(_:)))
+        tap.delegate = self
+        tap.numberOfTapsRequired = 1
+        contactTypeLabel.isUserInteractionEnabled = true
+        contactTypeLabel.addGestureRecognizer(tap)
+    }
 }
+
+extension ContactIconView : UIGestureRecognizerDelegate { }
