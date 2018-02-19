@@ -163,6 +163,10 @@ extension FavoritesViewController : UITableViewDataSource {
         FavoritesService.moveContact(from: sourceIndexPath, to: destinationIndexPath)
          self.favoritesTableView.reloadData()
     }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Remove"
+    }
 }
 
 // MARK: - FavoritesContactDelegate
