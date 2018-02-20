@@ -201,19 +201,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Callback for when the timeout was fired.
     func applicationDidTimout(notification: NSNotification) {
         // Check if a viewController is presented, if not, show Auto-logout alert
-        guard let navVC = self.tabBarController?.presentedViewController as? UINavigationController else {
+        guard let presentedVC = self.tabBarController?.presentedViewController else {
             self.showLogoutAlert()
             return
         }
         
         // Check if the LoginViewController is presented, if not, show Auto-logout alert
-        guard let _ = navVC.childViewControllers.first as? LoginViewController else {
-            // Dismiss whatever presentedVC is showing, then display LogoutAlert
-            let viewController = navVC.viewControllers.first
-            if let presentingVC = viewController?.presentingViewController {
-                presentingVC.dismiss(animated: true, completion: {
-                    self.showLogoutAlert()
-                })
+        guard let _ = presentedVC as? LoginViewController else {
+            self.tabBarController?.dismiss(animated: true) {
+                self.showLogoutAlert()
             }
             return
         }
