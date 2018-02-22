@@ -11,7 +11,6 @@ import Foundation
 class AuthenticationService {
     
     private(set) static var authToken: String?
-    private static let hasLoginKey   = "hasLoginKey"
     private static let autoLoginKey  = "shouldAutoLogin"
     private static let autoFillKey   = "shouldAutoFill"
     private static let usernameKey   = "username"
@@ -34,11 +33,9 @@ class AuthenticationService {
         self.authToken = token
         self.isAuthenticated = true
         
-        // Check if key has already been stored
-        guard let _ = UserDefaults.standard.value(forKey: self.hasLoginKey) else {
-            // If not previously stored, then store credentials into keychain
+        // Check if shouldAutoFill, keychain-cache the in-coming credentials
+        if self.shouldAutoFill {
             self.cacheAuthenticationCredentials(username: email, password: password)
-            return
         }
     }
     
@@ -58,8 +55,6 @@ class AuthenticationService {
         } catch {
             fatalError("Error updating keychain - \(error)")
         }
-        
-        UserDefaults.standard.set(true, forKey: self.hasLoginKey)
     }
     
     static func checkAuthenticationCache(completion:(_ username: String?, _ password: String?)->Void) {
