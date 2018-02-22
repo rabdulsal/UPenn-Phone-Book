@@ -21,7 +21,8 @@ class FavoritesGroupsListViewController : UIViewController {
     var contact: Contact!
     var favoritesGroups : Array<String>? {
         let allFavorites = FavoritesService.getAllFavoritesGroups()
-        self.updateFavoritesViewInstructions(hasFavorites: allFavorites.count == 0)
+        let hasFavorites = allFavorites.count > 0
+        self.updateFavoritesViewInstructions(hasFavorites: hasFavorites)
         return allFavorites
     }
     var addFavoritesDelegate: AddToFavoritesDelegate?
@@ -56,6 +57,11 @@ class FavoritesGroupsListViewController : UIViewController {
     
     override func viewDidLoad() {
         self.setup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.checkEmptyFavoritesAutoDisplay()
     }
     
     override func setup() {
@@ -135,7 +141,16 @@ private extension FavoritesGroupsListViewController {
     }
     
     func updateFavoritesViewInstructions(hasFavorites: Bool) {
-        self.noGroupsLabel.text = hasFavorites ? "You have no favorites groups. Create one now by pressing the '+' button.".localize : "Add this person to one of your favorites groups below or select the '+' to create a new group.".localize
+        self.noGroupsLabel.text = hasFavorites ? "Add this person to one of your favorites groups below or select the '+' to create a new group.".localize : "You have no favorites groups. Create one now by pressing the '+' button.".localize
+    }
+    
+    func checkEmptyFavoritesAutoDisplay() {
+        if let allFavorites = self.favoritesGroups {
+            if allFavorites.count < 1  {
+                self.present(self.favoritesAlertController, animated: true, completion: nil)
+                
+            }
+        }
     }
     
     @objc func createFavoritesTextFieldDidChange(_ textField: UITextField) {

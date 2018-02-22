@@ -450,9 +450,9 @@ private extension FavoritesService {
     /**
      Handler consumes optional FavoritesContact and errorString and returns optional error message
      - parameters:
-     - favoriteContact: Optional FavoriteContact added to the Favorites cache.
-     - errorString: Optional error string returned if failed to add FavoritesContact
-     - completion: Optional error message
+        - contact: Optional FavoriteContact added to the Favorites cache.
+        - errorString: Optional error string returned if failed to add FavoritesContact
+        - completion: Optional error message
     */
     static func updateFavoriteSuccessHandler(_ contact: FavoritesContact?, _ errorString: String?, completion: @escaping (ErrorStringHandler)) {
         if let error = errorString {
