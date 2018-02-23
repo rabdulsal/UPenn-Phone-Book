@@ -16,14 +16,14 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: PrimaryCTAButton!
     @IBOutlet weak var autoFillButton: PrimaryCTAButtonText!
     @IBOutlet weak var titleLabel: BannerLabel!
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var rememberMeLabel: ContactDepartmentLabel!
     @IBOutlet weak var goToFavsButton: OutlineCTAButton!
     
-    var validationService: ValidationService!
-    var passwordItems: [KeychainPasswordItem] = []
-    var touchIDService: TouchIDAuthService!
-    var appDelegate : AppDelegate? {
+    fileprivate var validationService: ValidationService!
+    fileprivate var keyboardService: KeyboardService!
+    fileprivate var touchIDService: TouchIDAuthService!
+    fileprivate var appDelegate : AppDelegate? {
         return UIApplication.shared.delegate as? AppDelegate
     }
     
@@ -86,6 +86,7 @@ class LoginViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.validationService.resetTextFields()
+        self.keyboardService.endObservingKeyboard()
     }
     
     override func setup() {
@@ -121,6 +122,9 @@ class LoginViewController: UIViewController {
         
         // Load Favorites
         FavoritesService.loadFavoritesData()
+        
+        // Keyboard Service
+        self.keyboardService = KeyboardService(self.scrollView)
     }
     
     @IBAction func pressedClose(_ sender: Any) {
@@ -219,6 +223,7 @@ private extension LoginViewController {
         } else {
             self.autoFillButton.isSelected = false
         }
+        self.keyboardService.beginObservingKeyboard()
     }
     
     func login() {

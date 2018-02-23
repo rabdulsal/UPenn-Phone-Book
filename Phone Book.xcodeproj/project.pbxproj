@@ -13,6 +13,7 @@
 		3A1F2B531FFFCFBF00520625 /* UITextField+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1F2B521FFFCFBF00520625 /* UITextField+UPenn.swift */; };
 		3A1F2B551FFFD06500520625 /* UIFont+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1F2B541FFFD06500520625 /* UIFont+UPenn.swift */; };
 		3A2052631FDAFAB30004CBDC /* AutoLogoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2052621FDAFAB30004CBDC /* AutoLogoutCell.swift */; };
+		3A22321D203F6336008388FC /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22321C203F6336008388FC /* KeyboardService.swift */; };
 		3A2534EF1FD09E3F0015F9D9 /* ContactService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2534EE1FD09E3F0015F9D9 /* ContactService.swift */; };
 		3A26C1DF1F97CDAD005C88C9 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C1DE1F97CDAD005C88C9 /* ValidationService.swift */; };
 		3A26C1E11F97D372005C88C9 /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C1E01F97D372005C88C9 /* KeychainPasswordItem.swift */; };
@@ -92,6 +93,7 @@
 		3A1F2B521FFFCFBF00520625 /* UITextField+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+UPenn.swift"; sourceTree = "<group>"; };
 		3A1F2B541FFFD06500520625 /* UIFont+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+UPenn.swift"; sourceTree = "<group>"; };
 		3A2052621FDAFAB30004CBDC /* AutoLogoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLogoutCell.swift; sourceTree = "<group>"; };
+		3A22321C203F6336008388FC /* KeyboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardService.swift; sourceTree = "<group>"; };
 		3A2534EE1FD09E3F0015F9D9 /* ContactService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactService.swift; sourceTree = "<group>"; };
 		3A26C1DE1F97CDAD005C88C9 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
 		3A26C1E01F97D372005C88C9 /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				3A2534EE1FD09E3F0015F9D9 /* ContactService.swift */,
 				3A70DBCB1FE17548006556D6 /* AddressBookService.swift */,
 				3A4C18771FE1AF0200486116 /* TouchIDService.swift */,
+				3A22321C203F6336008388FC /* KeyboardService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -697,6 +700,7 @@
 				3A419F402012651100E91645 /* UIView+UPenn.swift in Sources */,
 				3A689129201A4737005C91EC /* String+UPenn.swift in Sources */,
 				4C5AE2181F918D4200E271FD /* ContactDetailsViewController.swift in Sources */,
+				3A22321D203F6336008388FC /* KeyboardService.swift in Sources */,
 				3A2534EF1FD09E3F0015F9D9 /* ContactService.swift in Sources */,
 				3ACFC7DB1FC3692B00D472FB /* main.swift in Sources */,
 				84FFD8BB1F8EC36300B28184 /* AppDelegate.swift in Sources */,

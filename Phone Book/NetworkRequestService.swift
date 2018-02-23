@@ -11,7 +11,7 @@ import Alamofire
 
 class NetworkRequestService {
     
-    let phonebookAPIStr = "https://uphsnettest2012.uphs.upenn.edu/ADRS"
+    let phonebookAPIStr = "https://www1.pennmedicine.org/adrs"
     let searchAPIStr = "/api/phonebook/search"
     let profileAPIStr = "/api/phonebook/profile"
     let defaultManager: SessionManager = {
