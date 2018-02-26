@@ -41,7 +41,7 @@ class ContactDetailsViewController : UIViewController {
     
     lazy var mapsAlertController : UIAlertController = {
         let alertController = UIAlertController(
-            title: "Directions in Apple Maps",
+            title: "Directions in Apple Maps".localize,
             message: "You are leaving the Phonebook App to view directions in the Apple Maps App. From Maps, press the 'UPHS Phonebook' button in the upper-left corner to return here.".localize,
             preferredStyle: .alert)
         let goToMapsAction = UIAlertAction(title: "Go".localize, style: .cancel, handler: {
@@ -60,7 +60,7 @@ class ContactDetailsViewController : UIViewController {
             message: "In the future, to add UPHS Phonebook contacts to your iPhone contacts, go to Settings and grant UPHS Phonebook access to 'Contacts'.".localize,
             preferredStyle: .alert)
         cantAddContactAlert.addAction(UIAlertAction(
-            title: "Change Settings",
+            title: "Change Settings".localize,
             
             style: .default,
             
@@ -262,7 +262,7 @@ private extension ContactDetailsViewController {
     
     func toggleAddToContactsTitle() {
         if self.addressBookService.contactExistsInAddressBook(contact: self.contact) {
-            self.addContactsButton.setTitle("Edit Existing Contact".localize, for: .normal)
+            self.addContactsButton.setTitle("Update AddressBook Contact".localize, for: .normal)
         } else {
             self.addContactsButton.setTitle("Add to AddressBook".localize, for: .normal)
         }

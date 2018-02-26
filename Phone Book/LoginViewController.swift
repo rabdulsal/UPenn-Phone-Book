@@ -98,6 +98,7 @@ class LoginViewController: UIViewController {
         self.emailField.delegate = self
         self.emailField.placeholder = "username".localize
         self.emailField.autocorrectionType = .no
+        self.emailField.returnKeyType = .next
         self.emailField.addCancelButton()
         self.passwordField.autocorrectionType = .no
         self.passwordField.placeholder = "password".localize

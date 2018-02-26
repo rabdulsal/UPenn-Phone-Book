@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var authToken: String?
-    var users = Array<Contact>()
     var loginService: LoginService?
     var loginDelegateVC: UIViewController?
     var shouldAutoFill: Bool {

@@ -449,7 +449,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nameLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LbE-Nv-zhe">
-                                <rect key="frame" x="121" y="84" width="84" height="21"/>
+                                <rect key="frame" x="121" y="84" width="238" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="4ze-J0-vQ5"/>
                                 </constraints>
@@ -623,7 +623,7 @@
                             <constraint firstItem="yWx-Fe-raG" firstAttribute="leading" secondItem="hCc-xi-9eb" secondAttribute="leading" id="flf-DG-aGn"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YB1-v6-TOC" secondAttribute="trailing" constant="16" id="fvj-pG-j6H"/>
                             <constraint firstItem="Ixv-OD-H3l" firstAttribute="centerY" secondItem="dR5-7U-XqO" secondAttribute="centerY" id="gCF-hq-wKm"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LbE-Nv-zhe" secondAttribute="trailing" constant="16" id="gmW-LE-wA2"/>
+                            <constraint firstAttribute="trailing" secondItem="LbE-Nv-zhe" secondAttribute="trailing" constant="16" id="gmW-LE-wA2"/>
                             <constraint firstItem="7u2-Jn-AmK" firstAttribute="firstBaseline" secondItem="JYT-Uf-vlK" secondAttribute="firstBaseline" id="gyd-kn-VlC"/>
                             <constraint firstItem="CK9-aX-jql" firstAttribute="leading" secondItem="JYT-Uf-vlK" secondAttribute="leading" id="h0O-b7-hG3"/>
                             <constraint firstItem="OoV-me-aaj" firstAttribute="top" secondItem="ufP-kB-dnm" secondAttribute="bottom" constant="8" id="hAe-up-IbK"/>
@@ -1259,142 +1259,6 @@
             </objects>
             <point key="canvasLocation" x="2510" y="1057"/>
         </scene>
-        <!--Login-->
-        <scene sceneID="8tv-yl-4ij">
-            <objects>
-                <viewController id="Ank-xs-em7" customClass="LoginViewController" customModule="UPHS_Phonebook" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Qy4-Fl-bla"/>
-                        <viewControllerLayoutGuide type="bottom" id="ZGC-gA-XjQ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="dp9-e4-CKG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YC5-WW-TxC">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                            </scrollView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VfX-dl-1ZC">
-                                <rect key="frame" x="16" y="171" width="343" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Ya2-Ke-D9C"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qZL-Qt-h0c">
-                                <rect key="frame" x="16" y="237" width="343" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="cqL-gt-EVP"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOD-dZ-Vmm" customClass="PrimaryCTAButton" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                <rect key="frame" x="16" y="348" width="343" height="50"/>
-                                <color key="backgroundColor" red="0.5450980392" green="0.13725490200000001" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="sq0-G7-BFN"/>
-                                </constraints>
-                                <state key="normal" title="Login">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pressedLogin:" destination="Ank-xs-em7" eventType="touchUpInside" id="iVK-nt-bTk"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZmL-sB-egB" customClass="PrimaryCTAButtonText" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                <rect key="frame" x="16" y="307" width="21" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="blu-VI-EYb"/>
-                                    <constraint firstAttribute="width" secondItem="ZmL-sB-egB" secondAttribute="height" multiplier="1:1" id="vcb-pu-E6b"/>
-                                </constraints>
-                                <state key="normal" image="un_checked">
-                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="pressedAutoFillButton:" destination="Ank-xs-em7" eventType="touchUpInside" id="y8J-bz-UAe"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="penn_medicine_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="4Xr-ij-oHJ">
-                                <rect key="frame" x="29" y="50" width="317" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="V3H-re-2q3"/>
-                                    <constraint firstAttribute="width" secondItem="4Xr-ij-oHJ" secondAttribute="height" multiplier="222:35" id="b3F-Yd-rRV"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UPHS Phonebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WO3-33-UWW" customClass="BannerLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                <rect key="frame" x="118.5" y="120" width="137" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2bi-w0-aQO" customClass="ContactDepartmentLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                <rect key="frame" x="45" y="307" width="166.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hb2-Ib-RXG" customClass="OutlineCTAButton" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                <rect key="frame" x="16" y="418" width="343" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="BsJ-ns-bnV"/>
-                                </constraints>
-                                <state key="normal" title="Go To Favorites"/>
-                                <connections>
-                                    <action selector="pressedGoToFavorites:" destination="Ank-xs-em7" eventType="touchUpInside" id="Pht-qk-Jtw"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="VfX-dl-1ZC" firstAttribute="leading" secondItem="qZL-Qt-h0c" secondAttribute="leading" id="4ni-cb-qfR"/>
-                            <constraint firstItem="2bi-w0-aQO" firstAttribute="leading" secondItem="ZmL-sB-egB" secondAttribute="trailing" constant="8" id="5GE-p8-HdP"/>
-                            <constraint firstItem="YC5-WW-TxC" firstAttribute="leading" secondItem="dp9-e4-CKG" secondAttribute="leading" id="6d9-EN-eaz"/>
-                            <constraint firstItem="WO3-33-UWW" firstAttribute="centerX" secondItem="dp9-e4-CKG" secondAttribute="centerX" id="BIf-18-yPT"/>
-                            <constraint firstItem="WO3-33-UWW" firstAttribute="top" secondItem="4Xr-ij-oHJ" secondAttribute="bottom" constant="20" id="Bl2-yA-6Hf"/>
-                            <constraint firstItem="hb2-Ib-RXG" firstAttribute="top" secondItem="HOD-dZ-Vmm" secondAttribute="bottom" constant="20" id="M9L-mH-0ON"/>
-                            <constraint firstItem="4Xr-ij-oHJ" firstAttribute="centerX" secondItem="dp9-e4-CKG" secondAttribute="centerX" id="MLv-GF-EFi"/>
-                            <constraint firstItem="ZmL-sB-egB" firstAttribute="top" secondItem="qZL-Qt-h0c" secondAttribute="bottom" constant="20" id="Mke-ne-PmZ"/>
-                            <constraint firstItem="VfX-dl-1ZC" firstAttribute="top" secondItem="WO3-33-UWW" secondAttribute="bottom" constant="30" id="NC5-pb-rTi"/>
-                            <constraint firstItem="qZL-Qt-h0c" firstAttribute="leading" secondItem="HOD-dZ-Vmm" secondAttribute="leading" id="PvO-mG-hnn"/>
-                            <constraint firstItem="4Xr-ij-oHJ" firstAttribute="top" secondItem="Qy4-Fl-bla" secondAttribute="bottom" constant="30" id="SFK-5W-1et"/>
-                            <constraint firstAttribute="trailing" secondItem="hb2-Ib-RXG" secondAttribute="trailing" constant="16" id="SWT-Mx-MdF"/>
-                            <constraint firstAttribute="trailing" secondItem="YC5-WW-TxC" secondAttribute="trailing" id="T6M-Lv-aRc"/>
-                            <constraint firstItem="HOD-dZ-Vmm" firstAttribute="top" secondItem="ZmL-sB-egB" secondAttribute="bottom" constant="20" id="TdN-YN-3Au"/>
-                            <constraint firstAttribute="trailing" secondItem="HOD-dZ-Vmm" secondAttribute="trailing" constant="16" id="ThX-0c-ZvK"/>
-                            <constraint firstItem="4Xr-ij-oHJ" firstAttribute="top" secondItem="YC5-WW-TxC" secondAttribute="top" constant="30" id="fIR-HZ-Oe6"/>
-                            <constraint firstItem="ZGC-gA-XjQ" firstAttribute="top" secondItem="YC5-WW-TxC" secondAttribute="bottom" id="ftg-mn-bfl"/>
-                            <constraint firstItem="qZL-Qt-h0c" firstAttribute="top" secondItem="VfX-dl-1ZC" secondAttribute="bottom" constant="16" id="gIe-4K-Kv4"/>
-                            <constraint firstItem="VfX-dl-1ZC" firstAttribute="trailing" secondItem="qZL-Qt-h0c" secondAttribute="trailing" id="iBB-Qi-pCp"/>
-                            <constraint firstItem="hb2-Ib-RXG" firstAttribute="leading" secondItem="dp9-e4-CKG" secondAttribute="leading" constant="16" id="jZo-eU-jgj"/>
-                            <constraint firstItem="hb2-Ib-RXG" firstAttribute="top" relation="lessThanOrEqual" secondItem="YC5-WW-TxC" secondAttribute="bottom" constant="-205" id="kw9-Y3-6eN"/>
-                            <constraint firstItem="HOD-dZ-Vmm" firstAttribute="leading" secondItem="dp9-e4-CKG" secondAttribute="leading" constant="16" id="lTe-W0-MxX"/>
-                            <constraint firstItem="YC5-WW-TxC" firstAttribute="top" secondItem="Qy4-Fl-bla" secondAttribute="bottom" id="nbP-mP-Btn"/>
-                            <constraint firstItem="2bi-w0-aQO" firstAttribute="centerY" secondItem="ZmL-sB-egB" secondAttribute="centerY" id="s7L-bu-yXe"/>
-                            <constraint firstItem="ZmL-sB-egB" firstAttribute="leading" secondItem="qZL-Qt-h0c" secondAttribute="leading" id="sEI-hu-Jz6"/>
-                            <constraint firstItem="HOD-dZ-Vmm" firstAttribute="centerX" secondItem="dp9-e4-CKG" secondAttribute="centerX" id="wWG-RT-o7U"/>
-                            <constraint firstItem="qZL-Qt-h0c" firstAttribute="trailing" secondItem="HOD-dZ-Vmm" secondAttribute="trailing" id="xlz-pz-btD"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Login" id="229-Ga-o3R"/>
-                    <connections>
-                        <outlet property="autoFillButton" destination="ZmL-sB-egB" id="H6b-8J-ofR"/>
-                        <outlet property="emailField" destination="VfX-dl-1ZC" id="fHO-Hs-DtG"/>
-                        <outlet property="goToFavsButton" destination="hb2-Ib-RXG" id="fXd-y2-cVk"/>
-                        <outlet property="loginButton" destination="HOD-dZ-Vmm" id="Ls1-R8-oRe"/>
-                        <outlet property="passwordField" destination="qZL-Qt-h0c" id="OyN-qk-bVT"/>
-                        <outlet property="rememberMeLabel" destination="2bi-w0-aQO" id="K5E-0E-zCk"/>
-                        <outlet property="scrollView" destination="YC5-WW-TxC" id="Q2j-ES-NGb"/>
-                        <outlet property="titleLabel" destination="WO3-33-UWW" id="a8m-b0-jFh"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vEg-S6-ujj" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3334" y="-1212"/>
-        </scene>
     </scenes>
     <resources>
         <image name="Penn_Shield_grey" width="50" height="50"/>
@@ -1412,7 +1276,7 @@
         <image name="un_checked" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dh5-u8-fgQ"/>
+        <segue reference="AgV-Js-0Xu"/>
         <segue reference="TR7-zq-jKS"/>
     </inferredMetricsTieBreakers>
 </document>
