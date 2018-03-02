@@ -196,14 +196,6 @@ extension FavoritesViewController : FavoritesContactDelegate {
 // MARK: - FavoritesGroupTitleDelegate
 
 extension FavoritesViewController : FavoritesGroupTitleDelegate {
-    func pressedTextGroup(groupIndex: Int) {
-//        self.contactContext = .groupText
-//        self.performContactGroupSegue(groupIndex: groupIndex)
-        // TODO: Test Launch Favorites ActionSheet
-        self.selectedGroupIndex = groupIndex
-        self.present(self.moreFavoritesActionsController, animated: true, completion: nil)
-    }
-    
     func pressedEmailGroup(groupIndex: Int) {
         self.contactContext = .groupEmail
         self.performContactGroupSegue(groupIndex: groupIndex)

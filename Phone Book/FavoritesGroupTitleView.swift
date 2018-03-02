@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 protocol FavoritesGroupTitleDelegate {
-    func pressedTextGroup(groupIndex: Int)
     func pressedEmailGroup(groupIndex: Int)
     func pressedEditGroupTitle(groupIndex: Int)
     func pressedMoreButton(groupIndex: Int)
@@ -36,7 +35,7 @@ class FavoritesGroupTitleView : UITableViewHeaderFooterView {
     }
     
     @IBAction func pressedTextButton(_ sender: UIButton) {
-        self.favortiesGroupDelegate?.pressedTextGroup(groupIndex: self.sectionIndex)
+        self.favortiesGroupDelegate?.pressedMoreButton(groupIndex: self.sectionIndex)
     }
     
     @IBAction func pressedEmailButton(_ sender: UIButton) {
