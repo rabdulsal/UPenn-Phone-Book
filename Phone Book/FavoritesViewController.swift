@@ -248,7 +248,7 @@ extension FavoritesViewController : ContactServicable {
 
 // MARK: - EmailMessageDelegate
 
-extension FavoritesViewController : EmailMessageDelegate {
+extension FavoritesViewController : MessageDelegate {
     func messageSent() {
         SVProgressHUD.showSuccess(withStatus: "Message Sent".localize)
     }
@@ -418,7 +418,8 @@ private extension FavoritesViewController {
     }
     
     func updateGroupTitle(newTitle: String, for contacts: Array<FavoritesContact>) {
-        if self.addressbookService.groupExistsInAddressBook(groupTitle: self.selectedGroupTitle) {
+        if self.addressbookService.groupExistsInAddressBook(groupTitle: self.selectedGroupTitle)
+        {
             self.addressbookService.updateGroupTitle(from: self.selectedGroupTitle, to: newTitle, for: contacts)
         } else {
             self.updateGroupTitle(newTitle: newTitle)

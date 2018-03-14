@@ -144,7 +144,7 @@ extension ContactGroupViewController : ContactServicable {
     }
 }
 
-extension ContactGroupViewController : EmailMessageDelegate {
+extension ContactGroupViewController : MessageDelegate {
     func messageSent() {
         SVProgressHUD.showSuccess(withStatus: "Message Sent".localize)
         self.dismiss()

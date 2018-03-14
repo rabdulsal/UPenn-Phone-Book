@@ -309,7 +309,7 @@ extension ContactDetailsViewController : ContactServicable {
     }
 }
 
-extension ContactDetailsViewController : EmailMessageDelegate {
+extension ContactDetailsViewController : MessageDelegate {
     func messageSent() {
         SVProgressHUD.showSuccess(withStatus: "Message Sent".localize)
     }

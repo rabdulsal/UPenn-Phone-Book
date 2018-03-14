@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import MessageUI
 
-protocol EmailMessageDelegate {
+protocol MessageDelegate {
     func messageSent()
     func messageFailed(errorString: String)
 }
@@ -22,6 +22,7 @@ protocol ContactServicable {
 }
 
 class ContactService {
+    let textWarningMessage = "Text paging should NOT be used to communicate emergent or urgent clinical information as there is no guarantee that your page will be received. If you have urgent/emergent clinical information to communicate, please make verbal contact.".localize
     let cannotEmailError = "Sorry, something went wrong. Cannot send email at this time."
     let cannotTextError = "Sorry, something went wrong. Cannot send text at this time."
     let cannotCallError = "Sorry, something went wrong. Cannot make call at this time."
@@ -31,7 +32,7 @@ class ContactService {
     var contact: Contact?
     var favoriteContacts = [FavoritesContact]()
     var contactDelegate: ContactServicable?
-    var emailMessageDelegate: EmailMessageDelegate?
+    var emailMessageDelegate: MessageDelegate?
     
     // Text Warning vars
     let textWarningKey = "textWarningKey"
@@ -41,14 +42,24 @@ class ContactService {
         return flagged
     }
     
-    init(viewController: UIViewController, contact: Contact, emailMessageDelegate: EmailMessageDelegate, contactDelegate: ContactServicable) {
+    init(
+        viewController: UIViewController,
+        contact: Contact,
+        emailMessageDelegate: MessageDelegate,
+        contactDelegate: ContactServicable)
+    {
         self.delegateViewController = viewController
         self.contact = contact
         self.contactDelegate = contactDelegate
         self.emailMessageDelegate = emailMessageDelegate
     }
     
-    init(viewController: UIViewController, contacts: [FavoritesContact], emailMessageDelegate: EmailMessageDelegate, contactDelegate: ContactServicable) {
+    init(
+        viewController: UIViewController,
+        contacts: [FavoritesContact],
+        emailMessageDelegate: MessageDelegate,
+        contactDelegate: ContactServicable)
+    {
         self.delegateViewController = viewController
         self.favoriteContacts = contacts
         self.contactDelegate = contactDelegate
@@ -108,7 +119,7 @@ class ContactService {
     }
 }
 
-extension ContactService : EmailMessageDelegate {
+extension ContactService : MessageDelegate {
     func messageSent() {
         self.emailMessageDelegate?.messageSent()
     }
@@ -120,10 +131,9 @@ extension ContactService : EmailMessageDelegate {
 
 fileprivate extension ContactService {
     var textWarningAlert : UIAlertController {
-        let message = "Text paging should NOT be used to communicate emergent or urgent clinical information as there is no guarantee that your page will be received. If you have urgent/emergent clinical information to communicate, please make verbal contact."
         let alertController = UIAlertController(
             title: nil,
-            message: message.localize,
+            message: self.textWarningMessage,
             preferredStyle: .alert
         )
         let okayAction = UIAlertAction(

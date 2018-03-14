@@ -115,11 +115,14 @@ class AddressBookService {
      - parameter groupTitle: String representing Group name to compare against
     */
     func groupExistsInAddressBook(groupTitle: String) -> Bool {
-        let allGroups = try! contactStore.groups(matching: nil)
-        for group in allGroups {
-            if group.name == groupTitle {
-                return true
+        if hasGrantedAddressBookAccess {
+            let allGroups = try! contactStore.groups(matching: nil)
+            for group in allGroups {
+                if group.name == groupTitle {
+                    return true
+                }
             }
+            return false
         }
         return false
     }

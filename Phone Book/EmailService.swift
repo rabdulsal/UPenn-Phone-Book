@@ -11,7 +11,7 @@ import MessageUI
 
 class EmailService : NSObject, MFMailComposeViewControllerDelegate {
     
-    var delegate: EmailMessageDelegate?
+    var delegate: MessageDelegate?
     var canSendMail: Bool {
         return MFMailComposeViewController.canSendMail()
     }
