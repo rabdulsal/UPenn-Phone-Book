@@ -543,7 +543,6 @@
                                                 <state key="disabled" image="email_disabled"/>
                                                 <connections>
                                                     <action selector="pressedEmailButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="5pY-Au-QcG"/>
-                                                    <action selector="pressedTextButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="p4A-W0-aSV"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zh0-yR-b0D" customClass="PrimaryCTAButton" customModule="UPHS_Phonebook" customModuleProvider="target">
