@@ -160,8 +160,8 @@ fileprivate extension ContactService {
 //        alertController.addAction(okayDontShowAction)
         let cancelAction = UIAlertAction(title: "Cancel".localize, style: .cancel, handler: nil)
         
-        alertController.addAction(okayAction)
         alertController.addAction(cancelAction)
+        alertController.addAction(okayAction)
         return alertController
     }
     

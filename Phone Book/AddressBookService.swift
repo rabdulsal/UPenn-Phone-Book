@@ -183,12 +183,9 @@ class AddressBookService {
 
 private extension AddressBookService {
     /**
-     Makes and returns a CNMutableContact
-     - parameter contact: Contact object used to decorate CNMutableContact properties
+     Populates CNMutableContact with Contact info, and conditionally removes old data if info is being updated
     */
-    func makeAddressBookContact(with contact: Contact) -> CNMutableContact {
-        let contactRecord = CNMutableContact()
-        // Name
+    func hydrateAddressBookContact(with contact: Contact, for contactRecord: inout CNMutableContact, isUpdating: Bool) {
         contactRecord.givenName = contact.firstName
         contactRecord.middleName = contact.middleName
         contactRecord.familyName = contact.lastName
@@ -200,12 +197,23 @@ private extension AddressBookService {
             CNLabeledValue(label: CNLabelPhoneNumberMobile, value: CNPhoneNumber(stringValue: contact.displayCellPhone))
         ]
         // Email
+        if isUpdating { contactRecord.emailAddresses.removeAll() }
         contactRecord.emailAddresses.append(CNLabeledValue(label: CNLabelWork, value: contact.emailAddress as NSString))
         // Work Address
         let workAddress = CNMutablePostalAddress()
-        workAddress.street = contact.primaryAddressLine1
+        workAddress.street = "\(contact.primaryAddressLine1) \(contact.primaryAddressLine2)"
         // TODO: Break up address components for city, state, zip
+        if isUpdating { contactRecord.postalAddresses.removeAll() }
         contactRecord.postalAddresses.append(CNLabeledValue(label: CNLabelWork, value: workAddress))
+    }
+    
+    /**
+     Makes and returns a CNMutableContact
+     - parameter contact: Contact object used to decorate CNMutableContact properties
+    */
+    func makeAddressBookContact(with contact: Contact) -> CNMutableContact {
+        var contactRecord = CNMutableContact()
+        self.hydrateAddressBookContact(with: contact, for: &contactRecord, isUpdating: false)
         return contactRecord
     }
     
@@ -228,7 +236,7 @@ private extension AddressBookService {
     }
     
     /**
-     Adds new CNMutableContact to AddressBook
+     Updates existing CNMutableContact in AddressBook
      - parameters:
         - contactRecord: CNMutableContact to add to CNContactStore
         - identifier: Optional identifier to add to CNSaveRequest container
@@ -239,8 +247,9 @@ private extension AddressBookService {
             self.addContactDelegate?.failedToUpdateContactInAddressBook(message: "Sorry, something went wrong updating your AddressBook. Please try again later.")
             return
         }
-        let contactRecord = contactRecords.first?.mutableCopy() as! CNMutableContact
-        // TODO: Hydrate contactRecord info with Contact info
+        // Copy retrieved contactRecord, populate info with Contact info, update in CNStore
+        var contactRecord = contactRecords.first?.mutableCopy() as! CNMutableContact
+        self.hydrateAddressBookContact(with: contact, for: &contactRecord, isUpdating: true)
         saveRequest.update(contactRecord)
         do {
             try self.contactStore.execute(saveRequest)
@@ -261,7 +270,10 @@ private extension AddressBookService {
                 keysToFetch:[
                     CNContactGivenNameKey as CNKeyDescriptor,
                     CNContactFamilyNameKey as CNKeyDescriptor,
-                    CNContactMiddleNameKey as CNKeyDescriptor
+                    CNContactMiddleNameKey as CNKeyDescriptor,
+                    CNContactPhoneNumbersKey as CNKeyDescriptor,
+                    CNContactEmailAddressesKey as CNKeyDescriptor,
+                    CNContactPostalAddressesKey as CNKeyDescriptor
                 ]
             )
         } catch {

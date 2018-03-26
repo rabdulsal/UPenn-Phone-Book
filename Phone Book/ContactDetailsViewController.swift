@@ -44,11 +44,11 @@ class ContactDetailsViewController : UIViewController {
             title: "Directions in Apple Maps".localize,
             message: "You are leaving the Phonebook App to view directions in the Apple Maps App. From Maps, press the 'UPHS Phonebook' button in the upper-left corner to return here.".localize,
             preferredStyle: .alert)
-        let goToMapsAction = UIAlertAction(title: "Go".localize, style: .cancel, handler: {
+        let goToMapsAction = UIAlertAction(title: "Go".localize, style: .default, handler: {
             alert -> Void in
             self.showInMaps()
         })
-        let cancelAction = UIAlertAction(title: "Cancel".localize, style: .default, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel".localize, style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         alertController.addAction(goToMapsAction)
         return alertController
