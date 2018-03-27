@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import CoreData
 import SVProgressHUD
+import Firebase
 
 //@UIApplicationMain
 
@@ -67,8 +68,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setForegroundColor(UIColor.upennMediumBlue)
         SVProgressHUD.setDefaultMaskType(.black)
         SVProgressHUD.setMaximumDismissTimeInterval(3.0)
-        
+        // TabBarController Delegate
         self.tabBarController?.delegate = self
+        // Firebase for Analytics
+        FirebaseApp.configure()
         
         // Register for Timeout Notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidTimout(notification:)), name: NSNotification.Name.init(TimerUIApplication.ApplicationDidTimeoutNotification), object: nil)

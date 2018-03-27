@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import Firebase
 
 class LoginViewController: UIViewController {
     
@@ -225,6 +226,13 @@ private extension LoginViewController {
             self.autoFillButton.isSelected = false
         }
         self.keyboardService.beginObservingKeyboard()
+        
+        // Tracking
+        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+            AnalyticsParameterItemID: "id-\(title!)",
+            AnalyticsParameterItemName: title!,
+            AnalyticsParameterContentType: "cont"
+            ])
     }
     
     func login() {

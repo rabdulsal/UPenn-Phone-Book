@@ -7,6 +7,7 @@ use_frameworks!
 def shared_pods
   pod ‘Alamofire’
   pod 'SVProgressHUD'
+  pod 'Firebase/Core'
 end
 
 target 'Phone Book' do
