@@ -229,8 +229,8 @@ private extension LoginViewController {
         
         // Tracking
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-            AnalyticsParameterItemID: "id-\(title!)",
-            AnalyticsParameterItemName: title!,
+            AnalyticsParameterItemID: "id-\("LoginViewController")",
+            AnalyticsParameterItemName: "LoginViewController",
             AnalyticsParameterContentType: "cont"
             ])
     }

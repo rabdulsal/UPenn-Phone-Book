@@ -14,6 +14,7 @@
 		3A1F2B551FFFD06500520625 /* UIFont+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1F2B541FFFD06500520625 /* UIFont+UPenn.swift */; };
 		3A2052631FDAFAB30004CBDC /* AutoLogoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2052621FDAFAB30004CBDC /* AutoLogoutCell.swift */; };
 		3A22321D203F6336008388FC /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22321C203F6336008388FC /* KeyboardService.swift */; };
+		3A23345A206AECB800BADD96 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A233459206AECB800BADD96 /* GoogleService-Info.plist */; };
 		3A2534EF1FD09E3F0015F9D9 /* ContactService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2534EE1FD09E3F0015F9D9 /* ContactService.swift */; };
 		3A26C1DF1F97CDAD005C88C9 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C1DE1F97CDAD005C88C9 /* ValidationService.swift */; };
 		3A26C1E11F97D372005C88C9 /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C1E01F97D372005C88C9 /* KeychainPasswordItem.swift */; };
@@ -94,6 +95,7 @@
 		3A1F2B541FFFD06500520625 /* UIFont+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+UPenn.swift"; sourceTree = "<group>"; };
 		3A2052621FDAFAB30004CBDC /* AutoLogoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLogoutCell.swift; sourceTree = "<group>"; };
 		3A22321C203F6336008388FC /* KeyboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardService.swift; sourceTree = "<group>"; };
+		3A233459206AECB800BADD96 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3A2534EE1FD09E3F0015F9D9 /* ContactService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactService.swift; sourceTree = "<group>"; };
 		3A26C1DE1F97CDAD005C88C9 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
 		3A26C1E01F97D372005C88C9 /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				84FFD8C11F8EC36300B28184 /* Assets.xcassets */,
 				84FFD8C31F8EC36300B28184 /* LaunchScreen.storyboard */,
 				84FFD8C61F8EC36300B28184 /* Info.plist */,
+				3A233459206AECB800BADD96 /* GoogleService-Info.plist */,
 			);
 			path = "Phone Book";
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				3A16E4C4201F896900EA7A20 /* ContactIconView.xib in Resources */,
 				84FFD8C21F8EC36300B28184 /* Assets.xcassets in Resources */,
 				84FFD8C01F8EC36300B28184 /* Main.storyboard in Resources */,
+				3A23345A206AECB800BADD96 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
