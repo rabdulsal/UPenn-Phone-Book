@@ -145,8 +145,8 @@ class FavoritesService {
     /**
      Remove group of FavoritesContacts from CoreData
      - parameters:
-     - favoriteContact: Array of FavoriteContacts to remove from the Favorites cache.
-     - completion: Invoked upon successful/failed attempt to remove from Favorites cache.
+         - favoriteContact: Array of FavoriteContacts to remove from the Favorites cache.
+         - completion: Invoked upon successful/failed attempt to remove from Favorites cache.
      */
     static func removeGroupFromFavorites(favoritesContacts: Array<FavoritesContact>, completion: (ErrorStringHandler)) {
         for contact in favoritesContacts {
