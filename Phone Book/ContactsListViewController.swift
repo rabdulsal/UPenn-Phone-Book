@@ -227,6 +227,11 @@ extension ContactsListViewController : UISearchBarDelegate {
                 if hasExcessContacts {
                     SVProgressHUD.showInfo(withStatus: "Displaying the first \(retrievedContacts.count) matching contacts. You may need to narrow your search.".localize)
                 }
+                
+                // Analytics
+                if let text = searchBar.text {
+                    AnalyticsService.trackSearchEvent(text)
+                }
             }
         }
     }
@@ -259,6 +264,10 @@ extension ContactsListViewController : ContactFavoritingDelegate {
 // MARK: - FavoritesUpdatable
 extension ContactsListViewController : FavoritesUpdatable {
     func successfullyAddedContactToFavorites() {
+        // Analytics
+        let contact = self.contactsList[self.favIndexPath!.row]
+        AnalyticsService.trackFavoriteContact(contact.fullName)
+        
         self.updateFavoritesState(favorited: true)
     }
     

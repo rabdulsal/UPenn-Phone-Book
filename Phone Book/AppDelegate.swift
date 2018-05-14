@@ -70,6 +70,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // TabBarController Delegate
         self.tabBarController?.delegate = self
         
+        // Configure Analytics
+        AnalyticsService.configure()
+        
         // Register for Timeout Notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidTimout(notification:)), name: NSNotification.Name.init(TimerUIApplication.ApplicationDidTimeoutNotification), object: nil)
         
