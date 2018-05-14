@@ -88,7 +88,6 @@ class ContactsListViewController : UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.contactsTableView.reloadData()
-        self.checkAuthenticationForPresentation()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -120,22 +119,27 @@ class ContactsListViewController : UIViewController {
     
     override func setup() {
         super.setup()
-        self.contactsList = [Contact]()
         
-        // TableView configs
-        self.contactsTableView.delegate = self
-        self.contactsTableView.dataSource = self
-        self.searchBar.delegate = self
-        self.contactsTableView.tableFooterView = UIView()
-        
-        // Miscellaneous configs
-        self.appDelegate?.setLoginDelegate(loginDelegate: self)
-        self.noContactsLabel.setFontHeight(size: 20.0)
-        self.noContactsView.backgroundColor = UIColor.upennLightGray
-        self.setupLoggedOutLabel()
-        
-        // Since this is the Launch VC, always logout the User on 1st load
-        self.appDelegate?.logout()
+        if self.isAuthorizedForLaunch() {
+            self.contactsList = [Contact]()
+            
+            // TableView configs
+            self.contactsTableView.delegate = self
+            self.contactsTableView.dataSource = self
+            self.searchBar.delegate = self
+            self.contactsTableView.tableFooterView = UIView()
+            
+            // Miscellaneous configs
+            self.appDelegate?.setLoginDelegate(loginDelegate: self)
+            self.noContactsLabel.setFontHeight(size: 20.0)
+            self.noContactsView.backgroundColor = UIColor.upennLightGray
+            self.setupLoggedOutLabel()
+            
+            // Since this is the Launch VC, always logout the User on 1st load
+            self.appDelegate?.logout()
+        } else {
+            
+        }
     }
     
     // IBActions
@@ -279,13 +283,15 @@ extension ContactsListViewController : FavoritesUpdatable {
 // MARK: - Private
 private extension ContactsListViewController {
     
-    func checkAuthenticationForPresentation() {
-        if let loggedIn = self.appDelegate?.isLoggedIn, loggedIn {
-            self.toggleLoggedOutView(!loggedIn)
-            self.contactsTableView.reloadData()
-        } else {
-            self.toggleLoggedOutView(true)
-        }
+    func isAuthorizedForLaunch() -> Bool {
+//        if let loggedIn = self.appDelegate?.isLoggedIn, loggedIn {
+//            self.toggleLoggedOutView(!loggedIn)
+//            self.contactsTableView.reloadData()
+//        } else {
+//            self.toggleLoggedOutView(true)
+//        }
+        
+        return true
     }
     
     func updateFavoritesState(favorited: Bool) {

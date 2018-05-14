@@ -70,6 +70,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // TabBarController Delegate
         self.tabBarController?.delegate = self
         
+        // Check App Version
+        
         // Configure Analytics
         AnalyticsService.configure()
         
@@ -277,5 +279,24 @@ private extension AppDelegate {
     
     func showLogoutAlert() {
         self.tabBarController?.present(self.logoutAlertController, animated: true, completion: nil)
+    }
+    
+    func checkLatestAppVersion() {
+        ConfigurationsService.checkLatestAppVersion { (isUpdatable, updateRequired, errorMessage) in
+            // If errorMessage show it
+            
+            // If isUpdatable show optional update alert
+            if isUpdatable {
+                // If updateRequired show mandatory alert
+                if updateRequired {
+                    
+                    return
+                }
+                
+                // Make optional update alert
+            }
+            
+        }
+        
     }
 }

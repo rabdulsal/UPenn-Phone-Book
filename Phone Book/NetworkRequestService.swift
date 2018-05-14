@@ -73,4 +73,8 @@ class NetworkRequestService {
             completion(response)
         })
     }
+    
+    func checkLatestAppVersion(completion: @escaping (_ settings: Dictionary<String,Any>?, _ errorMessage: String?)->Void) {
+        // Make Network call and call completion for JSON response
+    }
 }

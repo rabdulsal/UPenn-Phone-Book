@@ -19,6 +19,7 @@
 		3A26C1DF1F97CDAD005C88C9 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C1DE1F97CDAD005C88C9 /* ValidationService.swift */; };
 		3A26C1E11F97D372005C88C9 /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C1E01F97D372005C88C9 /* KeychainPasswordItem.swift */; };
 		3A26C1E31F97D3BD005C88C9 /* KeyChainConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C1E21F97D3BD005C88C9 /* KeyChainConfiguration.swift */; };
+		3A2749C720A9DC7F00A46402 /* ConfigurationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2749C620A9DC7F00A46402 /* ConfigurationsService.swift */; };
 		3A2BDF931F991E0A0018E13A /* UIColor+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2BDF921F991E0A0018E13A /* UIColor+UPenn.swift */; };
 		3A2BDF951F9920A60018E13A /* UIButton+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2BDF941F9920A60018E13A /* UIButton+UPenn.swift */; };
 		3A2BDF971F993AE00018E13A /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2BDF961F993AE00018E13A /* LoginTextField.swift */; };
@@ -101,6 +102,7 @@
 		3A26C1DE1F97CDAD005C88C9 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
 		3A26C1E01F97D372005C88C9 /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
 		3A26C1E21F97D3BD005C88C9 /* KeyChainConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainConfiguration.swift; sourceTree = "<group>"; };
+		3A2749C620A9DC7F00A46402 /* ConfigurationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationsService.swift; sourceTree = "<group>"; };
 		3A2BDF921F991E0A0018E13A /* UIColor+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+UPenn.swift"; sourceTree = "<group>"; };
 		3A2BDF941F9920A60018E13A /* UIButton+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+UPenn.swift"; sourceTree = "<group>"; };
 		3A2BDF961F993AE00018E13A /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				3A4C18771FE1AF0200486116 /* TouchIDService.swift */,
 				3A22321C203F6336008388FC /* KeyboardService.swift */,
 				3AC9C5CD20A3990B007CD1C4 /* AnalyticsService.swift */,
+				3A2749C620A9DC7F00A46402 /* ConfigurationsService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -713,6 +716,7 @@
 				84FFD8BD1F8EC36300B28184 /* LoginViewController.swift in Sources */,
 				3A419F452016467500E91645 /* ContactGroupViewController.swift in Sources */,
 				841B89B21F910FB500CFB3C1 /* FavoritesService.swift in Sources */,
+				3A2749C720A9DC7F00A46402 /* ConfigurationsService.swift in Sources */,
 				3A2BDF971F993AE00018E13A /* LoginTextField.swift in Sources */,
 				3ACFC7D91FC367FC00D472FB /* TimerUIApplication.swift in Sources */,
 				3A8D0F812006699B008E004A /* UISearchBar+UPenn.swift in Sources */,
