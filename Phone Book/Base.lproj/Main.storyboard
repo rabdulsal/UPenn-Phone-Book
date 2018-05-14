@@ -254,16 +254,16 @@
                                 <rect key="frame" x="0.0" y="120" width="375" height="498"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="daq-P0-x2V">
-                                        <rect key="frame" x="16" y="112.5" width="343" height="202.5"/>
+                                        <rect key="frame" x="16" y="123" width="343" height="182"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWX-Mz-LiV" customClass="NoDataInstructionsLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWX-Mz-LiV" customClass="NoDataInstructionsLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Penn_Shield_grey" translatesAutoresizingMaskIntoConstraints="NO" id="eQa-Bk-5ax">
-                                                <rect key="frame" x="95" y="50.5" width="152" height="152"/>
+                                                <rect key="frame" x="95" y="30" width="152" height="152"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="eQa-Bk-5ax" secondAttribute="height" multiplier="1:1" id="7jn-xG-hbk"/>
                                                     <constraint firstAttribute="width" constant="152" id="bUB-st-tRa"/>
@@ -286,11 +286,11 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DJg-pf-SMq" userLabel="Loggedout View">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="You are logged out. To search Contacts, please login." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OJB-9u-fjd">
-                                        <rect key="frame" x="8" y="259" width="359" height="36"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="To update your App, open the Maas360 App on your device, click the UPHS Phonebook icon, and select 'Update'" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="OJB-9u-fjd">
+                                        <rect key="frame" x="8" y="197" width="359" height="60"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="lTL-kB-VUu"/>
+                                            <constraint firstAttribute="height" constant="60" id="lTL-kB-VUu"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -300,7 +300,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="OJB-9u-fjd" secondAttribute="trailing" constant="8" id="31J-Yg-cX0"/>
                                     <constraint firstItem="OJB-9u-fjd" firstAttribute="centerX" secondItem="DJg-pf-SMq" secondAttribute="centerX" id="WXM-FP-toG"/>
-                                    <constraint firstItem="OJB-9u-fjd" firstAttribute="centerY" secondItem="DJg-pf-SMq" secondAttribute="centerY" id="tQZ-Kk-Bih"/>
+                                    <constraint firstItem="OJB-9u-fjd" firstAttribute="centerY" secondItem="DJg-pf-SMq" secondAttribute="centerY" constant="-50" id="tQZ-Kk-Bih"/>
                                     <constraint firstItem="OJB-9u-fjd" firstAttribute="leading" secondItem="DJg-pf-SMq" secondAttribute="leading" constant="8" id="uQO-AW-JKo"/>
                                 </constraints>
                             </view>
@@ -1261,7 +1261,7 @@
         <image name="un_checked" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AgV-Js-0Xu"/>
+        <segue reference="dh5-u8-fgQ"/>
         <segue reference="TR7-zq-jKS"/>
     </inferredMetricsTieBreakers>
 </document>

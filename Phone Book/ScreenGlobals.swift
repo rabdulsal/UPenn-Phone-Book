@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-class ScreenGlobals {
+struct ScreenGlobals {
     
-    class var Padding : CGFloat { return 16.0 }
-    class var Size : CGRect { return UIScreen.main.bounds }
-    class var Width : CGFloat { return UIScreen.main.bounds.width }
-    class var Height : CGFloat { return UIScreen.main.bounds.height }
+    static var Padding : CGFloat { return 16.0 }
+    static var Size : CGRect { return UIScreen.main.bounds }
+    static var Width : CGFloat { return UIScreen.main.bounds.width }
+    static var Height : CGFloat { return UIScreen.main.bounds.height }
 }

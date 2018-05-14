@@ -242,6 +242,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
     }
+    
+    func hideTabBar() {
+        self.tabBarController?.tabBar.isHidden = true
+    }
 }
 
 // MARK: - UITabBarViewController
@@ -279,24 +283,5 @@ private extension AppDelegate {
     
     func showLogoutAlert() {
         self.tabBarController?.present(self.logoutAlertController, animated: true, completion: nil)
-    }
-    
-    func checkLatestAppVersion() {
-        ConfigurationsService.checkLatestAppVersion { (isUpdatable, updateRequired, errorMessage) in
-            // If errorMessage show it
-            
-            // If isUpdatable show optional update alert
-            if isUpdatable {
-                // If updateRequired show mandatory alert
-                if updateRequired {
-                    
-                    return
-                }
-                
-                // Make optional update alert
-            }
-            
-        }
-        
     }
 }
