@@ -77,8 +77,13 @@ class NetworkRequestService {
     func checkLatestAppVersion(completion: @escaping (_ settings: Dictionary<String,Any>?, _ errorMessage: String?)->Void) {
         // Make Network call and call completion for JSON response
         
+        /*
+         TODO: Placeholder until network call fully constructed.
+         Un-wrapping will occur inside ConfigurationService.
+         Must update completion handler to use DataResponse object
+        */
         completion([
-            ConfigurationsService.LatestVersionKey : "1.0.14",
-            ConfigurationsService.MandatoryUpdateKey : false], nil) // TODO: Placeholder until network call fully constructed
+            ConfigurationsService.LatestVersionKey : "1.0.13",
+            ConfigurationsService.MandatoryUpdateKey : false], nil)
     }
 }
