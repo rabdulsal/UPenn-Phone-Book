@@ -124,7 +124,7 @@ class AccountTableViewController : UITableViewController {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: ScreenGlobals.Width, height: 30))
         view.backgroundColor = UIColor.upennLightGray
         // Create Label
-        let versionStr = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        let versionStr = ConfigurationsService.CurrentPhonebookVersion
         
         let titleLabel = UPennLabel(frame: CGRect(x: ScreenGlobals.Padding, y: 20, width: ScreenGlobals.Width - (ScreenGlobals.Padding*2), height: 20))
         titleLabel.textColor = UIColor.upennBlack

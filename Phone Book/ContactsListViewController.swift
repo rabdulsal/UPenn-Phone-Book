@@ -88,7 +88,6 @@ class ContactsListViewController : UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.contactsTableView.reloadData()
-        self.checkAuthenticationForPresentation()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -120,22 +119,7 @@ class ContactsListViewController : UIViewController {
     
     override func setup() {
         super.setup()
-        self.contactsList = [Contact]()
-        
-        // TableView configs
-        self.contactsTableView.delegate = self
-        self.contactsTableView.dataSource = self
-        self.searchBar.delegate = self
-        self.contactsTableView.tableFooterView = UIView()
-        
-        // Miscellaneous configs
-        self.appDelegate?.setLoginDelegate(loginDelegate: self)
-        self.noContactsLabel.setFontHeight(size: 20.0)
-        self.noContactsView.backgroundColor = UIColor.upennLightGray
-        self.setupLoggedOutLabel()
-        
-        // Since this is the Launch VC, always logout the User on 1st load
-        self.appDelegate?.logout()
+        self.checkAppVersionForLaunch()
     }
     
     // IBActions
@@ -227,6 +211,11 @@ extension ContactsListViewController : UISearchBarDelegate {
                 if hasExcessContacts {
                     SVProgressHUD.showInfo(withStatus: "Displaying the first \(retrievedContacts.count) matching contacts. You may need to narrow your search.".localize)
                 }
+                
+                // Analytics
+                if let text = searchBar.text {
+                    AnalyticsService.trackSearchEvent(text)
+                }
             }
         }
     }
@@ -259,6 +248,10 @@ extension ContactsListViewController : ContactFavoritingDelegate {
 // MARK: - FavoritesUpdatable
 extension ContactsListViewController : FavoritesUpdatable {
     func successfullyAddedContactToFavorites() {
+        // Analytics
+        let contact = self.contactsList[self.favIndexPath!.row]
+        AnalyticsService.trackFavoriteContact(contact.fullName)
+        
         self.updateFavoritesState(favorited: true)
     }
     
@@ -270,13 +263,80 @@ extension ContactsListViewController : FavoritesUpdatable {
 // MARK: - Private
 private extension ContactsListViewController {
     
-    func checkAuthenticationForPresentation() {
-        if let loggedIn = self.appDelegate?.isLoggedIn, loggedIn {
-            self.toggleLoggedOutView(!loggedIn)
-            self.contactsTableView.reloadData()
-        } else {
-            self.toggleLoggedOutView(true)
+    var optionalUpdateAlert : UIAlertController {
+        let alertCtrl = UIAlertController(
+            title: "App Update Available",
+            message: "An updated version of the UPHS Phonebook App is available. If you want to update, press 'Get Update' and follow the instructions.",
+            preferredStyle: .alert)
+        alertCtrl.addAction(UIAlertAction(
+            title: "Get Update",
+            style: .cancel,
+            handler: { (action) in
+                self.toggleLoggedOutView(true)
+        }))
+        alertCtrl.addAction(UIAlertAction(
+            title: "Skip Update",
+            style: .default,
+            handler: { (action) in
+                self.buildContactsListView()
+        }))
+        return alertCtrl
+    }
+    
+    var mandatoryUpdateAlert : UIAlertController {
+        let alertCtrl = UIAlertController(
+            title: "App Update Available (MANDATORY)",
+            message: "To continue using the UPHS Phonebook App, you MUST update to the latest version. Press 'Get Update' and follow the instructions.",
+            preferredStyle: .alert)
+        alertCtrl.addAction(UIAlertAction(
+            title: "Get Update",
+            style: .cancel,
+            handler: { (action) in
+                self.toggleLoggedOutView(true)
+        }))
+        return alertCtrl
+    }
+    
+    func checkAppVersionForLaunch() {
+        ConfigurationsService.checkLatestAppVersion { (isUpdatable, updateRequired, errorMessage) in
+            // If errorMessage show it
+            if let message = errorMessage {
+                SVProgressHUD.showError(withStatus: message)
+                return // TODO: Figure out what to do with UI if error here
+            }
+            // If isUpdatable show optional update alert
+            if isUpdatable {
+                // If updateRequired show mandatory alert
+                if updateRequired {
+                    self.present(self.mandatoryUpdateAlert, animated: true, completion: nil)
+                    return
+                }
+                // Make optional update alert
+                self.present(self.optionalUpdateAlert, animated: true, completion: nil)
+                return
+            }
+            // No updates necessary, build regular view
+            self.buildContactsListView()
         }
+    }
+    
+    func buildContactsListView() {
+        self.contactsList = [Contact]()
+        
+        // TableView configs
+        self.contactsTableView.delegate = self
+        self.contactsTableView.dataSource = self
+        self.searchBar.delegate = self
+        self.contactsTableView.tableFooterView = UIView()
+        
+        // Miscellaneous configs
+        self.appDelegate?.setLoginDelegate(loginDelegate: self)
+        self.noContactsLabel.setFontHeight(size: 20.0)
+        self.noContactsView.backgroundColor = UIColor.upennLightGray
+        self.setupLoggedOutLabel()
+        
+        // Since this is the Launch VC, always logout the User on 1st load
+        self.appDelegate?.logout()
     }
     
     func updateFavoritesState(favorited: Bool) {
@@ -310,6 +370,7 @@ private extension ContactsListViewController {
     }
     
     func toggleLoggedOutView(_ shouldShow: Bool) {
+        self.appDelegate?.hideTabBar()
         self.loggedOutView.isHidden = !shouldShow
         self.loggedOutLabel.isHidden = !shouldShow
         if shouldShow {
