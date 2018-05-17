@@ -70,8 +70,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // TabBarController Delegate
         self.tabBarController?.delegate = self
         
-        // Check App Version
-        
         // Configure Analytics
         AnalyticsService.configure()
         
