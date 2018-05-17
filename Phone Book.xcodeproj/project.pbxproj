@@ -869,6 +869,7 @@
 				DEVELOPMENT_TEAM = QT5VQXC56T;
 				INFOPLIST_FILE = "Phone Book/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DBETA";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uphs.upenn.Phone-Book.beta";
 				PRODUCT_NAME = " Phonebook Beta";
 				PROVISIONING_PROFILE = "107238c9-bce6-489d-ae09-d0c1560f5611";
@@ -1013,6 +1014,7 @@
 				DEVELOPMENT_TEAM = QT5VQXC56T;
 				INFOPLIST_FILE = "Phone Book/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uphs.upenn.Phone-Book";
 				PRODUCT_NAME = "UPHS Phonebook";
 				PROVISIONING_PROFILE = "71e7780e-d058-4d4e-863d-a592407029cb";
@@ -1033,6 +1035,7 @@
 				DEVELOPMENT_TEAM = QT5VQXC56T;
 				INFOPLIST_FILE = "Phone Book/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uphs.upenn.Phone-Book";
 				PRODUCT_NAME = "UPHS Phonebook";
 				PROVISIONING_PROFILE = "b353785d-62fd-4395-a3a9-6798c2e10bf8";

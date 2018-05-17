@@ -130,7 +130,11 @@ class AccountTableViewController : UITableViewController {
         titleLabel.textColor = UIColor.upennBlack
         titleLabel.textAlignment = .right
         titleLabel.setFontHeight(size: 10)
-        titleLabel.text = "UPHS Phonebook Version \(versionStr)".localize
+        var versionText = "UPHS Phonebook Version \(versionStr)"
+        if self.appDelegate?.applicationRunState == .BETA {
+            versionText.append("_BETA")
+        }
+        titleLabel.text = versionText.localize
         view.addSubview(titleLabel)
         return view
     }

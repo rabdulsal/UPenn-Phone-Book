@@ -21,10 +21,23 @@ enum TabSection : Int {
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    enum ApplicationRuntimeState : Int {
+        case BETA
+        case DEBUG
+        case RELEASE
+    }
+    
     var window: UIWindow?
     var authToken: String?
     var loginService: LoginService?
     var loginDelegateVC: UIViewController?
+    var applicationRunState : ApplicationRuntimeState {
+        #if BETA
+            return ApplicationRuntimeState.BETA
+        #else
+            return ApplicationRuntimeState.DEBUG
+        #endif
+    }
     var shouldAutoFill: Bool {
         guard let autoFill = self.loginService?.shouldAutoFill else { return false }
         return autoFill
