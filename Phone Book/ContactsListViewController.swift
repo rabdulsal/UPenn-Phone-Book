@@ -253,7 +253,7 @@ extension ContactsListViewController : FavoritesUpdatable {
 
 // MARK: - Private
 private extension ContactsListViewController {
-    
+    // TODO: Refactor and move these to AppDelegate ******************
     var optionalUpdateAlert : UIAlertController {
         let alertCtrl = UIAlertController(
             title: "App Update Available",
@@ -295,14 +295,13 @@ private extension ContactsListViewController {
                 SVProgressHUD.showError(withStatus: message)
                 return // TODO: Figure out what to do with UI if error here
             }
+            // If updateRequired show mandatory alert
+            if updateRequired {
+                self.present(self.mandatoryUpdateAlert, animated: true, completion: nil)
+                return
+            }
             // If isUpdatable show optional update alert
             if isUpdatable {
-                // If updateRequired show mandatory alert
-                if updateRequired {
-                    self.present(self.mandatoryUpdateAlert, animated: true, completion: nil)
-                    return
-                }
-                // Make optional update alert
                 self.present(self.optionalUpdateAlert, animated: true, completion: nil)
                 return
             }
@@ -310,7 +309,7 @@ private extension ContactsListViewController {
             self.buildContactsListView()
         }
     }
-    
+    // ******************************
     func buildContactsListView() {
         self.contactsList = [Contact]()
         

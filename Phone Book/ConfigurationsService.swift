@@ -18,19 +18,20 @@ class ConfigurationsService {
     
     static func checkLatestAppVersion(completion: @escaping (_ isUpdatable: Bool, _ updateRequired: Bool, _ errorMessage: String?)->Void) {
         ConfigurationsService.requestService.checkLatestAppVersion { (settings, errorMessage) in
-//            if
-//                let _settings = settings,
-//                let latestVersion = _settings[ConfigurationsService.LatestVersionKey] as? String,
-//                let updateRequired = _settings[ConfigurationsService.MandatoryUpdateKey] as? Bool
-//            {
-//                let isUpdatable = ConfigurationsService.CurrentPhonebookVersion != latestVersion
-//                completion(isUpdatable,updateRequired,nil)
-//
-//            } else if let message = errorMessage {
-//                completion(false,false,message)
-//            } else {
-//                completion(false,false,"Sorry, we couldn't determine UPHS Phonebook's latest version. Please try re-launching the application.")
-//            }
+            if
+                let _settings = settings,
+                let latestVersion = _settings[ConfigurationsService.LatestVersionKey] as? String,
+                let mandatoryVersion = _settings[ConfigurationsService.MandatoryUpdateKey] as? String
+            {
+                let canUpdate = latestVersion.isVersionNewer(currentVersion: ConfigurationsService.CurrentPhonebookVersion)
+                let mustUpdate = mandatoryVersion.isVersionNewer(currentVersion: ConfigurationsService.CurrentPhonebookVersion)
+                completion(canUpdate,mustUpdate,nil)
+
+            } else if let message = errorMessage {
+                completion(false,false,message)
+            } else {
+                completion(false,false,"Sorry, we couldn't determine UPHS Phonebook's latest version. Please try re-launching the application.")
+            }
             
             // TODO: Erase once testing done
             completion(false,false,nil)

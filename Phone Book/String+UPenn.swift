@@ -29,4 +29,11 @@ extension String {
     var localize : String {
         return NSLocalizedString(self, comment: self)
     }
+    
+    func isVersionNewer(currentVersion: String) -> Bool {
+        if self.compare(currentVersion, options: .numeric) == .orderedDescending {
+            return true
+        }
+        return false
+    }
 }

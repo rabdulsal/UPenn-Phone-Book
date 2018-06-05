@@ -89,6 +89,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Register for Timeout Notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidTimout(notification:)), name: NSNotification.Name.init(TimerUIApplication.ApplicationDidTimeoutNotification), object: nil)
         
+        // TODO: Add code to check app version and conditionally launch to the app vs. display alerts
+        
         return true
     }
 
