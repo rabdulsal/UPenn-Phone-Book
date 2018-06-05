@@ -10,7 +10,7 @@ import Foundation
 
 class ContactsSearchService {
     
-    var requestService = NetworkRequestService()
+    fileprivate var requestService = NetworkRequestService()
     
     func makeContactsListSearchRequest(with queryString: String, completion: @escaping (Array<Contact>, Bool, Error?)->Void) {
         

@@ -14,11 +14,11 @@
 		3A1F2B551FFFD06500520625 /* UIFont+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1F2B541FFFD06500520625 /* UIFont+UPenn.swift */; };
 		3A2052631FDAFAB30004CBDC /* AutoLogoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2052621FDAFAB30004CBDC /* AutoLogoutCell.swift */; };
 		3A22321D203F6336008388FC /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22321C203F6336008388FC /* KeyboardService.swift */; };
-		3A23345A206AECB800BADD96 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A233459206AECB800BADD96 /* GoogleService-Info.plist */; };
 		3A2534EF1FD09E3F0015F9D9 /* ContactService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2534EE1FD09E3F0015F9D9 /* ContactService.swift */; };
 		3A26C1DF1F97CDAD005C88C9 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C1DE1F97CDAD005C88C9 /* ValidationService.swift */; };
 		3A26C1E11F97D372005C88C9 /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C1E01F97D372005C88C9 /* KeychainPasswordItem.swift */; };
 		3A26C1E31F97D3BD005C88C9 /* KeyChainConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26C1E21F97D3BD005C88C9 /* KeyChainConfiguration.swift */; };
+		3A2749C720A9DC7F00A46402 /* ConfigurationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2749C620A9DC7F00A46402 /* ConfigurationsService.swift */; };
 		3A2BDF931F991E0A0018E13A /* UIColor+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2BDF921F991E0A0018E13A /* UIColor+UPenn.swift */; };
 		3A2BDF951F9920A60018E13A /* UIButton+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2BDF941F9920A60018E13A /* UIButton+UPenn.swift */; };
 		3A2BDF971F993AE00018E13A /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2BDF961F993AE00018E13A /* LoginTextField.swift */; };
@@ -43,6 +43,7 @@
 		3A7FAE3D1FA78F42009765F8 /* UILabel+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FAE3C1FA78F42009765F8 /* UILabel+UPenn.swift */; };
 		3A7FAE3F1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FAE3E1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift */; };
 		3A8D0F812006699B008E004A /* UISearchBar+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D0F802006699B008E004A /* UISearchBar+UPenn.swift */; };
+		3AC9C5CE20A3990B007CD1C4 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC9C5CD20A3990B007CD1C4 /* AnalyticsService.swift */; };
 		3ACFC7D71FBE2CB500D472FB /* AccountSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFC7D61FBE2CB500D472FB /* AccountSettingsCell.swift */; };
 		3ACFC7D91FC367FC00D472FB /* TimerUIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFC7D81FC367FC00D472FB /* TimerUIApplication.swift */; };
 		3ACFC7DB1FC3692B00D472FB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFC7DA1FC3692B00D472FB /* main.swift */; };
@@ -88,6 +89,7 @@
 /* Begin PBXFileReference section */
 		1E816519D24726D1F49D3D6B /* Pods-Phone BookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phone BookTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Phone BookTests/Pods-Phone BookTests.debug.xcconfig"; sourceTree = "<group>"; };
 		261E2B60929BD1D5295DDDC6 /* Pods-Phone BookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phone BookTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Phone BookTests/Pods-Phone BookTests.release.xcconfig"; sourceTree = "<group>"; };
+		3054959A2E40D0BD87EB4720 /* Pods-Phone BookUITests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phone BookUITests.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Phone BookUITests/Pods-Phone BookUITests.beta.xcconfig"; sourceTree = "<group>"; };
 		3A16E4C1201F894300EA7A20 /* ContactIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactIconView.swift; sourceTree = "<group>"; };
 		3A16E4C3201F896900EA7A20 /* ContactIconView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactIconView.xib; sourceTree = "<group>"; };
 		3A16E4C5201F8E3700EA7A20 /* NibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibView.swift; sourceTree = "<group>"; };
@@ -95,11 +97,11 @@
 		3A1F2B541FFFD06500520625 /* UIFont+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+UPenn.swift"; sourceTree = "<group>"; };
 		3A2052621FDAFAB30004CBDC /* AutoLogoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLogoutCell.swift; sourceTree = "<group>"; };
 		3A22321C203F6336008388FC /* KeyboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardService.swift; sourceTree = "<group>"; };
-		3A233459206AECB800BADD96 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3A2534EE1FD09E3F0015F9D9 /* ContactService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactService.swift; sourceTree = "<group>"; };
 		3A26C1DE1F97CDAD005C88C9 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
 		3A26C1E01F97D372005C88C9 /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
 		3A26C1E21F97D3BD005C88C9 /* KeyChainConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainConfiguration.swift; sourceTree = "<group>"; };
+		3A2749C620A9DC7F00A46402 /* ConfigurationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationsService.swift; sourceTree = "<group>"; };
 		3A2BDF921F991E0A0018E13A /* UIColor+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+UPenn.swift"; sourceTree = "<group>"; };
 		3A2BDF941F9920A60018E13A /* UIButton+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+UPenn.swift"; sourceTree = "<group>"; };
 		3A2BDF961F993AE00018E13A /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
@@ -121,9 +123,12 @@
 		3A6891262017AD2B005C91EC /* ScreenGlobals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenGlobals.swift; sourceTree = "<group>"; };
 		3A689128201A4736005C91EC /* String+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UPenn.swift"; sourceTree = "<group>"; };
 		3A70DBCB1FE17548006556D6 /* AddressBookService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookService.swift; sourceTree = "<group>"; };
+		3A7C5B1D20C05FE40051A0B9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3A7C5B2320C065700051A0B9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3A7FAE3C1FA78F42009765F8 /* UILabel+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+UPenn.swift"; sourceTree = "<group>"; };
 		3A7FAE3E1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesGroupsListViewController.swift; sourceTree = "<group>"; };
 		3A8D0F802006699B008E004A /* UISearchBar+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+UPenn.swift"; sourceTree = "<group>"; };
+		3AC9C5CD20A3990B007CD1C4 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		3ACFC7D61FBE2CB500D472FB /* AccountSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsCell.swift; sourceTree = "<group>"; };
 		3ACFC7D81FC367FC00D472FB /* TimerUIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerUIApplication.swift; sourceTree = "<group>"; };
 		3ACFC7DA1FC3692B00D472FB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -156,6 +161,8 @@
 		84FFD8DA1F8EC36300B28184 /* Phone_BookUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BookUITests.swift; sourceTree = "<group>"; };
 		84FFD8DC1F8EC36300B28184 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91DD873DD9D5887C4C5E6261 /* Pods-Phone Book.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phone Book.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Phone Book/Pods-Phone Book.debug.xcconfig"; sourceTree = "<group>"; };
+		BBCE14587513CC90D4AFCB6E /* Pods-Phone Book.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phone Book.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Phone Book/Pods-Phone Book.beta.xcconfig"; sourceTree = "<group>"; };
+		E40FA0394B54BCDD39B25A40 /* Pods-Phone BookTests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phone BookTests.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Phone BookTests/Pods-Phone BookTests.beta.xcconfig"; sourceTree = "<group>"; };
 		FA2117213B984C30A47F88AD /* Pods-Phone Book.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Phone Book.release.xcconfig"; path = "Pods/Target Support Files/Pods-Phone Book/Pods-Phone Book.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -196,6 +203,9 @@
 				261E2B60929BD1D5295DDDC6 /* Pods-Phone BookTests.release.xcconfig */,
 				7B3135E24CBF2773B7448A81 /* Pods-Phone BookUITests.debug.xcconfig */,
 				763E5419ABFD3E63111EE66F /* Pods-Phone BookUITests.release.xcconfig */,
+				BBCE14587513CC90D4AFCB6E /* Pods-Phone Book.beta.xcconfig */,
+				E40FA0394B54BCDD39B25A40 /* Pods-Phone BookTests.beta.xcconfig */,
+				3054959A2E40D0BD87EB4720 /* Pods-Phone BookUITests.beta.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -224,6 +234,31 @@
 				3A689128201A4736005C91EC /* String+UPenn.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		3A7C5B1A20C05F970051A0B9 /* Firebase Configs */ = {
+			isa = PBXGroup;
+			children = (
+				3A7C5B1B20C05FBE0051A0B9 /* Dev */,
+				3A7C5B1C20C05FC70051A0B9 /* Prod */,
+			);
+			path = "Firebase Configs";
+			sourceTree = "<group>";
+		};
+		3A7C5B1B20C05FBE0051A0B9 /* Dev */ = {
+			isa = PBXGroup;
+			children = (
+				3A7C5B2320C065700051A0B9 /* GoogleService-Info.plist */,
+			);
+			path = Dev;
+			sourceTree = "<group>";
+		};
+		3A7C5B1C20C05FC70051A0B9 /* Prod */ = {
+			isa = PBXGroup;
+			children = (
+				3A7C5B1D20C05FE40051A0B9 /* GoogleService-Info.plist */,
+			);
+			path = Prod;
 			sourceTree = "<group>";
 		};
 		841B89AB1F910E2300CFB3C1 /* Models */ = {
@@ -287,6 +322,8 @@
 				3A70DBCB1FE17548006556D6 /* AddressBookService.swift */,
 				3A4C18771FE1AF0200486116 /* TouchIDService.swift */,
 				3A22321C203F6336008388FC /* KeyboardService.swift */,
+				3AC9C5CD20A3990B007CD1C4 /* AnalyticsService.swift */,
+				3A2749C620A9DC7F00A46402 /* ConfigurationsService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -322,12 +359,12 @@
 				841B89AB1F910E2300CFB3C1 /* Models */,
 				841B89AC1F910E3200CFB3C1 /* Views */,
 				841B89AD1F910E3800CFB3C1 /* Controllers */,
+				3A7C5B1A20C05F970051A0B9 /* Firebase Configs */,
 				84FFD8BA1F8EC36300B28184 /* AppDelegate.swift */,
 				84FFD8BE1F8EC36300B28184 /* Main.storyboard */,
 				84FFD8C11F8EC36300B28184 /* Assets.xcassets */,
 				84FFD8C31F8EC36300B28184 /* LaunchScreen.storyboard */,
 				84FFD8C61F8EC36300B28184 /* Info.plist */,
-				3A233459206AECB800BADD96 /* GoogleService-Info.plist */,
 			);
 			path = "Phone Book";
 			sourceTree = "<group>";
@@ -374,6 +411,7 @@
 				A424B122AA5F382B2DD68738 /* [CP] Embed Pods Frameworks */,
 				162066745919D0B39C1885D8 /* [CP] Copy Pods Resources */,
 				3A5DCD451FFD5C1700EF470B /* Archive Build & Version Incrementation */,
+				3A7C5B2220C0633E0051A0B9 /* Setup Firebase Environment GoogleService-Info.plist */,
 			);
 			buildRules = (
 			);
@@ -485,7 +523,6 @@
 				3A16E4C4201F896900EA7A20 /* ContactIconView.xib in Resources */,
 				84FFD8C21F8EC36300B28184 /* Assets.xcassets in Resources */,
 				84FFD8C01F8EC36300B28184 /* Main.storyboard in Resources */,
-				3A23345A206AECB800BADD96 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,6 +641,20 @@
 			shellPath = /bin/sh;
 			shellScript = "# Increment build number each time project is archived\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n\n# Print Build Num\n# /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n\n# This splits a two-decimal version string, such as \"0.45.123\", allowing us to increment the third position.\nVERSIONNUM=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nNEWSUBVERSION=`echo $VERSIONNUM | awk -F \".\" '{print $3}'`\nNEWSUBVERSION=$(($NEWSUBVERSION + 1))\nNEWVERSIONSTRING=`echo $VERSIONNUM | awk -F \".\" '{print $1 \".\" $2 \".'$NEWSUBVERSION'\" }'`\n\n# Print Version Num\n# /usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $NEWVERSIONSTRING\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
 		};
+		3A7C5B2220C0633E0051A0B9 /* Setup Firebase Environment GoogleService-Info.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Setup Firebase Environment GoogleService-Info.plist";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n# Name of the resource we're selectively copying\nGOOGLESERVICE_INFO_PLIST=GoogleService-Info.plist\n\n# Get references to dev and prod versions of the GoogleService-Info.plist\n# NOTE: These should only live on the file system and should NOT be part of the target (since we'll be adding them to the target manually)\nGOOGLESERVICE_INFO_DEV=${PROJECT_DIR}/${TARGET_NAME}/Firebase\\ Configs/Dev/${GOOGLESERVICE_INFO_PLIST}\nGOOGLESERVICE_INFO_PROD=${PROJECT_DIR}/${TARGET_NAME}/Firebase\\ Configs/Prod/${GOOGLESERVICE_INFO_PLIST}\n\n# Make sure the dev version of GoogleService-Info.plist exists\necho \"Looking for ${GOOGLESERVICE_INFO_PLIST} in ${GOOGLESERVICE_INFO_DEV}\"\nif [ ! -f $GOOGLESERVICE_INFO_DEV ]\nthen\necho \"No Development GoogleService-Info.plist found. Please ensure it's in the proper directory.\"\nexit 1\nfi\n\n# Make sure the prod version of GoogleService-Info.plist exists\necho \"Looking for ${GOOGLESERVICE_INFO_PLIST} in ${GOOGLESERVICE_INFO_PROD}\"\nif [ ! -f $GOOGLESERVICE_INFO_PROD ]\nthen\necho \"No Production GoogleService-Info.plist found. Please ensure it's in the proper directory.\"\nexit 1\nfi\n\n# Get a reference to the destination location for the GoogleService-Info.plist\nPLIST_DESTINATION=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\necho \"Will copy ${GOOGLESERVICE_INFO_PLIST} to final destination: ${PLIST_DESTINATION}\"\n\n# Copy over the prod GoogleService-Info.plist for Release builds\nif [ \"${CONFIGURATION}\" == \"Beta\" ]\nthen\necho \"Using ${GOOGLESERVICE_INFO_DEV}\"\ncp \"${GOOGLESERVICE_INFO_DEV}\" \"${PLIST_DESTINATION}\"\nelse\necho \"Using ${GOOGLESERVICE_INFO_PROD}\"\ncp \"${GOOGLESERVICE_INFO_PROD}\" \"${PLIST_DESTINATION}\"\nfi";
+		};
 		69814689E1F19B1CEF9ADC94 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -710,6 +761,7 @@
 				84FFD8BD1F8EC36300B28184 /* LoginViewController.swift in Sources */,
 				3A419F452016467500E91645 /* ContactGroupViewController.swift in Sources */,
 				841B89B21F910FB500CFB3C1 /* FavoritesService.swift in Sources */,
+				3A2749C720A9DC7F00A46402 /* ConfigurationsService.swift in Sources */,
 				3A2BDF971F993AE00018E13A /* LoginTextField.swift in Sources */,
 				3ACFC7D91FC367FC00D472FB /* TimerUIApplication.swift in Sources */,
 				3A8D0F812006699B008E004A /* UISearchBar+UPenn.swift in Sources */,
@@ -724,6 +776,7 @@
 				3A7FAE3F1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift in Sources */,
 				3A5DCD441FF4237400EF470B /* TouchIDEnableCell.swift in Sources */,
 				3A317CC91F9F98DD00786C95 /* FavoritesViewController.swift in Sources */,
+				3AC9C5CE20A3990B007CD1C4 /* AnalyticsService.swift in Sources */,
 				3A16E4C2201F894300EA7A20 /* ContactIconView.swift in Sources */,
 				3ACFC7D71FBE2CB500D472FB /* AccountSettingsCell.swift in Sources */,
 				3A2052631FDAFAB30004CBDC /* AutoLogoutCell.swift in Sources */,
@@ -800,6 +853,101 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3A2749C820AB66BE00A46402 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Beta;
+		};
+		3A2749C920AB66BE00A46402 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BBCE14587513CC90D4AFCB6E /* Pods-Phone Book.beta.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon.beta;
+				BUNDLE_DISPLAY_NAME = PhonebookBETA;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: TRUSTEES OF THE UNIVERSITY OF PENNSYLVANIA";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: TRUSTEES OF THE UNIVERSITY OF PENNSYLVANIA";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = QT5VQXC56T;
+				INFOPLIST_FILE = "Phone Book/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DBETA";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.uphs.upenn.Phone-Book.beta";
+				PRODUCT_NAME = " Phonebook Beta";
+				PROVISIONING_PROFILE = "107238c9-bce6-489d-ae09-d0c1560f5611";
+				PROVISIONING_PROFILE_SPECIFIER = "UPHS Phonebook BETA";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Beta;
+		};
+		3A2749CA20AB66BE00A46402 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E40FA0394B54BCDD39B25A40 /* Pods-Phone BookTests.beta.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = QT5VQXC56T;
+				INFOPLIST_FILE = "Phone BookTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.uphs.upenn.Phone-BookTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Phone Book.app/Phone Book";
+			};
+			name = Beta;
+		};
+		3A2749CB20AB66BE00A46402 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3054959A2E40D0BD87EB4720 /* Pods-Phone BookUITests.beta.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = QT5VQXC56T;
+				INFOPLIST_FILE = "Phone BookUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.uphs.upenn.Phone-BookUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = "Phone Book";
+			};
+			name = Beta;
+		};
 		84FFD8DD1F8EC36300B28184 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -898,12 +1046,14 @@
 			baseConfigurationReference = 91DD873DD9D5887C4C5E6261 /* Pods-Phone Book.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_DISPLAY_NAME = "UPHS Phonebook";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Rashad Abdul-Salaam (3JGG52KS64)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rashad Abdul-Salaam (3JGG52KS64)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = QT5VQXC56T;
 				INFOPLIST_FILE = "Phone Book/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uphs.upenn.Phone-Book";
 				PRODUCT_NAME = "UPHS Phonebook";
 				PROVISIONING_PROFILE = "71e7780e-d058-4d4e-863d-a592407029cb";
@@ -917,12 +1067,14 @@
 			baseConfigurationReference = FA2117213B984C30A47F88AD /* Pods-Phone Book.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_DISPLAY_NAME = "UPHS Phonebook";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: TRUSTEES OF THE UNIVERSITY OF PENNSYLVANIA";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: TRUSTEES OF THE UNIVERSITY OF PENNSYLVANIA";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = QT5VQXC56T;
 				INFOPLIST_FILE = "Phone Book/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uphs.upenn.Phone-Book";
 				PRODUCT_NAME = "UPHS Phonebook";
 				PROVISIONING_PROFILE = "b353785d-62fd-4395-a3a9-6798c2e10bf8";
@@ -1001,6 +1153,7 @@
 			buildConfigurations = (
 				84FFD8DD1F8EC36300B28184 /* Debug */,
 				84FFD8DE1F8EC36300B28184 /* Release */,
+				3A2749C820AB66BE00A46402 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1010,6 +1163,7 @@
 			buildConfigurations = (
 				84FFD8E01F8EC36300B28184 /* Debug */,
 				84FFD8E11F8EC36300B28184 /* Release */,
+				3A2749C920AB66BE00A46402 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1019,6 +1173,7 @@
 			buildConfigurations = (
 				84FFD8E31F8EC36300B28184 /* Debug */,
 				84FFD8E41F8EC36300B28184 /* Release */,
+				3A2749CA20AB66BE00A46402 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1028,6 +1183,7 @@
 			buildConfigurations = (
 				84FFD8E61F8EC36300B28184 /* Debug */,
 				84FFD8E71F8EC36300B28184 /* Release */,
+				3A2749CB20AB66BE00A46402 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

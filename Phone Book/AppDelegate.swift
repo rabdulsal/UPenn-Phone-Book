@@ -21,10 +21,23 @@ enum TabSection : Int {
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    enum ApplicationRuntimeState : Int {
+        case BETA
+        case DEBUG
+        case RELEASE
+    }
+    
     var window: UIWindow?
     var authToken: String?
     var loginService: LoginService?
     var loginDelegateVC: UIViewController?
+    var applicationRunState : ApplicationRuntimeState {
+        #if BETA
+            return ApplicationRuntimeState.BETA
+        #else
+            return ApplicationRuntimeState.DEBUG
+        #endif
+    }
     var shouldAutoFill: Bool {
         guard let autoFill = self.loginService?.shouldAutoFill else { return false }
         return autoFill
@@ -69,6 +82,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setMaximumDismissTimeInterval(3.0)
         // TabBarController Delegate
         self.tabBarController?.delegate = self
+        
+        // Configure Analytics
+        AnalyticsService.configure()
         
         // Register for Timeout Notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidTimout(notification:)), name: NSNotification.Name.init(TimerUIApplication.ApplicationDidTimeoutNotification), object: nil)
@@ -236,6 +252,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             contactsVC.reloadView()
             
         }
+    }
+    
+    func hideTabBar() {
+        self.tabBarController?.tabBar.isHidden = true
     }
 }
 

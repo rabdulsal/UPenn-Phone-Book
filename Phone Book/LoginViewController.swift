@@ -81,6 +81,7 @@ class LoginViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.viewDidAppear()
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -181,6 +182,9 @@ extension LoginViewController : LoginServiceDelegate {
                 }
             }
             self.dismiss()
+            
+            // Analytics
+            AnalyticsService.trackLoginEvent()
         })
     }
     
