@@ -217,19 +217,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Timeout Notification
     // Callback for when the timeout was fired.
     func applicationDidTimout(notification: NSNotification) {
-        // Check if a viewController is presented, if not, show Auto-logout alert
-        guard let presentedVC = self.tabBarController?.presentedViewController else {
-            self.showLogoutAlert()
-            return
-        }
-        
-        // Check if the LoginViewController is presented, if not, show Auto-logout alert
-        guard let _ = presentedVC as? LoginViewController else {
-            self.tabBarController?.dismiss(animated: true) {
-                self.showLogoutAlert()
-            }
-            return
-        }
+        self.dismissAndPresentLogout()
     }
     
     func resetLogoutTimer() {
@@ -293,6 +281,21 @@ extension AppDelegate : UITabBarControllerDelegate {
 }
 
 private extension AppDelegate {
+    func dismissAndPresentLogout() {
+        // Check if a viewController is presented, if not, show Auto-logout alert
+        guard let presentedVC = self.tabBarController?.presentedViewController else {
+            self.showLogoutAlert()
+            return
+        }
+        
+        // Check if the LoginViewController is presented, if not, show Auto-logout alert
+        guard let _ = presentedVC as? LoginViewController else {
+            self.tabBarController?.dismiss(animated: true) {
+                self.showLogoutAlert()
+            }
+            return
+        }
+    }
     
     func showLogoutAlert() {
         self.tabBarController?.present(self.logoutAlertController, animated: true, completion: nil)

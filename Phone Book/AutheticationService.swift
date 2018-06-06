@@ -15,7 +15,7 @@ class AuthenticationService {
     private static let autoFillKey   = "shouldAutoFill"
     private static let usernameKey   = "username"
     private static let loginCountKey = "loginCountKey"
-    static var isAuthenticated = false // TODO: Look to change this for better encapsulation
+    private (set) static var isAuthenticated = false // TODO: Look to change this for better encapsulation
     static var shouldAutoLogin : Bool {
         guard let autoLogin = UserDefaults.standard.value(forKey: self.autoLoginKey) as? Bool else { return false }
         return autoLogin
@@ -95,5 +95,10 @@ class AuthenticationService {
     
     static func setFirstLogin() {
         UserDefaults.standard.set(true, forKey: self.loginCountKey)
+    }
+    
+    static func logout() {
+        self.isAuthenticated = false
+        self.authToken = nil
     }
 }
