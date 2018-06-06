@@ -60,10 +60,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return alertController
     }()
     
+    var storyboard : UIStoryboard {
+        return UIStoryboard.init(name: "Main", bundle: nil)
+    }
+    
     var loginNavController: UINavigationController {
-        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginNav") as! UINavigationController
         return loginVC
+    }
+    
+    var updateViewController: UIViewController {
+        let updateVC = storyboard.instantiateViewController(withIdentifier: "UpdateViewVC") as! UIViewController
+        return updateVC
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -90,6 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidTimout(notification:)), name: NSNotification.Name.init(TimerUIApplication.ApplicationDidTimeoutNotification), object: nil)
         
         // TODO: Add code to check app version and conditionally launch to the app vs. display alerts
+        self.checkAppVersionForLaunch()
         
         return true
     }
@@ -247,6 +256,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func hideTabBar() {
         self.tabBarController?.tabBar.isHidden = true
     }
+    
+    func showUpdateViewController() {
+        self.tabBarController?.present(self.updateViewController, animated: true, completion: nil)
+    }
 }
 
 // MARK: - UITabBarViewController
@@ -281,6 +294,62 @@ extension AppDelegate : UITabBarControllerDelegate {
 }
 
 private extension AppDelegate {
+    var optionalUpdateAlert : UIAlertController {
+        let alertCtrl = UIAlertController(
+            title: "App Update Available",
+            message: "An updated version of the UPHS Phonebook App is available. If you want to update, press 'Get Update' and follow the instructions.",
+            preferredStyle: .alert)
+        alertCtrl.addAction(UIAlertAction(
+            title: "Get Update",
+            style: .cancel,
+            handler: { (action) in
+                //                self.toggleLoggedOutView(true)
+                self.showUpdateViewController()
+        }))
+        alertCtrl.addAction(UIAlertAction(
+            title: "Skip Update",
+            style: .default,
+            handler: { (action) in
+//                self.buildContactsListView()
+        }))
+        return alertCtrl
+    }
+    
+    var mandatoryUpdateAlert : UIAlertController {
+        let alertCtrl = UIAlertController(
+            title: "App Update Available (MANDATORY)",
+            message: "To continue using the UPHS Phonebook App, you MUST update to the latest version. Press 'Get Update' and follow the instructions.",
+            preferredStyle: .alert)
+        alertCtrl.addAction(UIAlertAction(
+            title: "Get Update",
+            style: .cancel,
+            handler: { (action) in
+                //                self.toggleLoggedOutView(true)
+                self.showUpdateViewController()
+        }))
+        return alertCtrl
+    }
+    
+    func checkAppVersionForLaunch() {
+        ConfigurationsService.checkLatestAppVersion { (isUpdatable, updateRequired, errorMessage) in
+            // If errorMessage show it
+            if let message = errorMessage {
+                SVProgressHUD.showError(withStatus: message)
+                return // TODO: Figure out what to do with UI if error here
+            }
+            // If updateRequired show mandatory alert
+            if updateRequired {
+                self.tabBarController?.present(self.mandatoryUpdateAlert, animated: true, completion: nil)
+                return
+            }
+            // If isUpdatable show optional update alert
+            if isUpdatable {
+                self.tabBarController?.present(self.optionalUpdateAlert, animated: true, completion: nil)
+                return
+            }
+        }
+    }
+    
     func dismissAndPresentLogout() {
         // Check if a viewController is presented, if not, show Auto-logout alert
         guard let presentedVC = self.tabBarController?.presentedViewController else {

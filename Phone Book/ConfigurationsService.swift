@@ -34,7 +34,7 @@ class ConfigurationsService {
             }
             
             // TODO: Erase once testing done
-            completion(false,false,nil)
+//            completion(false,false,nil)
         }
     }
 }

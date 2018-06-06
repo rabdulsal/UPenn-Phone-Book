@@ -119,7 +119,8 @@ class ContactsListViewController : UIViewController {
     
     override func setup() {
         super.setup()
-        self.checkAppVersionForLaunch()
+//        self.checkAppVersionForLaunch()
+        self.buildContactsListView()
     }
     
     // IBActions
@@ -263,7 +264,8 @@ private extension ContactsListViewController {
             title: "Get Update",
             style: .cancel,
             handler: { (action) in
-                self.toggleLoggedOutView(true)
+//                self.toggleLoggedOutView(true)
+                self.appDelegate?.showUpdateViewController()
         }))
         alertCtrl.addAction(UIAlertAction(
             title: "Skip Update",
@@ -283,7 +285,8 @@ private extension ContactsListViewController {
             title: "Get Update",
             style: .cancel,
             handler: { (action) in
-                self.toggleLoggedOutView(true)
+//                self.toggleLoggedOutView(true)
+                self.appDelegate?.showUpdateViewController()
         }))
         return alertCtrl
     }

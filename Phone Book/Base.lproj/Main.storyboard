@@ -1150,6 +1150,41 @@
             </objects>
             <point key="canvasLocation" x="769" y="1057"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="vNf-Je-3vi">
+            <objects>
+                <viewController storyboardIdentifier="UpdateViewVC" id="0lS-Lq-tPq" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ghY-Za-ZKd"/>
+                        <viewControllerLayoutGuide type="bottom" id="1ah-yx-f0r"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TnT-ox-X6G">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="To update your App, open the Maas360 App on your device, click the UPHS Phonebook icon, and select 'Update'" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bU9-8M-S5g">
+                                <rect key="frame" x="8" y="253.5" width="359" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="K84-vK-Lqb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bU9-8M-S5g" firstAttribute="leading" secondItem="TnT-ox-X6G" secondAttribute="leading" constant="8" id="5VZ-iV-JTG"/>
+                            <constraint firstItem="bU9-8M-S5g" firstAttribute="centerY" secondItem="TnT-ox-X6G" secondAttribute="centerY" constant="-50" id="BaA-ea-WhF"/>
+                            <constraint firstAttribute="trailing" secondItem="bU9-8M-S5g" secondAttribute="trailing" constant="8" id="GoV-3W-541"/>
+                            <constraint firstItem="bU9-8M-S5g" firstAttribute="centerX" secondItem="TnT-ox-X6G" secondAttribute="centerX" id="Sjx-UV-smN"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MF3-YW-LF1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="768.79999999999995" y="-1212.1439280359821"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="sXG-us-ReQ">
             <objects>
