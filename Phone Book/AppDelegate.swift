@@ -46,8 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let isLoggedIn = self.loginService?.isLoggedIn else { return false }
         return isLoggedIn
     }
-    var tabBarController : UITabBarController? {
-        return self.window?.rootViewController as? UITabBarController
+    var rootViewController : RootViewController? {
+        return self.window?.rootViewController as? RootViewController
     }
     
     lazy var logoutAlertController : UIAlertController = {
@@ -62,11 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var storyboard : UIStoryboard {
         return UIStoryboard.init(name: "Main", bundle: nil)
-    }
-    
-    var loginNavController: UINavigationController {
-        let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginNav") as! UINavigationController
-        return loginVC
     }
     
     var updateViewController: UIViewController {
@@ -88,8 +83,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setForegroundColor(UIColor.upennMediumBlue)
         SVProgressHUD.setDefaultMaskType(.black)
         SVProgressHUD.setMaximumDismissTimeInterval(3.0)
-        // TabBarController Delegate
-        self.tabBarController?.delegate = self
         
         // Configure Analytics
         AnalyticsService.configure()
@@ -97,8 +90,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Register for Timeout Notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidTimout(notification:)), name: NSNotification.Name.init(TimerUIApplication.ApplicationDidTimeoutNotification), object: nil)
         
-        // TODO: Add code to check app version and conditionally launch to the app vs. display alerts
-        self.checkAppVersionForLaunch()
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = RootViewController()
+        window?.makeKeyAndVisible()
         
         return true
     }
@@ -172,20 +166,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Sections
     
     func goToSection(_ section: TabSection) {
-        switch section {
-        case .Search:
-            break
-        case .Favorites:
-            self.tabBarController?.selectedIndex = 1
-            if
-                let navVC = self.tabBarController?.selectedViewController as? UINavigationController,
-                let favoritesVC = navVC.childViewControllers.first as? FavoritesViewController,
-                let _ = favoritesVC.view {
-                favoritesVC.reloadView()
-            }
-        case .Account:
-            break
-        }
+        self.rootViewController?.goToSection(section)
     }
     
     // MARK: - LoginService
@@ -193,10 +174,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setLoginDelegate(loginDelegate: LoginServiceDelegate) {
         self.loginService = LoginService(loginDelegate: loginDelegate)
         self.loginDelegateVC = loginDelegate as? UIViewController
-    }
-    
-    func presentLoginViewController() {
-        self.loginDelegateVC?.present(self.loginNavController, animated: true, completion: nil)
     }
     
     func makeLoginRequest(email: String, password: String) {
@@ -226,7 +203,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Timeout Notification
     // Callback for when the timeout was fired.
     func applicationDidTimout(notification: NSNotification) {
-        self.dismissAndPresentLogout()
+        self.rootViewController?.dismissAndPresentLogout()
     }
     
     func resetLogoutTimer() {
@@ -244,129 +221,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          */
         TimerUIApplication.invalidateActiveTimer()
         self.loginService?.logout()
-        self.tabBarController?.selectedIndex = 0
-        if let navVC = self.tabBarController?.selectedViewController as? UINavigationController, let contactsVC = navVC.childViewControllers.first as? ContactsListViewController {
-            self.setLoginDelegate(loginDelegate: contactsVC)
-            self.presentLoginViewController()
-            contactsVC.reloadView()
-            
-        }
-    }
-    
-    func hideTabBar() {
-        self.tabBarController?.tabBar.isHidden = true
-    }
-    
-    func showUpdateViewController() {
-        self.tabBarController?.present(self.updateViewController, animated: true, completion: nil)
-    }
-}
-
-// MARK: - UITabBarViewController
-
-extension AppDelegate : UITabBarControllerDelegate {
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        
-        // Reload individual TabVCs when TabBar pressed
-        
-        if let contactsVC = viewController.childViewControllers.first as? ContactsListViewController, let _ = contactsVC.view {
-            if !self.isLoggedIn {
-                self.logout()
-            } else {
-                contactsVC.reloadView()
-            }
-            return
-        }
-        
-        if let favsVC = viewController.childViewControllers.first as? FavoritesViewController, let _ = favsVC.view {
-            favsVC.reloadView()
-            return
-        }
-        
-        // If clicking Accounts Tab, check if logged-out, if so, present login
-        
-        if let accountsVC = viewController.childViewControllers.first as? AccountTableViewController, let _ = accountsVC.view {
-            if !self.isLoggedIn {
-                self.logout()
-            }
-        }
-    }
-}
-
-private extension AppDelegate {
-    var optionalUpdateAlert : UIAlertController {
-        let alertCtrl = UIAlertController(
-            title: "App Update Available",
-            message: "An updated version of the UPHS Phonebook App is available. If you want to update, press 'Get Update' and follow the instructions.",
-            preferredStyle: .alert)
-        alertCtrl.addAction(UIAlertAction(
-            title: "Get Update",
-            style: .cancel,
-            handler: { (action) in
-                //                self.toggleLoggedOutView(true)
-                self.showUpdateViewController()
-        }))
-        alertCtrl.addAction(UIAlertAction(
-            title: "Skip Update",
-            style: .default,
-            handler: { (action) in
-//                self.buildContactsListView()
-        }))
-        return alertCtrl
-    }
-    
-    var mandatoryUpdateAlert : UIAlertController {
-        let alertCtrl = UIAlertController(
-            title: "App Update Available (MANDATORY)",
-            message: "To continue using the UPHS Phonebook App, you MUST update to the latest version. Press 'Get Update' and follow the instructions.",
-            preferredStyle: .alert)
-        alertCtrl.addAction(UIAlertAction(
-            title: "Get Update",
-            style: .cancel,
-            handler: { (action) in
-                //                self.toggleLoggedOutView(true)
-                self.showUpdateViewController()
-        }))
-        return alertCtrl
-    }
-    
-    func checkAppVersionForLaunch() {
-        ConfigurationsService.checkLatestAppVersion { (isUpdatable, updateRequired, errorMessage) in
-            // If errorMessage show it
-            if let message = errorMessage {
-                SVProgressHUD.showError(withStatus: message)
-                return // TODO: Figure out what to do with UI if error here
-            }
-            // If updateRequired show mandatory alert
-            if updateRequired {
-                self.tabBarController?.present(self.mandatoryUpdateAlert, animated: true, completion: nil)
-                return
-            }
-            // If isUpdatable show optional update alert
-            if isUpdatable {
-                self.tabBarController?.present(self.optionalUpdateAlert, animated: true, completion: nil)
-                return
-            }
-        }
-    }
-    
-    func dismissAndPresentLogout() {
-        // Check if a viewController is presented, if not, show Auto-logout alert
-        guard let presentedVC = self.tabBarController?.presentedViewController else {
-            self.showLogoutAlert()
-            return
-        }
-        
-        // Check if the LoginViewController is presented, if not, show Auto-logout alert
-        guard let _ = presentedVC as? LoginViewController else {
-            self.tabBarController?.dismiss(animated: true) {
-                self.showLogoutAlert()
-            }
-            return
-        }
-    }
-    
-    func showLogoutAlert() {
-        self.tabBarController?.present(self.logoutAlertController, animated: true, completion: nil)
+        self.rootViewController?.resetToLogin()
     }
 }
