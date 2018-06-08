@@ -30,7 +30,7 @@ class ConfigurationsService {
             } else if let message = errorMessage {
                 completion(false,false,message)
             } else {
-                completion(false,false,"Sorry, we couldn't determine UPHS Phonebook's latest version. Please try re-launching the application.")
+                completion(false,false,"Cannot determine latest Phonebook version. Please try re-launching the App to see if an update is required.")
             }
             
             // TODO: Erase once testing done

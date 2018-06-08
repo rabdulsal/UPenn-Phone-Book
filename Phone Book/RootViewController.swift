@@ -71,6 +71,8 @@ class RootViewController : UIViewController {
     }
 }
 
+// MARK: - UITablBarControllerDelegate
+
 extension RootViewController : UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         
@@ -98,7 +100,10 @@ extension RootViewController : UITabBarControllerDelegate {
     }
 }
 
+// MARK: - Private
+
 fileprivate extension RootViewController {
+    
     var loginNavController: UINavigationController {
         let loginVC = self.appDelegate!.storyboard.instantiateViewController(withIdentifier: "LoginNav") as! UINavigationController
         return loginVC
@@ -127,7 +132,7 @@ fileprivate extension RootViewController {
             title: "Skip Update",
             style: .default,
             handler: { (action) in
-                // TODO: optOutUpdate = true
+                self.appDelegate?.skipUpdate()
                 self.showTabMainController()
         }))
         return alertCtrl
@@ -167,13 +172,14 @@ fileprivate extension RootViewController {
     }
     
     func checkAppVersionForLaunch() {
-        if !checkedForVersion {
+        if !self.checkedForVersion {
             ConfigurationsService.checkLatestAppVersion { (isUpdatable, updateRequired, errorMessage) in
                 self.checkedForVersion = true
                 // If errorMessage show it
                 if let message = errorMessage {
                     SVProgressHUD.showError(withStatus: message)
-                    return // TODO: Figure out what to do with UI if error here
+                    self.showTabMainController()
+                    return
                 }
                 // If updateRequired show mandatory alert
                 if updateRequired {
@@ -182,7 +188,9 @@ fileprivate extension RootViewController {
                     return
                 }
                 // If isUpdatable show optional update alert
-                if isUpdatable /* && !optOutUpdate */ {
+                if
+                    let skippedUpdate = self.appDelegate?.didSkipUpdate,
+                    isUpdatable && !skippedUpdate {
                     self.showUpdateViewController()
                     self.present(self.optionalUpdateAlert, animated: true, completion: nil)
                     return

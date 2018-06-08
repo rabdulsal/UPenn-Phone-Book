@@ -171,21 +171,6 @@ extension ContactsListViewController : UITableViewDataSource {
     }
 }
 
-// MARK: - LoginService Delegate
-
-extension ContactsListViewController : LoginServiceDelegate {
-    
-    func didSuccessfullyLoginUser() {
-        SVProgressHUD.showSuccess(withStatus: "You are logged in!".localize)
-    }
-    
-    func didReturnAutoFillCredentials(username: String, password: String) { }
-    
-    func didFailToLoginUser(errorStr: String) {
-        SVProgressHUD.showError(withStatus: errorStr)
-    }
-}
-
 // MARK: - UISearchBarDelegate
 
 extension ContactsListViewController : UISearchBarDelegate {

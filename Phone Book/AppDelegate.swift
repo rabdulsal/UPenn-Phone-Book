@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case RELEASE
     }
     
+    private let skipUpdateKey = "skipUpdateKey"
     var window: UIWindow?
     var authToken: String?
     var loginService: LoginService?
@@ -49,7 +50,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var rootViewController : RootViewController? {
         return self.window?.rootViewController as? RootViewController
     }
-    
+    var didSkipUpdate : Bool {
+        guard let optOut = UserDefaults.standard.value(forKey: self.skipUpdateKey) as? Bool else { return false }
+        return optOut
+    }
     lazy var logoutAlertController : UIAlertController = {
         let alertController = UIAlertController(title: "You've Been Logged-out", message: "For security purposes you've been automatically logged-out due to inactivity. Please log back in.", preferredStyle: .alert)
         let logoutAction = UIAlertAction(title: "Login", style: .cancel, handler: {
@@ -90,6 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Register for Timeout Notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidTimout(notification:)), name: NSNotification.Name.init(TimerUIApplication.ApplicationDidTimeoutNotification), object: nil)
         
+        // Configure main Window/RootViewController
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = RootViewController()
         window?.makeKeyAndVisible()
@@ -161,6 +166,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    
+    func skipUpdate() {
+        UserDefaults.standard.set(true, forKey: self.skipUpdateKey)
     }
     
     // MARK: - Sections
