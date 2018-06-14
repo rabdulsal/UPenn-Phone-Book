@@ -50,9 +50,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var rootViewController : RootViewController? {
         return self.window?.rootViewController as? RootViewController
     }
-    var didSkipUpdate : Bool {
-        guard let optOut = UserDefaults.standard.value(forKey: self.skipUpdateKey) as? Bool else { return false }
-        return optOut
+    var didSkipThisUpdate : Bool {
+        guard
+            let versionSkipped = UserDefaults.standard.value(forKey: self.skipUpdateKey) as? String,
+            let latestVersion = ConfigurationsService.LatestAppVersion
+            else { return false }
+        return versionSkipped == latestVersion
     }
     lazy var logoutAlertController : UIAlertController = {
         let alertController = UIAlertController(title: "You've Been Logged-out", message: "For security purposes you've been automatically logged-out due to inactivity. Please log back in.", preferredStyle: .alert)
@@ -69,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     var updateViewController: UIViewController {
-        let updateVC = storyboard.instantiateViewController(withIdentifier: "UpdateViewVC") as! UIViewController
+        let updateVC = storyboard.instantiateViewController(withIdentifier: "UpdateViewVC")
         return updateVC
     }
 
@@ -169,7 +172,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func skipUpdate() {
-        UserDefaults.standard.set(true, forKey: self.skipUpdateKey)
+        UserDefaults.standard.set(ConfigurationsService.LatestAppVersion, forKey: self.skipUpdateKey)
     }
     
     // MARK: - Sections
@@ -224,9 +227,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func logout() {
         /*
          * 1. Turn off logout timer
-         * 2. Select ContactsList Tab
-         * 3. Reload view
-         * 4. Launch LoginView
+         * 2. Logout
+         * 3. Reload to Login flow via rootViewController
          */
         TimerUIApplication.invalidateActiveTimer()
         self.loginService?.logout()

@@ -189,7 +189,7 @@ fileprivate extension RootViewController {
                 }
                 // If isUpdatable show optional update alert
                 if
-                    let skippedUpdate = self.appDelegate?.didSkipUpdate,
+                    let skippedUpdate = self.appDelegate?.didSkipThisUpdate,
                     isUpdatable && !skippedUpdate {
                     self.showUpdateViewController()
                     self.present(self.optionalUpdateAlert, animated: true, completion: nil)
