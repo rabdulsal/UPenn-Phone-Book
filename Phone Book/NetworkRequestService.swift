@@ -83,7 +83,7 @@ class NetworkRequestService {
          Must update completion handler to use DataResponse object
         */
         completion([
-            ConfigurationsService.LatestVersionKey : "1.0.19",
+            ConfigurationsService.LatestVersionKey : "1.0.18",
             ConfigurationsService.MandatoryUpdateKey : "1.0.18"], nil)
     }
 }
