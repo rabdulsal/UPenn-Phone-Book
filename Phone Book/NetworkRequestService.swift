@@ -14,6 +14,7 @@ class NetworkRequestService {
     let phonebookAPIStr = "https://www1.pennmedicine.org/adrs"
     let searchAPIStr = "/api/phonebook/search"
     let profileAPIStr = "/api/phonebook/profile"
+    let appConfigAPIStr = "https://uphsnettest2012.uphs.upenn.edu/MAppCnfg/api"
     let defaultManager: SessionManager = {
         let serverTrustPolicies: [String: ServerTrustPolicy] = [
             "uphsnettest2012.uphs.upenn.edu": ServerTrustPolicy.disableEvaluation
@@ -74,16 +75,14 @@ class NetworkRequestService {
         })
     }
     
-    func checkLatestAppVersion(completion: @escaping (_ settings: Dictionary<String,Any>?, _ errorMessage: String?)->Void) {
-        // Make Network call and call completion for JSON response
-        
-        /*
-         TODO: Placeholder until network call fully constructed.
-         Un-wrapping will occur inside ConfigurationService.
-         Must update completion handler to use DataResponse object
-        */
-        completion([
-            ConfigurationsService.LatestVersionKey : "1.0.19",
-            ConfigurationsService.MandatoryUpdateKey : "1.0.18"], nil)
+    func checkLatestAppVersion(completion: @escaping (_ settings: DataResponse<Any>)->Void) {
+        let bundleID = ConfigurationsService.PhoneBookBundleID
+        let parameters: Parameters = [ "id" : bundleID ]
+        let requestURI = self.appConfigAPIStr + "/version"
+        let headers: HTTPHeaders = [ "x-api-key" : "873CABFD-DC87-45E0-8B1B-F0A94F29827E" ]
+        let searchRequest = defaultManager.request(requestURI, parameters: parameters, headers: headers)
+        searchRequest.responseJSON { (response) in
+            completion(response)
+        }
     }
 }
