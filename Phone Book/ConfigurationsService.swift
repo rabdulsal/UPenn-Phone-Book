@@ -16,7 +16,7 @@ class ConfigurationsService {
     static var PhoneBookBundleID : String {
         return Bundle.main.object(forInfoDictionaryKey: kCFBundleIdentifierKey as String) as! String
     }
-    private (set) static var LatestAppVersion: String?
+    private (set) static var LatestAppVersion = ""
     static let LatestVersionKey   = "CurrentVersion"
     static let MandatoryUpdateKey = "MinimumVersion"
     

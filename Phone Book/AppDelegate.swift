@@ -52,9 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     var didSkipThisUpdate : Bool {
         guard
-            let versionSkipped = UserDefaults.standard.value(forKey: self.skipUpdateKey) as? String,
-            let latestVersion = ConfigurationsService.LatestAppVersion
+            let versionSkipped = UserDefaults.standard.value(forKey: self.skipUpdateKey) as? String
             else { return false }
+        let latestVersion = ConfigurationsService.LatestAppVersion
         return versionSkipped == latestVersion
     }
     

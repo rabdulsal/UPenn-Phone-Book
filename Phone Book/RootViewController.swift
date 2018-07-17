@@ -122,7 +122,7 @@ fileprivate extension RootViewController {
     var optionalUpdateAlert : UIAlertController {
         let alertCtrl = UIAlertController(
             title: "App Update Available",
-            message: "An updated version of the UPHS Phonebook App is available. If you want to update, press 'Get Update' and follow the instructions.",
+            message: "Version \(ConfigurationsService.LatestAppVersion) of the UPHS Phonebook App is available. If you want to update, press 'Get Update' and follow the instructions.",
             preferredStyle: .alert)
         alertCtrl.addAction(UIAlertAction(
             title: "Get Update",
@@ -141,7 +141,7 @@ fileprivate extension RootViewController {
     var mandatoryUpdateAlert : UIAlertController {
         let alertCtrl = UIAlertController(
             title: "App Update Available (MANDATORY)",
-            message: "To continue using the UPHS Phonebook App, you MUST update to the latest version. Press 'Get Update' and follow the instructions.",
+            message: "To continue using the UPHS Phonebook App, you MUST update to version \(ConfigurationsService.LatestAppVersion). Press 'Get Update' and follow the instructions.",
             preferredStyle: .alert)
         alertCtrl.addAction(UIAlertAction(
             title: "Get Update",
