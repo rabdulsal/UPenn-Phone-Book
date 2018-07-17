@@ -13,28 +13,30 @@ class ConfigurationsService {
     static var CurrentPhonebookVersion : String {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     }
-    static let LatestVersionKey   = "latestVerion"
-    static let MandatoryUpdateKey = "mandatoryUpdate"
+    static var PhoneBookBundleID : String {
+        return Bundle.main.object(forInfoDictionaryKey: kCFBundleIdentifierKey as String) as! String
+    }
+    private (set) static var LatestAppVersion = ""
+    static let LatestVersionKey   = "CurrentVersion"
+    static let MandatoryUpdateKey = "MinimumVersion"
     
     static func checkLatestAppVersion(completion: @escaping (_ isUpdatable: Bool, _ updateRequired: Bool, _ errorMessage: String?)->Void) {
-        ConfigurationsService.requestService.checkLatestAppVersion { (settings, errorMessage) in
+        ConfigurationsService.requestService.checkLatestAppVersion { (response) in
             if
-                let _settings = settings,
-                let latestVersion = _settings[ConfigurationsService.LatestVersionKey] as? String,
-                let mandatoryVersion = _settings[ConfigurationsService.MandatoryUpdateKey] as? String
+                let settings = response.result.value as? Dictionary<String,Any>,
+                let latestVersion = settings[ConfigurationsService.LatestVersionKey] as? String,
+                let mandatoryVersion = settings[ConfigurationsService.MandatoryUpdateKey] as? String
             {
+                ConfigurationsService.LatestAppVersion = latestVersion
                 let canUpdate = latestVersion.isVersionNewer(currentVersion: ConfigurationsService.CurrentPhonebookVersion)
                 let mustUpdate = mandatoryVersion.isVersionNewer(currentVersion: ConfigurationsService.CurrentPhonebookVersion)
                 completion(canUpdate,mustUpdate,nil)
 
-            } else if let message = errorMessage {
-                completion(false,false,message)
+            } else if let message = response.result.error {
+                completion(false,false,message.localizedDescription)
             } else {
-                completion(false,false,"Sorry, we couldn't determine UPHS Phonebook's latest version. Please try re-launching the application.")
+                completion(false,false,"Cannot determine latest Phonebook version. Please try re-launching the App to see if an update is required.")
             }
-            
-            // TODO: Erase once testing done
-            completion(false,false,nil)
         }
     }
 }

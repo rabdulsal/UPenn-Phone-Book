@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="I3b-nD-Ick">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -1150,6 +1150,82 @@
             </objects>
             <point key="canvasLocation" x="769" y="1057"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="vNf-Je-3vi">
+            <objects>
+                <viewController storyboardIdentifier="UpdateViewVC" id="0lS-Lq-tPq" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ghY-Za-ZKd"/>
+                        <viewControllerLayoutGuide type="bottom" id="1ah-yx-f0r"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TnT-ox-X6G">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C9J-yW-AKV">
+                                <rect key="frame" x="16" y="143.5" width="343" height="280"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appcatalog_download" translatesAutoresizingMaskIntoConstraints="NO" id="7A0-TW-LI0" userLabel="Maas360 ">
+                                        <rect key="frame" x="0.0" y="8" width="200" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="7A0-TW-LI0" secondAttribute="height" multiplier="4:1" id="9T4-eY-F8N"/>
+                                            <constraint firstAttribute="height" constant="50" id="IeI-Ed-bE7"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="343" placeholderIntrinsicHeight="60" text="To update your Maas360-managed App, open the AppCatalog App on your device, click the UPHS Phonebook icon, and select 'Get'" translatesAutoresizingMaskIntoConstraints="NO" id="prg-VU-Vex" userLabel="Maas360 Text View">
+                                        <rect key="frame" x="0.0" y="66" width="343" height="65"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="65" id="K6R-69-Nux"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="intune_download" translatesAutoresizingMaskIntoConstraints="NO" id="gLC-ME-wY9" userLabel="Intune Image View">
+                                        <rect key="frame" x="0.0" y="156" width="200" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="gLC-ME-wY9" secondAttribute="height" multiplier="4:1" id="Tc6-52-xKQ"/>
+                                            <constraint firstAttribute="height" constant="50" id="e5h-XT-syl"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="343" placeholderIntrinsicHeight="60" text="To update your Intune-managed App, open the Intune App on your device, click the UPHS Phonebook icon, and select 'Install'" translatesAutoresizingMaskIntoConstraints="NO" id="bU9-8M-S5g" userLabel="Intune Text View">
+                                        <rect key="frame" x="0.0" y="212" width="343" height="60"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="ugA-yc-pDl"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="7A0-TW-LI0" firstAttribute="leading" secondItem="prg-VU-Vex" secondAttribute="leading" id="6zb-t8-aMF"/>
+                                    <constraint firstItem="bU9-8M-S5g" firstAttribute="top" secondItem="gLC-ME-wY9" secondAttribute="bottom" constant="6" id="FVK-bT-Sz7"/>
+                                    <constraint firstAttribute="bottom" secondItem="bU9-8M-S5g" secondAttribute="bottom" constant="8" id="HEC-AB-3SB"/>
+                                    <constraint firstItem="7A0-TW-LI0" firstAttribute="top" secondItem="C9J-yW-AKV" secondAttribute="top" constant="8" id="Lr0-Dd-1fG"/>
+                                    <constraint firstItem="bU9-8M-S5g" firstAttribute="leading" secondItem="C9J-yW-AKV" secondAttribute="leading" id="XdH-sC-dMo"/>
+                                    <constraint firstItem="prg-VU-Vex" firstAttribute="leading" secondItem="C9J-yW-AKV" secondAttribute="leading" id="dsX-0j-H6A"/>
+                                    <constraint firstItem="prg-VU-Vex" firstAttribute="width" secondItem="C9J-yW-AKV" secondAttribute="width" id="eOs-Uq-mJG"/>
+                                    <constraint firstItem="bU9-8M-S5g" firstAttribute="width" secondItem="C9J-yW-AKV" secondAttribute="width" id="g3V-nF-ugR"/>
+                                    <constraint firstItem="gLC-ME-wY9" firstAttribute="top" secondItem="prg-VU-Vex" secondAttribute="bottom" constant="25" id="ogI-op-esB"/>
+                                    <constraint firstItem="prg-VU-Vex" firstAttribute="top" secondItem="7A0-TW-LI0" secondAttribute="bottom" constant="8" id="sbo-t8-M3P"/>
+                                    <constraint firstItem="gLC-ME-wY9" firstAttribute="leading" secondItem="bU9-8M-S5g" secondAttribute="leading" id="uVk-MF-Van"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="C9J-yW-AKV" secondAttribute="trailing" constant="16" id="5Of-Tw-rpQ"/>
+                            <constraint firstItem="C9J-yW-AKV" firstAttribute="centerY" secondItem="TnT-ox-X6G" secondAttribute="centerY" constant="-50" id="9RZ-iv-vYB"/>
+                            <constraint firstItem="C9J-yW-AKV" firstAttribute="leading" secondItem="TnT-ox-X6G" secondAttribute="leading" constant="16" id="szB-Ze-Pnc"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MF3-YW-LF1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="768.79999999999995" y="-1212.1439280359821"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="sXG-us-ReQ">
             <objects>
@@ -1171,7 +1247,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="gzr-b1-OMQ">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="I3b-nD-Ick" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarVC" automaticallyAdjustsScrollViewInsets="NO" id="I3b-nD-Ick" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GJs-B3-zdb">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -1247,6 +1323,7 @@
     <resources>
         <image name="Penn_Shield_grey" width="50" height="50"/>
         <image name="account" width="25" height="25"/>
+        <image name="appcatalog_download" width="133" height="33"/>
         <image name="chat_bubbles" width="50" height="50"/>
         <image name="copy_152" width="50" height="50"/>
         <image name="email" width="50" height="50"/>
@@ -1254,6 +1331,7 @@
         <image name="fav_inapp" width="50" height="50"/>
         <image name="fav_navbar_unselected" width="25" height="25"/>
         <image name="fav_tabbar" width="25" height="25"/>
+        <image name="intune_download" width="133" height="33"/>
         <image name="logout" width="25" height="25"/>
         <image name="penn_medicine_transparent" width="222" height="35"/>
         <image name="phone" width="50" height="50"/>

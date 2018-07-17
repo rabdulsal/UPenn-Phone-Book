@@ -16,9 +16,7 @@ protocol LoginServiceDelegate {
 
 class LoginService {
     
-    private var isLoggedIn : Bool {
-        return AuthenticationService.isAuthenticated
-    }
+    var isLoggedIn : Bool { return AuthenticationService.isAuthenticated }
     var requestService = NetworkRequestService()
     var loginDelegate: LoginServiceDelegate
     var shouldAutoLogin : Bool { return AuthenticationService.shouldAutoLogin }
