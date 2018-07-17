@@ -16,7 +16,7 @@ protocol LoginServiceDelegate {
 
 class LoginService {
     
-    private (set) var isLoggedIn = false
+    var isLoggedIn : Bool { return AuthenticationService.isAuthenticated }
     var requestService = NetworkRequestService()
     var loginDelegate: LoginServiceDelegate
     var shouldAutoLogin : Bool { return AuthenticationService.shouldAutoLogin }
@@ -49,7 +49,6 @@ class LoginService {
                     token: token,
                     email: email,
                     password: password)
-                self.isLoggedIn = true
                 self.loginDelegate.didSuccessfullyLoginUser()
                 return
             }
@@ -98,6 +97,6 @@ class LoginService {
     }
     
     func logout() {
-        self.isLoggedIn = false
+        AuthenticationService.logout()
     }
 }

@@ -42,6 +42,7 @@
 		3A70DBCC1FE17548006556D6 /* AddressBookService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70DBCB1FE17548006556D6 /* AddressBookService.swift */; };
 		3A7FAE3D1FA78F42009765F8 /* UILabel+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FAE3C1FA78F42009765F8 /* UILabel+UPenn.swift */; };
 		3A7FAE3F1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FAE3E1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift */; };
+		3A813A7620C861320036BD1D /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A813A7520C861320036BD1D /* RootViewController.swift */; };
 		3A8D0F812006699B008E004A /* UISearchBar+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D0F802006699B008E004A /* UISearchBar+UPenn.swift */; };
 		3AC9C5CE20A3990B007CD1C4 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC9C5CD20A3990B007CD1C4 /* AnalyticsService.swift */; };
 		3ACFC7D71FBE2CB500D472FB /* AccountSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFC7D61FBE2CB500D472FB /* AccountSettingsCell.swift */; };
@@ -127,6 +128,7 @@
 		3A7C5B2320C065700051A0B9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3A7FAE3C1FA78F42009765F8 /* UILabel+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+UPenn.swift"; sourceTree = "<group>"; };
 		3A7FAE3E1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesGroupsListViewController.swift; sourceTree = "<group>"; };
+		3A813A7520C861320036BD1D /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		3A8D0F802006699B008E004A /* UISearchBar+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+UPenn.swift"; sourceTree = "<group>"; };
 		3AC9C5CD20A3990B007CD1C4 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		3ACFC7D61FBE2CB500D472FB /* AccountSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsCell.swift; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				3A7FAE3E1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift */,
 				3A339A0D1FBE24C9005AA593 /* AccountTableViewController.swift */,
 				3A419F442016467400E91645 /* ContactGroupViewController.swift */,
+				3A813A7520C861320036BD1D /* RootViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -784,6 +787,7 @@
 				3A70DBCC1FE17548006556D6 /* AddressBookService.swift in Sources */,
 				3A419F3E2012647700E91645 /* FavoritesGroupTitleView.swift in Sources */,
 				3A317CD71F9FD32700786C95 /* FavoriteContact+CoredDataProperties.swift in Sources */,
+				3A813A7620C861320036BD1D /* RootViewController.swift in Sources */,
 				3A7FAE3D1FA78F42009765F8 /* UILabel+UPenn.swift in Sources */,
 				3A4C18781FE1AF0200486116 /* TouchIDService.swift in Sources */,
 				3A317CD51F9FD2E800786C95 /* FavoriteContact.xcdatamodeld in Sources */,

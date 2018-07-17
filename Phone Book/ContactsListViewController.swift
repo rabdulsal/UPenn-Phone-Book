@@ -41,9 +41,6 @@ class ContactsListViewController : UIViewController {
     @IBOutlet weak var loggedOutView: UIView!
     @IBOutlet weak var loggedOutLabel: UITextView!
     
-    var appDelegate: AppDelegate? {
-        return UIApplication.shared.delegate as? AppDelegate
-    }
     var searchService = ContactsSearchService()
     var contactsList: Array<Contact>! {
         didSet {
@@ -119,7 +116,7 @@ class ContactsListViewController : UIViewController {
     
     override func setup() {
         super.setup()
-        self.checkAppVersionForLaunch()
+        self.buildContactsListView()
     }
     
     // IBActions
@@ -171,21 +168,6 @@ extension ContactsListViewController : UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! ContactViewCell
         cell.configure(with: contact, delegate: self, sectionIndex: indexPath)
         return cell
-    }
-}
-
-// MARK: - LoginService Delegate
-
-extension ContactsListViewController : LoginServiceDelegate {
-    
-    func didSuccessfullyLoginUser() {
-        SVProgressHUD.showSuccess(withStatus: "You are logged in!".localize)
-    }
-    
-    func didReturnAutoFillCredentials(username: String, password: String) { }
-    
-    func didFailToLoginUser(errorStr: String) {
-        SVProgressHUD.showError(withStatus: errorStr)
     }
 }
 
@@ -254,63 +236,6 @@ extension ContactsListViewController : FavoritesUpdatable {
 // MARK: - Private
 private extension ContactsListViewController {
     
-    var optionalUpdateAlert : UIAlertController {
-        let alertCtrl = UIAlertController(
-            title: "App Update Available",
-            message: "An updated version of the UPHS Phonebook App is available. If you want to update, press 'Get Update' and follow the instructions.",
-            preferredStyle: .alert)
-        alertCtrl.addAction(UIAlertAction(
-            title: "Get Update",
-            style: .cancel,
-            handler: { (action) in
-                self.toggleLoggedOutView(true)
-        }))
-        alertCtrl.addAction(UIAlertAction(
-            title: "Skip Update",
-            style: .default,
-            handler: { (action) in
-                self.buildContactsListView()
-        }))
-        return alertCtrl
-    }
-    
-    var mandatoryUpdateAlert : UIAlertController {
-        let alertCtrl = UIAlertController(
-            title: "App Update Available (MANDATORY)",
-            message: "To continue using the UPHS Phonebook App, you MUST update to the latest version. Press 'Get Update' and follow the instructions.",
-            preferredStyle: .alert)
-        alertCtrl.addAction(UIAlertAction(
-            title: "Get Update",
-            style: .cancel,
-            handler: { (action) in
-                self.toggleLoggedOutView(true)
-        }))
-        return alertCtrl
-    }
-    
-    func checkAppVersionForLaunch() {
-        ConfigurationsService.checkLatestAppVersion { (isUpdatable, updateRequired, errorMessage) in
-            // If errorMessage show it
-            if let message = errorMessage {
-                SVProgressHUD.showError(withStatus: message)
-                return // TODO: Figure out what to do with UI if error here
-            }
-            // If isUpdatable show optional update alert
-            if isUpdatable {
-                // If updateRequired show mandatory alert
-                if updateRequired {
-                    self.present(self.mandatoryUpdateAlert, animated: true, completion: nil)
-                    return
-                }
-                // Make optional update alert
-                self.present(self.optionalUpdateAlert, animated: true, completion: nil)
-                return
-            }
-            // No updates necessary, build regular view
-            self.buildContactsListView()
-        }
-    }
-    
     func buildContactsListView() {
         self.contactsList = [Contact]()
         
@@ -321,13 +246,9 @@ private extension ContactsListViewController {
         self.contactsTableView.tableFooterView = UIView()
         
         // Miscellaneous configs
-        self.appDelegate?.setLoginDelegate(loginDelegate: self)
         self.noContactsLabel.setFontHeight(size: 20.0)
         self.noContactsView.backgroundColor = UIColor.upennLightGray
         self.setupLoggedOutLabel()
-        
-        // Since this is the Launch VC, always logout the User on 1st load
-        self.appDelegate?.logout()
     }
     
     func updateFavoritesState(favorited: Bool) {
@@ -361,7 +282,7 @@ private extension ContactsListViewController {
     }
     
     func toggleLoggedOutView(_ shouldShow: Bool) {
-        self.appDelegate?.hideTabBar()
+//        self.appDelegate?.hideTabBar()
         self.loggedOutView.isHidden = !shouldShow
         self.loggedOutLabel.isHidden = !shouldShow
         if shouldShow {
@@ -378,15 +299,6 @@ private extension ContactsListViewController {
         self.loggedOutLabel.attributedText = self.loggedOutAttributedString
         self.loggedOutLabel.isEditable = false
         self.loggedOutLabel.isSelectable = true
-        self.loggedOutLabel.delegate = self
-    }
-    
-}
-
-extension ContactsListViewController : UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        self.appDelegate?.setLoginDelegate(loginDelegate: self)
-        self.appDelegate?.presentLoginViewController()
-        return false
+//        self.loggedOutLabel.delegate = self
     }
 }
