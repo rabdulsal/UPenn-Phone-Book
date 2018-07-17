@@ -14,7 +14,7 @@ class NetworkRequestService {
     let phonebookAPIStr = "https://www1.pennmedicine.org/adrs"
     let searchAPIStr = "/api/phonebook/search"
     let profileAPIStr = "/api/phonebook/profile"
-    let appConfigAPIStr = "https://uphsnettest2012.uphs.upenn.edu/MAppCnfg/api"
+    let appConfigAPIStr = "https://www1.pennmedicine.org/MAppCnfg/api"
     let defaultManager: SessionManager = {
         let serverTrustPolicies: [String: ServerTrustPolicy] = [
             "uphsnettest2012.uphs.upenn.edu": ServerTrustPolicy.disableEvaluation
