@@ -9,7 +9,10 @@
 import Foundation
 import MessageUI
 
-class MessagingService : NSObject, MFMessageComposeViewControllerDelegate {
+class MessagingService :
+NSObject,
+MFMessageComposeViewControllerDelegate,
+RecipientsContactable {
     
     var delegate: MessageDelegate?
     var canSendText: Bool {
