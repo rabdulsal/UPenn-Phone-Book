@@ -196,10 +196,6 @@ extension ContactsListViewController : UISearchBarDelegate {
             }
         }
     }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.text = ""
-    }
 }
 
 // MARK: - ToggleFavoritesDelegate

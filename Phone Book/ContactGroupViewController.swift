@@ -51,7 +51,7 @@ class ContactGroupViewController : UIViewController {
             "Email \(self.favoritesGroups.title)".localize
         
         // ContactService
-        self.contactService = ContactService(viewController: self, contacts: self.groupContacts, emailMessageDelegate: self, contactDelegate: self)
+        self.configureContactService()
     }
     
     // MARK: IBActions
@@ -158,5 +158,18 @@ extension ContactGroupViewController : MessageDelegate {
 private extension ContactGroupViewController {
     func toggleDoneButton(isEnabled: Bool) {
         self.doneButton.isEnabled = isEnabled
+    }
+    
+    func configureContactService() {
+        // Set up ContactService
+        self.contactService = ContactService(viewController: self, contacts: self.groupContacts, emailMessageDelegate: self, contactDelegate: self)
+        // Show Error if cannot Email or Text
+        switch self.contactContext {
+        case .groupEmail where !self.contactService.canSendEmail:
+            SVProgressHUD.showError(withStatus: self.contactService.cannotEmailError)
+        case .groupText where !self.contactService.canSendText:
+            SVProgressHUD.showError(withStatus: self.contactService.cannotTextError)
+        default: break
+        }
     }
 }

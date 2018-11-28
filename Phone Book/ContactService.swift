@@ -27,7 +27,7 @@ extension RecipientsContactable {
             case .Email:
                 /*
                  * Loop through recipients and construct
-                 * "mailto:recipient1@example.com?cc=recipient2@example.com&cc=recipient3@example.com"
+                 * "mailto:recipient1@example.com?to=recipient2@example.com&to=recipient3@example.com"
                  * link
                  *
                  */
@@ -36,10 +36,10 @@ extension RecipientsContactable {
                     continue
                 }
                 if idx == end {
-                    contactURL += "cc=\(recipient)"
+                    contactURL += "to=\(recipient)&from:rashad@gmail.com"
                     break
                 }
-                contactURL += "cc=\(recipient)&"
+                contactURL += "to=\(recipient)&"
             case .Text:
                 /*
                  * Loop through recipients and construct
@@ -77,10 +77,10 @@ class ContactService {
     }
     
     let textWarningMessage = "Text paging should NOT be used to communicate emergent or urgent clinical information as there is no guarantee that your page will be received. If you have urgent/emergent clinical information to communicate, please make verbal contact.".localize
-    let emailWarningMessage = "You are launching the Mail Application. For security purposes, please be sure to tap the 'From:' selection, and choose your Penn Medicine email to contact UPHS colleagues.".localize
-    let cannotEmailError = "Sorry, something went wrong. Cannot send email at this time."
-    let cannotTextError = "Sorry, something went wrong. Cannot send text at this time."
-    let cannotCallError = "Sorry, something went wrong. Cannot make call at this time."
+    let emailWarningMessage = "You are now opening your iPhone's native Mail Application. Select your \"@pennmedicine.upenn.edu\" email address in the \"FROM:\" address line to ensure you are sending from your PennMedicine email address.".localize
+    let cannotEmailError = "Sorry, this device's Account is not set up for email. Please go to Settings>Passwords & Accounts and ensure your 'Penn Medicine Email' is synced to your Mail App."
+    let cannotTextError = "Sorry, this device's Account is not set up for text messaging."
+    let cannotCallError = "Sorry, this device is not set up for making phone calls. ."
     let messagingService = MessagingService()
     let emailService = EmailService()
     var delegateViewController: UIViewController
@@ -98,6 +98,12 @@ class ContactService {
     var textWarningFlag : Bool {
         guard let flagged = UserDefaults.standard.value(forKey: textWarningKey) as? Bool else { return false }
         return flagged
+    }
+    var canSendEmail: Bool {
+        return self.emailService.canSendMail
+    }
+    var canSendText: Bool {
+        return self.messagingService.canSendText
     }
     
     init(
