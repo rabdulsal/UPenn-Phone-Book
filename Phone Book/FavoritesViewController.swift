@@ -189,7 +189,7 @@ extension FavoritesViewController : FavoritesContactDelegate {
     
     func pressedEmailButton(for contact: FavoritesContact) {
         self.contactService = ContactService(viewController: self, contact: Contact(favoriteContact: contact), emailMessageDelegate: self, contactDelegate: self)
-        self.contactService.sendEmail()
+        self.contactService.copyEmailToClipboard()
     }
 }
 
@@ -233,6 +233,14 @@ extension FavoritesViewController : AddGroupAddressBookDelegate {
 // MARK: - ContactServicable
 
 extension FavoritesViewController : ContactServicable {
+    func copiedToClipboard(message: String) {
+        SVProgressHUD.showSuccess(withStatus: message)
+    }
+    
+    func cannotCopyToClipboard(message: String) {
+        SVProgressHUD.showError(withStatus: message)
+    }
+    
     func cannotEmailError(message: String) {
         SVProgressHUD.showError(withStatus: message.localize)
     }
@@ -323,17 +331,30 @@ private extension FavoritesViewController {
             handler: {
                 alert -> Void in
                 self.contactContext = .groupText
-                self.performContactGroupSegue(groupIndex: self.selectedGroupIndex)
+                if self.contactService.canSendText {
+                    self.performContactGroupSegue(groupIndex: self.selectedGroupIndex)
+                } else {
+                    SVProgressHUD.showError(withStatus: self.contactService.cannotTextError)
+                }
         })
         
         // Group Email Action
         let groupEmailAction = UIAlertAction(
-            title: "Email Group".localize,
+            title: "Copy Emails".localize,
             style: .default,
             handler: {
                 alert -> Void in
                 self.contactContext = .groupEmail
-                self.performContactGroupSegue(groupIndex: self.selectedGroupIndex)
+                // TODO: Copying Emails to Clipboard for now
+//                if self.contactService.canSendEmail {
+//                    self.performContactGroupSegue(groupIndex: self.selectedGroupIndex)
+//                } else {
+//                    self.contactService.showEmailErrorAlert()
+//                }
+                if let emailGroup = FavoritesService.getEmailableFavorites(for: self.selectedGroupIndex) {
+                    self.contactService = ContactService(viewController: self, contacts: emailGroup, emailMessageDelegate: self, contactDelegate: self)
+                    self.contactService.copyEmailGroup()
+                }
         })
         
         // Add All to AddressBook Action

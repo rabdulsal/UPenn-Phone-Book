@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -254,7 +253,7 @@
                                 <rect key="frame" x="0.0" y="120" width="375" height="498"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="daq-P0-x2V">
-                                        <rect key="frame" x="16" y="123" width="343" height="182"/>
+                                        <rect key="frame" x="16" y="122.5" width="343" height="182"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWX-Mz-LiV" customClass="NoDataInstructionsLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="0.0"/>
@@ -263,7 +262,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Penn_Shield_grey" translatesAutoresizingMaskIntoConstraints="NO" id="eQa-Bk-5ax">
-                                                <rect key="frame" x="95" y="30" width="152" height="152"/>
+                                                <rect key="frame" x="95.5" y="30" width="152" height="152"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="eQa-Bk-5ax" secondAttribute="height" multiplier="1:1" id="7jn-xG-hbk"/>
                                                     <constraint firstAttribute="width" constant="152" id="bUB-st-tRa"/>
@@ -367,7 +366,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxJ-CB-DcX" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="421.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="433.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NAME:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iLm-6w-hUN" customClass="TitleLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="20" width="41" height="16"/>
@@ -376,7 +375,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nameLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LbE-Nv-zhe">
-                                                <rect key="frame" x="88.5" y="18" width="270.5" height="21"/>
+                                                <rect key="frame" x="88.5" y="17.5" width="270.5" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="4ze-J0-vQ5"/>
                                                 </constraints>
@@ -447,7 +446,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OFFICE:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfw-ng-GBe" customClass="TitleLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="205" width="49" height="16"/>
+                                                <rect key="frame" x="16" y="204.5" width="49" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -473,7 +472,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cellPhone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yWx-Fe-raG" customClass="ActionLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                <rect key="frame" x="88.5" y="240" width="228.5" height="21"/>
+                                                <rect key="frame" x="88.5" y="244" width="228.5" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="8bb-Li-4Jk"/>
                                                 </constraints>
@@ -482,13 +481,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MOBILE:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNL-VB-ELm" customClass="TitleLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="242.5" width="52" height="16"/>
+                                                <rect key="frame" x="16" y="246.5" width="52" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OoV-me-aaj">
-                                                <rect key="frame" x="329" y="235.5" width="30" height="30"/>
+                                                <rect key="frame" x="329" y="239.5" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="eD0-fU-ORw"/>
                                                     <constraint firstAttribute="width" secondItem="OoV-me-aaj" secondAttribute="height" multiplier="1:1" id="x7A-4q-4iB"/>
@@ -499,19 +498,19 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TEXT:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dR5-7U-XqO" customClass="TitleLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="283" width="36.5" height="16"/>
+                                                <rect key="frame" x="16" y="291" width="36.5" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="textLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ixv-OD-H3l" customClass="ActionLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                <rect key="frame" x="88.5" y="280" width="223.5" height="21"/>
+                                                <rect key="frame" x="88.5" y="288.5" width="223.5" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DJr-o8-JI9">
-                                                <rect key="frame" x="324" y="273.5" width="35" height="35"/>
+                                                <rect key="frame" x="324" y="281.5" width="35" height="35"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="DJr-o8-JI9" secondAttribute="height" multiplier="1:1" id="U2P-dp-0Wu"/>
                                                     <constraint firstAttribute="height" constant="35" id="qee-DP-X6Y"/>
@@ -522,31 +521,31 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EMAIL:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPa-yH-L97" customClass="TitleLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="326.5" width="42.5" height="16"/>
+                                                <rect key="frame" x="16" y="338" width="42.5" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="186" placeholderIntrinsicHeight="21" text="emailLabel" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvu-IY-Ywi" customClass="ActionLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                <rect key="frame" x="88.5" y="323.5" width="223.5" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="186" placeholderIntrinsicHeight="21" text="emailLabel" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvu-IY-Ywi">
+                                                <rect key="frame" x="88.5" y="335.5" width="223.5" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2h8-GY-ygC">
-                                                <rect key="frame" x="324" y="316.5" width="35" height="35"/>
+                                                <rect key="frame" x="324" y="328.5" width="35" height="35"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="XeN-0o-SvZ"/>
                                                     <constraint firstAttribute="width" secondItem="2h8-GY-ygC" secondAttribute="height" multiplier="1:1" id="yOx-WW-Ctw"/>
                                                 </constraints>
-                                                <state key="normal" title="Text" image="email"/>
+                                                <state key="normal" title="Text" image="copy_152"/>
                                                 <state key="disabled" image="email_disabled"/>
                                                 <connections>
                                                     <action selector="pressedEmailButton:" destination="Ma3-x1-OmR" eventType="touchUpInside" id="5pY-Au-QcG"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zh0-yR-b0D" customClass="PrimaryCTAButton" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="371.5" width="343" height="50"/>
+                                                <rect key="frame" x="16" y="383.5" width="343" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="54r-lW-FIA"/>
                                                 </constraints>
@@ -564,7 +563,7 @@
                                             <constraint firstItem="5iG-MZ-oNW" firstAttribute="leading" secondItem="DXA-hJ-k3S" secondAttribute="trailing" constant="12" id="8lV-92-aZO"/>
                                             <constraint firstItem="DXA-hJ-k3S" firstAttribute="top" secondItem="7u2-Jn-AmK" secondAttribute="bottom" constant="16" id="9xt-lF-5a6"/>
                                             <constraint firstItem="hCc-xi-9eb" firstAttribute="top" secondItem="DXA-hJ-k3S" secondAttribute="bottom" constant="16" id="BJg-hX-ot2"/>
-                                            <constraint firstItem="2h8-GY-ygC" firstAttribute="top" secondItem="DJr-o8-JI9" secondAttribute="bottom" constant="8" id="Bay-8P-ZgS"/>
+                                            <constraint firstItem="2h8-GY-ygC" firstAttribute="top" secondItem="DJr-o8-JI9" secondAttribute="bottom" constant="12" id="Bay-8P-ZgS"/>
                                             <constraint firstItem="wvu-IY-Ywi" firstAttribute="centerY" secondItem="cPa-yH-L97" secondAttribute="centerY" id="GWI-w1-IvO"/>
                                             <constraint firstItem="Ixv-OD-H3l" firstAttribute="centerY" secondItem="dR5-7U-XqO" secondAttribute="centerY" id="Hgs-lp-tqn"/>
                                             <constraint firstItem="ufP-kB-dnm" firstAttribute="leading" secondItem="eYc-q2-sIZ" secondAttribute="trailing" constant="12" id="IEj-sC-Gih"/>
@@ -591,7 +590,7 @@
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rfw-ng-GBe" secondAttribute="trailing" constant="20" symbolic="YES" id="XLq-w8-9Cy"/>
                                             <constraint firstItem="DXA-hJ-k3S" firstAttribute="top" secondItem="5iG-MZ-oNW" secondAttribute="top" id="Y1T-yz-csF"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="FNL-VB-ELm" secondAttribute="trailing" constant="20" symbolic="YES" id="YfF-zC-LB3"/>
-                                            <constraint firstItem="OoV-me-aaj" firstAttribute="top" secondItem="ufP-kB-dnm" secondAttribute="bottom" constant="8" id="Zmi-ne-qmT"/>
+                                            <constraint firstItem="OoV-me-aaj" firstAttribute="top" secondItem="ufP-kB-dnm" secondAttribute="bottom" constant="12" id="Zmi-ne-qmT"/>
                                             <constraint firstItem="7u2-Jn-AmK" firstAttribute="centerY" secondItem="JYT-Uf-vlK" secondAttribute="centerY" id="bFC-yA-oQn"/>
                                             <constraint firstItem="DJr-o8-JI9" firstAttribute="centerY" secondItem="Ixv-OD-H3l" secondAttribute="centerY" id="bMH-wE-eYK"/>
                                             <constraint firstItem="zh0-yR-b0D" firstAttribute="leading" secondItem="hxJ-CB-DcX" secondAttribute="leading" constant="16" id="cHw-xD-ddx"/>
@@ -615,7 +614,7 @@
                                             <constraint firstAttribute="bottom" secondItem="zh0-yR-b0D" secondAttribute="bottom" id="por-zo-BWl"/>
                                             <constraint firstItem="DXA-hJ-k3S" firstAttribute="leading" secondItem="YB1-v6-TOC" secondAttribute="leading" id="qPt-7D-AjF"/>
                                             <constraint firstItem="OoV-me-aaj" firstAttribute="centerY" secondItem="yWx-Fe-raG" secondAttribute="centerY" id="rnZ-oI-8jl"/>
-                                            <constraint firstItem="DJr-o8-JI9" firstAttribute="top" secondItem="OoV-me-aaj" secondAttribute="bottom" constant="8" id="tro-b5-cM9"/>
+                                            <constraint firstItem="DJr-o8-JI9" firstAttribute="top" secondItem="OoV-me-aaj" secondAttribute="bottom" constant="12" id="tro-b5-cM9"/>
                                             <constraint firstItem="eYc-q2-sIZ" firstAttribute="centerY" secondItem="rfw-ng-GBe" secondAttribute="centerY" id="u3M-fl-nIQ"/>
                                             <constraint firstItem="2h8-GY-ygC" firstAttribute="leading" secondItem="wvu-IY-Ywi" secondAttribute="trailing" constant="12" id="uzU-y1-FiM"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="iLm-6w-hUN" secondAttribute="trailing" constant="20" symbolic="YES" id="vpf-R4-u7u"/>
@@ -690,7 +689,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drG-9k-My4" customClass="NoDataInstructionsLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="-0.5" width="343" height="100"/>
+                                        <rect key="frame" x="16" y="0.0" width="343" height="100"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -790,7 +789,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U2m-ld-Fr9" customClass="NoDataInstructionsLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="-0.5" width="343" height="100"/>
+                                        <rect key="frame" x="16" y="0.0" width="343" height="100"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -818,36 +817,36 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GD1-2f-ZXK" customClass="ContactNameLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="5" width="344" height="13"/>
+                                                    <rect key="frame" x="16" y="5" width="344" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Svv-yB-KR5" userLabel="Email View" customClass="ContactIconView" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="19" width="53" height="69"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Svv-yB-KR5" userLabel="Office View" customClass="ContactIconView" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="27" width="47" height="61"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="53" id="Qf2-Hc-32G"/>
+                                                        <constraint firstAttribute="width" constant="47" id="Qf2-Hc-32G"/>
                                                         <constraint firstAttribute="width" secondItem="Svv-yB-KR5" secondAttribute="height" multiplier="47:61" id="okr-FN-UQO"/>
                                                     </constraints>
                                                 </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjd-oY-03g" userLabel="Office View" customClass="ContactIconView" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                    <rect key="frame" x="83" y="27" width="47" height="61"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjd-oY-03g" userLabel="Mobile View" customClass="ContactIconView" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                                    <rect key="frame" x="77" y="27" width="47" height="61"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="bjd-oY-03g" secondAttribute="height" multiplier="47:61" id="4iI-rg-76Z"/>
                                                         <constraint firstAttribute="width" constant="47" id="Vlb-Jj-iIv"/>
                                                     </constraints>
                                                 </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jCJ-kn-QGx" userLabel="Mobile View" customClass="ContactIconView" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                    <rect key="frame" x="144" y="27" width="47" height="61"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jCJ-kn-QGx" userLabel="Text View" customClass="ContactIconView" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                                    <rect key="frame" x="138" y="19" width="53" height="69"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="jCJ-kn-QGx" secondAttribute="height" multiplier="47:61" id="HcR-po-49N"/>
-                                                        <constraint firstAttribute="width" constant="47" id="arC-17-tPT"/>
+                                                        <constraint firstAttribute="width" constant="53" id="arC-17-tPT"/>
                                                     </constraints>
                                                 </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pjp-SJ-JJc" userLabel="Text View" customClass="ContactIconView" customModule="UPHS_Phonebook" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pjp-SJ-JJc" userLabel="Email View" customClass="ContactIconView" customModule="UPHS_Phonebook" customModuleProvider="target">
                                                     <rect key="frame" x="205" y="19" width="53" height="69"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
@@ -857,33 +856,31 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Pjp-SJ-JJc" firstAttribute="width" secondItem="Svv-yB-KR5" secondAttribute="width" id="05g-I3-Mf8"/>
                                                 <constraint firstItem="Pjp-SJ-JJc" firstAttribute="bottom" secondItem="jCJ-kn-QGx" secondAttribute="bottom" id="0F8-ak-SPD"/>
-                                                <constraint firstItem="jCJ-kn-QGx" firstAttribute="width" secondItem="bjd-oY-03g" secondAttribute="width" id="9kd-h8-SMn"/>
+                                                <constraint firstItem="bjd-oY-03g" firstAttribute="height" secondItem="Svv-yB-KR5" secondAttribute="height" id="3dh-Af-jMB"/>
                                                 <constraint firstItem="jCJ-kn-QGx" firstAttribute="leading" secondItem="bjd-oY-03g" secondAttribute="trailing" constant="14" id="DRi-Zf-uGq"/>
                                                 <constraint firstItem="jCJ-kn-QGx" firstAttribute="bottom" secondItem="bjd-oY-03g" secondAttribute="bottom" id="HOL-xn-7Bf"/>
-                                                <constraint firstItem="jCJ-kn-QGx" firstAttribute="height" secondItem="bjd-oY-03g" secondAttribute="height" id="JdI-1t-f3U"/>
-                                                <constraint firstItem="Pjp-SJ-JJc" firstAttribute="height" secondItem="Svv-yB-KR5" secondAttribute="height" id="KxJ-8J-N2u"/>
                                                 <constraint firstItem="bjd-oY-03g" firstAttribute="leading" secondItem="Svv-yB-KR5" secondAttribute="trailing" constant="14" id="Rnj-OV-JeF"/>
                                                 <constraint firstItem="Svv-yB-KR5" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="16" id="S9i-Cy-Rtu"/>
                                                 <constraint firstItem="jCJ-kn-QGx" firstAttribute="width" secondItem="jCJ-kn-QGx" secondAttribute="height" multiplier="47:61" id="VWs-Jn-OLb"/>
                                                 <constraint firstItem="GD1-2f-ZXK" firstAttribute="leading" secondItem="8hb-14-HhD" secondAttribute="leading" constant="16" id="XGw-Gq-Hp2"/>
                                                 <constraint firstItem="Pjp-SJ-JJc" firstAttribute="leading" secondItem="jCJ-kn-QGx" secondAttribute="trailing" constant="14" id="XeO-sl-23E"/>
                                                 <constraint firstItem="bjd-oY-03g" firstAttribute="bottom" secondItem="Svv-yB-KR5" secondAttribute="bottom" id="YT5-aZ-u6f"/>
+                                                <constraint firstItem="bjd-oY-03g" firstAttribute="width" secondItem="Svv-yB-KR5" secondAttribute="width" id="YxW-OM-2ft"/>
                                                 <constraint firstAttribute="bottom" secondItem="Svv-yB-KR5" secondAttribute="bottom" constant="8.5" id="dW1-1O-dCB"/>
                                                 <constraint firstItem="Pjp-SJ-JJc" firstAttribute="width" secondItem="Pjp-SJ-JJc" secondAttribute="height" multiplier="47:61" id="iLH-9D-lPd"/>
                                                 <constraint firstItem="Pjp-SJ-JJc" firstAttribute="width" secondItem="Pjp-SJ-JJc" secondAttribute="height" multiplier="47:61" id="jhb-Bu-dBx"/>
                                                 <constraint firstItem="GD1-2f-ZXK" firstAttribute="top" secondItem="8hb-14-HhD" secondAttribute="top" constant="5" id="oX7-Mu-e4f"/>
-                                                <constraint firstItem="Svv-yB-KR5" firstAttribute="top" secondItem="GD1-2f-ZXK" secondAttribute="bottom" constant="1" id="vdN-g6-4O8"/>
+                                                <constraint firstItem="Svv-yB-KR5" firstAttribute="top" secondItem="GD1-2f-ZXK" secondAttribute="bottom" constant="5" id="vdN-g6-4O8"/>
                                                 <constraint firstAttribute="trailing" secondItem="GD1-2f-ZXK" secondAttribute="trailing" constant="15" id="yY0-Ii-6at"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="emailView" destination="Svv-yB-KR5" id="oR2-lG-5jz"/>
-                                            <outlet property="mobileView" destination="jCJ-kn-QGx" id="11z-tP-LQO"/>
+                                            <outlet property="emailView" destination="Pjp-SJ-JJc" id="dLo-EU-5ad"/>
+                                            <outlet property="mobileView" destination="bjd-oY-03g" id="IdC-ax-LTs"/>
                                             <outlet property="nameLabel" destination="GD1-2f-ZXK" id="7Qc-V3-zSR"/>
-                                            <outlet property="officeView" destination="bjd-oY-03g" id="pAR-ur-AYE"/>
-                                            <outlet property="textView" destination="Pjp-SJ-JJc" id="Dzw-Rp-QVC"/>
+                                            <outlet property="officeView" destination="Svv-yB-KR5" id="9Wl-l9-bem"/>
+                                            <outlet property="textView" destination="jCJ-kn-QGx" id="lJJ-yb-gxg"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -977,19 +974,19 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wsU-f4-c3V">
-                                            <rect key="frame" x="308" y="6" width="51" height="31"/>
+                                            <rect key="frame" x="308" y="6.5" width="51" height="31"/>
                                             <connections>
                                                 <action selector="toggledTouchID:" destination="UZw-hE-peH" eventType="valueChanged" id="LUo-wy-dnh"/>
                                             </connections>
                                         </switch>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Touch-ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKX-vL-xN0" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                            <rect key="frame" x="63" y="11" width="237" height="21"/>
+                                            <rect key="frame" x="63" y="11.5" width="237" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="touchID" translatesAutoresizingMaskIntoConstraints="NO" id="u2B-4C-fhq">
-                                            <rect key="frame" x="16" y="5" width="35" height="35"/>
+                                            <rect key="frame" x="16" y="4.5" width="35" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="35" id="Ng6-YG-kKn"/>
                                                 <constraint firstAttribute="width" secondItem="u2B-4C-fhq" secondAttribute="height" multiplier="1:1" id="uJQ-sc-Rpx"/>
@@ -1018,7 +1015,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dVn-SQ-AjF">
-                                            <rect key="frame" x="310" y="6" width="51" height="31"/>
+                                            <rect key="frame" x="310" y="6.5" width="51" height="31"/>
                                             <connections>
                                                 <action selector="toggledAutoLoginSwitch:" destination="hRZ-BG-vl4" eventType="valueChanged" id="K9v-Pp-9Yu"/>
                                             </connections>
@@ -1041,7 +1038,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ybb-pZ-enf" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                            <rect key="frame" x="63" y="12" width="53.5" height="21"/>
+                                            <rect key="frame" x="63" y="11.5" width="53.5" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1321,22 +1318,21 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Penn_Shield_grey" width="50" height="50"/>
-        <image name="account" width="25" height="25"/>
-        <image name="appcatalog_download" width="133" height="33"/>
-        <image name="chat_bubbles" width="50" height="50"/>
-        <image name="copy_152" width="50" height="50"/>
-        <image name="email" width="50" height="50"/>
-        <image name="email_disabled" width="50" height="50"/>
-        <image name="fav_inapp" width="50" height="50"/>
-        <image name="fav_navbar_unselected" width="25" height="25"/>
-        <image name="fav_tabbar" width="25" height="25"/>
-        <image name="intune_download" width="133" height="33"/>
-        <image name="logout" width="25" height="25"/>
-        <image name="penn_medicine_transparent" width="222" height="35"/>
-        <image name="phone" width="50" height="50"/>
-        <image name="touchID" width="50" height="50"/>
-        <image name="un_checked" width="50" height="50"/>
+        <image name="Penn_Shield_grey" width="152" height="152"/>
+        <image name="account" width="50" height="50"/>
+        <image name="appcatalog_download" width="400" height="100"/>
+        <image name="chat_bubbles" width="36.479999542236328" height="36.479999542236328"/>
+        <image name="copy_152" width="152" height="152"/>
+        <image name="email_disabled" width="152" height="152"/>
+        <image name="fav_inapp" width="152" height="152"/>
+        <image name="fav_navbar_unselected" width="50" height="50"/>
+        <image name="fav_tabbar" width="50" height="50"/>
+        <image name="intune_download" width="400" height="100"/>
+        <image name="logout" width="50" height="50"/>
+        <image name="penn_medicine_transparent" width="666" height="107"/>
+        <image name="phone" width="36.479999542236328" height="36.479999542236328"/>
+        <image name="touchID" width="152" height="152"/>
+        <image name="un_checked" width="36.479999542236328" height="36.479999542236328"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="AgV-Js-0Xu"/>

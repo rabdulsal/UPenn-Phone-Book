@@ -53,9 +53,7 @@ extension RecipientsContactable {
                 contactURL += "\(recipient),"
             }
         }
-        if let url = URL(string: contactURL) {
-            UIApplication.shared.open(url)
-        }
+        DeviceService.openAsURL(contactURL)
     }
 }
 
@@ -68,6 +66,8 @@ protocol ContactServicable {
     func cannotEmailError(message: String)
     func cannotTextError(message: String)
     func cannotCallError(message: String)
+    func copiedToClipboard(message: String)
+    func cannotCopyToClipboard(message: String)
 }
 
 class ContactService {
@@ -76,11 +76,16 @@ class ContactService {
         case Text = "text"
     }
     
+    enum CopyType : String {
+        case Email   = "Email"
+        case Address = "Address"
+    }
+    
     let textWarningMessage = "Text paging should NOT be used to communicate emergent or urgent clinical information as there is no guarantee that your page will be received. If you have urgent/emergent clinical information to communicate, please make verbal contact.".localize
     let emailWarningMessage = "You are now opening your iPhone's native Mail Application. Select your \"@pennmedicine.upenn.edu\" email address in the \"FROM:\" address line to ensure you are sending from your PennMedicine email address.".localize
     let cannotEmailError = "Sorry, this device's Account is not set up for email. Please go to Settings>Passwords & Accounts and ensure your 'Penn Medicine Email' is synced to your Mail App."
     let cannotTextError = "Sorry, this device's Account is not set up for text messaging."
-    let cannotCallError = "Sorry, this device is not set up for making phone calls. ."
+    let cannotCallError = "Sorry, this device is not set up for making phone calls."
     let messagingService = MessagingService()
     let emailService = EmailService()
     var delegateViewController: UIViewController
@@ -144,15 +149,31 @@ class ContactService {
         }
     }
     
-    func sendEmail() {
-        if let email = self.contact?.emailAddress, email.isEmpty == false {
-            self.emailContact(emailAddress: [email])
-        }
-    }
+//    func sendEmail() {
+//        if let email = self.contact?.emailAddress, email.isEmpty == false {
+//            self.emailContact(emailAddress: [email])
+//        }
+//    }
     
     func sendText() {
         if let cell = self.contact?.cellphone, cell.isEmpty == false {
             self.textNumber(phoneNumber: [cell])
+        }
+    }
+    
+    func copyAddressToClipboard() {
+        if
+            let address1 = self.contact?.primaryAddressLine1,
+            let address2 = self.contact?.primaryAddressLine2
+    {
+        let address = "\(address1) \(address2)"
+            self.copyToClipboard(address, copyType: .Address)
+        }
+    }
+    
+    func copyEmailToClipboard() {
+        if let email = self.contact?.emailAddress, !email.isEmpty {
+            self.copyToClipboard(email, copyType: .Email)
         }
     }
     
@@ -164,6 +185,10 @@ class ContactService {
     
     func emailGroup() {
         self.emailContact(emailAddress: self.makeContactList(from: self.favoriteContacts))
+    }
+    
+    func copyEmailGroup() {
+        self.copyToClipboard(self.makeCopyList(from: self.favoriteContacts), copyType: .Email)
     }
     
     // Group Contact Management
@@ -180,6 +205,10 @@ class ContactService {
         guard let idx = self.favoriteContacts.index(of: contact) else { return }
         self.favoriteContacts.remove(at: idx)
         completion(self.favoriteContacts.count>0)
+    }
+    
+    func showEmailErrorAlert() {
+        self.delegateViewController.present(self.emailErrorAlert, animated: true, completion: nil)
     }
 }
 
@@ -241,14 +270,45 @@ fileprivate extension ContactService {
         return alertController
     }
     
+    var emailErrorAlert : UIAlertController {
+        let alertController = UIAlertController(
+            title: "Email Error",
+            message: self.cannotEmailError,
+            preferredStyle: .alert
+        )
+        // OK Action
+        let okayAction = UIAlertAction(
+            title: "OK".localize,
+            style: .cancel,
+            handler: nil
+        )
+        // Instructions Action
+        let instructionsAction = UIAlertAction(
+            title: "Instructions".localize,
+            style: .default,
+            handler: {
+                alert -> Void in
+                // Show MessagingVC
+                print("Instructions Pressed!")
+        })
+        alertController.addAction(okayAction)
+        alertController.addAction(instructionsAction)
+        return alertController
+    }
+    
     func callNumber(phoneNumber: String) {
-        if let url = URL(string: "telprompt:\(phoneNumber)") {
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                return
+//        if let url = URL(string: "telprompt:\(phoneNumber)") {
+//            if UIApplication.shared.canOpenURL(url) {
+//                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//                return
+//            }
+//        }
+//        self.contactDelegate?.cannotCallError(message: self.cannotCallError)
+        DeviceService.openAsURL("telprompt:\(phoneNumber)") { (success) in
+            if !success {
+                self.contactDelegate?.cannotCallError(message: self.cannotCallError)
             }
         }
-        self.contactDelegate?.cannotCallError(message: self.cannotCallError)
     }
     
     func textNumber(phoneNumber: [String]) {
@@ -281,7 +341,8 @@ fileprivate extension ContactService {
                 self.delegateViewController.present(self.messageWarningAlert, animated: true, completion: nil)
                 return
             }
-            self.contactDelegate?.cannotEmailError(message: self.cannotEmailError)
+//            self.contactDelegate?.cannotEmailError(message: self.cannotEmailError)
+            self.showEmailErrorAlert()
         }
     }
     
@@ -300,5 +361,32 @@ fileprivate extension ContactService {
             }
         }
         return contactList
+    }
+    
+    func makeCopyList(from contacts: [FavoritesContact]) -> String {
+        var copyListStr = ""
+        let begin = 0
+        let end = contacts.count-1
+        for idx in begin...end {
+            let contact = contacts[idx]
+            if let email = contact.emailAddress, !email.isEmpty {
+                if idx == end {
+                    copyListStr += email
+                } else {
+                    copyListStr += "\(email), "
+                }
+            }
+        }
+        return copyListStr
+    }
+    
+    func copyToClipboard(_ text: String, copyType: CopyType) {
+        DeviceService.copyToClipboard(text) { (copied) in
+            if copied {
+                self.contactDelegate?.copiedToClipboard(message: "\(copyType.rawValue) copied to clipboard.".localize)
+                return
+            }
+            self.contactDelegate?.cannotCopyToClipboard(message: "\(copyType.rawValue) not copied to clipboard. Please try again.".localize)
+        }
     }
 }
