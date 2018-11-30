@@ -20,6 +20,7 @@ class ContactIconView : NibView {
         case Mobile
         case Text
         case Email
+        case Copy
     }
     
     @IBOutlet weak var contactButton: ContactIconButton!
@@ -79,6 +80,14 @@ private extension ContactIconView {
             self.contactButton.setImage(#imageLiteral(resourceName: "phone"), for: .normal)
             self.contactTypeLabel.text = "Office"
             if let officePhone = self.favoriteContact.displayPrimaryTelephone, !officePhone.isEmpty {
+                self.enable()
+            } else {
+                self.disable()
+            }
+        case .Copy:
+            self.contactButton.setImage(#imageLiteral(resourceName: "copy_152"), for: .normal)
+            self.contactTypeLabel.text = "Copy Email"
+            if let email = self.favoriteContact.emailAddress, !email.isEmpty {
                 self.enable()
             } else {
                 self.disable()

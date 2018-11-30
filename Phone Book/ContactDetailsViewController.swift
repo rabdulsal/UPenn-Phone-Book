@@ -20,7 +20,7 @@ class ContactDetailsViewController : UIViewController {
     @IBOutlet weak var addressLabel2: ActionLabel! // TODO: Remove and add to address 1 with new-line break
     @IBOutlet weak var primaryPhoneLabel: ActionLabel!
     @IBOutlet weak var cellPhoneLabel: ActionLabel!
-    @IBOutlet weak var emailLabel: ActionLabel!
+    @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var favoriteToggleButton: UIBarButtonItem!
     @IBOutlet weak var callCellButton: UIButton!
     @IBOutlet weak var textButton: UIButton!
@@ -65,7 +65,7 @@ class ContactDetailsViewController : UIViewController {
             style: .default,
             
             handler: { action in
-                self.openSettings()
+                DeviceService.openSettings()
         }))
         cantAddContactAlert.addAction(UIAlertAction(title: "OK".localize, style: .cancel, handler: nil))
         return cantAddContactAlert
@@ -125,7 +125,7 @@ class ContactDetailsViewController : UIViewController {
     }
     
     @IBAction func pressedEmailButton(_ sender: Any) {
-        self.sendEmail()
+        self.contactService.copyEmailToClipboard()
     }
     
     @IBAction func pressedAddToContacts(_ sender: UIButton) {
@@ -134,8 +134,7 @@ class ContactDetailsViewController : UIViewController {
     
     @IBAction func pressedCopyAddressButton(_ sender: PrimaryCTAButtonText) {
         let address = "\(self.contact.primaryAddressLine1) \(self.contact.primaryAddressLine2)"
-        UIPasteboard.general.string = address
-        SVProgressHUD.showSuccess(withStatus: "Address copied to clipboard.".localize)
+        self.contactService.copyAddressToClipboard()
     }
 }
 
@@ -161,10 +160,6 @@ private extension ContactDetailsViewController {
     
     @objc func sendText() {
         self.contactService.sendText()
-    }
-    
-    @objc func sendEmail() {
-        self.contactService.sendEmail()
     }
     
     func decorateView(with contact: Contact) {
@@ -205,11 +200,11 @@ private extension ContactDetailsViewController {
         addressLabel1.addGestureRecognizer(tap3)
         
         // Email Address Tap
-        let tap4 = UITapGestureRecognizer(target: self, action: #selector(self.sendEmail))
-        tap4.delegate = self
-        tap4.numberOfTapsRequired = 1
-        emailLabel.isUserInteractionEnabled = true
-        emailLabel.addGestureRecognizer(tap4)
+//        let tap4 = UITapGestureRecognizer(target: self, action: #selector(self.sendEmail))
+//        tap4.delegate = self
+//        tap4.numberOfTapsRequired = 1
+//        emailLabel.isUserInteractionEnabled = true
+//        emailLabel.addGestureRecognizer(tap4)
         
         // Text Mobile Number
         let tap5 = UITapGestureRecognizer(target: self, action: #selector(self.sendText))
@@ -252,11 +247,6 @@ private extension ContactDetailsViewController {
         self.favoriteToggleButton.image = self.contact.isFavorited ? self.selectedFav : self.unselectedFav
     }
     
-    func openSettings() {
-        let url = URL(string: UIApplicationOpenSettingsURLString)
-        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-    }
-    
     func displayCantAddContactAlert() {
         present(cantAddContactAlert, animated: true, completion: nil)
     }
@@ -296,6 +286,14 @@ extension ContactDetailsViewController : AddressBookDelegate, AddContactAddressB
 }
 
 extension ContactDetailsViewController : ContactServicable {
+    func copiedToClipboard(message: String) {
+        SVProgressHUD.showSuccess(withStatus: message.localize)
+    }
+    
+    func cannotCopyToClipboard(message: String) {
+        SVProgressHUD.showError(withStatus: message.localize)
+    }
+    
     func cannotEmailError(message: String) {
         SVProgressHUD.showError(withStatus: message.localize)
     }

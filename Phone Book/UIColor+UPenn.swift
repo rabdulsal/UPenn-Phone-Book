@@ -11,31 +11,31 @@ import UIKit
 
 extension UIColor {
     
-    static var upennDeepBlue: UIColor {
-        return UIColor(displayP3Red: 25.0/255.0, green: 40.0/255.0, blue: 87.0/255.0, alpha: 1.0)
-    }
-    
-    static var upennDarkBlue: UIColor { // #04498A
-        return UIColor(displayP3Red: 4.0/255.0, green: 73.0/255.0, blue: 138.0/255.0, alpha: 1.0)
-    }
-    
-    static var upennMediumBlue: UIColor { // #4EABE6
-        return UIColor(displayP3Red: 78.0/255.0, green: 171.0/255.0, blue: 230.0/255.0, alpha: 1.0)
-    }
-    
     static var upennLightGray: UIColor {
         return UIColor(displayP3Red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
     }
     
-    static var upennWarningRed: UIColor {
+    static var upennDeepBlue: UIColor { // #1A3C79
+        return UIColor(displayP3Red: 26.0/255.0, green: 60.0/255.0, blue: 121.0/255.0, alpha: 1.0)
+    }
+    
+    static var upennDarkBlue: UIColor { // #004B8D
+        return UIColor(displayP3Red: 0.0/255.0, green: 75.0/255.0, blue: 141.0/255.0, alpha: 1.0)
+    }
+    
+    static var upennMediumBlue: UIColor { // #5893DD
+        return UIColor(displayP3Red: 88.0/255.0, green: 147.0/255.0, blue: 221.0/255.0, alpha: 1.0)
+    }
+    
+    static var upennWarningRed: UIColor { // #B20838
         return UIColor(displayP3Red: 163.0/255.0, green: 31.0/255.0, blue: 52.0/255.0, alpha: 1.0)
     }
     
-    static var upennCTAGreen: UIColor {
-        return UIColor(displayP3Red: 130.0/255.0, green: 133.0/255.0, blue: 52.0/255.0, alpha: 1.0)
+    static var upennCTAGreen: UIColor { // #0B901E
+        return UIColor(displayP3Red: 11.0/255.0, green: 144.0/255.0, blue: 30.0/255.0, alpha: 1.0)
     }
     
-    static var upennCTALightBlue: UIColor {
+    static var upennCTALightBlue: UIColor { // #
         return UIColor(displayP3Red: 183.0/255.0, green: 210.0/255.0, blue: 238.0/255.0, alpha: 1.0)
     }
     

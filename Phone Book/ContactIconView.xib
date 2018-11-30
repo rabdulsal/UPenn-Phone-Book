@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,40 +21,46 @@
             <rect key="frame" x="0.0" y="0.0" width="52" height="66"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zKs-5J-Ypc" customClass="ContactIconButton" customModule="UPHS_Phonebook">
-                    <rect key="frame" x="6" y="0.0" width="40" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="MQH-mt-iXI"/>
-                    </constraints>
-                    <state key="normal" title="Call" image="phone"/>
-                    <state key="disabled" image="phone_disabled"/>
-                    <connections>
-                        <action selector="pressedContactButton:" destination="-1" eventType="touchUpInside" id="N2k-qX-63V"/>
-                    </connections>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Office" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HU1-6e-rjZ" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                    <rect key="frame" x="3" y="45" width="46.5" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="hkf-rA-QOz">
+                    <rect key="frame" x="3" y="0.0" width="46.5" height="66"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="40" placeholderIntrinsicHeight="36" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zKs-5J-Ypc" customClass="ContactIconButton" customModule="UPHS_Phonebook">
+                            <rect key="frame" x="2" y="0.0" width="42.5" height="38.5"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="42.5" id="J2Q-eh-cGg"/>
+                                <constraint firstAttribute="width" secondItem="zKs-5J-Ypc" secondAttribute="height" multiplier="1.11111" id="lRb-jb-tEC"/>
+                            </constraints>
+                            <state key="normal" title="Call" image="phone"/>
+                            <state key="disabled" image="phone_disabled"/>
+                            <connections>
+                                <action selector="pressedContactButton:" destination="-1" eventType="touchUpInside" id="N2k-qX-63V"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Office" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HU1-6e-rjZ" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="45.5" width="46.5" height="20.5"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="46.5" id="ona-CZ-MFC"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zKs-5J-Ypc" secondAttribute="trailing" constant="6" id="0Ba-Ui-RxZ"/>
-                <constraint firstItem="HU1-6e-rjZ" firstAttribute="top" secondItem="zKs-5J-Ypc" secondAttribute="bottom" constant="5" id="CKv-uL-g0S"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="HU1-6e-rjZ" secondAttribute="bottom" id="KW8-eJ-sSH"/>
-                <constraint firstItem="zKs-5J-Ypc" firstAttribute="width" secondItem="zKs-5J-Ypc" secondAttribute="height" multiplier="1:1" id="TAm-cn-4JR"/>
-                <constraint firstItem="zKs-5J-Ypc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="6" id="i1M-Os-pXj"/>
-                <constraint firstItem="zKs-5J-Ypc" firstAttribute="centerX" secondItem="HU1-6e-rjZ" secondAttribute="centerX" id="t5n-NT-MWs"/>
+                <constraint firstItem="hkf-rA-QOz" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="KNp-gP-RLC"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="hkf-rA-QOz" secondAttribute="bottom" id="kOl-Yf-Mhg"/>
+                <constraint firstItem="hkf-rA-QOz" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="tvK-98-Q9n"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="-126" y="-266"/>
+            <point key="canvasLocation" x="-126.40000000000001" y="-266.26686656671666"/>
         </view>
     </objects>
     <resources>
-        <image name="phone" width="50" height="50"/>
-        <image name="phone_disabled" width="50" height="50"/>
+        <image name="phone" width="36.479999542236328" height="36.479999542236328"/>
+        <image name="phone_disabled" width="152" height="152"/>
     </resources>
 </document>

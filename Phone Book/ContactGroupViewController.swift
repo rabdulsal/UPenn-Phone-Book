@@ -62,7 +62,8 @@ class ContactGroupViewController : UIViewController {
     
     @IBAction func pressedDontButton(_ sender: Any) {
         self.contactContext == .groupText ? self.contactService.textGroup() :
-            self.contactService.emailGroup()
+            //            self.contactService.emailGroup() NOTE: Copying Group to Clipboard
+        self.contactService.copyEmailGroup()
     }
     
 }
@@ -131,6 +132,14 @@ extension ContactGroupViewController : UITableViewDataSource {
 }
 
 extension ContactGroupViewController : ContactServicable {
+    func copiedToClipboard(message: String) {
+        SVProgressHUD.showSuccess(withStatus: message)
+    }
+    
+    func cannotCopyToClipboard(message: String) {
+        SVProgressHUD.showError(withStatus: message)
+    }
+    
     func cannotEmailError(message: String) {
         SVProgressHUD.showError(withStatus: message)
     }
@@ -164,12 +173,12 @@ private extension ContactGroupViewController {
         // Set up ContactService
         self.contactService = ContactService(viewController: self, contacts: self.groupContacts, emailMessageDelegate: self, contactDelegate: self)
         // Show Error if cannot Email or Text
-        switch self.contactContext {
-        case .groupEmail where !self.contactService.canSendEmail:
-            SVProgressHUD.showError(withStatus: self.contactService.cannotEmailError)
-        case .groupText where !self.contactService.canSendText:
-            SVProgressHUD.showError(withStatus: self.contactService.cannotTextError)
-        default: break
-        }
+//        switch self.contactContext {
+//        case .groupEmail where !self.contactService.canSendEmail:
+//            SVProgressHUD.showError(withStatus: self.contactService.cannotEmailError)
+//        case .groupText where !self.contactService.canSendText:
+//            SVProgressHUD.showError(withStatus: self.contactService.cannotTextError)
+//        default: break
+//        }
     }
 }

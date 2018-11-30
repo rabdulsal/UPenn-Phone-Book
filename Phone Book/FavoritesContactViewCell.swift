@@ -36,7 +36,7 @@ class FavoritesContactViewCell : UITableViewCell {
         self.favoriteContact = favContact
         self.favoritesDelegate = delegate
         self.nameLabel.text = favContact.fullName
-        self.emailView.configure(with: self, iconType: ContactIconView.IconType.Email, favContact: self.favoriteContact)
+        self.emailView.configure(with: self, iconType: ContactIconView.IconType.Copy, favContact: self.favoriteContact)
         self.officeView.configure(with: self, iconType: ContactIconView.IconType.Office, favContact: self.favoriteContact)
         self.mobileView.configure(with: self, iconType: ContactIconView.IconType.Mobile, favContact: self.favoriteContact)
         self.textView.configure(with: self, iconType: ContactIconView.IconType.Text, favContact: self.favoriteContact)
@@ -46,7 +46,7 @@ class FavoritesContactViewCell : UITableViewCell {
 extension FavoritesContactViewCell : ContactIconViewDelegate {
     func selectedContactType(_ iconType: ContactIconView.IconType) {
         switch iconType {
-        case .Email:
+        case .Email, .Copy:
             self.favoritesDelegate?.pressedEmailButton(for: self.favoriteContact)
         case .Mobile:
             self.favoritesDelegate?.pressedCallCellButton(for: self.favoriteContact)
