@@ -169,8 +169,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.loginService?.checkFirstLogin(completion: completion)
     }
     
+    var isFirstLogin: Bool { return self.loginService?.isFirstLogin ?? false }
+    
     func setFirstLogin() {
         self.loginService?.setFirstLogin()
+    }
+    
+    func cacheLoginCredentials(username: String, password: String) {
+        self.loginService?.cacheLoginCredentials(username: username, password: password)
     }
     
     // MARK: - Timeout Notification

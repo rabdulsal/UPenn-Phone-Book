@@ -36,8 +36,8 @@
 		3A419F402012651100E91645 /* UIView+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A419F3F2012651100E91645 /* UIView+UPenn.swift */; };
 		3A419F432012683100E91645 /* FavoritesGroupTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A419F422012683100E91645 /* FavoritesGroupTitleView.xib */; };
 		3A419F452016467500E91645 /* ContactGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A419F442016467400E91645 /* ContactGroupViewController.swift */; };
-		3A4C18781FE1AF0200486116 /* TouchIDService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4C18771FE1AF0200486116 /* TouchIDService.swift */; };
-		3A5DCD441FF4237400EF470B /* TouchIDEnableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5DCD431FF4237400EF470B /* TouchIDEnableCell.swift */; };
+		3A4C18781FE1AF0200486116 /* BiometricsAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4C18771FE1AF0200486116 /* BiometricsAuthService.swift */; };
+		3A5DCD441FF4237400EF470B /* BiometricsEnableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5DCD431FF4237400EF470B /* BiometricsEnableCell.swift */; };
 		3A6891272017AD2B005C91EC /* ScreenGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6891262017AD2B005C91EC /* ScreenGlobals.swift */; };
 		3A689129201A4737005C91EC /* String+UPenn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A689128201A4736005C91EC /* String+UPenn.swift */; };
 		3A70DBCC1FE17548006556D6 /* AddressBookService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70DBCB1FE17548006556D6 /* AddressBookService.swift */; };
@@ -121,8 +121,8 @@
 		3A419F3F2012651100E91645 /* UIView+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+UPenn.swift"; sourceTree = "<group>"; };
 		3A419F422012683100E91645 /* FavoritesGroupTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoritesGroupTitleView.xib; sourceTree = "<group>"; };
 		3A419F442016467400E91645 /* ContactGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactGroupViewController.swift; sourceTree = "<group>"; };
-		3A4C18771FE1AF0200486116 /* TouchIDService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchIDService.swift; sourceTree = "<group>"; };
-		3A5DCD431FF4237400EF470B /* TouchIDEnableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchIDEnableCell.swift; sourceTree = "<group>"; };
+		3A4C18771FE1AF0200486116 /* BiometricsAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsAuthService.swift; sourceTree = "<group>"; };
+		3A5DCD431FF4237400EF470B /* BiometricsEnableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsEnableCell.swift; sourceTree = "<group>"; };
 		3A6891262017AD2B005C91EC /* ScreenGlobals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenGlobals.swift; sourceTree = "<group>"; };
 		3A689128201A4736005C91EC /* String+UPenn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UPenn.swift"; sourceTree = "<group>"; };
 		3A70DBCB1FE17548006556D6 /* AddressBookService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookService.swift; sourceTree = "<group>"; };
@@ -286,7 +286,7 @@
 				3A317CDA1FA0C91F00786C95 /* FavoritesContactViewCell.swift */,
 				3ACFC7D61FBE2CB500D472FB /* AccountSettingsCell.swift */,
 				3A2052621FDAFAB30004CBDC /* AutoLogoutCell.swift */,
-				3A5DCD431FF4237400EF470B /* TouchIDEnableCell.swift */,
+				3A5DCD431FF4237400EF470B /* BiometricsEnableCell.swift */,
 				3AED35AC20052A4D00C8BB88 /* LogoutCell.swift */,
 				3A419F3D2012647700E91645 /* FavoritesGroupTitleView.swift */,
 				3A419F422012683100E91645 /* FavoritesGroupTitleView.xib */,
@@ -325,7 +325,7 @@
 				3A317CDC1FA2676800786C95 /* EmailService.swift */,
 				3A2534EE1FD09E3F0015F9D9 /* ContactService.swift */,
 				3A70DBCB1FE17548006556D6 /* AddressBookService.swift */,
-				3A4C18771FE1AF0200486116 /* TouchIDService.swift */,
+				3A4C18771FE1AF0200486116 /* BiometricsAuthService.swift */,
 				3A22321C203F6336008388FC /* KeyboardService.swift */,
 				3AC9C5CD20A3990B007CD1C4 /* AnalyticsService.swift */,
 				3A2749C620A9DC7F00A46402 /* ConfigurationsService.swift */,
@@ -781,7 +781,7 @@
 				3A322CB121AF2F370034FBB2 /* DeviceService.swift in Sources */,
 				841B89AF1F910E7700CFB3C1 /* Contact.swift in Sources */,
 				3A7FAE3F1FA8C30F009765F8 /* FavoritesGroupsListViewController.swift in Sources */,
-				3A5DCD441FF4237400EF470B /* TouchIDEnableCell.swift in Sources */,
+				3A5DCD441FF4237400EF470B /* BiometricsEnableCell.swift in Sources */,
 				3A317CC91F9F98DD00786C95 /* FavoritesViewController.swift in Sources */,
 				3AC9C5CE20A3990B007CD1C4 /* AnalyticsService.swift in Sources */,
 				3A16E4C2201F894300EA7A20 /* ContactIconView.swift in Sources */,
@@ -793,7 +793,7 @@
 				3A317CD71F9FD32700786C95 /* FavoriteContact+CoredDataProperties.swift in Sources */,
 				3A813A7620C861320036BD1D /* RootViewController.swift in Sources */,
 				3A7FAE3D1FA78F42009765F8 /* UILabel+UPenn.swift in Sources */,
-				3A4C18781FE1AF0200486116 /* TouchIDService.swift in Sources */,
+				3A4C18781FE1AF0200486116 /* BiometricsAuthService.swift in Sources */,
 				3A317CD51F9FD2E800786C95 /* FavoriteContact.xcdatamodeld in Sources */,
 				3A2BDF951F9920A60018E13A /* UIButton+UPenn.swift in Sources */,
 				4C5AE2201F945B9400E271FD /* LoginService.swift in Sources */,
@@ -915,6 +915,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = QT5VQXC56T;
 				INFOPLIST_FILE = "Phone Book/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DBETA";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uphs.upenn.Phone-Book.beta";
@@ -1060,6 +1061,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = QT5VQXC56T;
 				INFOPLIST_FILE = "Phone Book/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uphs.upenn.Phone-Book";
@@ -1081,6 +1083,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = QT5VQXC56T;
 				INFOPLIST_FILE = "Phone Book/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uphs.upenn.Phone-Book";

@@ -22,35 +22,10 @@ class LoginViewController: UIViewController {
     
     fileprivate var validationService: ValidationService!
     fileprivate var keyboardService: KeyboardService!
-    fileprivate var touchIDService: TouchIDAuthService!
+    fileprivate var biometricsService: BiometricsAuthService!
     fileprivate var appDelegate : AppDelegate? {
         return UIApplication.shared.delegate as? AppDelegate
     }
-    
-    lazy var touchIDAlertController : UIAlertController = {
-        let alertController = UIAlertController(
-            title: "Use TouchID for login in the future?".localize,
-            message: "TouchID makes Login more convenient. These Settings can be updated in the Account section.".localize,
-            preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "No Thanks".localize, style: .cancel, handler: {
-            alert -> Void in
-            self.dismiss()
-        })
-        let useTouchIDAction = UIAlertAction(title: "Use TouchID".localize, style: .default, handler: {
-            alert -> Void in
-            /*
-             * 1. Toggle TouchID 'on'
-             * 2. Force turn 'Remember Me' on for caching login credentials
-            */
-            self.touchIDService.toggleTouchID(true)
-            self.autoFillButton.isSelected = true
-            self.appDelegate?.toggleShouldAutoFill(true)
-            self.dismiss()
-        })
-        alertController.addAction(cancelAction)
-        alertController.addAction(useTouchIDAction)
-        return alertController
-    }()
     
     lazy var rememberMeAlertController : UIAlertController = {
         let alertController = UIAlertController(
@@ -60,7 +35,7 @@ class LoginViewController: UIViewController {
         let cancelAction = UIAlertAction(title: "Cancel".localize, style: .cancel, handler: nil)
         let disableRememberMe = UIAlertAction(title: "OK".localize, style: .default, handler: {
             alert -> Void in
-            self.touchIDService.toggleTouchID(false)
+            self.biometricsService.toggleBiometrics(false)
             self.toggleRememberMe()
         })
         alertController.addAction(cancelAction)
@@ -93,7 +68,7 @@ class LoginViewController: UIViewController {
     override func setup() {
         super.setup()
         self.appDelegate?.setLoginDelegate(loginDelegate: self)
-        self.touchIDService = TouchIDAuthService(touchIDDelegate: self)
+        self.biometricsService = BiometricsAuthService(biometricsDelegate: self)
         
         // Set up textFields
         self.emailField.delegate = self
@@ -111,8 +86,8 @@ class LoginViewController: UIViewController {
         
         // Set up Buttons
         self.autoFillButton.adjustsImageWhenHighlighted = false
-        self.autoFillButton.setImage(UIImage.init(named: "checked"), for: .selected)
-        self.autoFillButton.setImage(UIImage.init(named: "un_checked"), for: .normal)
+        self.autoFillButton.setImage(#imageLiteral(resourceName: "checked"), for: .selected)
+        self.autoFillButton.setImage(#imageLiteral(resourceName: "un_checked"), for: .normal)
         
         // Set up Touch Gesture
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.toggleLoginAutoFill))
@@ -174,10 +149,10 @@ extension LoginViewController : LoginServiceDelegate {
         */
         self.appDelegate?.resetLogoutTimer()
         self.appDelegate?.checkFirstLogin(completion: { (isFirstLogin) in
-            if isFirstLogin {
+            if let isFirstLogin = self.appDelegate?.isFirstLogin, isFirstLogin {
                 self.appDelegate?.setFirstLogin()
-                if self.touchIDService.touchIDAvailable {
-                    self.present(self.touchIDAlertController, animated: true, completion: nil)
+                if self.biometricsService.biometricsAvailable {
+                    self.biometricsService.utilizeBiometricAuthentication(isfirstLogin: isFirstLogin)
                     return
                 }
             }
@@ -197,15 +172,25 @@ extension LoginViewController : LoginServiceDelegate {
     }
 }
 
-// MARK: - TouchIDService Delegate
+// MARK: - BiometricsDelegate
 
-extension LoginViewController : TouchIDDelegate {
-    func touchIDSuccessfullyAuthenticated() {
-        SVProgressHUD.show()
+extension LoginViewController : BiometricsDelegate {
+    func biometricsSuccessfullyAuthenticated(isFirstLogin: Bool) {
+        // Check if isFirstLogin - indicates user has opted-in to use biometrics, so must trigger settings updates
+        if isFirstLogin {
+            self.turnOnBiometricAuthSettings()
+            return
+        }
+        SVProgressHUD.show(withStatus: "Logging in.....")
         self.appDelegate?.attemptSilentLogin()
     }
     
-    func touchIDDidError(with message: String?) {
+    func biometricsDidError(with message: String?, isFirstLogin: Bool) {
+        // Check if isFirstLogin - indicates user has canceled opt-in to biometrics, so complete login and push to ContactsListVC
+        if isFirstLogin {
+            self.dismiss()
+            return
+        }
         guard let m = message else { return }
         SVProgressHUD.showError(withStatus: m)
     }
@@ -222,12 +207,8 @@ private extension LoginViewController {
     func viewDidAppear() {
         self.appDelegate?.authenticationAutoFillCheck()
         verifyFields()
-        self.attemptTouchIDPresentation()
-        if let delegate = self.appDelegate {
-            self.autoFillButton.isSelected = delegate.shouldAutoFill
-        } else {
-            self.autoFillButton.isSelected = false
-        }
+        self.attemptBiometricsPresentation()
+        self.autoFillButton.isSelected = self.appDelegate?.shouldAutoFill ?? false
         self.keyboardService.beginObservingKeyboard()
     }
     
@@ -237,7 +218,7 @@ private extension LoginViewController {
     }
     
     @objc func toggleLoginAutoFill() {
-        if autoFillButton.isSelected && self.touchIDService.touchIDEnabled {
+        if autoFillButton.isSelected && self.biometricsService.biometricsEnabled {
             self.present(self.rememberMeAlertController, animated: true, completion: nil)
             return
         }
@@ -248,7 +229,12 @@ private extension LoginViewController {
         verifyFields()
     }
     
-    func toggleRememberMe() {
+    func toggleRememberMe(_ enabled: Bool = false) {
+        if enabled {
+            self.autoFillButton.isSelected = enabled
+            self.appDelegate?.toggleShouldAutoFill(enabled)
+            return
+        }
         self.autoFillButton.isSelected = !self.autoFillButton.isSelected
         self.appDelegate?.toggleShouldAutoFill(self.autoFillButton.isSelected)
     }
@@ -263,10 +249,23 @@ private extension LoginViewController {
         }
     }
     
-    func attemptTouchIDPresentation() {
+    func attemptBiometricsPresentation() {
         if let shouldAutoFill = self.appDelegate?.shouldAutoFill, shouldAutoFill {
-            self.touchIDService.attemptTouchIDAuthentication()
+            self.biometricsService.attemptBiometricsAuthentication()
         }
+    }
+    
+    func turnOnBiometricAuthSettings() {
+        /*
+         * 1. Toggle biometrics enabled On
+         * 2. Toggle 'Remember Me' On
+         * 3. Cache login credentials
+         * 4. Close LoginVC
+         */
+        self.biometricsService.toggleBiometrics(true)
+        self.toggleRememberMe(true)
+        self.appDelegate?.cacheLoginCredentials(username: emailField.text!, password: passwordField.text!)
+        self.dismiss()
     }
 }
 

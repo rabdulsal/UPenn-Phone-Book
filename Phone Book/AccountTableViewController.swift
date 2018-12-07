@@ -20,7 +20,7 @@ class AccountTableViewController : UITableViewController {
         
         enum Rows : Int {
             case Timeout
-            case TouchID
+            case Biometrics
             case Logout
             
             static var count : Int {
@@ -35,7 +35,7 @@ class AccountTableViewController : UITableViewController {
     
     private enum Identifiers : String {
         case Timeout = "TimeoutCell"
-        case TouchID = "TouchIDCell"
+        case Biometrics = "BiometricsCell"
         case Logout = "LogoutCell"
     }
     
@@ -43,7 +43,7 @@ class AccountTableViewController : UITableViewController {
         return UIApplication.shared.delegate as? AppDelegate
     }
     
-    var touchIDService = TouchIDAuthService()
+    var biometricsService = BiometricsAuthService()
     
     override func viewDidLoad() {
         self.setup()
@@ -81,9 +81,9 @@ class AccountTableViewController : UITableViewController {
             case .Timeout:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Timeout.rawValue) as! AutoLogoutCell
                 return cell
-            case .TouchID:
-                let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.TouchID.rawValue) as! TouchIDEnableCell
-                cell.configure(with: self, touchIDAvailable: self.touchIDService.touchIDAvailable, touchIDEnabled: self.touchIDService.touchIDEnabled)
+            case .Biometrics:
+                let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Biometrics.rawValue) as! BiometricsEnableCell
+                cell.configure(with: self, biometricsService: self.biometricsService)
                 return cell
             case .Logout:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.Logout.rawValue) as! LogoutCell
@@ -140,10 +140,10 @@ class AccountTableViewController : UITableViewController {
     }
 }
 
-extension AccountTableViewController : TouchIDToggleDelegate {
-    func toggledTouchID(_ enabled: Bool) {
-        self.touchIDService.toggleTouchID(enabled)
-        // If touchID is enabled, toggle 'Remember Me' on in LoginVC
+extension AccountTableViewController : BiometricsToggleDelegate {
+    func toggledBiometrics(_ enabled: Bool) {
+        self.biometricsService.toggleBiometrics(enabled)
+        // If biometrics is enabled, toggle 'Remember Me' on in LoginVC
         if enabled {
             self.appDelegate?.toggleShouldAutoFill(enabled)
         }

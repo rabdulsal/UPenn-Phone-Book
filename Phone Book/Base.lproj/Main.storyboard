@@ -959,7 +959,7 @@
                                     <outlet property="timeoutControl" destination="ndp-jO-2ff" id="9cu-la-hkN"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TouchIDCell" id="UZw-hE-peH" customClass="TouchIDEnableCell" customModule="UPHS_Phonebook" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BiometricsCell" id="UZw-hE-peH" customClass="BiometricsEnableCell" customModule="UPHS_Phonebook" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="111" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UZw-hE-peH" id="rI6-JP-r5c">
@@ -969,7 +969,7 @@
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wsU-f4-c3V">
                                             <rect key="frame" x="308" y="6.5" width="51" height="31"/>
                                             <connections>
-                                                <action selector="toggledTouchID:" destination="UZw-hE-peH" eventType="valueChanged" id="LUo-wy-dnh"/>
+                                                <action selector="toggledBiometrics:" destination="UZw-hE-peH" eventType="valueChanged" id="AZC-Vp-lWN"/>
                                             </connections>
                                         </switch>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Touch-ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKX-vL-xN0" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
@@ -997,7 +997,9 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="touchIDSwitch" destination="wsU-f4-c3V" id="2lg-ZQ-K8z"/>
+                                    <outlet property="biometricsImage" destination="u2B-4C-fhq" id="pL8-nG-qDa"/>
+                                    <outlet property="biometricsSwitch" destination="wsU-f4-c3V" id="Muw-yS-r46"/>
+                                    <outlet property="biometricsToggleLabel" destination="fKX-vL-xN0" id="nMz-id-F5V"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountCell" id="hRZ-BG-vl4" customClass="AccountSettingsCell" customModule="UPHS_Phonebook" customModuleProvider="target">

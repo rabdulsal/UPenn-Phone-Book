@@ -15,12 +15,13 @@ protocol LoginServiceDelegate {
 }
 
 class LoginService {
-    
+    static var IsLoggedInNotification = ConfigurationsService.PhoneBookBundleID + ".IsLoggedInNotification"
     var isLoggedIn : Bool { return AuthenticationService.isAuthenticated }
     var requestService = NetworkRequestService()
     var loginDelegate: LoginServiceDelegate
     var shouldAutoLogin : Bool { return AuthenticationService.shouldAutoLogin }
     var shouldAutoFill : Bool { return AuthenticationService.shouldAutoFill }
+    var isFirstLogin : Bool { return AuthenticationService.isFirstLogin }
     private let genericLoginError = "Sorry an error occurred while attempting Login. Please try again."
     private let statusCodeError = "Something went wrong getting a Status Code for your Login Request. Please try again."
     private let autoLoginError = "Something went wrong attempting Auto-Login - could not retrieve Username & Password. Please try again."
@@ -58,6 +59,10 @@ class LoginService {
             // Generic Error
             self.loginDelegate.didFailToLoginUser(errorStr: self.usernamePasswordError)
         }
+    }
+    
+    func cacheLoginCredentials(username: String, password: String) {
+        AuthenticationService.cacheAuthenticationCredentials(username: username, password: password)
     }
     
     func authenticationAutoFillCheck() {

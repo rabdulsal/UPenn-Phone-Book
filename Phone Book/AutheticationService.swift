@@ -26,6 +26,10 @@ class AuthenticationService {
         return autoFill
     }
     
+    static var isFirstLogin : Bool {
+        return UserDefaults.standard.value(forKey: self.loginCountKey) as? Bool ?? true
+    }
+    
     static func storeAuthenticationCredentials(
         token: String,
         email: String,
@@ -94,7 +98,7 @@ class AuthenticationService {
     }
     
     static func setFirstLogin() {
-        UserDefaults.standard.set(true, forKey: self.loginCountKey)
+        UserDefaults.standard.set(false, forKey: self.loginCountKey)
     }
     
     static func logout() {

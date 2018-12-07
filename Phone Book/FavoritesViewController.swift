@@ -314,14 +314,21 @@ private extension FavoritesViewController {
     var moreFavoritesActionsController : UIAlertController {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet
         )
+        // Get arrays of FavoritesContacts that can be texted or emailed
+        var textableGroup : [FavoritesContact] {
+            return FavoritesService.getTextableFavorites(for: self.selectedGroupIndex) ?? [FavoritesContact]()
+        }
+        
+        var emailableGroup : [FavoritesContact] {
+            return FavoritesService.getEmailableFavorites(for: self.selectedGroupIndex) ?? [FavoritesContact]()
+        }
         // Bools to conditionally determine display of Email or Text Actions
         var hasTextableGroup : Bool {
-            guard let textableCount = FavoritesService.getTextableFavorites(for: self.selectedGroupIndex)?.count else { return false }
-            return textableCount > 1
+            return textableGroup.count > 1
         }
+        
         var hasEmailableGroup : Bool {
-            guard let emailableCount = FavoritesService.getEmailableFavorites(for: self.selectedGroupIndex)?.count else { return false }
-            return emailableCount > 1
+            return emailableGroup.count > 1
         }
         
         // Group Text Action
@@ -331,6 +338,7 @@ private extension FavoritesViewController {
             handler: {
                 alert -> Void in
                 self.contactContext = .groupText
+                self.contactService = ContactService(viewController: self, contacts: textableGroup, emailMessageDelegate: self, contactDelegate: self)
                 if self.contactService.canSendText {
                     self.performContactGroupSegue(groupIndex: self.selectedGroupIndex)
                 } else {
@@ -351,10 +359,8 @@ private extension FavoritesViewController {
 //                } else {
 //                    self.contactService.showEmailErrorAlert()
 //                }
-                if let emailGroup = FavoritesService.getEmailableFavorites(for: self.selectedGroupIndex) {
-                    self.contactService = ContactService(viewController: self, contacts: emailGroup, emailMessageDelegate: self, contactDelegate: self)
-                    self.contactService.copyEmailGroup()
-                }
+                self.contactService = ContactService(viewController: self, contacts: emailableGroup, emailMessageDelegate: self, contactDelegate: self)
+                self.contactService.copyEmailGroup()
         })
         
         // Add All to AddressBook Action
