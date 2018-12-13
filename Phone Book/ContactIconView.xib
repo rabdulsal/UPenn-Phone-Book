@@ -21,14 +21,14 @@
             <rect key="frame" x="0.0" y="0.0" width="52" height="66"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="hkf-rA-QOz">
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="hkf-rA-QOz">
                     <rect key="frame" x="3" y="0.0" width="46.5" height="66"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="40" placeholderIntrinsicHeight="36" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zKs-5J-Ypc" customClass="ContactIconButton" customModule="UPHS_Phonebook">
-                            <rect key="frame" x="2" y="0.0" width="42.5" height="38.5"/>
+                            <rect key="frame" x="3" y="0.0" width="40" height="41"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="42.5" id="J2Q-eh-cGg"/>
-                                <constraint firstAttribute="width" secondItem="zKs-5J-Ypc" secondAttribute="height" multiplier="1.11111" id="lRb-jb-tEC"/>
+                                <constraint firstAttribute="width" secondItem="zKs-5J-Ypc" secondAttribute="height" multiplier="35:36" id="AP8-VD-rIU"/>
+                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="40" id="J2Q-eh-cGg"/>
                             </constraints>
                             <state key="normal" title="Call" image="phone"/>
                             <state key="disabled" image="phone_disabled"/>
@@ -37,7 +37,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Office" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HU1-6e-rjZ" customClass="UPennLabel" customModule="UPHS_Phonebook" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="45.5" width="46.5" height="20.5"/>
+                            <rect key="frame" x="0.0" y="45" width="46.5" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="46.5" id="ona-CZ-MFC"/>
                             </constraints>

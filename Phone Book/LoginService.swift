@@ -93,10 +93,6 @@ class LoginService {
         AuthenticationService.toggleShouldAutoFill(autoFill)
     }
     
-    func checkFirstLogin(completion:((_ isFirstLogin: Bool)->Void)) {
-        AuthenticationService.checkFirstLogin(completion: completion)
-    }
-    
     func setFirstLogin() {
         AuthenticationService.setFirstLogin()
     }

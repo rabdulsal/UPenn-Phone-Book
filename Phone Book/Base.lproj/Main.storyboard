@@ -823,34 +823,34 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="dqW-ph-YEh">
-                                                    <rect key="frame" x="16" y="31.5" width="240" height="69"/>
+                                                    <rect key="frame" x="16" y="31.5" width="260" height="69"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Svv-yB-KR5" userLabel="Office View" customClass="ContactIconView" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="45" height="69"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="69"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="45" id="3gf-wf-plu"/>
+                                                                <constraint firstAttribute="width" constant="50" id="3gf-wf-plu"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjd-oY-03g" userLabel="Mobile View" customClass="ContactIconView" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                            <rect key="frame" x="65" y="0.0" width="45" height="69"/>
+                                                            <rect key="frame" x="70" y="0.0" width="50" height="69"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="45" id="2k7-PS-RvI"/>
+                                                                <constraint firstAttribute="width" constant="50" id="2k7-PS-RvI"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jCJ-kn-QGx" userLabel="Text View" customClass="ContactIconView" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                            <rect key="frame" x="130" y="0.0" width="45" height="69"/>
+                                                            <rect key="frame" x="140" y="0.0" width="50" height="69"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="45" id="yA6-fr-hYs"/>
+                                                                <constraint firstAttribute="width" constant="50" id="yA6-fr-hYs"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pjp-SJ-JJc" userLabel="Email View" customClass="ContactIconView" customModule="UPHS_Phonebook" customModuleProvider="target">
-                                                            <rect key="frame" x="195" y="0.0" width="45" height="69"/>
+                                                            <rect key="frame" x="210" y="0.0" width="50" height="69"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="45" id="jfx-Xs-N9w"/>
+                                                                <constraint firstAttribute="width" constant="50" id="jfx-Xs-N9w"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>

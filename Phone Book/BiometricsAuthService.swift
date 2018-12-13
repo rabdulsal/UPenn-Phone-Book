@@ -24,9 +24,9 @@ class BiometricsAuthService {
     
     private var context = LAContext()
     private let biometricsEnabledKey = ConfigurationsService.PhoneBookBundleID + ".biometricsEnabled"
-    let touchIDOptInTitle = "Use TouchID for login in the future?".localize
-    let touchIDOptInMessage = "TouchID makes Login more convenient. These Settings can be updated in the Account section.".localize
-    let touchIDConfirmed = "Use TouchID".localize
+    let touchIDOptInTitle = "Use Touch ID for login in the future?".localize
+    let touchIDOptInMessage = "Touch ID makes Login more convenient. These Settings can be updated in the Account section.".localize
+    let touchIDConfirmed = "Use Touch ID".localize
     let touchIDDeclined = "No Thanks".localize
     var delegate: BiometricsDelegate?
     
@@ -58,22 +58,14 @@ class BiometricsAuthService {
      Text for enabling Touch ID vs. Face ID depending on context
      */
     var toggleTitleText : String {
-        switch self.biometricType {
-        case .TouchID: return "Enable Touch ID"
-        case .FaceID: return "Enable Face ID"
-        case .None: return "Biometrics Unavailable"
-        }
+        return self.makeBiometricsPrependedMessage("Enable", defaultText: "Biometrics Unavailable")
     }
     
     /**
      Messaging text for turning off 'Remember Me' in Touch ID vs. Face ID context
      */
     var biometricOptOutMessage : String {
-        switch self.biometricType {
-        case .TouchID: return "Turning off 'Remember Me' will disable Touch ID.".localize
-        case .FaceID: return "Turning off 'Remember Me' will disable Face ID.".localize
-        default: return self.biometricsFallbackMessage
-        }
+        return self.makeBiometricsPrependedMessage("Turning off 'Remember Me' will disable", defaultText: self.biometricsFallbackMessage)
     }
     
     init(biometricsDelegate: BiometricsDelegate?=nil) {
@@ -127,25 +119,25 @@ class BiometricsAuthService {
      */
     func utilizeBiometricAuthentication(isfirstLogin: Bool = false) {
         self.context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
-                                    localizedReason: self.biometricsLoginMessage) { (success, evaluateError) in
-                                        if success {
-                                            DispatchQueue.main.async {
-                                                self.delegate?.biometricsSuccessfullyAuthenticated(isFirstLogin: isfirstLogin)
-                                            }
-                                        } else {
-                                            var message: String?=nil
-                                            
-                                            switch evaluateError {
-                                            case LAError.authenticationFailed?:
-                                                message = self.biometricsFailedMessage
-                                            case LAError.userCancel?, LAError.userFallback?: break
-                                            default:
-                                                message = self.biometricsFallbackMessage
-                                            }
-                                            DispatchQueue.main.async {
-                                                self.delegate?.biometricsDidError(with: message, isFirstLogin: isfirstLogin)
-                                            }
-                                        }
+        localizedReason: self.biometricsLoginMessage) { (success, evaluateError) in
+            if success {
+                DispatchQueue.main.async {
+                    self.delegate?.biometricsSuccessfullyAuthenticated(isFirstLogin: isfirstLogin)
+                }
+            } else {
+                var message: String?=nil
+                
+                switch evaluateError {
+                case LAError.authenticationFailed?:
+                    message = self.biometricsFailedMessage
+                case LAError.userCancel?, LAError.userFallback?: break
+                default:
+                    message = self.biometricsFallbackMessage
+                }
+                DispatchQueue.main.async {
+                    self.delegate?.biometricsDidError(with: message, isFirstLogin: isfirstLogin)
+                }
+            }
         }
         // Reset context to always prompt for login credentials
         self.context = LAContext()
@@ -153,28 +145,58 @@ class BiometricsAuthService {
 }
 
 private extension BiometricsAuthService {
+    /**
+     Message for failed biometric login
+    */
     var biometricsFailedMessage : String { return "There was a problem verifying your identity.".localize }
+    
+    /**
+     Message indicating biometric login in-progress
+    */
     var biometricsLoginMessage : String {
-        switch biometricType {
-        case .TouchID: return "Logging in with Touch ID".localize
-        case .FaceID: return "Logging in with Face ID".localize
-        default: return self.biometricsFallbackMessage
-        }
+        return self.makeBiometricsPrependedMessage("Logging in with", defaultText: self.biometricsFallbackMessage)
     }
     
+    /**
+     Fallback message indicating biometrics not authorized on device
+    */
     var biometricsFallbackMessage : String {
+        let baseText = "not authorized for use."
+        return self.makeBiometricsAppendedMessage(baseText, defaultText: "Biometrics \(baseText)")
+    }
+    
+    /**
+     Message indicating biometrics unavailable on device
+    */
+    var biometricsUnavailableMessage : String {
+        return self.makeBiometricsAppendedMessage("is not available on this device.", defaultText: self.biometricsFallbackMessage)
+    }
+    
+    /**
+     Convenience method for making custom, context-based phrases appended at the end of a message
+     - parameters:
+        - baseText: Phrase that will go at the end of the message
+        - defaultText: Phrase that will appear if biometrics unavailable
+    */
+    func makeBiometricsAppendedMessage(_ baseText: String, defaultText: String) -> String {
         switch biometricType {
-        case .TouchID: return "Touch ID not authorized for use.".localize
-        case .FaceID: return "Face ID not authorized for use.".localize
-        default: return "Biometrics not authorized for use.".localize
+        case .TouchID: return "Touch ID \(baseText)".localize
+        case .FaceID: return "Face ID \(baseText)".localize
+        default: return defaultText
         }
     }
     
-    var biometricsUnavailableMessage : String {
-        switch biometricType {
-        case .TouchID: return "Touch ID is not available on this device.".localize
-        case .FaceID: return "Face ID is not available on this device.".localize
-        default: return self.biometricsFallbackMessage
+    /**
+     Convenience method for making custom, context-based phrases prepended at the beginning of a message
+     - parameters:
+         - baseText: Phrase that will go at the beginning of the message
+         - defaultText: Phrase that will appear if biometrics unavailable
+     */
+    func makeBiometricsPrependedMessage(_ baseText: String, defaultText: String) -> String {
+        switch self.biometricType {
+        case .TouchID: return "\(baseText) Touch ID".localize
+        case .FaceID: return "\(baseText) Face ID".localize
+        default: return defaultText
         }
     }
 }

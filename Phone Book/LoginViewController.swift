@@ -167,25 +167,23 @@ extension LoginViewController : LoginServiceDelegate {
          * 2. Check for 1st Launch & conditionally launch Biometrics opt-in
         */
         self.appDelegate?.resetLogoutTimer()
-        self.appDelegate?.checkFirstLogin(completion: { (isFirstLogin) in
-            if let isFirstLogin = self.appDelegate?.isFirstLogin, isFirstLogin {
-                self.appDelegate?.setFirstLogin()
-                // If Biometrics available, 
-                if self.biometricsService.biometricsAvailable {
-                    switch self.biometricsService.biometricType {
-                    case .TouchID:
-                        self.present(self.touchIDAlertController, animated: true, completion: nil)
-                    default:
-                        self.biometricsService.utilizeBiometricAuthentication(isfirstLogin: isFirstLogin)
-                    }
-                    return
+        if let isFirstLogin = self.appDelegate?.isFirstLogin, isFirstLogin {
+            self.appDelegate?.setFirstLogin()
+            // If Biometrics available, conditionally show Touch ID vs. Face ID opt-in
+            if self.biometricsService.biometricsAvailable {
+                switch self.biometricsService.biometricType {
+                case .TouchID:
+                    self.present(self.touchIDAlertController, animated: true, completion: nil)
+                default:
+                    self.biometricsService.utilizeBiometricAuthentication(isfirstLogin: isFirstLogin)
                 }
+                return
             }
-            self.dismiss()
-            
-            // Analytics
-            AnalyticsService.trackLoginEvent()
-        })
+        }
+        self.dismiss()
+        
+        // Analytics
+        AnalyticsService.trackLoginEvent()
     }
     
     func didReturnAutoFillCredentials(username: String, password: String) {

@@ -165,10 +165,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.loginService?.toggleShouldAutoFill(autoFill)
     }
     
-    func checkFirstLogin(completion:((_ isFirstLogin: Bool)->Void)) {
-        self.loginService?.checkFirstLogin(completion: completion)
-    }
-    
     var isFirstLogin: Bool { return self.loginService?.isFirstLogin ?? false }
     
     func setFirstLogin() {
