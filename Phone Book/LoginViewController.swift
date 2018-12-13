@@ -27,9 +27,28 @@ class LoginViewController: UIViewController {
         return UIApplication.shared.delegate as? AppDelegate
     }
     
+    lazy var touchIDAlertController : UIAlertController = {
+        let alertController = UIAlertController(
+            title: self.biometricsService.touchIDOptInTitle,
+            message: self.biometricsService.touchIDOptInMessage,
+            preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: self.biometricsService.touchIDDeclined, style: .cancel, handler: {
+            alert -> Void in
+            self.dismiss()
+        })
+        let useTouchIDAction = UIAlertAction(title: self.biometricsService.touchIDConfirmed, style: .default, handler: {
+            alert -> Void in
+            // Turn on Biometrics Settings
+            self.turnOnBiometricAuthSettings()
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(useTouchIDAction)
+        return alertController
+    }()
+    
     lazy var rememberMeAlertController : UIAlertController = {
         let alertController = UIAlertController(
-            title: "Turning off 'Remember Me' will disable TouchID.".localize,
+            title: self.biometricsService.biometricOptOutMessage,
             message: "",
             preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel".localize, style: .cancel, handler: nil)
@@ -145,14 +164,20 @@ extension LoginViewController : LoginServiceDelegate {
         
         /*
          * 1. Trigger Logout timer
-         * 2. Check for 1st Launch & conditionally launch TouchID opt-in
+         * 2. Check for 1st Launch & conditionally launch Biometrics opt-in
         */
         self.appDelegate?.resetLogoutTimer()
         self.appDelegate?.checkFirstLogin(completion: { (isFirstLogin) in
             if let isFirstLogin = self.appDelegate?.isFirstLogin, isFirstLogin {
                 self.appDelegate?.setFirstLogin()
+                // If Biometrics available, 
                 if self.biometricsService.biometricsAvailable {
-                    self.biometricsService.utilizeBiometricAuthentication(isfirstLogin: isFirstLogin)
+                    switch self.biometricsService.biometricType {
+                    case .TouchID:
+                        self.present(self.touchIDAlertController, animated: true, completion: nil)
+                    default:
+                        self.biometricsService.utilizeBiometricAuthentication(isfirstLogin: isFirstLogin)
+                    }
                     return
                 }
             }

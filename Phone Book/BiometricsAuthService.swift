@@ -24,6 +24,10 @@ class BiometricsAuthService {
     
     private var context = LAContext()
     private let biometricsEnabledKey = ConfigurationsService.PhoneBookBundleID + ".biometricsEnabled"
+    let touchIDOptInTitle = "Use TouchID for login in the future?".localize
+    let touchIDOptInMessage = "TouchID makes Login more convenient. These Settings can be updated in the Account section.".localize
+    let touchIDConfirmed = "Use TouchID".localize
+    let touchIDDeclined = "No Thanks".localize
     var delegate: BiometricsDelegate?
     
     var biometricType: BiometricType {
