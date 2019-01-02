@@ -129,7 +129,7 @@ class AccountTableViewController : UITableViewController {
         let titleLabel = UPennLabel(frame: CGRect(x: ScreenGlobals.Padding, y: 20, width: ScreenGlobals.Width - (ScreenGlobals.Padding*2), height: 20))
         titleLabel.textColor = UIColor.upennBlack
         titleLabel.textAlignment = .right
-        titleLabel.setFontHeight(size: 10)
+        titleLabel.setFontHeight(size: 12)
         var versionText = "UPHS Phonebook Version \(versionStr)"
         if self.appDelegate?.applicationRunState == .BETA {
             versionText.append("_BETA")

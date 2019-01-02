@@ -1089,7 +1089,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uphs.upenn.Phone-Book";
 				PRODUCT_NAME = "UPHS Phonebook";
 				PROVISIONING_PROFILE = "b353785d-62fd-4395-a3a9-6798c2e10bf8";
-				PROVISIONING_PROFILE_SPECIFIER = "UPHS Phonebook";
+				PROVISIONING_PROFILE_SPECIFIER = "UPHS Phonebook In-House Distribution";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

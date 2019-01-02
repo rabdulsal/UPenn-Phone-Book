@@ -22,7 +22,7 @@ class BiometricsEnableCell : UITableViewCell {
     var biometricsDelegate: BiometricsToggleDelegate?
     
     @IBAction func toggledBiometrics(_ sender: UISwitch) {
-        self.biometricsDelegate?.toggledBiometrics(!self.biometricsSwitch.isSelected)
+        self.biometricsDelegate?.toggledBiometrics(self.biometricsSwitch.isOn)
     }
     
     override func awakeFromNib() {

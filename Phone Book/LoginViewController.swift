@@ -34,12 +34,15 @@ class LoginViewController: UIViewController {
             preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: self.biometricsService.touchIDDeclined, style: .cancel, handler: {
             alert -> Void in
+            // Force biometrics off, and complete login flow to close-out LoginVC
+            self.biometricsService.toggleBiometrics(false)
             self.dismiss()
         })
         let useTouchIDAction = UIAlertAction(title: self.biometricsService.touchIDConfirmed, style: .default, handler: {
             alert -> Void in
-            // Turn on Biometrics Settings
+            // Turn on Biometrics Settings & complete Touch ID registration to ensure no repeat launches of Touch ID alert
             self.turnOnBiometricAuthSettings()
+            self.biometricsService.completeTouchIDRegistration()
         })
         alertController.addAction(cancelAction)
         alertController.addAction(useTouchIDAction)
@@ -123,10 +126,6 @@ class LoginViewController: UIViewController {
         self.keyboardService = KeyboardService(self.scrollView)
     }
     
-    @IBAction func pressedClose(_ sender: Any) {
-        self.dismiss()
-    }
-    
     @IBAction func pressedLogin(_ sender: Any) {
         self.login()
     }
@@ -169,16 +168,16 @@ extension LoginViewController : LoginServiceDelegate {
         self.appDelegate?.resetLogoutTimer()
         if let isFirstLogin = self.appDelegate?.isFirstLogin, isFirstLogin {
             self.appDelegate?.setFirstLogin()
-            // If Biometrics available, conditionally show Touch ID vs. Face ID opt-in
-            if self.biometricsService.biometricsAvailable {
-                switch self.biometricsService.biometricType {
-                case .TouchID:
-                    self.present(self.touchIDAlertController, animated: true, completion: nil)
-                default:
-                    self.biometricsService.utilizeBiometricAuthentication(isfirstLogin: isFirstLogin)
-                }
-                return
-            }
+            self.biometricsService.registerForBiometricAuthentication()
+            return
+        }
+        
+        /*
+         * Check if biometrics where enabled in Accounts before being properly registered
+         */
+        if self.biometricsService.enabledBiometricsBeforeRegistered {
+            self.biometricsService.registerForBiometricAuthentication()
+            return
         }
         self.dismiss()
         
@@ -198,9 +197,17 @@ extension LoginViewController : LoginServiceDelegate {
 // MARK: - BiometricsDelegate
 
 extension LoginViewController : BiometricsDelegate {
-    func biometricsSuccessfullyAuthenticated(isFirstLogin: Bool) {
+    func registerForTouchIDAuthentication() {
+        self.present(self.touchIDAlertController, animated: true, completion: nil)
+    }
+    
+    func registerForFaceIDAuthentication() {
+        self.biometricsService.utilizeBiometricAuthentication(turnOnBiometrics: true)
+    }
+    
+    func biometricsSuccessfullyAuthenticated(turnOnBiometrics: Bool) {
         // Check if isFirstLogin - indicates user has opted-in to use biometrics, so must trigger settings updates
-        if isFirstLogin {
+        if turnOnBiometrics {
             self.turnOnBiometricAuthSettings()
             return
         }
@@ -208,9 +215,9 @@ extension LoginViewController : BiometricsDelegate {
         self.appDelegate?.attemptSilentLogin()
     }
     
-    func biometricsDidError(with message: String?, isFirstLogin: Bool) {
+    func biometricsDidError(with message: String?, shouldContinue turnOnBiometrics: Bool) {
         // Check if isFirstLogin - indicates user has canceled opt-in to biometrics, so complete login and push to ContactsListVC
-        if isFirstLogin {
+        if turnOnBiometrics {
             self.dismiss()
             return
         }

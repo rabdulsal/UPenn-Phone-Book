@@ -11,8 +11,10 @@ import LocalAuthentication
 import UIKit
 
 protocol BiometricsDelegate {
-    func biometricsSuccessfullyAuthenticated(isFirstLogin: Bool)
-    func biometricsDidError(with message: String?, isFirstLogin: Bool)
+    func registerForTouchIDAuthentication()
+    func registerForFaceIDAuthentication()
+    func biometricsSuccessfullyAuthenticated(turnOnBiometrics: Bool)
+    func biometricsDidError(with message: String?, shouldContinue: Bool)
 }
 
 class BiometricsAuthService {
@@ -23,7 +25,22 @@ class BiometricsAuthService {
     }
     
     private var context = LAContext()
-    private let biometricsEnabledKey = ConfigurationsService.PhoneBookBundleID + ".biometricsEnabled"
+    let nameSpaceKey = ConfigurationsService.PhoneBookBundleID
+    
+    /**
+     Bool indicating whether opt-in for biometrics before registering == 'yes'
+     */
+    var enabledBiometricsBeforeRegistered : Bool {
+        guard let optIn = self.biometricsOptInBeforeRegistered else {
+            return false
+        }
+        return optIn == "yes"
+    }
+    
+    /**
+     UserDefaults key for biometricsOptInBeforeRegistered
+     */
+    private var biometricsEnabledKey : String { return self.nameSpaceKey + ".biometricsEnabled" }
     let touchIDOptInTitle = "Use Touch ID for login in the future?".localize
     let touchIDOptInMessage = "Touch ID makes Login more convenient. These Settings can be updated in the Account section.".localize
     let touchIDConfirmed = "Use Touch ID".localize
@@ -88,7 +105,7 @@ class BiometricsAuthService {
     }
     
     /**
-     Image for Touch ID or Face ID switch
+     Toggle image for Touch ID or Face ID switch
      */
     var biometricToggleImage : UIImage {
         switch self.biometricType {
@@ -98,31 +115,69 @@ class BiometricsAuthService {
     }
     
     /**
+     Conditionally trigger registration for either Face ID or Touch ID
+     */
+    func registerForBiometricAuthentication() {
+        
+        if self.biometricsAvailable {
+            if self.enabledBiometricsBeforeRegistered {
+                self.setEnabledBiometricsBeforeRegisteredNo()
+            }
+            switch self.biometricType {
+            case .FaceID:
+                self.delegate?.registerForFaceIDAuthentication()
+            case .TouchID:
+                self.delegate?.registerForTouchIDAuthentication()
+            case .None:
+                self.delegate?.biometricsDidError(with: nil, shouldContinue: true)
+            }
+        } else {
+            self.delegate?.biometricsDidError(with: nil, shouldContinue: true)
+        }
+    }
+    
+    /**
+     Convenience method to set biometricsOptInBeforeRegistered to 'no'
+     */
+    func completeTouchIDRegistration() {
+        self.setEnabledBiometricsBeforeRegisteredNo()
+    }
+    
+    /**
      Sets Bool in UserDefaults indicating whether biometric authentication is enabled
      */
     func toggleBiometrics(_ enabled: Bool) {
         UserDefaults.standard.set(enabled, forKey: self.biometricsEnabledKey)
+        // Check if biometricsOptInBeforeRegistered is set, if not set to 'Yes'
+        guard let _ = self.biometricsOptInBeforeRegistered else {
+            self.setEnabledBiometricsBeforeRegisteredYes()
+            return
+        }
     }
     
     /**
      Conditionally attempt authenticating user with biometrics
      */
     func attemptBiometricsAuthentication() {
-        if self.biometricsEnabled {
+        // Ensure biometrics registered and enabled
+        if self.biometricsEnabled && !self.enabledBiometricsBeforeRegistered {
             self.utilizeBiometricAuthentication()
-            return
         }
     }
     
     /**
      Authenticate user using biometrics
+     - parameter turnOnBiometrics: Bool that indicates whether delegate object should turn on biometrics settings
      */
-    func utilizeBiometricAuthentication(isfirstLogin: Bool = false) {
+    func utilizeBiometricAuthentication(turnOnBiometrics: Bool = false) {
         self.context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
         localizedReason: self.biometricsLoginMessage) { (success, evaluateError) in
+            
+            // Set enableBiometricsBeforeRegistered to 'No'
+            self.setEnabledBiometricsBeforeRegisteredNo()
             if success {
                 DispatchQueue.main.async {
-                    self.delegate?.biometricsSuccessfullyAuthenticated(isFirstLogin: isfirstLogin)
+                    self.delegate?.biometricsSuccessfullyAuthenticated(turnOnBiometrics: turnOnBiometrics)
                 }
             } else {
                 var message: String?=nil
@@ -135,7 +190,7 @@ class BiometricsAuthService {
                     message = self.biometricsFallbackMessage
                 }
                 DispatchQueue.main.async {
-                    self.delegate?.biometricsDidError(with: message, isFirstLogin: isfirstLogin)
+                    self.delegate?.biometricsDidError(with: message, shouldContinue: turnOnBiometrics)
                 }
             }
         }
@@ -145,21 +200,29 @@ class BiometricsAuthService {
 }
 
 private extension BiometricsAuthService {
+    var biometricsOptInBeforeRegisteredKey : String { return self.nameSpaceKey + ".biometricsOptInBeforeRegistered" }
+    
+    /**
+     Optional String allowing for 3 states for opting-in to use biometrics before registering: 'yes', 'no', nil
+     */
+    var biometricsOptInBeforeRegistered : String? { return UserDefaults.standard.string(forKey: self.biometricsOptInBeforeRegisteredKey)
+    }
+    
     /**
      Message for failed biometric login
-    */
+     */
     var biometricsFailedMessage : String { return "There was a problem verifying your identity.".localize }
     
     /**
      Message indicating biometric login in-progress
-    */
+     */
     var biometricsLoginMessage : String {
         return self.makeBiometricsPrependedMessage("Logging in with", defaultText: self.biometricsFallbackMessage)
     }
     
     /**
      Fallback message indicating biometrics not authorized on device
-    */
+     */
     var biometricsFallbackMessage : String {
         let baseText = "not authorized for use."
         return self.makeBiometricsAppendedMessage(baseText, defaultText: "Biometrics \(baseText)")
@@ -167,7 +230,7 @@ private extension BiometricsAuthService {
     
     /**
      Message indicating biometrics unavailable on device
-    */
+     */
     var biometricsUnavailableMessage : String {
         return self.makeBiometricsAppendedMessage("is not available on this device.", defaultText: self.biometricsFallbackMessage)
     }
@@ -175,9 +238,9 @@ private extension BiometricsAuthService {
     /**
      Convenience method for making custom, context-based phrases appended at the end of a message
      - parameters:
-        - baseText: Phrase that will go at the end of the message
-        - defaultText: Phrase that will appear if biometrics unavailable
-    */
+     - baseText: Phrase that will go at the end of the message
+     - defaultText: Phrase that will appear if biometrics unavailable
+     */
     func makeBiometricsAppendedMessage(_ baseText: String, defaultText: String) -> String {
         switch biometricType {
         case .TouchID: return "Touch ID \(baseText)".localize
@@ -189,8 +252,8 @@ private extension BiometricsAuthService {
     /**
      Convenience method for making custom, context-based phrases prepended at the beginning of a message
      - parameters:
-         - baseText: Phrase that will go at the beginning of the message
-         - defaultText: Phrase that will appear if biometrics unavailable
+     - baseText: Phrase that will go at the beginning of the message
+     - defaultText: Phrase that will appear if biometrics unavailable
      */
     func makeBiometricsPrependedMessage(_ baseText: String, defaultText: String) -> String {
         switch self.biometricType {
@@ -198,5 +261,19 @@ private extension BiometricsAuthService {
         case .FaceID: return "\(baseText) Face ID".localize
         default: return defaultText
         }
+    }
+    
+    /**
+     Sets biometricsOptInBeforeRegistered to 'yes' in UserDefaults
+     */
+    func setEnabledBiometricsBeforeRegisteredYes() {
+        UserDefaults.standard.set("yes", forKey: self.biometricsOptInBeforeRegisteredKey)
+    }
+    
+    /**
+     Sets biometricsOptInBeforeRegistered to 'no' in UserDefaults
+     */
+    func setEnabledBiometricsBeforeRegisteredNo() {
+        UserDefaults.standard.set("no", forKey: self.biometricsOptInBeforeRegisteredKey)
     }
 }
